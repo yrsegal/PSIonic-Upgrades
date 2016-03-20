@@ -1,0 +1,5 @@
+item.psionup:wideSocket.name=Wide-Band CAD Socket
+item.psionup:liquidColorizer.name=Liquid-Ink Colorizer
+item.psionup:emptyColorizer.name=Drained Colorizer
+
+itemGroup.psionup=PSIonic Upgrades

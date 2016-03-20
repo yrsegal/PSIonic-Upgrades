@@ -1,0 +1,16 @@
+[
+{
+  "modid": "PSIonicUpgrades",
+  "name": "PSIonic Upgrades",
+  "description": "Assorted addons for PSI.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["WireSegal"],
+  "credits": "Vazkii",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": ["Psi"]
+}
+]
