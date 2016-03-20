@@ -4,6 +4,17 @@ item.psionup:magazine.name=Spell Magazine
 item.psionup:liquidColorizer.name=Liquid-Ink Colorizer
 item.psionup:emptyColorizer.name=Drained Colorizer
 
+tile.psionup:conjuredPulsar.name=Conjured Pulsar
+
+psi.spellpiece.conjurePulsar=Trick: Conjure Pulsar
+psi.spellpiece.conjurePulsar.desc=Conjures a redstone emitting block in the given position
+
+psi.spellpiece.conjurePulsarSequence=Trick: Conjure Pulsar Sequence
+psi.spellpiece.conjurePulsarSequence.desc=Conjures a redstone emitting block
+
+psi.spellpiece.conjurePulsarLight=Trick: Conjure Pulsar Light
+psi.spellpiece.conjurePulsarLight.desc=Conjures a redstone emitting light in the given position
+
 itemGroup.psionup=PSIonic Upgrades
 
 psionup.misc.color=Color:

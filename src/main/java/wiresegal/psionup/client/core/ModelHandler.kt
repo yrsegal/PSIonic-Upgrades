@@ -60,7 +60,7 @@ object ModelHandler {
 
                 for (var9 in 0..var8 - 1) {
                     val p = var7[var9]
-                    builder.ignore(*arrayOf(p))
+                    builder.ignore(p)
                 }
 
                 ModelLoader.setCustomStateMapper(i as Block, builder.build())
@@ -100,10 +100,6 @@ object ModelHandler {
                 }
             }
 
-    }
-
-    fun getModelLocation(stack: ItemStack?): ModelResourceLocation? {
-        return if (stack == null) null else getModelLocation(stack.item, stack.itemDamage)
     }
 
     fun getModelLocation(item: Item, meta: Int): ModelResourceLocation? {

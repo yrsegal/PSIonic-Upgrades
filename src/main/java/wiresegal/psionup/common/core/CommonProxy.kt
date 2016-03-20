@@ -3,8 +3,10 @@ package wiresegal.psionup.common.core
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+import wiresegal.psionup.common.block.ModBlocks
 import wiresegal.psionup.common.crafting.ModRecipes
 import wiresegal.psionup.common.items.ModItems
+import wiresegal.psionup.common.spell.trick.ModPieces
 
 /**
  * @author WireSegal
@@ -13,6 +15,8 @@ import wiresegal.psionup.common.items.ModItems
 open class CommonProxy {
     open fun pre(e: FMLPreInitializationEvent) {
         ModItems
+        ModBlocks
+        ModPieces
         ModRecipes
     }
 
