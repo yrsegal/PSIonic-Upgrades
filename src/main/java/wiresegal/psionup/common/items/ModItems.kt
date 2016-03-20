@@ -9,13 +9,14 @@ import vazkii.psi.common.item.base.ItemMod
 object ModItems {
     var liquidColorizer: ItemMod
     var emptyColorizer: ItemMod
-//    var fakeCAD: ItemMod
+    var fakeCAD: ItemMod
 //    var magazine: ItemMod
     var socket: ItemMod
 
     init {
         liquidColorizer = ItemLiquidColorizer("liquidColorizer")
         emptyColorizer = ItemEmptyColorizer("emptyColorizer")
+        fakeCAD = ItemFakeCAD("fakeCAD")
         socket = ItemWideCADSocket("wideSocket")
     }
 }

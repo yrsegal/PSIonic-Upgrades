@@ -21,8 +21,24 @@ object ModRecipes {
                 'G', "blockGlass",
                 'B', ItemStack(Items.water_bucket),
                 'D', "dustPsi")
+
         addShapelessOreDictRecipe(ItemStack(ModItems.liquidColorizer),
                 ItemStack(Items.water_bucket), ItemStack(ModItems.emptyColorizer))
+
+        addOreDictRecipe(ItemStack(ModItems.socket),
+                " GI",
+                "DI ",
+                "I  ",
+                'I', "ingotIron",
+                'D', "dustPsi",
+                'G', "dustGlowstone")
+
+        addOreDictRecipe(ItemStack(ModItems.fakeCAD),
+                "MMG",
+                "MS ",
+                'M', "ingotPsi",
+                'S', ItemStack(ModItems.socket),
+                'G', "gemPsi")
     }
 
     private fun addOreDictRecipe(output: ItemStack, vararg recipe: Any) {

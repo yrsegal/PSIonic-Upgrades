@@ -10,7 +10,7 @@ import vazkii.psi.common.item.base.ItemMod as PsiItem
  * @author WireSegal
  * Created at 8:50 AM on 3/20/16.
  */
-class ItemMod(name: String, vararg variants: String) : PsiItem(name, *variants) {
+open class ItemMod(name: String, vararg variants: String) : PsiItem(name, *variants) {
 
     companion object {
         val variantCache = ArrayList<IVariantHolder>()

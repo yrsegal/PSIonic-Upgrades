@@ -1,3 +1,7 @@
 {
-	"parent": "psi:item/_standard_colorizer"
+	"parent": "psi:item/_standard_item",
+	"textures": {
+		"layer0": "psi:items/dyeCannister",
+		"layer1": "psi:items/dyeCannisterOverlay"
+	}
 }
