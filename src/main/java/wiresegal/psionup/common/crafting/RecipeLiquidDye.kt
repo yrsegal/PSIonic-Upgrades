@@ -119,7 +119,7 @@ class RecipeLiquidDye: IRecipe {
         for (i in dyes.indices) {
             if (checkStack(stack, dyes[i])) {
                 var carr = EntitySheep.getDyeRgb(EnumDyeColor.byDyeDamage(stack.metadata))
-                return 0x1000000 + Color(carr[0], carr[1], carr[2]).rgb
+                return Color(carr[0], carr[1], carr[2]).rgb
             }
         }
         return 0xFFFFFF

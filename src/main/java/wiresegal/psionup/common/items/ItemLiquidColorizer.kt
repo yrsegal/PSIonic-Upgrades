@@ -1,10 +1,13 @@
 package wiresegal.psionup.common.items
 
+import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.renderer.color.IItemColor
+import net.minecraft.util.text.translation.I18n
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ActionResult
 import net.minecraft.util.EnumHand
+import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.oredict.RecipeSorter
@@ -40,6 +43,15 @@ class ItemLiquidColorizer(name: String) : ItemCADComponent(name, name), ICADColo
 
     override fun getUnlocalizedName(par1ItemStack: ItemStack): String {
         return super.getUnlocalizedName(par1ItemStack).replace("psi", "psionup")
+    }
+
+    override fun addInformation(stack: ItemStack, playerIn: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
+        super.addInformation(stack, playerIn, tooltip, advanced)
+        if (advanced && GuiScreen.isShiftKeyDown()) {
+            val color = getColorFromStack(stack)
+            if (color != -1)
+                tooltip.add(TextFormatting.GREEN.toString() + I18n.translateToLocal("psionup.misc.color") + "${TextFormatting.GRAY} #" + String.format("%06X", color).substring(2))
+        }
     }
 
     override fun onItemRightClick(itemStackIn: ItemStack?, worldIn: World?, playerIn: EntityPlayer?, hand: EnumHand?): ActionResult<ItemStack>? {
