@@ -1,7 +1,7 @@
 {
     "parent": "psi:item/_standard_cad",
     "textures": {
-        "layer0": "psionicupgrades:items/cadPsimetal",
+        "layer0": "psionicupgrades:items/fakeCAD",
         "layer1": "psi:items/cadColor"
     },
     "elements": [
