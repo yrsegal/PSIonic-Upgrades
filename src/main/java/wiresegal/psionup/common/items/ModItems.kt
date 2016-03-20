@@ -10,13 +10,14 @@ object ModItems {
     var liquidColorizer: ItemMod
     var emptyColorizer: ItemMod
     var fakeCAD: ItemMod
-//    var magazine: ItemMod
+    var magazine: ItemMod
     var socket: ItemMod
 
     init {
         liquidColorizer = ItemLiquidColorizer("liquidColorizer")
         emptyColorizer = ItemEmptyColorizer("emptyColorizer")
         fakeCAD = ItemFakeCAD("fakeCAD")
+        magazine = ItemCADMagazine("magazine")
         socket = ItemWideCADSocket("wideSocket")
     }
 }

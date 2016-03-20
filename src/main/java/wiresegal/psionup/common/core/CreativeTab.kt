@@ -34,6 +34,8 @@ class CreativeTab : CreativeTabs("psionup") {
         this.list = p_78018_1_
         this.addItem(ModItems.emptyColorizer)
         this.addItem(ModItems.liquidColorizer)
+        this.addItem(ModItems.fakeCAD)
+        this.addItem(ModItems.magazine)
         this.addItem(ModItems.socket)
     }
 
