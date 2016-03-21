@@ -63,29 +63,20 @@ object ModRecipes {
                 'S', ItemStack(ModItems.socket),
                 'G', "gemPsi")
 
-        CraftingManager.getInstance().recipeList.add(RecipeCadComponent(ItemStack(ModItems.magazine),
+        addCADRecipe(ItemCADMagazine.setSocket(ItemStack(ModItems.magazine), ItemStack(PsiItems.cadSocket)),
                 "MD",
                 "MS",
                 "MD",
                 'M', "ingotPsi",
                 'S', ItemStack(ModItems.socket),
-                'D', ItemStack(PsiItems.spellDrive)))
-        CraftingManager.getInstance().recipeList.add(RecipeCadComponent(ItemStack(ModItems.magazine),
+                'D', ItemStack(PsiItems.spellDrive))
+        addCADRecipe(ItemCADMagazine.setSocket(ItemStack(ModItems.magazine), ItemStack(PsiItems.cadSocket)),
                 "DM",
                 "SM",
                 "DM",
                 'M', "ingotPsi",
                 'S', ItemStack(ModItems.socket),
-                'D', ItemStack(PsiItems.spellDrive)))
-
-        for (socket in examplesockets)
-            addOreDictRecipe(ItemCADMagazine.setSocket(ItemStack(ModItems.magazine), socket),
-                    "MD",
-                    "MS",
-                    "MD",
-                    'M', "ingotPsi",
-                    'S', socket,
-                    'D', ItemStack(PsiItems.spellDrive))
+                'D', ItemStack(PsiItems.spellDrive))
     }
 
     private fun addOreDictRecipe(output: ItemStack, vararg recipe: Any) {
@@ -94,5 +85,13 @@ object ModRecipes {
 
     private fun addShapelessOreDictRecipe(output: ItemStack, vararg recipe: Any) {
         CraftingManager.getInstance().recipeList.add(ShapelessOreRecipe(output, *recipe))
+    }
+
+    private fun addCADRecipe(output: ItemStack, vararg recipe: Any) {
+        CraftingManager.getInstance().recipeList.add(RecipeCadComponent(output, *recipe))
+    }
+
+    private fun addShapelessCADRecipe(output: ItemStack, vararg recipe: Any) {
+        CraftingManager.getInstance().recipeList.add(RecipeCadComponentShapeless(output, *recipe))
     }
 }
