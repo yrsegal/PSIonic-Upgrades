@@ -1,6 +1,5 @@
 package wiresegal.psionup.common.items
 
-import net.minecraft.client.Minecraft
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
@@ -13,7 +12,6 @@ import net.minecraft.util.text.Style
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
-import net.minecraftforge.fml.relauncher.FMLLaunchHandler
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.EnumCADStat
 import vazkii.psi.api.cad.ICADComponent
@@ -40,6 +38,7 @@ class ItemCADMagazine(name: String) : ItemMod(name, name), ISocketable, ICadComp
             val nbt = ItemNBTHelper.getCompound(stack, "socket", true)
             return ItemStack.loadItemStackFromNBT(nbt) ?: return ItemStack(ModItems.socket)
         }
+
         fun setSocket(stack: ItemStack, socket: ItemStack?): ItemStack {
             if (socket == null) {
                 ItemNBTHelper.setCompound(stack, "socket", null)
@@ -202,7 +201,7 @@ class ItemCADMagazine(name: String) : ItemMod(name, name), ISocketable, ICadComp
         val bullet = this.getBulletInSocket(stack, slot)
         val compiled = SpellCompiler(spell)
         if ((compiled.compiledSpell.metadata.stats[EnumSpellStat.BANDWIDTH] ?: Integer.MAX_VALUE) > getBandwidth(stack))
-            // TODO: tell player about it
+        // TODO: tell player about it
         else if (bullet != null && bullet.item is ISpellSettable) {
             (bullet.item as ISpellSettable).setSpell(bullet, spell)
             this.setBulletInSocket(stack, slot, bullet)

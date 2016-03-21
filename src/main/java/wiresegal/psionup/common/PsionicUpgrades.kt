@@ -18,7 +18,7 @@ class PsionicUpgrades {
         lateinit var instance: PsionicUpgrades
 
         @SidedProxy(serverSide = "wiresegal.psionup.common.core.CommonProxy",
-                    clientSide = "wiresegal.psionup.client.core.ClientProxy")
+                clientSide = "wiresegal.psionup.client.core.ClientProxy")
         lateinit var proxy: CommonProxy
     }
 

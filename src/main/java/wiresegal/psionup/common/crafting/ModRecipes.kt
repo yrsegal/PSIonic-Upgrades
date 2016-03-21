@@ -6,8 +6,8 @@ import net.minecraft.item.crafting.CraftingManager
 import net.minecraftforge.oredict.ShapedOreRecipe
 import net.minecraftforge.oredict.ShapelessOreRecipe
 import wiresegal.psionup.common.items.ItemCADMagazine
-import vazkii.psi.common.item.base.ModItems as PsiItems
 import wiresegal.psionup.common.items.ModItems
+import vazkii.psi.common.item.base.ModItems as PsiItems
 
 /**
  * @author WireSegal
@@ -51,8 +51,7 @@ object ModRecipes {
                 'G', "gemPsi")
 
 
-
-        val sockets = arrayOf( // These are examples for JEI, but it will be subverted by the special recipe.
+        val sockets = arrayOf(// These are examples for JEI, but it will be subverted by the special recipe.
                 ItemStack(ModItems.socket),
                 ItemStack(PsiItems.cadSocket, 1, 0),
                 ItemStack(PsiItems.cadSocket, 1, 1),

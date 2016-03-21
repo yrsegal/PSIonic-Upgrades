@@ -21,8 +21,8 @@ import vazkii.psi.common.core.helper.ItemNBTHelper
 import vazkii.psi.common.item.ItemCAD
 import vazkii.psi.common.item.base.IColorProvider
 import vazkii.psi.common.item.base.ModItems
-import vazkii.psi.common.item.base.ItemMod as PsiItem
 import java.awt.Color
+import vazkii.psi.common.item.base.ItemMod as PsiItem
 
 /**
  * @author WireSegal
@@ -31,7 +31,8 @@ import java.awt.Color
 class ItemFakeCAD(name: String) : ItemMod(name, name), ISocketable, ISpellSettable, IColorProvider {
 
     override fun getColor() = IItemColor {
-        stack, tintIndex -> colorCalc()
+        stack, tintIndex ->
+        colorCalc()
     }
 
     fun colorCalc(): Int {

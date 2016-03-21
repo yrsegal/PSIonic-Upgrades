@@ -16,10 +16,10 @@ import java.awt.Color
  * @author WireSegal
  * Created at 12:36 PM on 3/20/16.
  */
-class RecipeLiquidDye: IRecipe {
+class RecipeLiquidDye : IRecipe {
 
     val dyeNames = arrayOf("White", "Orange", "Magenta", "LightBlue", "Yellow", "Lime", "Pink", "Gray", "LightGray", "Cyan", "Purple", "Blue", "Brown", "Green", "Red", "Black")
-    val dyes = Array(dyeNames.size, {i -> "dye${dyeNames[i]}"})
+    val dyes = Array(dyeNames.size, { i -> "dye${dyeNames[i]}" })
 
     override fun matches(inv: InventoryCrafting, worldIn: World): Boolean {
         var ink: ItemStack? = null
@@ -69,7 +69,7 @@ class RecipeLiquidDye: IRecipe {
                         r += color.red
                         g += color.green
                         b += color.blue
-                        colors ++
+                        colors++
                     }
                 } else {
                     if (!checkStack(stack, dyes)) {
@@ -80,7 +80,7 @@ class RecipeLiquidDye: IRecipe {
                     r += color.red
                     g += color.green
                     b += color.blue
-                    colors ++
+                    colors++
                 }
             }
         }

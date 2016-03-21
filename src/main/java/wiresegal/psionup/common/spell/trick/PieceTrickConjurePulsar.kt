@@ -13,7 +13,6 @@ import vazkii.psi.api.spell.param.ParamNumber
 import vazkii.psi.api.spell.param.ParamVector
 import vazkii.psi.api.spell.piece.PieceTrick
 import vazkii.psi.common.block.BlockConjured
-import vazkii.psi.common.block.tile.TileConjured
 import wiresegal.psionup.common.block.ModBlocks
 import wiresegal.psionup.common.block.TileConjuredPulsar
 

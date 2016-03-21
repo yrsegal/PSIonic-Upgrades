@@ -11,7 +11,7 @@ import net.minecraft.world.World
  * @author WireSegal
  * Created at 5:45 PM on 3/20/16.
  */
-open class BlockModContainer(name: String, materialIn: Material, vararg variants: String): BlockMod(name, materialIn, *variants), ITileEntityProvider {
+open class BlockModContainer(name: String, materialIn: Material, vararg variants: String) : BlockMod(name, materialIn, *variants), ITileEntityProvider {
     override fun breakBlock(worldIn: World, pos: BlockPos, state: IBlockState) {
         super.breakBlock(worldIn, pos, state)
         worldIn.removeTileEntity(pos)

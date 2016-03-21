@@ -11,8 +11,7 @@ import net.minecraftforge.oredict.OreDictionary
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.ICADComponent
 import wiresegal.psionup.common.items.ICadComponentAcceptor
-
-import java.util.HashMap
+import java.util.*
 
 /**
  * @author WireSegal
@@ -141,7 +140,7 @@ class RecipeCadComponent : IRecipe {
 
     override fun getCraftingResult(var1: InventoryCrafting): ItemStack? {
         val out = output.copy()
-        for (i in 0..var1.sizeInventory-1) {
+        for (i in 0..var1.sizeInventory - 1) {
             val stack = var1.getStackInSlot(i)
             if (stack != null && stack.item is ICADComponent && out.item is ICadComponentAcceptor) {
                 (out.item as ICadComponentAcceptor).setPiece(out, (stack.item as ICADComponent).getComponentType(stack), stack)

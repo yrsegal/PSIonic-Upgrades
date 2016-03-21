@@ -1,20 +1,10 @@
 package wiresegal.psionup.common.spell.trick
 
-import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
-import net.minecraft.util.math.BlockPos
-import net.minecraft.world.World
-import vazkii.psi.api.PsiAPI
-import vazkii.psi.api.cad.EnumCADComponent
-import vazkii.psi.api.cad.ICAD
-import vazkii.psi.api.internal.Vector3
-import vazkii.psi.api.spell.*
-import vazkii.psi.api.spell.param.ParamNumber
-import vazkii.psi.api.spell.param.ParamVector
-import vazkii.psi.api.spell.piece.PieceTrick
+import vazkii.psi.api.spell.EnumSpellStat
+import vazkii.psi.api.spell.Spell
+import vazkii.psi.api.spell.SpellMetadata
 import vazkii.psi.common.block.BlockConjured
-import vazkii.psi.common.block.tile.TileConjured
-import wiresegal.psionup.common.block.ModBlocks
 
 /**
  * @author WireSegal

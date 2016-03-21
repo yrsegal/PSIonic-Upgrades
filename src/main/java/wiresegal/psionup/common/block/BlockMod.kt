@@ -8,7 +8,6 @@ import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fml.common.registry.GameRegistry
 import vazkii.psi.common.block.base.IPsiBlock
-import vazkii.psi.common.core.PsiCreativeTab
 
 /**
  * @author WireSegal
