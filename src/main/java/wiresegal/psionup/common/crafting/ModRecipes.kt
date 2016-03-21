@@ -3,6 +3,7 @@ package wiresegal.psionup.common.crafting
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.CraftingManager
+import net.minecraftforge.oredict.RecipeSorter
 import net.minecraftforge.oredict.ShapedOreRecipe
 import net.minecraftforge.oredict.ShapelessOreRecipe
 import wiresegal.psionup.common.items.ItemCADMagazine
@@ -14,7 +15,18 @@ import vazkii.psi.common.item.base.ModItems as PsiItems
  * Created at 1:44 PM on 3/20/16.
  */
 object ModRecipes {
+
+    val examplesockets = arrayOf(// These are examples for JEI, but it will be subverted by the special recipe.
+            ItemStack(ModItems.socket),
+            ItemStack(PsiItems.cadSocket, 1, 0),
+            ItemStack(PsiItems.cadSocket, 1, 1),
+            ItemStack(PsiItems.cadSocket, 1, 2),
+            ItemStack(PsiItems.cadSocket, 1, 3),
+            ItemStack(PsiItems.cadSocket, 1, 4))
+
     init {
+        RecipeSorter.register("psionup:cadcraft", RecipeCadComponent::class.java, RecipeSorter.Category.SHAPED, "")
+
         addOreDictRecipe(ItemStack(ModItems.liquidColorizer),
                 " D ",
                 "GBG",
@@ -50,15 +62,6 @@ object ModRecipes {
                 'S', ItemStack(ModItems.socket),
                 'G', "gemPsi")
 
-
-        val sockets = arrayOf(// These are examples for JEI, but it will be subverted by the special recipe.
-                ItemStack(ModItems.socket),
-                ItemStack(PsiItems.cadSocket, 1, 0),
-                ItemStack(PsiItems.cadSocket, 1, 1),
-                ItemStack(PsiItems.cadSocket, 1, 2),
-                ItemStack(PsiItems.cadSocket, 1, 3),
-                ItemStack(PsiItems.cadSocket, 1, 4))
-
         CraftingManager.getInstance().recipeList.add(RecipeCadComponent(ItemStack(ModItems.magazine),
                 "MD",
                 "MS",
@@ -67,7 +70,7 @@ object ModRecipes {
                 'S', ItemStack(ModItems.socket),
                 'D', ItemStack(PsiItems.spellDrive)))
 
-        for (socket in sockets)
+        for (socket in examplesockets)
             addOreDictRecipe(ItemCADMagazine.setSocket(ItemStack(ModItems.magazine), socket),
                     "MD",
                     "MS",

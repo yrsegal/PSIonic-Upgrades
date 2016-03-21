@@ -1,6 +1,8 @@
 package wiresegal.psionup.common.items
 
+import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumActionResult
@@ -25,6 +27,7 @@ import vazkii.psi.common.block.tile.TileProgrammer
 import vazkii.psi.common.core.helper.ItemNBTHelper
 import vazkii.psi.common.item.ItemSpellDrive
 import vazkii.psi.common.spell.SpellCompiler
+import wiresegal.psionup.common.crafting.ModRecipes
 import vazkii.psi.common.item.base.ItemMod as PsiItem
 
 /**
@@ -36,7 +39,7 @@ class ItemCADMagazine(name: String) : ItemMod(name, name), ISocketable, ICadComp
     companion object {
         fun getSocket(stack: ItemStack): ItemStack {
             val nbt = ItemNBTHelper.getCompound(stack, "socket", true)
-            return ItemStack.loadItemStackFromNBT(nbt) ?: return ItemStack(ModItems.socket)
+            return ItemStack.loadItemStackFromNBT(nbt ?: return ItemStack(ModItems.socket))
         }
 
         fun setSocket(stack: ItemStack, socket: ItemStack?): ItemStack {
@@ -66,6 +69,12 @@ class ItemCADMagazine(name: String) : ItemMod(name, name), ISocketable, ICadComp
                 return item.getCADStatValue(socket, EnumCADStat.BANDWIDTH)
             }
             return 0
+        }
+    }
+
+    override fun getSubItems(itemIn: Item?, tab: CreativeTabs?, subItems: MutableList<ItemStack>) {
+        for (i in ModRecipes.examplesockets) {
+            subItems.add(setSocket(ItemStack(itemIn), i))
         }
     }
 
