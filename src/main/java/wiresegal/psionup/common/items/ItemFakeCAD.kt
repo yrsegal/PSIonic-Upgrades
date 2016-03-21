@@ -30,6 +30,10 @@ import vazkii.psi.common.item.base.ItemMod as PsiItem
  */
 class ItemFakeCAD(name: String) : ItemMod(name, name), ISocketable, ISpellSettable, IColorProvider {
 
+    init {
+        setMaxStackSize(1)
+    }
+
     override fun getColor() = IItemColor {
         stack, tintIndex ->
         colorCalc()

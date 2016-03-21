@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.IRecipe
 import net.minecraft.item.crafting.ShapedRecipes
 import net.minecraft.world.World
+import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.oredict.OreDictionary
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.ICADComponent
@@ -34,12 +35,6 @@ class RecipeCadComponent : IRecipe {
     constructor(result: ItemStack, vararg recipeIn: Any) {
         var recipe: MutableList<*> = arrayListOf(*recipeIn)
         output = result.copy()
-
-        if (result.item !is ICadComponentAcceptor) {
-            var ret = "Invalid output: "
-            ret += output
-            throw RuntimeException(ret)
-        }
 
         var shape = ""
         var idx = 0
@@ -226,20 +221,8 @@ class RecipeCadComponent : IRecipe {
         return true
     }
 
-    fun setMirrored(mirror: Boolean): RecipeCadComponent {
-        mirrored = mirror
-        return this
-    }
-
     override fun getRemainingItems(inv: InventoryCrafting): Array<ItemStack?> {
-        val aitemstack = arrayOfNulls<ItemStack>(inv.sizeInventory)
-
-        for (i in aitemstack.indices) {
-            val itemstack = inv.getStackInSlot(i)
-            aitemstack[i] = net.minecraftforge.common.ForgeHooks.getContainerItem(itemstack)
-        }
-
-        return aitemstack
+        return ForgeHooks.defaultRecipeGetRemainingItems(inv)
     }
 
     companion object {

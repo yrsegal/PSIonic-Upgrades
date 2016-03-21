@@ -25,7 +25,8 @@ object ModRecipes {
             ItemStack(PsiItems.cadSocket, 1, 4))
 
     init {
-        RecipeSorter.register("psionup:cadcraft", RecipeCadComponent::class.java, RecipeSorter.Category.SHAPED, "")
+        RecipeSorter.register("psionup:cadcraft", RecipeCadComponent::class.java, RecipeSorter.Category.SHAPED, "before:minecraft:shaped")
+        RecipeSorter.register("psionup:cadcraftshapeless", RecipeCadComponentShapeless::class.java, RecipeSorter.Category.SHAPELESS, "before:minecraft:shapeless")
 
         addOreDictRecipe(ItemStack(ModItems.liquidColorizer),
                 " D ",
@@ -66,6 +67,13 @@ object ModRecipes {
                 "MD",
                 "MS",
                 "MD",
+                'M', "ingotPsi",
+                'S', ItemStack(ModItems.socket),
+                'D', ItemStack(PsiItems.spellDrive)))
+        CraftingManager.getInstance().recipeList.add(RecipeCadComponent(ItemStack(ModItems.magazine),
+                "DM",
+                "SM",
+                "DM",
                 'M', "ingotPsi",
                 'S', ItemStack(ModItems.socket),
                 'D', ItemStack(PsiItems.spellDrive)))

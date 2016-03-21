@@ -72,6 +72,10 @@ class ItemCADMagazine(name: String) : ItemMod(name, name), ISocketable, ICadComp
         }
     }
 
+    init {
+        setMaxStackSize(1)
+    }
+
     override fun getSubItems(itemIn: Item?, tab: CreativeTabs?, subItems: MutableList<ItemStack>) {
         for (i in ModRecipes.examplesockets) {
             subItems.add(setSocket(ItemStack(itemIn), i))
