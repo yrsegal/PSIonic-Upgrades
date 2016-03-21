@@ -49,8 +49,10 @@ class ItemLiquidColorizer(name: String) : ItemCADComponent(name, name), ICADColo
         super.addInformation(stack, playerIn, tooltip, advanced)
         if (advanced && GuiScreen.isShiftKeyDown()) {
             val color = getColorFromStack(stack)
+            var number = String.format("%06X", color)
+            if (number.length > 6) number = number.substring(number.length-6)
             if (color != -1)
-                tooltip.add(TextFormatting.GREEN.toString() + I18n.translateToLocal("psionup.misc.color") + "${TextFormatting.GRAY} #" + String.format("%06X", color).substring(2))
+                tooltip.add(TextFormatting.GREEN.toString() + I18n.translateToLocal("psionup.misc.color") + "${TextFormatting.GRAY} #" + number)
         }
     }
 

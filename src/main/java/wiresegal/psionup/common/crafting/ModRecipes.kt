@@ -5,6 +5,8 @@ import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.CraftingManager
 import net.minecraftforge.oredict.ShapedOreRecipe
 import net.minecraftforge.oredict.ShapelessOreRecipe
+import wiresegal.psionup.common.items.ItemCADMagazine
+import vazkii.psi.common.item.base.ModItems as PsiItems
 import wiresegal.psionup.common.items.ModItems
 
 /**
@@ -20,6 +22,14 @@ object ModRecipes {
                 'I', "ingotIron",
                 'G', "blockGlass",
                 'B', ItemStack(Items.water_bucket),
+                'D', "dustPsi")
+
+        addOreDictRecipe(ItemStack(ModItems.emptyColorizer),
+                " D ",
+                "G G",
+                " I ",
+                'I', "ingotIron",
+                'G', "blockGlass",
                 'D', "dustPsi")
 
         addShapelessOreDictRecipe(ItemStack(ModItems.liquidColorizer),
@@ -39,6 +49,33 @@ object ModRecipes {
                 'M', "ingotPsi",
                 'S', ItemStack(ModItems.socket),
                 'G', "gemPsi")
+
+
+
+        val sockets = arrayOf( // These are examples for JEI, but it will be subverted by the special recipe.
+                ItemStack(ModItems.socket),
+                ItemStack(PsiItems.cadSocket, 1, 0),
+                ItemStack(PsiItems.cadSocket, 1, 1),
+                ItemStack(PsiItems.cadSocket, 1, 2),
+                ItemStack(PsiItems.cadSocket, 1, 3),
+                ItemStack(PsiItems.cadSocket, 1, 4))
+
+        CraftingManager.getInstance().recipeList.add(RecipeCadComponent(ItemStack(ModItems.magazine),
+                "MD",
+                "MS",
+                "MD",
+                'M', "ingotPsi",
+                'S', ItemStack(ModItems.socket),
+                'D', ItemStack(PsiItems.spellDrive)))
+
+        for (socket in sockets)
+            addOreDictRecipe(ItemCADMagazine.setSocket(ItemStack(ModItems.magazine), socket),
+                    "MD",
+                    "MS",
+                    "MD",
+                    'M', "ingotPsi",
+                    'S', socket,
+                    'D', ItemStack(PsiItems.spellDrive))
     }
 
     private fun addOreDictRecipe(output: ItemStack, vararg recipe: Any) {
