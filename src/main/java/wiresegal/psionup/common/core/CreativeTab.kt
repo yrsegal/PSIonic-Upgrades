@@ -15,7 +15,7 @@ class CreativeTab : CreativeTabs("psionup") {
 
     init {
         this.setNoTitle()
-        this.backgroundImageName = "psi.png"
+        this.backgroundImageName = "psionup.png"
     }
 
     override fun getIconItemStack(): ItemStack {

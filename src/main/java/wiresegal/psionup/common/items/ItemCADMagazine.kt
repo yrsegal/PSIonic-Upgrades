@@ -162,11 +162,10 @@ class ItemCADMagazine(name: String) : ItemMod(name, name), ISocketable, ICadComp
             while (isSocketSlotAvailable(stack, slot)) {
                 val name = getSocketedItemName(stack, slot, null)
                 if (name != null) {
-                    val displaySlot = if (slot < 9) "0${slot + 1}" else "${slot + 1}"
                     if (slot == getSelectedSlot(stack))
-                        PsiItem.addToTooltip(tooltip, "$displaySlot | ${TextFormatting.WHITE}${TextFormatting.BOLD}$name")
+                        PsiItem.addToTooltip(tooltip, "| ${TextFormatting.WHITE}${TextFormatting.BOLD}$name")
                     else
-                        PsiItem.addToTooltip(tooltip, "$displaySlot | ${TextFormatting.WHITE}$name")
+                        PsiItem.addToTooltip(tooltip, "| ${TextFormatting.WHITE}$name")
                 }
                 slot++
             }
