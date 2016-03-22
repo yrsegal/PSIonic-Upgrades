@@ -21,3 +21,4 @@ psionup.misc.color=Color:
 psionup.misc.tooComplexProgrammer=This spell seems too complex for the socket in your Spell Magazine.
 psionup.misc.tooComplexBullet=This spell seems too complex for the socket in your Spell Magazine to transfer.
 
+jei.psionup.drained.desc=Sneak-using the Liquid-Ink Colorizer will drain the fluid out, resulting in a Drained Colorizer.

@@ -3,8 +3,10 @@ package wiresegal.psionup.client.compat.jei
 import mezz.jei.api.BlankModPlugin
 import mezz.jei.api.IModRegistry
 import mezz.jei.api.JEIPlugin
+import net.minecraft.item.ItemStack
 import wiresegal.psionup.client.compat.jei.crafting.ShapedCadRecipeHandler
 import wiresegal.psionup.client.compat.jei.crafting.ShapelessCadRecipeHandler
+import wiresegal.psionup.common.items.ModItems
 
 /**
  * @author WireSegal
@@ -14,5 +16,8 @@ import wiresegal.psionup.client.compat.jei.crafting.ShapelessCadRecipeHandler
 class JEICompat : BlankModPlugin() {
     override fun register(registry: IModRegistry) {
         registry.addRecipeHandlers(ShapedCadRecipeHandler(), ShapelessCadRecipeHandler())
+
+        registry.addDescription(ItemStack(ModItems.liquidColorizer), "jei.psionup.drained.desc")
+        registry.addDescription(ItemStack(ModItems.emptyColorizer), "jei.psionup.drained.desc")
     }
 }
