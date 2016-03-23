@@ -18,6 +18,7 @@ buildscript {
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'kotlin'
+apply plugin: 'idea'
 
 /*
 // for people who want stable - not yet functional for MC 1.8.8 - we require the forgegradle 2.1 snapshot
@@ -25,9 +26,12 @@ plugins {
     id "net.minecraftforge.gradle.forge" version "2.0.2"
 }
 */
-version = "1.0"
+ext.configFile = file('build.properties')
+ext.config = parseConfig(configFile)
+
+version = "${config.version}-${config.build_number}"
 group= "wiresegal.psionup" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "PSIonicUpgrades"
+archivesBaseName = config.mod_name
 
 minecraft {
     useDepAts = true
@@ -42,11 +46,42 @@ repositories {
     }
 }
 
+configurations {
+
+    required
+    compile.extendsFrom(required)
+}
+
 dependencies {
     deobfCompile "mezz.jei:jei_1.9:3.0.3.166"
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    required "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
+
+jar {
+
+    // We need to make sure we package kotlin runtimes.
+
+    archiveName "${archivesBaseName}-${version}.jar"
+    dependsOn configurations.compile
+    from {
+        configurations.required.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
+
+def parseConfig(File config) {
+    config.withReader {
+        def prop = new Properties()
+        prop.load(it)
+        return (new ConfigSlurper().parse(prop))
+    }
+}
+
+sourceSets { main.java.srcDirs += 'src/main/kotlin' }
+idea { module { inheritOutputDirs = true } }
 
 processResources
 {
@@ -66,8 +101,4 @@ processResources
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
-}
-
-sourceSets {
-    main.java.srcDirs += 'src/main/kotlin'
 }
