@@ -37,8 +37,8 @@ object ModPieces {
         planarNorm = register(PieceOperatorPlanarNorm::class.java, "planarNorm", LibPieceGroups.SECONDARY_OPERATORS)
         vectorRotate = register(PieceOperatorVectorRotate::class.java, "vectorRotate", LibPieceGroups.SECONDARY_OPERATORS)
 
-        strongCast = register(PieceOperatorVectorStrongRaycast::class.java, "strongVectorRaycast", LibPieceGroups.VECTORS_INTRO)
-        strongCastAxis = register(PieceOperatorVectorStrongRaycastAxis::class.java, "strongVectorRaycastAxis", LibPieceGroups.VECTORS_INTRO)
+        strongCast = register(PieceOperatorVectorStrongRaycast::class.java, "strongVectorRaycast", LibPieceGroups.TUTORIAL_4)
+        strongCastAxis = register(PieceOperatorVectorStrongRaycastAxis::class.java, "strongVectorRaycastAxis", LibPieceGroups.BLOCK_WORKS)
     }
 
     fun registerSpellPieceAndTexture(key: String, clazz: Class<out SpellPiece>) {
