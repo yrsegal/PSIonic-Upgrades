@@ -4,6 +4,7 @@ import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
+import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.ActionResult
 import net.minecraft.util.EnumHand
 import net.minecraft.util.text.TextFormatting
@@ -11,28 +12,58 @@ import net.minecraft.util.text.translation.I18n
 import net.minecraft.world.World
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.oredict.RecipeSorter
+import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.ICADColorizer
 import vazkii.psi.common.core.helper.ItemNBTHelper
 import vazkii.psi.common.item.base.IColorProvider
 import vazkii.psi.common.item.component.ItemCADComponent
 import wiresegal.psionup.common.core.CreativeTab
 import wiresegal.psionup.common.crafting.RecipeLiquidDye
+import java.awt.Color
 
 /**
  * @author WireSegal
  * Created at 8:44 AM on 3/20/16.
  */
-class ItemLiquidColorizer(name: String) : ItemCADComponent(name, name), ICADColorizer, IColorProvider {
+class ItemLiquidColorizer(name: String) : ItemCADComponent(name, name), ICADColorizer, IColorProvider, ICadComponentAcceptor {
 
     companion object {
-        fun getColorFromStack(p0: ItemStack): Int = ItemNBTHelper.getInt(p0, "color", -1)
+        fun getColorFromStack(p0: ItemStack): Int = ItemNBTHelper.getInt(p0, "color", Int.MAX_VALUE)
+
+        fun getInheriting(stack: ItemStack): ItemStack? {
+            val nbt = ItemNBTHelper.getCompound(stack, "inheriting", true)
+            return ItemStack.loadItemStackFromNBT(nbt ?: return null)
+        }
+
+        fun setInheriting(stack: ItemStack, inheriting: ItemStack?): ItemStack {
+            if (inheriting == null) {
+                ItemNBTHelper.setCompound(stack, "inheriting", null)
+            } else {
+                val nbt = NBTTagCompound()
+                inheriting.writeToNBT(nbt)
+                ItemNBTHelper.setCompound(stack, "inheriting", nbt)
+            }
+            return stack
+        }
     }
 
     init {
-        GameRegistry.addRecipe(RecipeLiquidDye())
-        RecipeSorter.register("psionup:liquiddye", RecipeLiquidDye::class.java, RecipeSorter.Category.SHAPELESS, "")
         creativeTab = CreativeTab.INSTANCE
         ItemMod.variantCache.add(this)
+    }
+
+    override fun acceptsPiece(stack: ItemStack, type: EnumCADComponent): Boolean = type == EnumCADComponent.DYE
+
+    override fun setPiece(stack: ItemStack, type: EnumCADComponent, piece: ItemStack?): ItemStack {
+        if (type != EnumCADComponent.DYE)
+            return stack
+        return setInheriting(stack, piece)
+    }
+
+    override fun getPiece(stack: ItemStack, type: EnumCADComponent): ItemStack? {
+        if (type != EnumCADComponent.DYE)
+            return null
+        return getInheriting(stack)
     }
 
     override fun getColor() = IItemColor {
@@ -40,7 +71,23 @@ class ItemLiquidColorizer(name: String) : ItemCADComponent(name, name), ICADColo
         if (tintIndex == 1) getColor(stack) else 0xFFFFFF
     }
 
-    override fun getColor(p0: ItemStack?): Int = ItemNBTHelper.getInt(p0, "color", ICADColorizer.DEFAULT_SPELL_COLOR)
+    override fun getColor(p0: ItemStack?): Int {
+        var itemcolor = ItemNBTHelper.getInt(p0, "color", Int.MAX_VALUE)
+        if (p0 != null) {
+            val inheriting = getInheriting(p0)
+            if (inheriting != null && inheriting.item is ICADColorizer) {
+                val inheritcolor = (inheriting.item as ICADColorizer).getColor(inheriting)
+                if (itemcolor == Int.MAX_VALUE)
+                    itemcolor = inheritcolor
+                else {
+                    val it = Color(itemcolor)
+                    val inh = Color(inheritcolor)
+                    itemcolor = Color((it.red + inh.red) / 2, (it.green + inh.green) / 2, (it.blue + inh.blue) / 2).rgb
+                }
+            }
+        }
+        return if (itemcolor == Int.MAX_VALUE) ICADColorizer.DEFAULT_SPELL_COLOR else itemcolor
+    }
 
     override fun getUnlocalizedName(par1ItemStack: ItemStack): String {
         return super.getUnlocalizedName(par1ItemStack).replace("psi", "psionup")
@@ -48,12 +95,20 @@ class ItemLiquidColorizer(name: String) : ItemCADComponent(name, name), ICADColo
 
     override fun addInformation(stack: ItemStack, playerIn: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
         super.addInformation(stack, playerIn, tooltip, advanced)
-        if (advanced && GuiScreen.isShiftKeyDown()) {
-            val color = getColorFromStack(stack)
-            var number = String.format("%06X", color)
-            if (number.length > 6) number = number.substring(number.length - 6)
-            if (color != -1)
-                tooltip.add(TextFormatting.GREEN.toString() + I18n.translateToLocal("psionup.misc.color") + "${TextFormatting.GRAY} #" + number)
+
+        if (GuiScreen.isShiftKeyDown()) {
+            val inheriting = getInheriting(stack)
+            if (inheriting != null) {
+                tooltip.add("${TextFormatting.GREEN}${I18n.translateToLocal("psionup.misc.colorInheritance")} ${TextFormatting.GRAY}${inheriting.displayName}")
+            }
+
+            if (advanced) {
+                val color = getColorFromStack(stack)
+                var number = String.format("%06X", color)
+                if (number.length > 6) number = number.substring(number.length - 6)
+                if (color != Int.MAX_VALUE)
+                    tooltip.add("${TextFormatting.GREEN}${I18n.translateToLocal("psionup.misc.color")}${TextFormatting.GRAY} #$number")
+            }
         }
     }
 

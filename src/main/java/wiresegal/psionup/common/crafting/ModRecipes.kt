@@ -3,9 +3,11 @@ package wiresegal.psionup.common.crafting
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.CraftingManager
+import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.oredict.RecipeSorter
 import net.minecraftforge.oredict.ShapedOreRecipe
 import net.minecraftforge.oredict.ShapelessOreRecipe
+import vazkii.psi.api.cad.EnumCADComponent
 import wiresegal.psionup.common.items.ItemCADMagazine
 import wiresegal.psionup.common.items.ModItems
 import vazkii.psi.common.item.base.ModItems as PsiItems
@@ -25,8 +27,11 @@ object ModRecipes {
             ItemStack(PsiItems.cadSocket, 1, 4))
 
     init {
-        RecipeSorter.register("psionup:cadcraft", RecipeCadComponent::class.java, RecipeSorter.Category.SHAPED, "before:minecraft:shaped")
-        RecipeSorter.register("psionup:cadcraftshapeless", RecipeCadComponentShapeless::class.java, RecipeSorter.Category.SHAPELESS, "before:minecraft:shapeless")
+        RecipeSorter.register("psionup:liquiddye", RecipeLiquidDye::class.java, RecipeSorter.Category.SHAPELESS, "")
+        RecipeSorter.register("psionup:cadcraft", RecipeCadComponent::class.java, RecipeSorter.Category.SHAPED, "after:minecraft:shaped")
+        RecipeSorter.register("psionup:cadcraftshapeless", RecipeCadComponentShapeless::class.java, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless")
+
+        GameRegistry.addRecipe(RecipeLiquidDye())
 
         addOreDictRecipe(ItemStack(ModItems.liquidColorizer),
                 " D ",
@@ -36,6 +41,9 @@ object ModRecipes {
                 'G', "blockGlass",
                 'B', ItemStack(Items.water_bucket),
                 'D', "dustPsi")
+
+        addShapelessCADRecipe(ItemStack(ModItems.liquidColorizer),
+                EnumCADComponent.DYE, ItemStack(Items.water_bucket))
 
         addOreDictRecipe(ItemStack(ModItems.emptyColorizer),
                 " D ",
@@ -68,14 +76,14 @@ object ModRecipes {
                 "MS",
                 "MD",
                 'M', "ingotPsi",
-                'S', ItemStack(ModItems.socket),
+                'S', EnumCADComponent.SOCKET,
                 'D', ItemStack(PsiItems.spellDrive))
         addCADRecipe(ItemCADMagazine.setSocket(ItemStack(ModItems.magazine), ItemStack(PsiItems.cadSocket)),
                 "DM",
                 "SM",
                 "DM",
                 'M', "ingotPsi",
-                'S', ItemStack(ModItems.socket),
+                'S', EnumCADComponent.SOCKET,
                 'D', ItemStack(PsiItems.spellDrive))
     }
 

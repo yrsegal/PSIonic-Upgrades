@@ -88,10 +88,14 @@ class ItemCADMagazine(name: String) : ItemMod(name, name), ISocketable, ICadComp
         return getSocket(stack)
     }
 
-    override fun setPiece(stack: ItemStack, type: EnumCADComponent, socket: ItemStack?): ItemStack {
+    override fun setPiece(stack: ItemStack, type: EnumCADComponent, piece: ItemStack?): ItemStack {
         if (type != EnumCADComponent.SOCKET)
             return stack
-        return setSocket(stack, socket)
+        return setSocket(stack, piece)
+    }
+
+    override fun acceptsPiece(stack: ItemStack, type: EnumCADComponent): Boolean {
+        return type == EnumCADComponent.SOCKET
     }
 
     override fun onItemUse(stack: ItemStack, playerIn: EntityPlayer?, worldIn: World?, pos: BlockPos?, hand: EnumHand?, side: EnumFacing?, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult {

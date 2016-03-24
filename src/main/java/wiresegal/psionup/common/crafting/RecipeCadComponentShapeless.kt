@@ -33,8 +33,8 @@ class RecipeCadComponentShapeless : IRecipe {
         output = result.copy()
 
         for (`in` in recipe) {
-            if (`in` is ItemStack && `in`.item is ICADComponent) {
-                input.add((`in`.item as ICADComponent).getComponentType(`in`))
+            if (`in` is EnumCADComponent) {
+                input.add(`in`)
             } else if (`in` is ItemStack) {
                 input.add(`in`.copy())
             } else if (`in` is Item) {
@@ -79,10 +79,15 @@ class RecipeCadComponentShapeless : IRecipe {
 
     override fun getCraftingResult(var1: InventoryCrafting): ItemStack {
         val out = output.copy()
-        for (i in 0..var1.sizeInventory - 1) {
-            val stack = var1.getStackInSlot(i)
-            if (stack != null && stack.item is ICADComponent && out.item is ICadComponentAcceptor) {
-                (out.item as ICadComponentAcceptor).setPiece(out, (stack.item as ICADComponent).getComponentType(stack), stack)
+        val outitem = out.item
+        if (outitem is ICadComponentAcceptor) {
+            for (i in 0..var1.sizeInventory - 1) {
+                val stack = var1.getStackInSlot(i)
+                if (stack != null) {
+                    val slotitem = stack.item
+                    if (slotitem is ICADComponent && outitem.acceptsPiece(out, slotitem.getComponentType(stack)))
+                        outitem.setPiece(out, slotitem.getComponentType(stack), stack)
+                }
             }
         }
         return out
@@ -104,17 +109,13 @@ class RecipeCadComponentShapeless : IRecipe {
 
                     val next = req.next()
 
-                    // If target is integer, then we should be check the blood
-                    // orb value of the item instead
                     if (next is EnumCADComponent) {
                         if (slot.item is ICADComponent) {
-                            val orb = slot.item as ICADComponent
-                            if (orb.getComponentType(slot) != next) {
-                                return false
+                            val component = slot.item as ICADComponent
+                            if (component.getComponentType(slot) == next) {
+                                match = true
                             }
-                        } else
-                            return false
-                        match = true
+                        }
                     } else if (next is ItemStack) {
                         match = OreDictionary.itemMatches(next, slot, false)
                     } else if (next is List<*>) {

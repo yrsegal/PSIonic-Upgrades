@@ -84,8 +84,8 @@ class RecipeCadComponent : IRecipe {
             val chr = recipe[idx] as Char
             val `in` = recipe[idx + 1]
 
-            if (`in` is ItemStack && `in`.item is ICADComponent) {
-                itemMap.put(chr, (`in`.item as ICADComponent).getComponentType(`in`))
+            if (`in` is EnumCADComponent) {
+                itemMap.put(chr, `in`)
             } else if (`in` is ItemStack) {
                 itemMap.put(chr, `in`.copy())
             } else if (`in` is Item) {
@@ -135,10 +135,15 @@ class RecipeCadComponent : IRecipe {
 
     override fun getCraftingResult(var1: InventoryCrafting): ItemStack? {
         val out = output.copy()
-        for (i in 0..var1.sizeInventory - 1) {
-            val stack = var1.getStackInSlot(i)
-            if (stack != null && stack.item is ICADComponent && out.item is ICadComponentAcceptor) {
-                (out.item as ICadComponentAcceptor).setPiece(out, (stack.item as ICADComponent).getComponentType(stack), stack)
+        val outitem = out.item
+        if (outitem is ICadComponentAcceptor) {
+            for (i in 0..var1.sizeInventory - 1) {
+                val stack = var1.getStackInSlot(i)
+                if (stack != null) {
+                    val slotitem = stack.item
+                    if (slotitem is ICADComponent && outitem.acceptsPiece(out, slotitem.getComponentType(stack)))
+                        outitem.setPiece(out, slotitem.getComponentType(stack), stack)
+                }
             }
         }
         return out
@@ -185,12 +190,10 @@ class RecipeCadComponent : IRecipe {
                 }
 
                 val slot = inv.getStackInRowAndColumn(x, y)
-                // If target is integer, then we should be check the blood orb
-                // value of the item instead
                 if (target is EnumCADComponent) {
                     if (slot != null && slot.item is ICADComponent) {
-                        val orb = slot.item as ICADComponent
-                        if (orb.getComponentType(slot) != target) {
+                        val component = slot.item as ICADComponent
+                        if (component.getComponentType(slot) != target) {
                             return false
                         }
                     } else

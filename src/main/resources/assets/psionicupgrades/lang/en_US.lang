@@ -1,8 +1,8 @@
 item.psionup:wideSocket.name=Wide-Band CAD Socket
 item.psionup:fakeCAD.name=Inline Caster
 item.psionup:magazine.name=Spell Magazine
-item.psionup:liquidColorizer.name=Liquid-Ink Colorizer
-item.psionup:emptyColorizer.name=Drained Colorizer
+item.psionup:liquidColorizer.name=Liquid-Ink CAD Colorizer
+item.psionup:emptyColorizer.name=Drained CAD Colorizer
 
 tile.psionup:conjuredPulsar.name=Conjured Pulsar
 
@@ -24,6 +24,7 @@ psi.spellpiece.psionicupgrades.vectorRotate.desc=Rotates the given vector around
 itemGroup.psionup=PSIonic Upgrades
 
 psionup.misc.color=Color:
+psionup.misc.colorInheritance=Color Inheritance:
 psionup.misc.tooComplexProgrammer=This spell seems too complex for the socket in your Spell Magazine.
 psionup.misc.tooComplexBullet=This spell seems too complex for the socket in your Spell Magazine to transfer.
 
