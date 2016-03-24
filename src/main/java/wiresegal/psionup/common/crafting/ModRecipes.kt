@@ -71,14 +71,14 @@ object ModRecipes {
                 'S', ItemStack(ModItems.socket),
                 'G', "gemPsi")
 
-        addCADRecipe(ItemCADMagazine.setSocket(ItemStack(ModItems.magazine), ItemStack(PsiItems.cadSocket)),
+        addCADRecipe(ItemStack(ModItems.magazine),
                 "MD",
                 "MS",
                 "MD",
                 'M', "ingotPsi",
                 'S', EnumCADComponent.SOCKET,
                 'D', ItemStack(PsiItems.spellDrive))
-        addCADRecipe(ItemCADMagazine.setSocket(ItemStack(ModItems.magazine), ItemStack(PsiItems.cadSocket)),
+        addCADRecipe(ItemStack(ModItems.magazine),
                 "DM",
                 "SM",
                 "DM",

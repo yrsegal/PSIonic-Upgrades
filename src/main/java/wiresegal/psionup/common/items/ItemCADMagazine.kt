@@ -29,6 +29,7 @@ import vazkii.psi.common.item.ItemSpellDrive
 import vazkii.psi.common.spell.SpellCompiler
 import wiresegal.psionup.common.crafting.ModRecipes
 import vazkii.psi.common.item.base.ItemMod as PsiItem
+import vazkii.psi.common.item.base.ModItems as PsiItems
 
 /**
  * @author WireSegal
@@ -39,7 +40,7 @@ class ItemCADMagazine(name: String) : ItemMod(name, name), ISocketable, ICadComp
     companion object {
         fun getSocket(stack: ItemStack): ItemStack {
             val nbt = ItemNBTHelper.getCompound(stack, "socket", true)
-            return ItemStack.loadItemStackFromNBT(nbt ?: return ItemStack(ModItems.socket))
+            return ItemStack.loadItemStackFromNBT(nbt ?: return ItemStack(PsiItems.cadSocket))
         }
 
         fun setSocket(stack: ItemStack, socket: ItemStack?): ItemStack {
