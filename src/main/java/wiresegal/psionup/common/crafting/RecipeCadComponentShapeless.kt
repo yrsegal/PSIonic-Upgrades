@@ -112,7 +112,7 @@ class RecipeCadComponentShapeless : IRecipe {
                     if (next is EnumCADComponent) {
                         if (slot.item is ICADComponent) {
                             val component = slot.item as ICADComponent
-                            if (component.getComponentType(slot) == next) {
+                            if (component.getComponentType(slot) == next && !(component is ICadComponentAcceptor && component.acceptsPiece(slot, next))) {
                                 match = true
                             }
                         }

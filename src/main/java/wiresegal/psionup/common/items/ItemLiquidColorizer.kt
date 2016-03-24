@@ -99,7 +99,7 @@ class ItemLiquidColorizer(name: String) : ItemCADComponent(name, name), ICADColo
         if (GuiScreen.isShiftKeyDown()) {
             val inheriting = getInheriting(stack)
             if (inheriting != null) {
-                tooltip.add("${TextFormatting.GREEN}${I18n.translateToLocal("psionup.misc.colorInheritance")} ${TextFormatting.GRAY}${inheriting.displayName}")
+                tooltip.add("${TextFormatting.GREEN}${I18n.translateToLocal("psionup.misc.colorInheritance")}${TextFormatting.GRAY}: ${inheriting.displayName}")
             }
 
             if (advanced) {
@@ -107,7 +107,7 @@ class ItemLiquidColorizer(name: String) : ItemCADComponent(name, name), ICADColo
                 var number = String.format("%06X", color)
                 if (number.length > 6) number = number.substring(number.length - 6)
                 if (color != Int.MAX_VALUE)
-                    tooltip.add("${TextFormatting.GREEN}${I18n.translateToLocal("psionup.misc.color")}${TextFormatting.GRAY} #$number")
+                    tooltip.add("${TextFormatting.GREEN}${I18n.translateToLocal("psionup.misc.color")}${TextFormatting.GRAY}: #$number")
             }
         }
     }

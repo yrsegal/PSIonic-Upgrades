@@ -195,6 +195,8 @@ class RecipeCadComponent : IRecipe {
                         val component = slot.item as ICADComponent
                         if (component.getComponentType(slot) != target) {
                             return false
+                        } else if (component is ICadComponentAcceptor && component.acceptsPiece(slot, target)) {
+                            return false
                         }
                     } else
                         return false

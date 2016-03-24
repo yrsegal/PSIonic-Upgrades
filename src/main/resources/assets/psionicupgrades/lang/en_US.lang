@@ -21,10 +21,17 @@ psi.spellpiece.psionicupgrades.planarNorm.desc=Creates a perpendicular vector to
 psi.spellpiece.psionicupgrades.vectorRotate=Operator: Rotate Vector
 psi.spellpiece.psionicupgrades.vectorRotate.desc=Rotates the given vector around the given axis by the given angle
 
+
+psi.spellpiece.psionicupgrades.strongVectorRaycast=Operator: Vector Strong Raycast
+psi.spellpiece.psionicupgrades.strongVectorRaycast.desc=Gets a localized raycast's result, ignoring nonsolids (max 32)
+
+psi.spellpiece.psionicupgrades.strongVectorRaycastAxis=Operator: Vector Axis Strong Raycast
+psi.spellpiece.psionicupgrades.strongVectorRaycastAxis.desc=Gets a localized raycast's side axis, ignoring nonsolids (max 32)
+
 itemGroup.psionup=PSIonic Upgrades
 
-psionup.misc.color=Color:
-psionup.misc.colorInheritance=Color Inheritance:
+psionup.misc.color=Color
+psionup.misc.colorInheritance=Color Inheritance
 psionup.misc.tooComplexProgrammer=This spell seems too complex for the socket in your Spell Magazine.
 psionup.misc.tooComplexBullet=This spell seems too complex for the socket in your Spell Magazine to transfer.
 

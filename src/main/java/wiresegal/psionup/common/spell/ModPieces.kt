@@ -8,6 +8,8 @@ import vazkii.psi.common.lib.LibPieceGroups
 import vazkii.psi.common.spell.base.ModSpellPieces
 import wiresegal.psionup.common.spell.operator.PieceOperatorPlanarNorm
 import wiresegal.psionup.common.spell.operator.PieceOperatorVectorRotate
+import wiresegal.psionup.common.spell.operator.PieceOperatorVectorStrongRaycast
+import wiresegal.psionup.common.spell.operator.PieceOperatorVectorStrongRaycastAxis
 import wiresegal.psionup.common.spell.trick.PieceTrickConjurePulsar
 import wiresegal.psionup.common.spell.trick.PieceTrickConjurePulsarLight
 import wiresegal.psionup.common.spell.trick.PieceTrickConjurePulsarSequence
@@ -24,6 +26,8 @@ object ModPieces {
     val planarNorm: ModSpellPieces.PieceContainer
     val vectorRotate: ModSpellPieces.PieceContainer
 
+    val strongCast: ModSpellPieces.PieceContainer
+    val strongCastAxis: ModSpellPieces.PieceContainer
 
     init {
         conjurePulsar = register(PieceTrickConjurePulsar::class.java, "conjurePulsar", LibPieceGroups.BLOCK_CONJURATION)
@@ -32,6 +36,9 @@ object ModPieces {
 
         planarNorm = register(PieceOperatorPlanarNorm::class.java, "planarNorm", LibPieceGroups.SECONDARY_OPERATORS)
         vectorRotate = register(PieceOperatorVectorRotate::class.java, "vectorRotate", LibPieceGroups.SECONDARY_OPERATORS)
+
+        strongCast = register(PieceOperatorVectorStrongRaycast::class.java, "strongVectorRaycast", LibPieceGroups.VECTORS_INTRO)
+        strongCastAxis = register(PieceOperatorVectorStrongRaycastAxis::class.java, "strongVectorRaycastAxis", LibPieceGroups.VECTORS_INTRO)
     }
 
     fun registerSpellPieceAndTexture(key: String, clazz: Class<out SpellPiece>) {
