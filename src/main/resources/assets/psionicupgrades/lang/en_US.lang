@@ -6,19 +6,30 @@ item.psionup:emptyColorizer.name=Drained Colorizer
 
 tile.psionup:conjuredPulsar.name=Conjured Pulsar
 
-psi.spellpiece.conjurePulsar=Trick: Conjure Pulsar
-psi.spellpiece.conjurePulsar.desc=Conjures a redstone emitting block in the given position
+psi.spellpiece.psionicupgrades.conjurePulsar=Trick: Conjure Pulsar
+psi.spellpiece.psionicupgrades.conjurePulsar.desc=Conjures a redstone emitting block in the given position
 
-psi.spellpiece.conjurePulsarSequence=Trick: Conjure Pulsar Sequence
-psi.spellpiece.conjurePulsarSequence.desc=Conjures a redstone emitting block
+psi.spellpiece.psionicupgrades.conjurePulsarSequence=Trick: Conjure Pulsar Sequence
+psi.spellpiece.psionicupgrades.conjurePulsarSequence.desc=Conjures a redstone emitting block
 
-psi.spellpiece.conjurePulsarLight=Trick: Conjure Pulsar Light
-psi.spellpiece.conjurePulsarLight.desc=Conjures a redstone emitting light in the given position
+psi.spellpiece.psionicupgrades.conjurePulsarLight=Trick: Conjure Pulsar Light
+psi.spellpiece.psionicupgrades.conjurePulsarLight.desc=Conjures a redstone emitting light in the given position
+
+psi.spellpiece.psionicupgrades.planarNorm=Operator: Planar Normal Vector
+psi.spellpiece.psionicupgrades.planarNorm.desc=Creates a perpendicular vector to the given axial vector
+
+psi.spellpiece.psionicupgrades.vectorRotate=Operator: Rotate Vector
+psi.spellpiece.psionicupgrades.vectorRotate.desc=Rotates the given vector around the given axis by the given angle
 
 itemGroup.psionup=PSIonic Upgrades
 
 psionup.misc.color=Color:
 psionup.misc.tooComplexProgrammer=This spell seems too complex for the socket in your Spell Magazine.
 psionup.misc.tooComplexBullet=This spell seems too complex for the socket in your Spell Magazine to transfer.
+
+psionup.spellerror.nonaxial=ERROR: Spell Operation Vector is not axial in a piece where it must be.
+
+psionup.spellparam.axis=Axis
+psionup.spellparam.angle=Radians
 
 jei.psionup.drained.desc=Sneak-using the Liquid-Ink Colorizer will drain the fluid out, resulting in a Drained Colorizer.
