@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack
 import net.minecraftforge.fml.common.registry.GameRegistry
 import vazkii.psi.common.block.base.IPsiBlock
 import vazkii.psi.common.item.base.IVariantHolder
-import wiresegal.psionup.common.items.ItemMod
+import wiresegal.psionup.common.items.base.ItemMod
 
 /**
  * @author WireSegal

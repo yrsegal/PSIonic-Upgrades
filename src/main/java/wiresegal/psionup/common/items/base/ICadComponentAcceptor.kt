@@ -1,4 +1,4 @@
-package wiresegal.psionup.common.items
+package wiresegal.psionup.common.items.base
 
 import net.minecraft.item.ItemStack
 import vazkii.psi.api.cad.EnumCADComponent

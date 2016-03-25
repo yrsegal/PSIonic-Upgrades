@@ -1,4 +1,4 @@
-package wiresegal.psionup.common.items
+package wiresegal.psionup.common.items.base
 
 import net.minecraft.item.ItemStack
 import vazkii.psi.common.item.base.IVariantHolder
@@ -10,7 +10,7 @@ import vazkii.psi.common.item.base.ItemMod as PsiItem
  * @author WireSegal
  * Created at 8:50 AM on 3/20/16.
  */
-open class ItemMod(name: String, vararg variants: String) : PsiItem(name, *variants) {
+open class ItemMod(name: String, vararg variants: String) : vazkii.psi.common.item.base.ItemMod(name, *variants) {
 
     companion object {
         val variantCache = ArrayList<IVariantHolder>()

@@ -1,4 +1,4 @@
-package wiresegal.psionup.common.items
+package wiresegal.psionup.common.items.spell
 
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.player.EntityPlayer
@@ -28,6 +28,8 @@ import vazkii.psi.common.core.helper.ItemNBTHelper
 import vazkii.psi.common.item.ItemSpellDrive
 import vazkii.psi.common.spell.SpellCompiler
 import wiresegal.psionup.common.crafting.ModRecipes
+import wiresegal.psionup.common.items.base.ICadComponentAcceptor
+import wiresegal.psionup.common.items.base.ItemMod
 import vazkii.psi.common.item.base.ItemMod as PsiItem
 import vazkii.psi.common.item.base.ModItems as PsiItems
 
@@ -40,7 +42,7 @@ class ItemCADMagazine(name: String) : ItemMod(name, name), ISocketable, ICadComp
     companion object {
         fun getSocket(stack: ItemStack): ItemStack {
             val nbt = ItemNBTHelper.getCompound(stack, "socket", true)
-            return ItemStack.loadItemStackFromNBT(nbt ?: return ItemStack(PsiItems.cadSocket))
+            return ItemStack.loadItemStackFromNBT(nbt ?: return ItemStack(vazkii.psi.common.item.base.ModItems.cadSocket))
         }
 
         fun setSocket(stack: ItemStack, socket: ItemStack?): ItemStack {
@@ -141,10 +143,10 @@ class ItemCADMagazine(name: String) : ItemMod(name, name), ISocketable, ICadComp
     }
 
     override fun addInformation(stack: ItemStack, playerIn: EntityPlayer?, tooltip: MutableList<String>?, advanced: Boolean) {
-        PsiItem.tooltipIfShift(tooltip, {
-            val socketName = PsiItem.local(getSocket(stack).displayName)
-            var line = TextFormatting.GREEN.toString() + PsiItem.local(EnumCADComponent.SOCKET.getName()) + TextFormatting.GRAY.toString() + ": " + socketName
-            PsiItem.addToTooltip(tooltip, line)
+        tooltipIfShift(tooltip, {
+            val socketName = local(getSocket(stack).displayName)
+            var line = TextFormatting.GREEN.toString() + local(EnumCADComponent.SOCKET.getName()) + TextFormatting.GRAY.toString() + ": " + socketName
+            addToTooltip(tooltip, line)
             val var12 = EnumCADStat::class.java.enumConstants.size
 
             for (var13 in 0..var12 - 1) {
@@ -155,9 +157,9 @@ class ItemCADMagazine(name: String) : ItemMod(name, name), ISocketable, ICadComp
                     if (item is ICADComponent) {
                         val statVal = item.getCADStatValue(getSocket(stack), stat)
                         val statValStr = if (statVal == -1) "∞" else "" + statVal
-                        line = " " + TextFormatting.AQUA + PsiItem.local(shrt) + TextFormatting.GRAY + ": " + statValStr
+                        line = " " + TextFormatting.AQUA + local(shrt) + TextFormatting.GRAY + ": " + statValStr
                         if (!line.isEmpty()) {
-                            PsiItem.addToTooltip(tooltip, line)
+                            addToTooltip(tooltip, line)
                         }
                     }
                 }
@@ -168,9 +170,9 @@ class ItemCADMagazine(name: String) : ItemMod(name, name), ISocketable, ICadComp
                 val name = getSocketedItemName(stack, slot, null)
                 if (name != null) {
                     if (slot == getSelectedSlot(stack))
-                        PsiItem.addToTooltip(tooltip, "| ${TextFormatting.WHITE}${TextFormatting.BOLD}$name")
+                        addToTooltip(tooltip, "| ${TextFormatting.WHITE}${TextFormatting.BOLD}$name")
                     else
-                        PsiItem.addToTooltip(tooltip, "| ${TextFormatting.WHITE}$name")
+                        addToTooltip(tooltip, "| ${TextFormatting.WHITE}$name")
                 }
                 slot++
             }

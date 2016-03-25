@@ -1,4 +1,4 @@
-package wiresegal.psionup.common.items
+package wiresegal.psionup.common.items.component
 
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.renderer.color.IItemColor
@@ -16,13 +16,17 @@ import vazkii.psi.common.core.helper.ItemNBTHelper
 import vazkii.psi.common.item.base.IColorProvider
 import vazkii.psi.common.item.component.ItemCADComponent
 import wiresegal.psionup.common.core.CreativeTab
+import wiresegal.psionup.common.items.base.ICadComponentAcceptor
+import wiresegal.psionup.common.items.base.ItemComponent
+import wiresegal.psionup.common.items.base.ItemMod
+import wiresegal.psionup.common.items.base.ModItems
 import java.awt.Color
 
 /**
  * @author WireSegal
  * Created at 8:44 AM on 3/20/16.
  */
-class ItemLiquidColorizer(name: String) : ItemCADComponent(name, name), ICADColorizer, IColorProvider, ICadComponentAcceptor {
+class ItemLiquidColorizer(name: String) : ItemComponent(name, name), ICADColorizer, IColorProvider, ICadComponentAcceptor {
 
     companion object {
         fun getColorFromStack(p0: ItemStack): Int = ItemNBTHelper.getInt(p0, "color", Int.MAX_VALUE)
@@ -42,11 +46,6 @@ class ItemLiquidColorizer(name: String) : ItemCADComponent(name, name), ICADColo
             }
             return stack
         }
-    }
-
-    init {
-        creativeTab = CreativeTab.INSTANCE
-        ItemMod.variantCache.add(this)
     }
 
     override fun acceptsPiece(stack: ItemStack, type: EnumCADComponent): Boolean = type == EnumCADComponent.DYE
@@ -84,10 +83,6 @@ class ItemLiquidColorizer(name: String) : ItemCADComponent(name, name), ICADColo
             }
         }
         return if (itemcolor == Int.MAX_VALUE) ICADColorizer.DEFAULT_SPELL_COLOR else itemcolor
-    }
-
-    override fun getUnlocalizedName(par1ItemStack: ItemStack): String {
-        return super.getUnlocalizedName(par1ItemStack).replace("psi", "psionup")
     }
 
     override fun addInformation(stack: ItemStack, playerIn: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {

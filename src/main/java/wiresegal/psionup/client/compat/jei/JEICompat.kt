@@ -6,7 +6,7 @@ import mezz.jei.api.JEIPlugin
 import net.minecraft.item.ItemStack
 import wiresegal.psionup.client.compat.jei.crafting.ShapedCadRecipeHandler
 import wiresegal.psionup.client.compat.jei.crafting.ShapelessCadRecipeHandler
-import wiresegal.psionup.common.items.ModItems
+import wiresegal.psionup.common.items.base.ModItems
 
 /**
  * @author WireSegal

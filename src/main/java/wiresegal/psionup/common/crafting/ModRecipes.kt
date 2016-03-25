@@ -8,7 +8,7 @@ import net.minecraftforge.oredict.RecipeSorter
 import net.minecraftforge.oredict.ShapedOreRecipe
 import net.minecraftforge.oredict.ShapelessOreRecipe
 import vazkii.psi.api.cad.EnumCADComponent
-import wiresegal.psionup.common.items.ModItems
+import wiresegal.psionup.common.items.base.ModItems
 import vazkii.psi.common.item.base.ModItems as PsiItems
 
 /**

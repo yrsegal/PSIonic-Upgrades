@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.registry.GameData
 import vazkii.psi.common.block.base.IPsiBlock
 import vazkii.psi.common.item.base.IExtraVariantHolder
 import vazkii.psi.common.item.base.IVariantHolder
-import wiresegal.psionup.common.items.ItemMod
+import wiresegal.psionup.common.items.base.ItemMod
 import java.util.*
 
 /**

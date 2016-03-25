@@ -11,7 +11,7 @@ import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.oredict.OreDictionary
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.ICADComponent
-import wiresegal.psionup.common.items.ICadComponentAcceptor
+import wiresegal.psionup.common.items.base.ICadComponentAcceptor
 import java.util.*
 
 /**

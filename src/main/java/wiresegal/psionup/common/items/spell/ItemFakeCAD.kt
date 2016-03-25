@@ -1,4 +1,4 @@
-package wiresegal.psionup.common.items
+package wiresegal.psionup.common.items.spell
 
 import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.entity.player.EntityPlayer
@@ -21,6 +21,7 @@ import vazkii.psi.common.core.helper.ItemNBTHelper
 import vazkii.psi.common.item.ItemCAD
 import vazkii.psi.common.item.base.IColorProvider
 import vazkii.psi.common.item.base.ModItems
+import wiresegal.psionup.common.items.base.ItemMod
 import java.awt.Color
 import vazkii.psi.common.item.base.ItemMod as PsiItem
 
@@ -75,9 +76,9 @@ class ItemFakeCAD(name: String) : ItemMod(name, name), ISocketable, ISpellSettab
     }
 
     override fun addInformation(stack: ItemStack?, playerIn: EntityPlayer?, tooltip: MutableList<String>?, advanced: Boolean) {
-        PsiItem.tooltipIfShift(tooltip, {
-            val componentName = PsiItem.local(ISocketable.getSocketedItemName(stack, "psimisc.none"))
-            PsiItem.addToTooltip(tooltip, "psimisc.spellSelected", componentName)
+        tooltipIfShift(tooltip, {
+            val componentName = local(ISocketable.getSocketedItemName(stack, "psimisc.none"))
+            addToTooltip(tooltip, "psimisc.spellSelected", componentName)
         })
     }
 

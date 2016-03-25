@@ -9,7 +9,7 @@ import net.minecraft.world.World
 import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.oredict.OreDictionary
 import vazkii.psi.common.core.helper.ItemNBTHelper
-import wiresegal.psionup.common.items.ItemLiquidColorizer
+import wiresegal.psionup.common.items.component.ItemLiquidColorizer
 import java.awt.Color
 
 /**

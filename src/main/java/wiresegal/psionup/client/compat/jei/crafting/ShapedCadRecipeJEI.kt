@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.FluidStack
 import vazkii.psi.api.cad.EnumCADComponent
 import wiresegal.psionup.common.crafting.RecipeCadComponent
-import wiresegal.psionup.common.items.ICadComponentAcceptor
+import wiresegal.psionup.common.items.base.ICadComponentAcceptor
 import java.util.*
 
 class ShapedCadRecipeJEI(private val recipe: RecipeCadComponent) : IShapedCraftingRecipeWrapper {
