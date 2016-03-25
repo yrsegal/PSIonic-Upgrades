@@ -34,7 +34,7 @@ open class CommandPsiUnlearn : CommandPsiLearn() {
     }
 
     override fun shouldntApply(player: EntityPlayer, group: String): Boolean {
-        return !super.shouldHave(player, group)
+        return !super.shouldntApply(player, group)
     }
 
     override val localizationkey: String
