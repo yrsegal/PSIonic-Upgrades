@@ -29,6 +29,17 @@ psi.spellpiece.psionicupgrades.strongVectorRaycastAxis.desc=Gets a raycast side,
 
 itemGroup.psionup=PSIonic Upgrades
 
+psionup.learn.usage=/psi-learn <group> [player]
+psionup.learn.success=Successfully taught %s %s
+psionup.learn.success.all=Successfully taught %s all of Psi
+psionup.learn.shouldnt=%s already knows %s
+psionup.unlearn.usage=/psi-unlearn <group> [player]
+psionup.unlearn.success=Successfully made %s forget %s
+psionup.unlearn.success.all=Successfully made %s forget all of Psi
+psionup.unlearn.shouldnt=%s doesn't know %s
+psionup.learn.players=%s isn't a player, only players can have Psi knowledge
+psionup.learn.notAGroup='%s' is not a valid Psi piece group
+
 psionup.misc.color=Color
 psionup.misc.colorInheritance=Color Inheritance
 psionup.misc.tooComplexProgrammer=This spell seems too complex for the socket in your Spell Magazine.

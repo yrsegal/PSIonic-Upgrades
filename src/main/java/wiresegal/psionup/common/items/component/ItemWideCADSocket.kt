@@ -3,10 +3,7 @@ package wiresegal.psionup.common.items.component
 import net.minecraft.item.ItemStack
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.EnumCADStat
-import vazkii.psi.common.item.component.ItemCADComponent
-import wiresegal.psionup.common.core.CreativeTab
 import wiresegal.psionup.common.items.base.ItemComponent
-import wiresegal.psionup.common.items.base.ItemMod
 
 /**
  * @author WireSegal
