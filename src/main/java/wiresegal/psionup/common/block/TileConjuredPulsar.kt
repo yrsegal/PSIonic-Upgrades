@@ -17,6 +17,7 @@ import java.util.*
 class TileConjuredPulsar : TileMod(), ITickable {
     var time = -1
     var colorizer: ItemStack? = null
+    var particleCounter = 0
 
     override fun update() {
         if (this.worldObj.isRemote) {
@@ -82,7 +83,7 @@ class TileConjuredPulsar : TileMod(), ITickable {
                 val m = 0.01f + Math.random().toFloat() * 0.015f
                 Psi.proxy.wispFX(this.worldObj, x, y1, z1, r, g, b, s, -m)
             }
-            if (this.worldObj.totalWorldTime % 10 == 0L) {
+            if (particleCounter == 0) {
                 val w = 0.15f
                 val h = 0.05f
                 val x = this.getPos().x.toDouble() + 0.5 + (Math.random() - 0.5) * w.toDouble()
@@ -92,6 +93,7 @@ class TileConjuredPulsar : TileMod(), ITickable {
                 val m = 0.01f + Math.random().toFloat() * 0.015f
                 Psi.proxy.wispFX(this.worldObj, x, y1, z1, 1f, 0f, 0f, s, -m)
             }
+            particleCounter = (particleCounter + 1) % 10
         }
 
         if (this.time >= 0) {
