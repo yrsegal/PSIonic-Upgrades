@@ -49,10 +49,10 @@ class PieceTrickConjurePulsarSequence(spell: Spell) : PieceTrick(spell) {
 
     @Throws(SpellRuntimeException::class)
     override fun execute(context: SpellContext?): Any? {
-        val positionVal = this.getParamValue<Any>(context, this.position) as Vector3?
-        val targetVal = this.getParamValue<Any>(context, this.target) as Vector3?
-        val maxBlocksVal = this.getParamValue<Any>(context, this.maxBlocks) as Double
-        val timeVal = this.getParamValue<Any>(context, this.time) as Double?
+        val positionVal = this.getParamValue<Vector3>(context, this.position)
+        val targetVal = this.getParamValue<Vector3>(context, this.target)
+        val maxBlocksVal = this.getParamValue<Double>(context, this.maxBlocks)
+        val timeVal = this.getParamValue<Double>(context, this.time)
         val maxBlocksInt = maxBlocksVal.toInt()
         if (positionVal == null) {
             throw SpellRuntimeException("psi.spellerror.nullvector")

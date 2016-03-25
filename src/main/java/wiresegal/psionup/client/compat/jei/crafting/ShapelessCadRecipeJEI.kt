@@ -8,11 +8,10 @@ import net.minecraftforge.fluids.FluidStack
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.common.item.base.ItemMod
 import vazkii.psi.common.item.base.ModItems
-import wiresegal.psionup.common.crafting.RecipeCadComponent
 import wiresegal.psionup.common.crafting.RecipeCadComponentShapeless
 import java.util.*
 
-class ShapelessCadRecipeJEI(private val recipe: RecipeCadComponentShapeless): ICraftingRecipeWrapper {
+class ShapelessCadRecipeJEI(private val recipe: RecipeCadComponentShapeless) : ICraftingRecipeWrapper {
 
     private val inputs: List<Any?>
     private val output: ItemStack?

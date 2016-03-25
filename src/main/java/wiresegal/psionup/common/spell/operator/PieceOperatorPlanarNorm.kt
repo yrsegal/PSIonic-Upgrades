@@ -28,7 +28,7 @@ class PieceOperatorPlanarNorm(spell: Spell) : PieceOperator(spell) {
         val v = this.getParamValue<Vector3>(context, this.vec)
         if (!v.isAxial)
             throw SpellRuntimeException("psionup.spellerror.nonaxial")
-        return Vector3(-v.y, v.x+v.z, 0.0).normalize()
+        return Vector3(-v.y, v.x + v.z, 0.0).normalize()
     }
 
     override fun getEvaluationType(): Class<*> {

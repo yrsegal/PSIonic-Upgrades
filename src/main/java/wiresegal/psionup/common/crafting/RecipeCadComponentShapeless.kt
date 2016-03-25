@@ -12,8 +12,7 @@ import net.minecraftforge.oredict.OreDictionary
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.ICADComponent
 import wiresegal.psionup.common.items.ICadComponentAcceptor
-
-import java.util.ArrayList
+import java.util.*
 
 /**
  * @author WireSegal

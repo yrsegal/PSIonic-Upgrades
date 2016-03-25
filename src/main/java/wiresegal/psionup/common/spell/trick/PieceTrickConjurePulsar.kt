@@ -45,8 +45,8 @@ open class PieceTrickConjurePulsar(spell: Spell) : PieceTrick(spell) {
 
     @Throws(SpellRuntimeException::class)
     override fun execute(context: SpellContext?): Any? {
-        val positionVal = this.getParamValue<Any>(context, this.position) as Vector3?
-        val timeVal = this.getParamValue<Any>(context, this.time) as Double?
+        val positionVal = this.getParamValue<Vector3>(context, this.position)
+        val timeVal = this.getParamValue<Double>(context, this.time)
         if (positionVal == null) {
             throw SpellRuntimeException("psi.spellerror.nullvector")
         } else if (!context!!.isInRadius(positionVal)) {

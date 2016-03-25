@@ -10,15 +10,12 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.util.text.translation.I18n
 import net.minecraft.world.World
-import net.minecraftforge.fml.common.registry.GameRegistry
-import net.minecraftforge.oredict.RecipeSorter
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.ICADColorizer
 import vazkii.psi.common.core.helper.ItemNBTHelper
 import vazkii.psi.common.item.base.IColorProvider
 import vazkii.psi.common.item.component.ItemCADComponent
 import wiresegal.psionup.common.core.CreativeTab
-import wiresegal.psionup.common.crafting.RecipeLiquidDye
 import java.awt.Color
 
 /**
