@@ -6,7 +6,6 @@ import wiresegal.psionup.common.items.spell.ItemFakeCAD
 import wiresegal.psionup.common.items.component.ItemEmptyColorizer
 import wiresegal.psionup.common.items.component.ItemLiquidColorizer
 import wiresegal.psionup.common.items.component.ItemWideCADSocket
-import wiresegal.psionup.common.items.spell.ItemPsimetalShield
 
 /**
  * @author WireSegal
