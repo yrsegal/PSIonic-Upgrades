@@ -82,6 +82,16 @@ class TileConjuredPulsar : TileMod(), ITickable {
                 val m = 0.01f + Math.random().toFloat() * 0.015f
                 Psi.proxy.wispFX(this.worldObj, x, y1, z1, r, g, b, s, -m)
             }
+            if (this.worldObj.totalWorldTime % 10 == 0L) {
+                val w = 0.15f
+                val h = 0.05f
+                val x = this.getPos().x.toDouble() + 0.5 + (Math.random() - 0.5) * w.toDouble()
+                val y1 = this.getPos().y.toDouble() + 0.25 + (Math.random() - 0.5) * h.toDouble()
+                val z1 = this.getPos().z.toDouble() + 0.5 + (Math.random() - 0.5) * w.toDouble()
+                val s = 0.2f + Math.random().toFloat() * 0.1f
+                val m = 0.01f + Math.random().toFloat() * 0.015f
+                Psi.proxy.wispFX(this.worldObj, x, y1, z1, 1f, 0f, 0f, s, -m)
+            }
         }
 
         if (this.time >= 0) {

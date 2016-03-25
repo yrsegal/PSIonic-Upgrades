@@ -16,17 +16,16 @@ psi.spellpiece.psionicupgrades.conjurePulsarLight=Trick: Conjure Pulsar Light
 psi.spellpiece.psionicupgrades.conjurePulsarLight.desc=Conjures a redstone emitting light in the given position
 
 psi.spellpiece.psionicupgrades.planarNorm=Operator: Planar Normal Vector
-psi.spellpiece.psionicupgrades.planarNorm.desc=Creates a perpendicular vector to the given axial vector
+psi.spellpiece.psionicupgrades.planarNorm.desc=Creates a perpendicular vector to an axial vector
 
 psi.spellpiece.psionicupgrades.vectorRotate=Operator: Rotate Vector
-psi.spellpiece.psionicupgrades.vectorRotate.desc=Rotates the given vector around the given axis by the given angle
-
+psi.spellpiece.psionicupgrades.vectorRotate.desc=Rotates a vector around an axis
 
 psi.spellpiece.psionicupgrades.strongVectorRaycast=Operator: Vector Strong Raycast
-psi.spellpiece.psionicupgrades.strongVectorRaycast.desc=Gets a localized raycast's result, ignoring nonsolids (max 32)
+psi.spellpiece.psionicupgrades.strongVectorRaycast.desc=Gets a raycast result, ignoring nonsolids (max 32)
 
 psi.spellpiece.psionicupgrades.strongVectorRaycastAxis=Operator: Vector Axis Strong Raycast
-psi.spellpiece.psionicupgrades.strongVectorRaycastAxis.desc=Gets a localized raycast's side axis, ignoring nonsolids (max 32)
+psi.spellpiece.psionicupgrades.strongVectorRaycastAxis.desc=Gets a raycast side, ignoring nonsolids (max 32)
 
 itemGroup.psionup=PSIonic Upgrades
 
