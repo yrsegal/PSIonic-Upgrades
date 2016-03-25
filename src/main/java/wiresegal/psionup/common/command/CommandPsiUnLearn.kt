@@ -33,7 +33,7 @@ open class CommandPsiUnlearn : CommandPsiLearn() {
         CommandBase.notifyOperators(sender, this, "$localizationkey.success.all", player.displayName)
     }
 
-    override fun shouldHave(player: EntityPlayer, group: String): Boolean {
+    override fun shouldntApply(player: EntityPlayer, group: String): Boolean {
         return !super.shouldHave(player, group)
     }
 

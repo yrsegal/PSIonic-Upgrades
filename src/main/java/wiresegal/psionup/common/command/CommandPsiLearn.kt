@@ -119,7 +119,7 @@ open class CommandPsiLearn : CommandBase() {
         CommandBase.notifyOperators(sender, this, "$localizationkey.success.all", player.displayName)
     }
 
-    open fun shouldHave(player: EntityPlayer, group: String): Boolean {
+    open fun shouldntApply(player: EntityPlayer, group: String): Boolean {
         return player.hasGroup(group)
     }
 
@@ -150,7 +150,7 @@ open class CommandPsiLearn : CommandBase() {
                 }
             } else if (args[0] !in groups) {
                 throw CommandException("psionup.learn.notAGroup", args[0])
-            } else if (shouldHave(player, args[0])) {
+            } else if (shouldntApply(player, args[0])) {
                 throw CommandException("$localizationkey.shouldnt", player.displayName, getGroupComponent(args[0]))
             } else {
                 applyPlayerData(player, args[0], sender)
