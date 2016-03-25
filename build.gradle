@@ -15,7 +15,6 @@ buildscript {
     }
 }
 
-
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'kotlin'
 apply plugin: 'idea'
@@ -35,9 +34,9 @@ archivesBaseName = config.mod_name
 
 minecraft {
     useDepAts = true
-    version = "1.9-12.16.0.1776-1.9"
+    version = "${config.mc_version}-${config.forge_version}"
     runDir = "run"
-    mappings = "snapshot_20160312"
+    mappings = config.mc_mappings
 }
 
 repositories {

@@ -14,7 +14,7 @@ import wiresegal.psionup.common.core.CommonProxy
  * @author WireSegal
  * Created at 8:29 AM on 3/20/16.
  */
-@Mod(modid = "PSIonicUpgrades", name = "PSIonic Upgrades", version = "r1-1", dependencies = "required-after:Psi")
+@Mod(modid = "PSIonicUpgrades", name = "PSIonic Upgrades", version = "r1-1", dependencies = "required-after:Forge@[12.16.0.1809,);required-after:Psi[beta-29,);")
 class PsionicUpgrades {
     companion object {
         @Mod.Instance("PSIonicUpgrades")
