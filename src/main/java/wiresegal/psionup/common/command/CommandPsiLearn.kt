@@ -28,32 +28,49 @@ import java.util.*
 open class CommandPsiLearn : CommandBase() {
 
     companion object {
+        val level0 = "psidust"
+
         val groups: List<String>
-            get() = listOf(*PsiAPI.groupsForName.keys.toTypedArray())
+            get() = listOf(level0, *PsiAPI.groupsForName.keys.toTypedArray())
 
         fun PlayerDataHandler.PlayerData.lockPieceGroup(group: String) {
-            if (this.isPieceGroupUnlocked(group)) {
-                this.spellGroupsUnlocked.remove(group)
-                if (this.lastSpellGroup == group)
+            if (this.hasGroup(group)) {
+                if (group == level0) {
+                    this.level = 0
                     this.lastSpellGroup = ""
-                this.level--
+                    this.levelPoints = 0
+                } else {
+                    this.spellGroupsUnlocked.remove(group)
+                    if (this.lastSpellGroup == group)
+                        this.lastSpellGroup = ""
+                    this.level--
+
+                }
                 this.save()
             }
-
         }
 
         fun PlayerDataHandler.PlayerData.unlockPieceGroupFree(group: String) {
-            if (!this.isPieceGroupUnlocked(group)) {
-                this.spellGroupsUnlocked.add(group)
-                this.lastSpellGroup = group
-                this.level++
+            if (!this.hasGroup(group)) {
+                if (group == level0) {
+                    if (this.level == 0) {
+                        this.level++
+                        this.levelPoints = 1
+                        this.lastSpellGroup = ""
+                    }
+                } else {
+                    this.spellGroupsUnlocked.add(group)
+                    this.lastSpellGroup = group
+                    this.level++
+
+                }
                 this.save()
             }
         }
 
         fun PlayerDataHandler.PlayerData.unlockAll() {
             for (group in groups)
-                if (group !in spellGroupsUnlocked)
+                if (!hasGroup(group))
                     unlockPieceGroupFree(group)
             lastSpellGroup = ""
             save()
@@ -64,16 +81,29 @@ open class CommandPsiLearn : CommandBase() {
             for (group in unlocked)
                 lockPieceGroup(group)
             level = 0
+            levelPoints = 0
             lastSpellGroup = ""
             save()
         }
 
+        fun PlayerDataHandler.PlayerData.hasGroup(group: String): Boolean {
+            if (group == level0)
+                return level > 0
+            return isPieceGroupUnlocked(group)
+        }
+
         fun EntityPlayer.hasGroup(group: String): Boolean {
-            val data = PlayerDataHandler.get(this)
-            return data.isPieceGroupUnlocked(group)
+            return PlayerDataHandler.get(this).hasGroup(group)
         }
 
         fun getGroupComponent(group: String): ITextComponent {
+            if (group == level0) {
+                val nameComponent = TextComponentString("[" + I18n.translateToLocal("psionup.misc.psidust") + "]")
+                nameComponent.chatStyle.color = TextFormatting.AQUA
+                nameComponent.chatStyle.chatHoverEvent = HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponentTranslation("psimisc.levelDisplay", 0))
+                return nameComponent
+            }
+
             val pieceGroup = PsiAPI.groupsForName[group]
             if (pieceGroup == null) {
                 val errorComponent = TextComponentString("ERROR")
@@ -101,7 +131,11 @@ open class CommandPsiLearn : CommandBase() {
 
     open fun applyPlayerData(player: EntityPlayer, group: String, sender: ICommandSender) {
         val data = PlayerDataHandler.get(player)
-        if (group in groups) {
+        data.unlockPieceGroupFree(level0)
+
+        if (group == level0) {
+            CommandBase.notifyOperators(sender, this, "$localizationkey.success", player.name, getGroupComponent(group))
+        } else if (group in groups) {
             val pieceGroup = PsiAPI.groupsForName[group]
             if (pieceGroup != null && !data.isPieceGroupUnlocked(group)) {
                 for (subgroup in pieceGroup.requirements)

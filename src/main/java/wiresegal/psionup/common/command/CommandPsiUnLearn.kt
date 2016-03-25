@@ -18,11 +18,15 @@ open class CommandPsiUnlearn : CommandPsiLearn() {
 
     override fun applyPlayerData(player: EntityPlayer, group: String, sender: ICommandSender) {
         val data = PlayerDataHandler.get(player)
+        if (group == level0) {
+            data.lockPieceGroup(level0)
+            CommandBase.notifyOperators(sender, this, "$localizationkey.success", player.name, getGroupComponent(group))
+        }
         if (group in groups) {
             val pieceGroup = PsiAPI.groupsForName[group]
             if (pieceGroup != null && data.isPieceGroupUnlocked(group)) {
                 data.lockPieceGroup(group)
-                CommandBase.notifyOperators(sender, this, "$localizationkey.success", player.name, group)
+                CommandBase.notifyOperators(sender, this, "$localizationkey.success", player.name, getGroupComponent(group))
             }
         }
     }
