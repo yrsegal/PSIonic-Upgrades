@@ -8,6 +8,8 @@ import net.minecraftforge.oredict.RecipeSorter
 import net.minecraftforge.oredict.ShapedOreRecipe
 import net.minecraftforge.oredict.ShapelessOreRecipe
 import vazkii.psi.api.cad.EnumCADComponent
+import vazkii.psi.common.lib.LibPieceNames
+import wiresegal.psionup.api.PsionicAPI
 import wiresegal.psionup.common.items.base.ModItems
 import vazkii.psi.common.item.base.ModItems as PsiItems
 
@@ -84,6 +86,13 @@ object ModRecipes {
                 'M', "ingotPsi",
                 'S', EnumCADComponent.SOCKET,
                 'D', ItemStack(PsiItems.spellDrive))
+
+
+        PsionicAPI.addTrickRecipe("", ItemStack(Items.redstone), ItemStack(PsiItems.material), ItemStack(PsiItems.cadAssembly))
+        PsionicAPI.addTrickRecipe(LibPieceNames.TRICK_INFUSION, ItemStack(Items.gold_ingot), ItemStack(PsiItems.material, 1, 1), ItemStack(PsiItems.cadAssembly))
+        PsionicAPI.addTrickRecipe(LibPieceNames.TRICK_GREATER_INFUSION, ItemStack(Items.diamond), ItemStack(PsiItems.material, 1, 2), ItemStack(PsiItems.cadAssembly, 1, 2))
+        PsionicAPI.addTrickRecipe(LibPieceNames.TRICK_EBONY_IVORY, ItemStack(Items.coal), ItemStack(PsiItems.material, 1, 5), ItemStack(PsiItems.cadAssembly, 1, 2))
+        PsionicAPI.addTrickRecipe(LibPieceNames.TRICK_EBONY_IVORY, ItemStack(Items.quartz), ItemStack(PsiItems.material, 1, 6), ItemStack(PsiItems.cadAssembly, 1, 2))
     }
 
     private fun addOreDictRecipe(output: ItemStack, vararg recipe: Any) {

@@ -52,4 +52,5 @@ psionup.spellerror.nonaxial=ERROR: Spell Operation Vector is not axial in a piec
 psionup.spellparam.axis=Axis
 psionup.spellparam.angle=Radians
 
+jei.psionup.recipe.trickCrafting=Spell Infusion
 jei.psionup.drained.desc=Sneak-using the Liquid-Ink Colorizer will drain the fluid out, resulting in a Drained Colorizer.

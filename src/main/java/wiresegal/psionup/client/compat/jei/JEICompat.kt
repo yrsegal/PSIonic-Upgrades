@@ -1,11 +1,18 @@
 package wiresegal.psionup.client.compat.jei
 
+import mezz.jei.JeiHelpers
 import mezz.jei.api.BlankModPlugin
+import mezz.jei.api.IJeiHelpers
 import mezz.jei.api.IModRegistry
 import mezz.jei.api.JEIPlugin
 import net.minecraft.item.ItemStack
+import vazkii.psi.common.block.base.ModBlocks as PsiBlocks
 import wiresegal.psionup.client.compat.jei.crafting.ShapedCadRecipeHandler
 import wiresegal.psionup.client.compat.jei.crafting.ShapelessCadRecipeHandler
+import wiresegal.psionup.client.compat.jei.craftingTricks.TrickCraftingCategory
+import wiresegal.psionup.client.compat.jei.craftingTricks.TrickCraftingRecipeHandler
+import wiresegal.psionup.client.compat.jei.craftingTricks.TrickCraftingRecipeMaker
+import wiresegal.psionup.common.block.ModBlocks
 import wiresegal.psionup.common.items.base.ModItems
 
 /**
@@ -14,8 +21,22 @@ import wiresegal.psionup.common.items.base.ModItems
  */
 @JEIPlugin
 class JEICompat : BlankModPlugin() {
+
+    companion object {
+        lateinit var helper: IJeiHelpers
+    }
+
     override fun register(registry: IModRegistry) {
-        registry.addRecipeHandlers(ShapedCadRecipeHandler(), ShapelessCadRecipeHandler())
+        helper = registry.jeiHelpers
+
+        registry.addRecipeHandlers(ShapedCadRecipeHandler(), ShapelessCadRecipeHandler(), TrickCraftingRecipeHandler())
+
+        registry.addRecipeCategories(TrickCraftingCategory())
+
+        registry.addRecipes(TrickCraftingRecipeMaker.recipes)
+
+        helper.itemBlacklist.addItemToBlacklist(ItemStack(PsiBlocks.conjured))
+        helper.itemBlacklist.addItemToBlacklist(ItemStack(ModBlocks.conjured))
 
         registry.addDescription(ItemStack(ModItems.liquidColorizer), "jei.psionup.drained.desc")
         registry.addDescription(ItemStack(ModItems.emptyColorizer), "jei.psionup.drained.desc")
