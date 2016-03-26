@@ -30,6 +30,7 @@ import vazkii.psi.common.spell.SpellCompiler
 import wiresegal.psionup.common.crafting.ModRecipes
 import wiresegal.psionup.common.items.base.ICadComponentAcceptor
 import wiresegal.psionup.common.items.base.ItemMod
+import wiresegal.psionup.common.lib.LibMisc
 import vazkii.psi.common.item.base.ItemMod as PsiItem
 import vazkii.psi.common.item.base.ModItems as PsiItems
 
@@ -109,7 +110,7 @@ class ItemCADMagazine(name: String) : ItemMod(name, name), ISocketable, ICadComp
                 val enabled = tile.isEnabled
                 val compiled = SpellCompiler(spell)
                 if ((compiled.compiledSpell.metadata.stats[EnumSpellStat.BANDWIDTH] ?: Integer.MAX_VALUE) > getBandwidth(stack) && !worldIn.isRemote)
-                    playerIn.addChatComponentMessage(TextComponentTranslation("psionup.misc.tooComplexBullet").setChatStyle(Style().setColor(TextFormatting.RED)))
+                    playerIn.addChatComponentMessage(TextComponentTranslation("${LibMisc.MOD_ID_SHORT}.misc.tooComplexBullet").setChatStyle(Style().setColor(TextFormatting.RED)))
                 else if (!worldIn.isRemote) {
                     if (enabled && !tile.playerLock.isEmpty()) {
                         if (tile.playerLock != playerIn.name) {

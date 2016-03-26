@@ -10,7 +10,8 @@ import net.minecraftforge.oredict.ShapelessOreRecipe
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.common.lib.LibPieceNames
 import wiresegal.psionup.api.PsionicAPI
-import wiresegal.psionup.common.items.base.ModItems
+import wiresegal.psionup.common.items.ModItems
+import wiresegal.psionup.common.lib.LibMisc
 import vazkii.psi.common.item.base.ModItems as PsiItems
 
 /**
@@ -28,9 +29,9 @@ object ModRecipes {
             ItemStack(PsiItems.cadSocket, 1, 4))
 
     init {
-        RecipeSorter.register("psionup:liquiddye", RecipeLiquidDye::class.java, RecipeSorter.Category.SHAPELESS, "")
-        RecipeSorter.register("psionup:cadcraft", RecipeCadComponent::class.java, RecipeSorter.Category.SHAPED, "after:minecraft:shaped")
-        RecipeSorter.register("psionup:cadcraftshapeless", RecipeCadComponentShapeless::class.java, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless")
+        RecipeSorter.register("${LibMisc.MOD_ID_SHORT}:liquiddye", RecipeLiquidDye::class.java, RecipeSorter.Category.SHAPELESS, "")
+        RecipeSorter.register("${LibMisc.MOD_ID_SHORT}:cadcraft", RecipeCadComponent::class.java, RecipeSorter.Category.SHAPED, "after:minecraft:shaped")
+        RecipeSorter.register("${LibMisc.MOD_ID_SHORT}:cadcraftshapeless", RecipeCadComponentShapeless::class.java, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless")
 
         GameRegistry.addRecipe(RecipeLiquidDye())
 

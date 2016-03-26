@@ -5,6 +5,7 @@ import net.minecraft.command.ICommandSender
 import net.minecraft.entity.player.EntityPlayer
 import vazkii.psi.api.PsiAPI
 import vazkii.psi.common.core.handler.PlayerDataHandler
+import wiresegal.psionup.common.lib.LibMisc
 
 /**
  * @author WireSegal
@@ -42,5 +43,5 @@ open class CommandPsiUnlearn : CommandPsiLearn() {
     }
 
     override val localizationkey: String
-        get() = "psionup.unlearn"
+        get() = "${LibMisc.MOD_ID_SHORT}.unlearn"
 }

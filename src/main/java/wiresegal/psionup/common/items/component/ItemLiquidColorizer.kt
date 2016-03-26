@@ -16,7 +16,8 @@ import vazkii.psi.common.core.helper.ItemNBTHelper
 import vazkii.psi.common.item.base.IColorProvider
 import wiresegal.psionup.common.items.base.ICadComponentAcceptor
 import wiresegal.psionup.common.items.base.ItemComponent
-import wiresegal.psionup.common.items.base.ModItems
+import wiresegal.psionup.common.items.ModItems
+import wiresegal.psionup.common.lib.LibMisc
 import java.awt.Color
 
 /**
@@ -88,7 +89,7 @@ class ItemLiquidColorizer(name: String) : ItemComponent(name, name), ICADColoriz
         if (GuiScreen.isShiftKeyDown()) {
             val inheriting = getInheriting(stack)
             if (inheriting != null) {
-                tooltip.add("${TextFormatting.GREEN}${I18n.translateToLocal("psionup.misc.colorInheritance")}${TextFormatting.GRAY}: ${inheriting.displayName}")
+                tooltip.add("${TextFormatting.GREEN}${I18n.translateToLocal("${LibMisc.MOD_ID_SHORT}.misc.colorInheritance")}${TextFormatting.GRAY}: ${inheriting.displayName}")
             }
 
             if (advanced) {
@@ -96,7 +97,7 @@ class ItemLiquidColorizer(name: String) : ItemComponent(name, name), ICADColoriz
                 var number = String.format("%06X", color)
                 if (number.length > 6) number = number.substring(number.length - 6)
                 if (color != Int.MAX_VALUE)
-                    tooltip.add("${TextFormatting.GREEN}${I18n.translateToLocal("psionup.misc.color")}${TextFormatting.GRAY}: #$number")
+                    tooltip.add("${TextFormatting.GREEN}${I18n.translateToLocal("${LibMisc.MOD_ID_SHORT}.misc.color")}${TextFormatting.GRAY}: #$number")
             }
         }
     }

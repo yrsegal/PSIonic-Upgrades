@@ -19,6 +19,7 @@ import vazkii.psi.api.PsiAPI
 import vazkii.psi.common.core.handler.PlayerDataHandler
 import vazkii.psi.common.network.NetworkHandler
 import vazkii.psi.common.network.message.MessageDataSync
+import wiresegal.psionup.common.lib.LibMisc
 import java.util.*
 
 /**
@@ -98,7 +99,7 @@ open class CommandPsiLearn : CommandBase() {
 
         fun getGroupComponent(group: String): ITextComponent {
             if (group == level0) {
-                val nameComponent = TextComponentString("[" + I18n.translateToLocal("psionup.misc.psidust") + "]")
+                val nameComponent = TextComponentString("[" + I18n.translateToLocal("${LibMisc.MOD_ID_SHORT}.misc.psidust") + "]")
                 nameComponent.chatStyle.color = TextFormatting.AQUA
                 nameComponent.chatStyle.chatHoverEvent = HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponentTranslation("psimisc.levelDisplay", 0))
                 return nameComponent
@@ -158,7 +159,7 @@ open class CommandPsiLearn : CommandBase() {
     }
 
     open val localizationkey: String
-        get() = "psionup.learn"
+        get() = "${LibMisc.MOD_ID_SHORT}.learn"
 
     @Throws(CommandException::class)
     override fun execute(server: MinecraftServer, sender: ICommandSender, args: Array<String>) {
@@ -175,7 +176,7 @@ open class CommandPsiLearn : CommandBase() {
             }
 
             if (player == null || player !is EntityPlayer) {
-                throw CommandException("psionup.learn.players", player.displayName)
+                throw CommandException("${LibMisc.MOD_ID_SHORT}.learn.players", player.displayName)
             } else if (args[0] == "*") {
                 applyAll(player, sender)
                 if (player is EntityPlayerMP) {
@@ -183,7 +184,7 @@ open class CommandPsiLearn : CommandBase() {
                     NetworkHandler.INSTANCE.sendTo(message, player)
                 }
             } else if (args[0] !in groups) {
-                throw CommandException("psionup.learn.notAGroup", args[0])
+                throw CommandException("${LibMisc.MOD_ID_SHORT}.learn.notAGroup", args[0])
             } else if (shouldntApply(player, args[0])) {
                 throw CommandException("$localizationkey.shouldnt", player.displayName, getGroupComponent(args[0]))
             } else {

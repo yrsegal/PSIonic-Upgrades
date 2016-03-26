@@ -13,7 +13,8 @@ import wiresegal.psionup.client.compat.jei.craftingTricks.TrickCraftingCategory
 import wiresegal.psionup.client.compat.jei.craftingTricks.TrickCraftingRecipeHandler
 import wiresegal.psionup.client.compat.jei.craftingTricks.TrickCraftingRecipeMaker
 import wiresegal.psionup.common.block.ModBlocks
-import wiresegal.psionup.common.items.base.ModItems
+import wiresegal.psionup.common.items.ModItems
+import wiresegal.psionup.common.lib.LibMisc
 
 /**
  * @author WireSegal
@@ -38,7 +39,7 @@ class JEICompat : BlankModPlugin() {
         helper.itemBlacklist.addItemToBlacklist(ItemStack(PsiBlocks.conjured))
         helper.itemBlacklist.addItemToBlacklist(ItemStack(ModBlocks.conjured))
 
-        registry.addDescription(ItemStack(ModItems.liquidColorizer), "jei.psionup.drained.desc")
-        registry.addDescription(ItemStack(ModItems.emptyColorizer), "jei.psionup.drained.desc")
+        registry.addDescription(ItemStack(ModItems.liquidColorizer), "jei.${LibMisc.MOD_ID_SHORT}.drained.desc")
+        registry.addDescription(ItemStack(ModItems.emptyColorizer), "jei.${LibMisc.MOD_ID_SHORT}.drained.desc")
     }
 }

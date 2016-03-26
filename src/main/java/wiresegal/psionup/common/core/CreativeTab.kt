@@ -4,18 +4,19 @@ import net.minecraft.block.Block
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
-import wiresegal.psionup.common.items.base.ModItems
+import wiresegal.psionup.common.items.ModItems
+import wiresegal.psionup.common.lib.LibMisc
 
 /**
  * @author WireSegal
  * Created at 1:17 PM on 3/20/16.
  */
-class CreativeTab : CreativeTabs("psionup") {
+class CreativeTab : CreativeTabs(LibMisc.MOD_ID_SHORT) {
     internal lateinit var list: List<ItemStack>
 
     init {
         this.setNoTitle()
-        this.backgroundImageName = "psionup.png"
+        this.backgroundImageName = "${LibMisc.MOD_ID_SHORT}.png"
     }
 
     override fun getIconItemStack(): ItemStack {

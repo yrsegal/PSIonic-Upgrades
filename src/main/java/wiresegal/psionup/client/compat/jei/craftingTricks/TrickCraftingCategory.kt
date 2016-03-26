@@ -7,21 +7,22 @@ import mezz.jei.api.recipe.IRecipeWrapper
 import net.minecraft.client.Minecraft
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
+import net.minecraft.util.text.translation.I18n
 import vazkii.psi.common.item.base.ItemMod
 import wiresegal.psionup.client.compat.jei.JEICompat
+import wiresegal.psionup.common.lib.LibMisc
 import java.util.*
 
 class TrickCraftingCategory : IRecipeCategory {
 
     private val background = JEICompat.helper.guiHelper.createDrawable(ResourceLocation("psionicupgrades", "textures/gui/jei/trick.png"), 0, 0, 108, 30)
-    private val localizedName = ItemMod.local("jei.psionup.recipe.trickCrafting")
 
     override fun getUid(): String {
-        return "psionup:trickCrafting"
+        return "${LibMisc.MOD_ID_SHORT}:trickCrafting"
     }
 
     override fun getTitle(): String {
-        return localizedName
+        return I18n.translateToLocal("jei.${LibMisc.MOD_ID_SHORT}.recipe.trickCrafting")
     }
 
     override fun getBackground(): IDrawable {

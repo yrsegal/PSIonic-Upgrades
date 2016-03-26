@@ -1,0 +1,31 @@
+package wiresegal.psionup.common.lib
+
+/**
+ * @author WireSegal
+ * Created at 3:33 PM on 3/26/16.
+ */
+object LibNames {
+    object Items {
+        const val LIQUID_INK_COLORIZER = "liquidColorizer"
+        const val DRAINED_COLORIZER = "emptyColorizer"
+        const val INLINE_CASTER = "fakeCAD"
+        const val SPELL_MAGAZINE = "magazine"
+        const val WIDE_BAND_SOCKET = "wideSocket"
+    }
+
+    object Blocks {
+        const val CONJURED_PULSAR = "conjuredPulsar"
+    }
+
+    object Spell {
+        const val CONJURE_PULSAR = "conjurePulsar"
+        const val CONJURE_PULSAR_SEQUENCE = "conjurePulsarSequence"
+        const val CONJURE_PULSAR_LIGHT = "conjurePulsarLight"
+
+        const val PLANAR_NORMAL_VECTOR = "planarNorm"
+        const val VECTOR_ROTATE = "vectorRotate"
+
+        const val STRONG_VECTOR_RAYCAST = "strongVectorRaycast"
+        const val STRONG_VECTOR_RAYCAST_AXIS = "strongVectorRaycastAxis"
+    }
+}

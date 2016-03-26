@@ -4,6 +4,7 @@ import vazkii.psi.api.internal.Vector3
 import vazkii.psi.api.spell.*
 import vazkii.psi.api.spell.param.ParamVector
 import vazkii.psi.api.spell.piece.PieceOperator
+import wiresegal.psionup.common.lib.LibMisc
 
 /**
  * @author WireSegal
@@ -27,7 +28,7 @@ class PieceOperatorPlanarNorm(spell: Spell) : PieceOperator(spell) {
     override fun execute(context: SpellContext): Any? {
         val v = this.getParamValue<Vector3>(context, this.vec)
         if (!v.isAxial)
-            throw SpellRuntimeException("psionup.spellerror.nonaxial")
+            throw SpellRuntimeException("${LibMisc.MOD_ID_SHORT}.spellerror.nonaxial")
         return Vector3(-v.y, v.x + v.z, 0.0).normalize()
     }
 

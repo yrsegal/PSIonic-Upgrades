@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry
 import vazkii.psi.common.block.base.IPsiBlock
 import vazkii.psi.common.item.base.IVariantHolder
 import wiresegal.psionup.common.items.base.ItemMod
+import wiresegal.psionup.common.lib.LibMisc
 
 /**
  * @author WireSegal
@@ -47,7 +48,7 @@ class ItemModBlock(block: Block) : ItemBlock(block), IVariantHolder {
             name = variants[dmg]
         }
 
-        return "tile.psionup:" + name
+        return "tile.${LibMisc.MOD_ID_SHORT}:" + name
     }
 
     override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: MutableList<ItemStack>) {

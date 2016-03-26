@@ -9,19 +9,20 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent
 import wiresegal.psionup.common.command.CommandPsiLearn
 import wiresegal.psionup.common.command.CommandPsiUnlearn
 import wiresegal.psionup.common.core.CommonProxy
+import wiresegal.psionup.common.lib.LibMisc
 
 /**
  * @author WireSegal
  * Created at 8:29 AM on 3/20/16.
  */
-@Mod(modid = "PSIonicUpgrades", name = "PSIonic Upgrades", version = "r1-1", dependencies = "required-after:Forge@[12.16.0.1809,);required-after:Psi;")
+@Mod(modid = LibMisc.MOD_ID, name = LibMisc.MOD_NAME, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES)
 class PsionicUpgrades {
     companion object {
-        @Mod.Instance("PSIonicUpgrades")
+        @Mod.Instance(LibMisc.MOD_ID)
         lateinit var instance: PsionicUpgrades
 
-        @SidedProxy(serverSide = "wiresegal.psionup.common.core.CommonProxy",
-                clientSide = "wiresegal.psionup.client.core.ClientProxy")
+        @SidedProxy(serverSide = LibMisc.PROXY_COMMON,
+                clientSide = LibMisc.PROXY_CLIENT)
         lateinit var proxy: CommonProxy
     }
 

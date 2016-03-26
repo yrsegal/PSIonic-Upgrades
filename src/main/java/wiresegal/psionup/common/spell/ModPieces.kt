@@ -6,6 +6,7 @@ import vazkii.psi.api.PsiAPI
 import vazkii.psi.api.spell.SpellPiece
 import vazkii.psi.common.lib.LibPieceGroups
 import vazkii.psi.common.spell.base.ModSpellPieces
+import wiresegal.psionup.common.lib.LibNames
 import wiresegal.psionup.common.spell.operator.PieceOperatorPlanarNorm
 import wiresegal.psionup.common.spell.operator.PieceOperatorVectorRotate
 import wiresegal.psionup.common.spell.operator.PieceOperatorVectorStrongRaycast
@@ -30,15 +31,29 @@ object ModPieces {
     val strongCastAxis: ModSpellPieces.PieceContainer
 
     init {
-        conjurePulsar = register(PieceTrickConjurePulsar::class.java, "conjurePulsar", LibPieceGroups.BLOCK_CONJURATION)
-        conjurePulsarSequence = register(PieceTrickConjurePulsarSequence::class.java, "conjurePulsarSequence", LibPieceGroups.BLOCK_CONJURATION)
-        conjurePulsarLight = register(PieceTrickConjurePulsarLight::class.java, "conjurePulsarLight", LibPieceGroups.BLOCK_CONJURATION)
+        conjurePulsar = register(PieceTrickConjurePulsar::class.java,
+                LibNames.Spell.CONJURE_PULSAR,
+                LibPieceGroups.BLOCK_CONJURATION)
+        conjurePulsarSequence = register(PieceTrickConjurePulsarSequence::class.java,
+                LibNames.Spell.CONJURE_PULSAR_SEQUENCE,
+                LibPieceGroups.BLOCK_CONJURATION)
+        conjurePulsarLight = register(PieceTrickConjurePulsarLight::class.java,
+                LibNames.Spell.CONJURE_PULSAR_LIGHT,
+                LibPieceGroups.BLOCK_CONJURATION)
 
-        planarNorm = register(PieceOperatorPlanarNorm::class.java, "planarNorm", LibPieceGroups.SECONDARY_OPERATORS)
-        vectorRotate = register(PieceOperatorVectorRotate::class.java, "vectorRotate", LibPieceGroups.SECONDARY_OPERATORS)
+        planarNorm = register(PieceOperatorPlanarNorm::class.java,
+                LibNames.Spell.PLANAR_NORMAL_VECTOR,
+                LibPieceGroups.SECONDARY_OPERATORS)
+        vectorRotate = register(PieceOperatorVectorRotate::class.java,
+                LibNames.Spell.VECTOR_ROTATE,
+                LibPieceGroups.SECONDARY_OPERATORS)
 
-        strongCast = register(PieceOperatorVectorStrongRaycast::class.java, "strongVectorRaycast", LibPieceGroups.TUTORIAL_4)
-        strongCastAxis = register(PieceOperatorVectorStrongRaycastAxis::class.java, "strongVectorRaycastAxis", LibPieceGroups.BLOCK_WORKS)
+        strongCast = register(PieceOperatorVectorStrongRaycast::class.java,
+                LibNames.Spell.STRONG_VECTOR_RAYCAST,
+                LibPieceGroups.TUTORIAL_4)
+        strongCastAxis = register(PieceOperatorVectorStrongRaycastAxis::class.java,
+                LibNames.Spell.STRONG_VECTOR_RAYCAST_AXIS,
+                LibPieceGroups.BLOCK_WORKS)
     }
 
     fun registerSpellPieceAndTexture(key: String, clazz: Class<out SpellPiece>) {

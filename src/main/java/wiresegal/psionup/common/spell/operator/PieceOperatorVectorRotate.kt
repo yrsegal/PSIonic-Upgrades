@@ -8,6 +8,7 @@ import vazkii.psi.api.spell.SpellRuntimeException
 import vazkii.psi.api.spell.param.ParamNumber
 import vazkii.psi.api.spell.param.ParamVector
 import vazkii.psi.api.spell.piece.PieceOperator
+import wiresegal.psionup.common.lib.LibMisc
 
 /**
  * @author WireSegal
@@ -20,8 +21,8 @@ class PieceOperatorVectorRotate(spell: Spell) : PieceOperator(spell) {
 
     override fun initParams() {
         vec = ParamVector(SpellParam.GENERIC_NAME_TARGET, SpellParam.RED, false, false)
-        axis = ParamVector("psionup.spellparam.axis", SpellParam.CYAN, false, false)
-        angle = ParamNumber("psionup.spellparam.angle", SpellParam.GREEN, false, false)
+        axis = ParamVector("${LibMisc.MOD_ID_SHORT}.spellparam.axis", SpellParam.CYAN, false, false)
+        angle = ParamNumber("${LibMisc.MOD_ID_SHORT}.spellparam.angle", SpellParam.GREEN, false, false)
         this.addParam(vec)
         this.addParam(axis)
         this.addParam(angle)

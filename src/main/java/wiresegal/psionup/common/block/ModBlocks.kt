@@ -2,6 +2,8 @@ package wiresegal.psionup.common.block
 
 import net.minecraft.block.Block
 import net.minecraftforge.fml.common.registry.GameRegistry
+import wiresegal.psionup.common.lib.LibMisc
+import wiresegal.psionup.common.lib.LibNames
 
 /**
  * @author WireSegal
@@ -11,8 +13,8 @@ object ModBlocks {
     var conjured: Block
 
     init {
-        conjured = BlockConjuredPulsar("conjuredPulsar")
+        conjured = BlockConjuredPulsar(LibNames.Blocks.CONJURED_PULSAR)
 
-        GameRegistry.registerTileEntity(TileConjuredPulsar::class.java, "psionup:pulsar");
+        GameRegistry.registerTileEntity(TileConjuredPulsar::class.java, "${LibMisc.MOD_ID_SHORT}:pulsar");
     }
 }

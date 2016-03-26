@@ -1,4 +1,4 @@
-package wiresegal.psionup.common.items.base
+package wiresegal.psionup.common.items
 
 import vazkii.psi.common.item.base.ItemMod
 import wiresegal.psionup.common.items.component.ItemEmptyColorizer
@@ -6,6 +6,7 @@ import wiresegal.psionup.common.items.component.ItemLiquidColorizer
 import wiresegal.psionup.common.items.component.ItemWideCADSocket
 import wiresegal.psionup.common.items.spell.ItemCADMagazine
 import wiresegal.psionup.common.items.spell.ItemFakeCAD
+import wiresegal.psionup.common.lib.LibNames
 
 /**
  * @author WireSegal
@@ -19,10 +20,10 @@ object ModItems {
     val socket: ItemMod
 
     init {
-        liquidColorizer = ItemLiquidColorizer("liquidColorizer")
-        emptyColorizer = ItemEmptyColorizer("emptyColorizer")
-        fakeCAD = ItemFakeCAD("fakeCAD")
-        magazine = ItemCADMagazine("magazine")
-        socket = ItemWideCADSocket("wideSocket")
+        liquidColorizer = ItemLiquidColorizer(LibNames.Items.LIQUID_INK_COLORIZER)
+        emptyColorizer = ItemEmptyColorizer(LibNames.Items.DRAINED_COLORIZER)
+        fakeCAD = ItemFakeCAD(LibNames.Items.INLINE_CASTER)
+        magazine = ItemCADMagazine(LibNames.Items.SPELL_MAGAZINE)
+        socket = ItemWideCADSocket(LibNames.Items.WIDE_BAND_SOCKET)
     }
 }

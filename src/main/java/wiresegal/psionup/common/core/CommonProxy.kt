@@ -5,7 +5,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import wiresegal.psionup.common.block.ModBlocks
 import wiresegal.psionup.common.crafting.ModRecipes
-import wiresegal.psionup.common.items.base.ModItems
+import wiresegal.psionup.common.items.ModItems
 import wiresegal.psionup.common.spell.ModPieces
 
 /**
