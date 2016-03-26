@@ -87,7 +87,14 @@ def parseConfig(File config) {
 }
 
 sourceSets { main.java.srcDirs += 'src/main/kotlin' }
-idea { module { inheritOutputDirs = true } }
+idea {
+    module {
+        inheritOutputDirs = true
+    }
+    project {
+        languageLevel = '1.8'
+    }
+}
 
 processResources
 {
