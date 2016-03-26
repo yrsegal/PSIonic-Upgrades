@@ -38,7 +38,7 @@ open class CommandPsiLearn : CommandBase() {
                 if (group == level0) {
                     this.level = 0
                     this.lastSpellGroup = ""
-                    this.levelPoints = 0
+                    this.levelPoints = Math.min(0, levelPoints - 1)
                 } else {
                     this.spellGroupsUnlocked.remove(group)
                     if (this.lastSpellGroup == group)
