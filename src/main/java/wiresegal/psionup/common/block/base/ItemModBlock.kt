@@ -1,4 +1,4 @@
-package wiresegal.psionup.common.block
+package wiresegal.psionup.common.block.base
 
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.ItemMeshDefinition

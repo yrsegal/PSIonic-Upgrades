@@ -12,7 +12,7 @@ import vazkii.psi.api.spell.param.ParamVector
 import vazkii.psi.api.spell.piece.PieceTrick
 import vazkii.psi.common.block.BlockConjured
 import wiresegal.psionup.common.block.ModBlocks
-import wiresegal.psionup.common.block.TileConjuredPulsar
+import wiresegal.psionup.common.block.tile.TileConjuredPulsar
 
 /**
  * @author WireSegal

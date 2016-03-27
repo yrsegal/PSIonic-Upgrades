@@ -2,6 +2,8 @@ package wiresegal.psionup.common.block
 
 import net.minecraft.block.Block
 import net.minecraftforge.fml.common.registry.GameRegistry
+import wiresegal.psionup.common.block.spell.BlockConjuredPulsar
+import wiresegal.psionup.common.block.tile.TileConjuredPulsar
 import wiresegal.psionup.common.lib.LibMisc
 import wiresegal.psionup.common.lib.LibNames
 

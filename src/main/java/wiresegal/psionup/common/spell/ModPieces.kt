@@ -14,6 +14,7 @@ import wiresegal.psionup.common.spell.operator.PieceOperatorVectorStrongRaycastA
 import wiresegal.psionup.common.spell.trick.PieceTrickConjurePulsar
 import wiresegal.psionup.common.spell.trick.PieceTrickConjurePulsarLight
 import wiresegal.psionup.common.spell.trick.PieceTrickConjurePulsarSequence
+import wiresegal.psionup.common.spell.trick.PieceTrickParticleTrail
 
 /**
  * @author WireSegal
@@ -29,6 +30,8 @@ object ModPieces {
 
     val strongCast: ModSpellPieces.PieceContainer
     val strongCastAxis: ModSpellPieces.PieceContainer
+
+    val particleTrail: ModSpellPieces.PieceContainer
 
     init {
         conjurePulsar = register(PieceTrickConjurePulsar::class.java,
@@ -54,6 +57,10 @@ object ModPieces {
         strongCastAxis = register(PieceOperatorVectorStrongRaycastAxis::class.java,
                 LibNames.Spell.STRONG_VECTOR_RAYCAST_AXIS,
                 LibPieceGroups.BLOCK_WORKS)
+
+        particleTrail = register(PieceTrickParticleTrail::class.java,
+                LibNames.Spell.PARTICLE_TRAIL,
+                LibPieceGroups.DETECTION_DYNAMICS)
     }
 
     fun registerSpellPieceAndTexture(key: String, clazz: Class<out SpellPiece>) {

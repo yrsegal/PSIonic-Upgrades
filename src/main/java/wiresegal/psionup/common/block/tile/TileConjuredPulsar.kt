@@ -1,4 +1,4 @@
-package wiresegal.psionup.common.block
+package wiresegal.psionup.common.block.tile
 
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
@@ -6,6 +6,7 @@ import net.minecraft.util.ITickable
 import vazkii.psi.common.Psi
 import vazkii.psi.common.block.BlockConjured
 import vazkii.psi.common.block.tile.base.TileMod
+import wiresegal.psionup.common.block.ModBlocks
 import java.awt.Color
 import java.util.*
 

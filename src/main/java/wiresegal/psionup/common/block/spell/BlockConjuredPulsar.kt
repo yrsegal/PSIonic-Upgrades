@@ -1,4 +1,4 @@
-package wiresegal.psionup.common.block
+package wiresegal.psionup.common.block.spell
 
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
@@ -18,6 +18,8 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import vazkii.psi.common.block.BlockConjured.*
+import wiresegal.psionup.common.block.base.BlockModContainer
+import wiresegal.psionup.common.block.tile.TileConjuredPulsar
 import java.util.*
 
 /**
@@ -123,7 +125,7 @@ class BlockConjuredPulsar(name: String) : BlockModContainer(name, Material.glass
 
     override fun addCollisionBoxToList(state: IBlockState, worldIn: World, pos: BlockPos, aabb: AxisAlignedBB, list: List<AxisAlignedBB>, entity: Entity?) {
         if (state.getValue(SOLID)) {
-            Block.addCollisionBoxToList(pos, aabb, list, AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 1.0, 1.0))
+            addCollisionBoxToList(pos, aabb, list, AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 1.0, 1.0))
         }
 
     }

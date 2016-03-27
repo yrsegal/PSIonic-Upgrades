@@ -1,4 +1,4 @@
-package wiresegal.psionup.common.block
+package wiresegal.psionup.common.block.base
 
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
@@ -8,6 +8,7 @@ import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fml.common.registry.GameRegistry
 import vazkii.psi.common.block.base.IPsiBlock
+import wiresegal.psionup.common.block.base.ItemModBlock
 
 /**
  * @author WireSegal

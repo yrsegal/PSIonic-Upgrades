@@ -1,4 +1,4 @@
-package wiresegal.psionup.common.block
+package wiresegal.psionup.common.block.base
 
 import net.minecraft.block.ITileEntityProvider
 import net.minecraft.block.material.Material
@@ -6,6 +6,7 @@ import net.minecraft.block.state.IBlockState
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
+import wiresegal.psionup.common.block.base.BlockMod
 
 /**
  * @author WireSegal

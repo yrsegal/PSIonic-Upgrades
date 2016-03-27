@@ -27,6 +27,9 @@ psi.spellpiece.psionicupgrades.strongVectorRaycast.desc=Gets a raycast result, i
 psi.spellpiece.psionicupgrades.strongVectorRaycastAxis=Operator: Vector Axis Strong Raycast
 psi.spellpiece.psionicupgrades.strongVectorRaycastAxis.desc=Gets a raycast side, ignoring nonsolids (max 32)
 
+psi.spellpiece.psionicupgrades.particleTrail=Trick: Particle Trail
+psi.spellpiece.psionicupgrades.particleTrail.desc=Makes a particle trail from a position along a ray
+
 itemGroup.psionup=PSIonic Upgrades
 
 psionup.learn.usage=/psi-learn <group> [player]
