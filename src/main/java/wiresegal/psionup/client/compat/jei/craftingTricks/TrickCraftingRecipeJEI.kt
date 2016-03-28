@@ -1,17 +1,13 @@
 package wiresegal.psionup.client.compat.jei.craftingTricks
 
 import mezz.jei.api.gui.IDrawable
-import mezz.jei.api.gui.IDrawableStatic
-
 import mezz.jei.api.recipe.BlankRecipeWrapper
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
-import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.util.text.translation.I18n
 import vazkii.psi.api.PsiAPI
-import vazkii.psi.api.spell.SpellParam
 import vazkii.psi.api.spell.SpellPiece
 import vazkii.psi.common.item.base.ItemMod
 import wiresegal.psionup.api.TrickRecipe
@@ -76,5 +72,5 @@ constructor(private val recipe: TrickRecipe) : BlankRecipeWrapper() {
         return null
     }
 
-    fun onTrick(mouseX: Int, mouseY: Int) = (mouseX >= trickCoordX && mouseX <= trickCoordX+16 && mouseY >= trickCoordY && mouseY <= trickCoordY+16)
+    fun onTrick(mouseX: Int, mouseY: Int) = (mouseX >= trickCoordX && mouseX <= trickCoordX + 16 && mouseY >= trickCoordY && mouseY <= trickCoordY + 16)
 }

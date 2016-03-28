@@ -1,12 +1,10 @@
 package wiresegal.psionup.client.compat.jei
 
-import mezz.jei.JeiHelpers
 import mezz.jei.api.BlankModPlugin
 import mezz.jei.api.IJeiHelpers
 import mezz.jei.api.IModRegistry
 import mezz.jei.api.JEIPlugin
 import net.minecraft.item.ItemStack
-import vazkii.psi.common.block.base.ModBlocks as PsiBlocks
 import wiresegal.psionup.client.compat.jei.crafting.ShapedCadRecipeHandler
 import wiresegal.psionup.client.compat.jei.crafting.ShapelessCadRecipeHandler
 import wiresegal.psionup.client.compat.jei.craftingTricks.TrickCraftingCategory
@@ -15,6 +13,7 @@ import wiresegal.psionup.client.compat.jei.craftingTricks.TrickCraftingRecipeMak
 import wiresegal.psionup.common.block.ModBlocks
 import wiresegal.psionup.common.items.ModItems
 import wiresegal.psionup.common.lib.LibMisc
+import vazkii.psi.common.block.base.ModBlocks as PsiBlocks
 
 /**
  * @author WireSegal

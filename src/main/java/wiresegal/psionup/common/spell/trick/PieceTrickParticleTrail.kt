@@ -63,8 +63,8 @@ class PieceTrickParticleTrail(spell: Spell) : PieceTrick(spell) {
         val ray = dir.copy().normalize()
         val steps = (len * 4).toInt()
 
-        for (i in 0..steps-1) {
-            val extended = ray.copy().multiply(i/4.0)
+        for (i in 0..steps - 1) {
+            val extended = ray.copy().multiply(i / 4.0)
             val x = pos.x + extended.x
             val y = pos.y + extended.y
             val z = pos.z + extended.z

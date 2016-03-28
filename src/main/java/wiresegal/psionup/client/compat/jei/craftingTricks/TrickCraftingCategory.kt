@@ -8,10 +8,8 @@ import net.minecraft.client.Minecraft
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.text.translation.I18n
-import vazkii.psi.common.item.base.ItemMod
 import wiresegal.psionup.client.compat.jei.JEICompat
 import wiresegal.psionup.common.lib.LibMisc
-import java.util.*
 
 class TrickCraftingCategory : IRecipeCategory {
 

@@ -1,8 +1,6 @@
 package wiresegal.psionup.api;
 
 import net.minecraft.item.ItemStack;
-import vazkii.psi.api.PsiAPI;
-import vazkii.psi.api.spell.SpellPiece;
 
 /**
  * @author WireSegal
