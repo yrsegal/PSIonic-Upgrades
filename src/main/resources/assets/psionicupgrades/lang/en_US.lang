@@ -51,6 +51,8 @@ psionup.misc.tooComplexProgrammer=This spell seems too complex for the socket in
 psionup.misc.tooComplexBullet=This spell seems too complex for the socket in your Spell Magazine to transfer.
 
 psionup.spellerror.nonaxial=ERROR: Spell Operation Vector is not axial in a piece where it must be.
+psionup.spellerror.tricknotenabled=ERROR: Trick doesn't have an enabling piece.
+psionup.spelldesc.requires=&7Requires: &5%s
 
 psionup.spellparam.axis=Axis
 psionup.spellparam.angle=Radians
