@@ -216,14 +216,15 @@ class ItemCADMagazine(name: String) : ItemMod(name, name), ISocketable, ICadComp
         ItemNBTHelper.setInt(stack, "selectedSlot", slot)
     }
 
-    override fun setSpell(stack: ItemStack, spell: Spell) {
+    override fun setSpell(player: EntityPlayer, stack: ItemStack, spell: Spell) {
         val slot = this.getSelectedSlot(stack)
         val bullet = this.getBulletInSocket(stack, slot)
         val compiled = SpellCompiler(spell)
-        if ((compiled.compiledSpell.metadata.stats[EnumSpellStat.BANDWIDTH] ?: Integer.MAX_VALUE) > getBandwidth(stack))
-        // TODO: tell player about it
-        else if (bullet != null && bullet.item is ISpellSettable) {
-            (bullet.item as ISpellSettable).setSpell(bullet, spell)
+        if ((compiled.compiledSpell.metadata.stats[EnumSpellStat.BANDWIDTH] ?: Integer.MAX_VALUE) > getBandwidth(stack)) {
+            if (!player.worldObj.isRemote)
+                player.addChatComponentMessage(TextComponentTranslation("${LibMisc.MOD_ID_SHORT}.misc.tooComplexProgrammer").setChatStyle(Style().setColor(TextFormatting.RED)))
+        } else if (bullet != null && bullet.item is ISpellSettable) {
+            (bullet.item as ISpellSettable).setSpell(player, bullet, spell)
             this.setBulletInSocket(stack, slot, bullet)
         }
     }

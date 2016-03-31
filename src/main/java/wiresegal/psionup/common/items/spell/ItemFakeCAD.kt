@@ -112,11 +112,11 @@ class ItemFakeCAD(name: String) : ItemMod(name, name), ISocketable, ISpellSettab
         ItemNBTHelper.setInt(stack, "selectedSlot", slot)
     }
 
-    override fun setSpell(stack: ItemStack, spell: Spell) {
+    override fun setSpell(player: EntityPlayer, stack: ItemStack, spell: Spell) {
         val slot = this.getSelectedSlot(stack)
         val bullet = this.getBulletInSocket(stack, slot)
         if (bullet != null && bullet.item is ISpellSettable) {
-            (bullet.item as ISpellSettable).setSpell(bullet, spell)
+            (bullet.item as ISpellSettable).setSpell(player, bullet, spell)
             this.setBulletInSocket(stack, slot, bullet)
         }
 
