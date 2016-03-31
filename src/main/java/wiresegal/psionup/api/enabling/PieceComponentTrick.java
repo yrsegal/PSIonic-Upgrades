@@ -25,24 +25,19 @@ public abstract class PieceComponentTrick extends PieceTrick {
     @Override
     public Object execute(SpellContext context) throws SpellRuntimeException {
 
-        String pieceName = PsiAPI.spellPieceRegistry.getNameForObject(this.getClass());
-
         ItemStack cad = PsiAPI.getPlayerCAD(context.caster);
         if (cad == null || !(cad.getItem() instanceof ICAD))
             throw new SpellRuntimeException(SpellRuntimeException.NO_CAD);
         ICAD item = (ICAD) cad.getItem();
 
-        boolean flag = false;
-
         for (EnumCADComponent type : EnumCADComponent.values()) {
             ItemStack component = item.getComponentInSlot(cad, type);
             if (component.getItem() instanceof ITrickEnablerComponent) {
                 ITrickEnablerComponent compItem = (ITrickEnablerComponent) component.getItem();
-                if (compItem.enablesPiece(context.caster, component, cad, pieceName)) flag = true;
+                if (compItem.enablePiece(context.caster, component, cad, context, x, y))
+                    return executeIfAllowed(context);
             }
         }
-        if (flag)
-            return executeIfAllowed(context);
 
         throw new SpellRuntimeException("psionup.spellerror.tricknotenabled");
     }
