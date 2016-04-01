@@ -11,7 +11,7 @@ object LibMisc {
 
     const val BUILD = "GRADLE:BUILD"
     const val VERSION = "GRADLE:VERSION-$BUILD"
-    const val DEPENDENCIES = "required-after:Forge@[12.16.0.1809,);required-after:Psi;"
+    const val DEPENDENCIES = "required-after:Forge@[12.16.0.1811,);required-after:Psi;after:Botania;"
 
     const val PROXY_COMMON = "wiresegal.psionup.common.core.CommonProxy"
     const val PROXY_CLIENT = "wiresegal.psionup.client.core.ClientProxy"

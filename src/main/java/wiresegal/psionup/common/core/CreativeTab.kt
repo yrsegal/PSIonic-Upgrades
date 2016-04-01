@@ -5,6 +5,7 @@ import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import wiresegal.psionup.common.items.ModItems
+import wiresegal.psionup.common.items.component.botania.CompatItems
 import wiresegal.psionup.common.lib.LibMisc
 
 /**
@@ -38,6 +39,8 @@ class CreativeTab : CreativeTabs(LibMisc.MOD_ID_SHORT) {
         this.addItem(ModItems.fakeCAD)
         this.addItem(ModItems.magazine)
         this.addItem(ModItems.socket)
+        if (CompatItems.isInitialized)
+            this.addItem(CompatItems.blaster)
     }
 
     private fun addItem(item: Item) {

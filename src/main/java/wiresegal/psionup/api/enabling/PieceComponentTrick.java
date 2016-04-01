@@ -30,15 +30,20 @@ public abstract class PieceComponentTrick extends PieceTrick {
             throw new SpellRuntimeException(SpellRuntimeException.NO_CAD);
         ICAD item = (ICAD) cad.getItem();
 
+        boolean flag = false;
+
         for (EnumCADComponent type : EnumCADComponent.values()) {
             ItemStack component = item.getComponentInSlot(cad, type);
             if (component.getItem() instanceof ITrickEnablerComponent) {
                 ITrickEnablerComponent compItem = (ITrickEnablerComponent) component.getItem();
-                if (compItem.enablePiece(context.caster, component, cad, context, x, y))
+                flag = true;
+                if (compItem.enablePiece(context.caster, component, cad, context, spell, x, y))
                     return executeIfAllowed(context);
             }
         }
 
+        if (flag)
+            throw new SpellRuntimeException("psionup.spellerror.trickdisabled");
         throw new SpellRuntimeException("psionup.spellerror.tricknotenabled");
     }
 

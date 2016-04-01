@@ -1,9 +1,11 @@
 package wiresegal.psionup.common.items
 
+import net.minecraftforge.fml.common.Loader
 import vazkii.psi.common.item.base.ItemMod
 import wiresegal.psionup.common.items.component.ItemEmptyColorizer
 import wiresegal.psionup.common.items.component.ItemLiquidColorizer
 import wiresegal.psionup.common.items.component.ItemWideCADSocket
+import wiresegal.psionup.common.items.component.botania.CompatItems
 import wiresegal.psionup.common.items.spell.ItemCADMagazine
 import wiresegal.psionup.common.items.spell.ItemFakeCAD
 import wiresegal.psionup.common.lib.LibNames
@@ -25,5 +27,8 @@ object ModItems {
         fakeCAD = ItemFakeCAD(LibNames.Items.INLINE_CASTER)
         magazine = ItemCADMagazine(LibNames.Items.SPELL_MAGAZINE)
         socket = ItemWideCADSocket(LibNames.Items.WIDE_BAND_SOCKET)
+
+        if (Loader.isModLoaded("Botania"))
+            CompatItems.init()
     }
 }

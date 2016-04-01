@@ -3,6 +3,7 @@ item.psionup:fakeCAD.name=Inline Caster
 item.psionup:magazine.name=Spell Magazine
 item.psionup:liquidColorizer.name=Liquid-Ink CAD Colorizer
 item.psionup:emptyColorizer.name=Drained CAD Colorizer
+item.psionup:cadAssemblyLivingwood.name=Blaster CAD Assembly
 
 tile.psionup:conjuredPulsar.name=Conjured Pulsar
 
@@ -51,7 +52,8 @@ psionup.misc.tooComplexProgrammer=This spell seems too complex for the socket in
 psionup.misc.tooComplexBullet=This spell seems too complex for the socket in your Spell Magazine to transfer.
 
 psionup.spellerror.nonaxial=ERROR: Spell Operation Vector is not axial in a piece where it must be.
-psionup.spellerror.tricknotenabled=ERROR: Trick doesn't have an enabling piece.
+psionup.spellerror.tricknotenabled=ERROR: Trick doesn't have an enabling component.
+psionup.spellerror.trickdisabled=ERROR: Trick's enabling component doesn't have its requirements met.
 psionup.spelldesc.requires=&7Requires: &5%s
 
 psionup.spellparam.axis=Axis

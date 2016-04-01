@@ -11,6 +11,8 @@ object LibNames {
         const val INLINE_CASTER = "fakeCAD"
         const val SPELL_MAGAZINE = "magazine"
         const val WIDE_BAND_SOCKET = "wideSocket"
+        const val LIVINGWOOD_CAD = "cadAssemblyLivingwood"
+        const val LIVINGWOOD_CAD_MODEL = "cadLivingwood"
     }
 
     object Blocks {
