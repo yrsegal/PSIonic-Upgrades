@@ -23,7 +23,7 @@ class RecipeBlasterCADClip : IRecipe {
         for (i in 0..var1.sizeInventory - 1) {
             val stack = var1.getStackInSlot(i)
             if (stack != null) {
-                if (stack.item is ICAD && (stack.item as ICAD).getComponentInSlot(stack, EnumCADComponent.ASSEMBLY).item === CompatItems.blaster && !ItemManaGun.hasClip(stack) && !foundClip)
+                if (stack.item is ICAD && (stack.item as ICAD).getComponentInSlot(stack, EnumCADComponent.ASSEMBLY).item == CompatItems.blaster && !ItemManaGun.hasClip(stack) && !foundCAD)
                     foundCAD = true
                 else if (stack.item === ModItems.clip && !foundClip)
                     foundClip = true
@@ -40,7 +40,7 @@ class RecipeBlasterCADClip : IRecipe {
 
         for (i in 0..var1.sizeInventory - 1) {
             val stack = var1.getStackInSlot(i)
-            if (stack != null && stack.item is ItemManaGun)
+            if (stack != null && stack.item is ICAD)
                 gun = stack
         }
 

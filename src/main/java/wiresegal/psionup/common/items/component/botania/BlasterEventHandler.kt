@@ -11,6 +11,7 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler
 import vazkii.botania.common.item.ItemManaGun
 import vazkii.botania.common.item.ModItems
@@ -35,16 +36,19 @@ class BlasterEventHandler {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     fun applyTooltip(e: ItemTooltipEvent) {
         val newTooltip = ArrayList<String>()
+        var name = e.toolTip[0]
         if (e.itemStack.item is ICAD) {
             val item = e.itemStack.item as ICAD
-            if (item.getComponentInSlot(e.itemStack, EnumCADComponent.ASSEMBLY).item == CompatItems.blaster)
-                if (GuiScreen.isShiftKeyDown()) {
-                    val lens = ItemManaGun.getLens(e.itemStack)
-                    if (lens != null)
-                        newTooltip.add(TextFormatting.GREEN.toString() + I18n.translateToLocalFormatted("${LibMisc.MOD_ID_SHORT}.misc.lens", lens.displayName).replace('&', '\u00a7'))
+
+            if (item.getComponentInSlot(e.itemStack, EnumCADComponent.ASSEMBLY).item == CompatItems.blaster) {
+                val lens = ItemManaGun.getLens(e.itemStack)
+                if (lens != null)
+                    name += " (${TextFormatting.GREEN}${lens.displayName}${TextFormatting.RESET})"
+                if (GuiScreen.isShiftKeyDown())
                     ModItems.manaGun.addInformation(e.itemStack, e.entityPlayer, newTooltip, e.isShowAdvancedItemTooltips)
-                    e.toolTip.addAll(2, newTooltip)
-                }
+                e.toolTip.addAll(2, newTooltip)
+                e.toolTip[0] = name
+            }
         }
     }
 

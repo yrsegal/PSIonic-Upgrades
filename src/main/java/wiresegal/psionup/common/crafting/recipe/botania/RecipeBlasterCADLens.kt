@@ -23,7 +23,6 @@ class RecipeBlasterCADLens : IRecipe {
         var foundLens = false
         var foundCAD = false
         var cad: ItemStack? = null
-        var lens: ItemStack? = null
 
         for (i in 0..var1.sizeInventory - 1) {
             val stack = var1.getStackInSlot(i)
@@ -44,15 +43,13 @@ class RecipeBlasterCADLens : IRecipe {
 
                     if (stack.item !is ILensControl || !(stack.item as ILensControl).isControlLens(stack)) {
                         foundLens = true
-                        lens = stack
                     } else
                         return false
                 } else
                     return false // Found an invalid item, breaking the recipe
             }
         }
-
-        return foundCAD && ItemManaGun.getLens(cad) != lens
+        return foundCAD && ((ItemManaGun.getLens(cad) != null) xor foundLens)
     }
 
     override fun getCraftingResult(var1: InventoryCrafting): ItemStack? {
