@@ -3,6 +3,7 @@ package wiresegal.psionup.common.crafting
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.CraftingManager
+import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.oredict.RecipeSorter
 import net.minecraftforge.oredict.ShapedOreRecipe
@@ -14,6 +15,7 @@ import wiresegal.psionup.common.crafting.recipe.RecipeLiquidDye
 import wiresegal.psionup.common.crafting.recipe.cad.RecipeCadComponent
 import wiresegal.psionup.common.crafting.recipe.cad.RecipeCadComponentShapeless
 import wiresegal.psionup.common.items.ModItems
+import wiresegal.psionup.common.items.component.botania.CompatItems
 import wiresegal.psionup.common.lib.LibMisc
 import vazkii.psi.common.item.base.ModItems as PsiItems
 
@@ -91,6 +93,8 @@ object ModRecipes {
                 'S', EnumCADComponent.SOCKET,
                 'D', ItemStack(PsiItems.spellDrive))
 
+        if (Loader.isModLoaded("Botania"))
+            CompatItems.initRecipes()
 
         PsionicAPI.addTrickRecipe("", ItemStack(Items.redstone), ItemStack(PsiItems.material), ItemStack(PsiItems.cadAssembly))
         PsionicAPI.addTrickRecipe(LibPieceNames.TRICK_INFUSION, ItemStack(Items.gold_ingot), ItemStack(PsiItems.material, 1, 1), ItemStack(PsiItems.cadAssembly))
@@ -99,19 +103,19 @@ object ModRecipes {
         PsionicAPI.addTrickRecipe(LibPieceNames.TRICK_EBONY_IVORY, ItemStack(Items.quartz), ItemStack(PsiItems.material, 1, 6), ItemStack(PsiItems.cadAssembly, 1, 2))
     }
 
-    private fun addOreDictRecipe(output: ItemStack, vararg recipe: Any) {
+    fun addOreDictRecipe(output: ItemStack, vararg recipe: Any) {
         CraftingManager.getInstance().recipeList.add(ShapedOreRecipe(output, *recipe))
     }
 
-    private fun addShapelessOreDictRecipe(output: ItemStack, vararg recipe: Any) {
+    fun addShapelessOreDictRecipe(output: ItemStack, vararg recipe: Any) {
         CraftingManager.getInstance().recipeList.add(ShapelessOreRecipe(output, *recipe))
     }
 
-    private fun addCADRecipe(output: ItemStack, vararg recipe: Any) {
+    fun addCADRecipe(output: ItemStack, vararg recipe: Any) {
         CraftingManager.getInstance().recipeList.add(RecipeCadComponent(output, *recipe))
     }
 
-    private fun addShapelessCADRecipe(output: ItemStack, vararg recipe: Any) {
+    fun addShapelessCADRecipe(output: ItemStack, vararg recipe: Any) {
         CraftingManager.getInstance().recipeList.add(RecipeCadComponentShapeless(output, *recipe))
     }
 }

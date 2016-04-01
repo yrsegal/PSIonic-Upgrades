@@ -40,7 +40,7 @@ class PieceTrickFormBurst(spell: Spell) : PieceComponentTrick(spell), IManaTrick
     override fun addToMetadata(meta: SpellMetadata) {
         super.addToMetadata(meta)
 
-        meta.addStat(EnumSpellStat.COST, 750)
+        meta.addStat(EnumSpellStat.COST, 400)
         meta.addStat(EnumSpellStat.POTENCY, 150)
     }
 
