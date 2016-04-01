@@ -15,6 +15,7 @@ import wiresegal.psionup.common.spell.trick.PieceTrickConjurePulsar
 import wiresegal.psionup.common.spell.trick.PieceTrickConjurePulsarLight
 import wiresegal.psionup.common.spell.trick.PieceTrickConjurePulsarSequence
 import wiresegal.psionup.common.spell.trick.PieceTrickParticleTrail
+import wiresegal.psionup.common.spell.trick.botania.CompatTricks
 
 /**
  * @author WireSegal
@@ -61,6 +62,9 @@ object ModPieces {
         particleTrail = register(PieceTrickParticleTrail::class.java,
                 LibNames.Spell.PARTICLE_TRAIL,
                 LibPieceGroups.DETECTION_DYNAMICS)
+
+        if (Loader.isModLoaded("Botania"))
+            CompatTricks.init()
     }
 
     fun registerSpellPieceAndTexture(key: String, clazz: Class<out SpellPiece>) {

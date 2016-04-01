@@ -8,7 +8,7 @@ import net.minecraftforge.fluids.FluidStack
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.common.item.base.ItemMod
 import vazkii.psi.common.item.base.ModItems
-import wiresegal.psionup.common.crafting.RecipeCadComponentShapeless
+import wiresegal.psionup.common.crafting.recipe.cad.RecipeCadComponentShapeless
 import java.util.*
 
 class ShapelessCadRecipeJEI(private val recipe: RecipeCadComponentShapeless) : ICraftingRecipeWrapper {

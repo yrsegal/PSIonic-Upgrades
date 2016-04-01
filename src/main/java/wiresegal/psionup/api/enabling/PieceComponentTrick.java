@@ -13,6 +13,7 @@ import vazkii.psi.api.spell.SpellParam;
 import vazkii.psi.api.spell.SpellRuntimeException;
 import vazkii.psi.api.spell.piece.PieceTrick;
 
+import java.util.Collection;
 import java.util.List;
 
 
@@ -49,7 +50,7 @@ public abstract class PieceComponentTrick extends PieceTrick {
 
     public abstract Object executeIfAllowed(SpellContext context) throws SpellRuntimeException;
 
-    public abstract List<String> requiredObjects();
+    public abstract String[] requiredObjects();
 
     @Override
     public void addToTooltipAfterShift(List<String> tooltip) {

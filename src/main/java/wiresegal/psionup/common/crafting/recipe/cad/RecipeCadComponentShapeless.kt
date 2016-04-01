@@ -1,4 +1,4 @@
-package wiresegal.psionup.common.crafting
+package wiresegal.psionup.common.crafting.recipe.cad
 
 import net.minecraft.block.Block
 import net.minecraft.inventory.InventoryCrafting

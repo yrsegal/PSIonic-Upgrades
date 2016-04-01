@@ -3,7 +3,7 @@ package wiresegal.psionup.client.compat.jei.crafting
 import mezz.jei.api.recipe.IRecipeHandler
 import mezz.jei.api.recipe.IRecipeWrapper
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid
-import wiresegal.psionup.common.crafting.RecipeCadComponent
+import wiresegal.psionup.common.crafting.recipe.cad.RecipeCadComponent
 
 class ShapedCadRecipeHandler : IRecipeHandler<RecipeCadComponent> {
 

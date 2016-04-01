@@ -31,6 +31,9 @@ psi.spellpiece.psionicupgrades.strongVectorRaycastAxis.desc=Gets a raycast side,
 psi.spellpiece.psionicupgrades.particleTrail=Trick: Particle Trail
 psi.spellpiece.psionicupgrades.particleTrail.desc=Makes a particle trail from a position along a ray
 
+psi.spellpiece.psionicupgrades.makeManaBurst=Trick: Form Burst
+psi.spellpiece.psionicupgrades.makeManaBurst.desc=Makes a mana burst from a position along a ray
+
 itemGroup.psionup=PSIonic Upgrades
 
 psionup.learn.usage=/psi-learn <group> [player]
@@ -46,6 +49,7 @@ psionup.learn.notAGroup='%s' is not a valid Psi piece group
 
 psionup.misc.psidust=Psidust Infusion
 
+psionup.misc.lens=Lens&7: %s
 psionup.misc.color=Color
 psionup.misc.colorInheritance=Color Inheritance
 psionup.misc.tooComplexProgrammer=This spell seems too complex for the socket in your Spell Magazine.

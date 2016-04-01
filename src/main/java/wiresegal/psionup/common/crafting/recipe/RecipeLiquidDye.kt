@@ -1,4 +1,4 @@
-package wiresegal.psionup.common.crafting
+package wiresegal.psionup.common.crafting.recipe
 
 import net.minecraft.entity.passive.EntitySheep
 import net.minecraft.inventory.InventoryCrafting
@@ -65,7 +65,7 @@ class RecipeLiquidDye : IRecipe {
                     newstack.stackSize = 1
 
                     if (ItemLiquidColorizer.getColorFromStack(stack) != -1) {
-                        val color = Color(ItemLiquidColorizer.getColorFromStack(stack))
+                        val color = Color(ItemLiquidColorizer.Companion.getColorFromStack(stack))
                         r += color.red
                         g += color.green
                         b += color.blue

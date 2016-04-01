@@ -31,5 +31,7 @@ object LibNames {
         const val STRONG_VECTOR_RAYCAST_AXIS = "strongVectorRaycastAxis"
 
         const val PARTICLE_TRAIL = "particleTrail"
+
+        const val MAKE_BURST = "makeManaBurst"
     }
 }

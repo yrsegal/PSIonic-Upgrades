@@ -3,7 +3,7 @@ package wiresegal.psionup.client.compat.jei.crafting
 import mezz.jei.api.recipe.IRecipeHandler
 import mezz.jei.api.recipe.IRecipeWrapper
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid
-import wiresegal.psionup.common.crafting.RecipeCadComponentShapeless
+import wiresegal.psionup.common.crafting.recipe.cad.RecipeCadComponentShapeless
 
 class ShapelessCadRecipeHandler : IRecipeHandler<RecipeCadComponentShapeless> {
     override fun getRecipeClass(): Class<RecipeCadComponentShapeless> {
