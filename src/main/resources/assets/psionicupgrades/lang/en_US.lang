@@ -48,6 +48,7 @@ psionup.learn.players=%s isn't a player, only players can have Psi knowledge
 psionup.learn.notAGroup='%s' is not a valid Psi piece group
 
 psionup.misc.psidust=Psidust Infusion
+psionup.misc.formBurstRequirements=Blaster CAD Assembly&7, &bMana
 
 psionup.misc.lens=Lens&7: %s
 psionup.misc.color=Color

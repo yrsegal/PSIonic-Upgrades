@@ -113,6 +113,6 @@ class PieceTrickFormBurst(spell: Spell) : PieceComponentTrick(spell), IManaTrick
     }
 
     override fun requiredObjects(): Array<String> {
-        return arrayOf("item.${LibMisc.MOD_ID_SHORT}:${LibNames.Items.LIVINGWOOD_CAD}.name")
+        return arrayOf("${LibMisc.MOD_ID_SHORT}.misc.formBurstRequirements")
     }
 }
