@@ -1,5 +1,6 @@
 package wiresegal.psionup.common.spell.trick.botania
 
+import vazkii.psi.api.PsiAPI
 import vazkii.psi.common.lib.LibPieceGroups
 import vazkii.psi.common.spell.base.ModSpellPieces
 import wiresegal.psionup.common.lib.LibNames
@@ -16,6 +17,9 @@ object CompatTricks {
 
     fun init() {
         isInitialized = true
-        makeBurst = ModPieces.register(PieceTrickFormBurst::class.java, LibNames.Spell.MAKE_BURST, LibPieceGroups.ELEMENTAL_ARTS)
+
+        PsiAPI.setGroupRequirements(LibNames.PieceGroups.BURST_CONJURATION, 16, LibPieceGroups.GREATER_INFUSION, LibPieceGroups.ELEMENTAL_ARTS)
+
+        makeBurst = ModPieces.register(PieceTrickFormBurst::class.java, LibNames.Spell.MAKE_BURST, LibNames.PieceGroups.BURST_CONJURATION, true)
     }
 }

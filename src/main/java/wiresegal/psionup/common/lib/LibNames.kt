@@ -34,4 +34,11 @@ object LibNames {
 
         const val MAKE_BURST = "makeManaBurst"
     }
+
+    object PieceGroups {
+        const val REDSTONE_CONJURATION = "${LibMisc.MOD_ID_SHORT}.redstoneConjuration"
+        const val SECONDARY_VECTOR_OPERATORS = "${LibMisc.MOD_ID_SHORT}.secondaryVectors"
+
+        const val BURST_CONJURATION = "${LibMisc.MOD_ID_SHORT}.burstConjuration"
+    }
 }

@@ -22,6 +22,7 @@ import wiresegal.psionup.common.spell.trick.botania.CompatTricks
  * Created at 5:05 PM on 3/20/16.
  */
 object ModPieces {
+
     val conjurePulsar: ModSpellPieces.PieceContainer
     val conjurePulsarSequence: ModSpellPieces.PieceContainer
     val conjurePulsarLight: ModSpellPieces.PieceContainer
@@ -35,33 +36,39 @@ object ModPieces {
     val particleTrail: ModSpellPieces.PieceContainer
 
     init {
+
+        PsiAPI.setGroupRequirements(LibNames.PieceGroups.REDSTONE_CONJURATION, 21, LibPieceGroups.BLOCK_CONJURATION)
+        PsiAPI.setGroupRequirements(LibNames.PieceGroups.SECONDARY_VECTOR_OPERATORS, 21, LibPieceGroups.TRIGNOMETRY)
+
         conjurePulsar = register(PieceTrickConjurePulsar::class.java,
                 LibNames.Spell.CONJURE_PULSAR,
-                LibPieceGroups.BLOCK_CONJURATION)
+                LibNames.PieceGroups.REDSTONE_CONJURATION,
+                true)
         conjurePulsarSequence = register(PieceTrickConjurePulsarSequence::class.java,
                 LibNames.Spell.CONJURE_PULSAR_SEQUENCE,
-                LibPieceGroups.BLOCK_CONJURATION)
+                LibNames.PieceGroups.REDSTONE_CONJURATION)
         conjurePulsarLight = register(PieceTrickConjurePulsarLight::class.java,
                 LibNames.Spell.CONJURE_PULSAR_LIGHT,
-                LibPieceGroups.BLOCK_CONJURATION)
+                LibNames.PieceGroups.REDSTONE_CONJURATION)
 
         planarNorm = register(PieceOperatorPlanarNorm::class.java,
                 LibNames.Spell.PLANAR_NORMAL_VECTOR,
-                LibPieceGroups.SECONDARY_OPERATORS)
+                LibNames.PieceGroups.SECONDARY_VECTOR_OPERATORS,
+                true)
         vectorRotate = register(PieceOperatorVectorRotate::class.java,
                 LibNames.Spell.VECTOR_ROTATE,
-                LibPieceGroups.SECONDARY_OPERATORS)
+                LibNames.PieceGroups.SECONDARY_VECTOR_OPERATORS)
 
         strongCast = register(PieceOperatorVectorStrongRaycast::class.java,
                 LibNames.Spell.STRONG_VECTOR_RAYCAST,
-                LibPieceGroups.TUTORIAL_4)
+                LibNames.PieceGroups.SECONDARY_VECTOR_OPERATORS)
         strongCastAxis = register(PieceOperatorVectorStrongRaycastAxis::class.java,
                 LibNames.Spell.STRONG_VECTOR_RAYCAST_AXIS,
-                LibPieceGroups.BLOCK_WORKS)
+                LibNames.PieceGroups.SECONDARY_VECTOR_OPERATORS)
 
         particleTrail = register(PieceTrickParticleTrail::class.java,
                 LibNames.Spell.PARTICLE_TRAIL,
-                LibPieceGroups.DETECTION_DYNAMICS)
+                LibNames.PieceGroups.SECONDARY_VECTOR_OPERATORS)
 
         if (Loader.isModLoaded("Botania"))
             CompatTricks.init()
