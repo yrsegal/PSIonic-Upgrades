@@ -19,6 +19,7 @@ import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.ICAD
 import wiresegal.psionup.common.lib.LibMisc
 import java.util.*
+import java.util.regex.Pattern
 
 /**
  * @author WireSegal
@@ -33,6 +34,8 @@ class BlasterEventHandler {
         }
     }
 
+    val advancedMatcher = Pattern.compile("\\s+(?=\\(#\\d+\\))")
+
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     fun applyTooltip(e: ItemTooltipEvent) {
         val newTooltip = ArrayList<String>()
@@ -42,8 +45,17 @@ class BlasterEventHandler {
 
             if (item.getComponentInSlot(e.itemStack, EnumCADComponent.ASSEMBLY).item == CompatItems.blaster) {
                 val lens = ItemManaGun.getLens(e.itemStack)
-                if (lens != null)
-                    name += " (${TextFormatting.GREEN}${lens.displayName}${TextFormatting.RESET})"
+                if (lens != null) {
+                    if (e.isShowAdvancedItemTooltips) {
+                        val match = advancedMatcher.split(name)
+                        if (match.size > 1) {
+                            var joined = match.slice(1..match.size-1).joinToString(" ")
+                            if (joined.length > 0) joined = " $joined"
+
+                            name = match[0].trimEnd() + " ${TextFormatting.RESET}(${TextFormatting.GREEN}${lens.displayName}${TextFormatting.RESET})" + joined
+                        }
+                    }
+                }
                 if (GuiScreen.isShiftKeyDown())
                     ModItems.manaGun.addInformation(e.itemStack, e.entityPlayer, newTooltip, e.isShowAdvancedItemTooltips)
                 e.toolTip.addAll(2, newTooltip)
