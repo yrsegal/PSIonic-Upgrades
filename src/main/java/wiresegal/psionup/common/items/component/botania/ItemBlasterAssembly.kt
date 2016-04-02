@@ -3,15 +3,18 @@ package wiresegal.psionup.common.items.component.botania
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
+import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.oredict.RecipeSorter
 import vazkii.botania.api.mana.ManaItemHandler
+import vazkii.botania.common.item.ItemManaGun
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.EnumCADStat
 import vazkii.psi.api.cad.ICADAssembly
 import vazkii.psi.api.spell.Spell
 import vazkii.psi.api.spell.SpellContext
 import vazkii.psi.common.item.base.IExtraVariantHolder
+import vazkii.psi.common.item.base.ModItems
 import wiresegal.psionup.api.enabling.IManaTrick
 import wiresegal.psionup.api.enabling.ITrickEnablerComponent
 import wiresegal.psionup.client.core.ModelHandler
@@ -34,6 +37,11 @@ class ItemBlasterAssembly(name: String) : ItemComponent(name, name), ICADAssembl
         GameRegistry.addRecipe(RecipeBlasterCADLens())
 
         BlasterEventHandler.register()
+
+        ModItems.cad.addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, "clip"), {
+            stack, world, player ->
+            if (ItemManaGun.hasClip(stack)) 1f else 0f
+        })
     }
 
     override fun enablePiece(player: EntityPlayer, component: ItemStack, cad: ItemStack, context: SpellContext, spell: Spell, x: Int, y: Int): Boolean {

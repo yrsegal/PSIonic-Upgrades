@@ -1,5 +1,6 @@
 package wiresegal.psionup.api.enabling;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
@@ -39,6 +40,8 @@ public abstract class PieceComponentTrick extends PieceTrick {
                 flag = true;
                 if (compItem.enablePiece(context.caster, component, cad, context, spell, x, y))
                     return executeIfAllowed(context);
+            } else if (acceptsPiece(context.caster, component, cad, context, spell, x, y)) {
+                return executeIfAllowed(context);
             }
         }
 
@@ -50,6 +53,10 @@ public abstract class PieceComponentTrick extends PieceTrick {
     public abstract Object executeIfAllowed(SpellContext context) throws SpellRuntimeException;
 
     public abstract String[] requiredObjects();
+
+    public boolean acceptsPiece(EntityPlayer player, ItemStack component, ItemStack cad, SpellContext context, Spell spell, int x, int y) {
+        return false;
+    }
 
     @Override
     public void addToTooltipAfterShift(List<String> tooltip) {
