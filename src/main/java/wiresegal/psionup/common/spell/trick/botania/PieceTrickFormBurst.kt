@@ -18,7 +18,6 @@ import vazkii.psi.api.spell.param.ParamVector
 import wiresegal.psionup.api.enabling.IManaTrick
 import wiresegal.psionup.api.enabling.PieceComponentTrick
 import wiresegal.psionup.common.lib.LibMisc
-import java.awt.Color
 
 /**
  * @author WireSegal

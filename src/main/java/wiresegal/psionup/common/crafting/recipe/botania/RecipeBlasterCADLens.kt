@@ -10,7 +10,6 @@ import vazkii.botania.api.mana.ILensControl
 import vazkii.botania.common.item.ItemManaGun
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.ICAD
-import vazkii.psi.api.cad.ICADColorizer
 import wiresegal.psionup.common.items.component.botania.CompatItems
 
 /**

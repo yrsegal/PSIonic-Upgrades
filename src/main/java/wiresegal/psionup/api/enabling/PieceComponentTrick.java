@@ -13,7 +13,6 @@ import vazkii.psi.api.spell.SpellParam;
 import vazkii.psi.api.spell.SpellRuntimeException;
 import vazkii.psi.api.spell.piece.PieceTrick;
 
-import java.util.Collection;
 import java.util.List;
 
 
