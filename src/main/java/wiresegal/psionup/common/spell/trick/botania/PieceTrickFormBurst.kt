@@ -11,14 +11,14 @@ import vazkii.botania.api.sound.BotaniaSoundEvents
 import vazkii.botania.common.entity.EntityManaBurst
 import vazkii.botania.common.item.ItemManaGun
 import vazkii.psi.api.PsiAPI
+import vazkii.psi.api.cad.ICAD
 import vazkii.psi.api.internal.Vector3
 import vazkii.psi.api.spell.*
 import vazkii.psi.api.spell.param.ParamVector
-import vazkii.psi.common.Psi
 import wiresegal.psionup.api.enabling.IManaTrick
 import wiresegal.psionup.api.enabling.PieceComponentTrick
 import wiresegal.psionup.common.lib.LibMisc
-import wiresegal.psionup.common.lib.LibNames
+import java.awt.Color
 
 /**
  * @author WireSegal
@@ -64,7 +64,7 @@ class PieceTrickFormBurst(spell: Spell) : PieceComponentTrick(spell), IManaTrick
         return 120
     }
 
-    fun getBurst(posVec: Vector3, rayVec: Vector3, world: World, cad: ItemStack?): EntityManaBurst {
+    fun getBurst(posVec: Vector3, rayVec: Vector3, world: World, cad: ItemStack): EntityManaBurst {
         val ray = rayVec.copy().normalize()
 
         val burst = EntityManaBurst(world)
@@ -76,40 +76,41 @@ class PieceTrickFormBurst(spell: Spell) : PieceComponentTrick(spell), IManaTrick
         burst.setLocationAndAngles(posVec.x, posVec.y, posVec.z, yaw.toFloat() + 180, -pitch.toFloat())
 
         burst.posX -= MathHelper.cos(((yaw + 180) / 180.0F * Math.PI).toFloat()) * 0.16F
-        burst.posY -= 0.10000000149011612;
+        burst.posY -= 0.10000000149011612
         burst.posZ -= MathHelper.sin(((yaw + 180) / 180.0F * Math.PI).toFloat()) * 0.16F
 
-        burst.setPosition(posVec.x, posVec.y, posVec.z);
-        val f = 0.4;
-        val mx = MathHelper.sin((yaw / 180.0F * Math.PI).toFloat()) * MathHelper.cos((pitch / 180.0F * Math.PI).toFloat()) * f / 2;
-        val mz = -(MathHelper.cos((yaw / 180.0F * Math.PI).toFloat()) * MathHelper.cos((pitch / 180.0F * Math.PI).toFloat()) * f) / 2;
-        val my = MathHelper.sin((pitch / 180.0F * Math.PI).toFloat()) * f / 2;
-        burst.setMotion(mx, my, mz);
+        burst.setPosition(posVec.x, posVec.y, posVec.z)
+        val f = 0.4
+        val mx = MathHelper.sin((yaw / 180.0F * Math.PI).toFloat()) * MathHelper.cos((pitch / 180.0F * Math.PI).toFloat()) * f / 2
+        val mz = -(MathHelper.cos((yaw / 180.0F * Math.PI).toFloat()) * MathHelper.cos((pitch / 180.0F * Math.PI).toFloat()) * f) / 2
+        val my = MathHelper.sin((pitch / 180.0F * Math.PI).toFloat()) * f / 2
+        burst.setMotion(mx, my, mz)
 
-        val maxMana = 120;
-        val color = Psi.proxy.getCADColor(cad).rgb
-        val ticksBeforeManaLoss = 60;
-        val manaLossPerTick = 4F;
-        val motionModifier = 5F;
-        val gravity = 0F;
-        val props = BurstProperties(maxMana, ticksBeforeManaLoss, manaLossPerTick, gravity, motionModifier, color);
+        val maxMana = 120
+        val color = (cad.item as ICAD).getSpellColor(cad) + 0xf000000
+        val ticksBeforeManaLoss = 60
+        val manaLossPerTick = 4F
+        val motionModifier = 5F
+        val gravity = 0F
+        val props = BurstProperties(maxMana, ticksBeforeManaLoss, manaLossPerTick, gravity, motionModifier, color)
 
-        val lens = ItemManaGun.getLens(cad);
+        val lens = ItemManaGun.getLens(cad)
         if (lens != null && lens.item is ILens)
-            (lens.item as ILens).apply(lens, props);
+            (lens.item as ILens).apply(lens, props)
 
 
-        burst.sourceLens = lens;
+        burst.sourceLens = lens
 
-        burst.color = props.color;
-        burst.mana = props.maxMana;
-        burst.startingMana = props.maxMana;
-        burst.minManaLoss = props.ticksBeforeManaLoss;
-        burst.manaLossPerTick = props.manaLossPerTick;
-        burst.gravity = props.gravity;
-        burst.setMotion(burst.motionX * props.motionModifier, burst.motionY * props.motionModifier, burst.motionZ * props.motionModifier);
+        burst.color = props.color
 
-        return burst;
+        burst.mana = props.maxMana
+        burst.startingMana = props.maxMana
+        burst.minManaLoss = props.ticksBeforeManaLoss
+        burst.manaLossPerTick = props.manaLossPerTick
+        burst.gravity = props.gravity
+        burst.setMotion(burst.motionX * props.motionModifier, burst.motionY * props.motionModifier, burst.motionZ * props.motionModifier)
+
+        return burst
     }
 
     override fun requiredObjects(): Array<String> {
