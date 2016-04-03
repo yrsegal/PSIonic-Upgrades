@@ -1,9 +1,11 @@
 package wiresegal.psionup.common.items.component.botania
 
+import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
+import net.minecraft.util.text.translation.I18n
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.oredict.RecipeSorter
 import vazkii.botania.api.mana.ManaItemHandler
@@ -15,6 +17,7 @@ import vazkii.psi.api.spell.Spell
 import vazkii.psi.api.spell.SpellContext
 import vazkii.psi.common.item.base.IExtraVariantHolder
 import vazkii.psi.common.item.base.ModItems
+import wiresegal.psionup.api.enabling.EnumManaTier
 import wiresegal.psionup.api.enabling.IManaTrick
 import wiresegal.psionup.api.enabling.ITrickEnablerComponent
 import wiresegal.psionup.client.core.ModelHandler
@@ -23,6 +26,7 @@ import wiresegal.psionup.common.crafting.recipe.botania.RecipeBlasterCADLens
 import wiresegal.psionup.common.items.base.ItemComponent
 import wiresegal.psionup.common.lib.LibMisc
 import wiresegal.psionup.common.lib.LibNames
+import wiresegal.psionup.common.spell.trick.botania.PieceTrickFormBurst
 
 /**
  * @author WireSegal
@@ -38,18 +42,31 @@ class ItemBlasterAssembly(name: String) : ItemComponent(name, name), ICADAssembl
 
         BlasterEventHandler.register()
 
-        ModItems.cad.addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, "clip"), {
+        ModItems.cad.addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, "clip")) {
             stack, world, player ->
             if (ItemManaGun.hasClip(stack)) 1f else 0f
-        })
+        }
     }
 
     override fun enablePiece(player: EntityPlayer, component: ItemStack, cad: ItemStack, context: SpellContext, spell: Spell, x: Int, y: Int): Boolean {
-        if (spell.grid.gridData[x][y] is IManaTrick) {
-            val drain = (spell.grid.gridData[x][y] as IManaTrick).manaDrain(context, spell, x, y)
+
+        val isElven = ItemManaGun.hasClip(cad)
+        val tier = if (isElven) EnumManaTier.ALFHEIM else EnumManaTier.BASE
+
+        val spellpiece = spell.grid.gridData[x][y]
+        if (spellpiece is IManaTrick && EnumManaTier.allowed(tier, spellpiece.tier(context, spell, x, y))) {
+            val drain = spellpiece.manaDrain(context, spell, x, y)
             return ManaItemHandler.requestManaExact(cad, context.caster, drain, true)
+        } else if (spellpiece is PieceTrickFormBurst) {
+            return ManaItemHandler.requestManaExact(cad, context.caster, 120, true)
         }
         return false
+    }
+
+    override fun addInformation(stack: ItemStack?, playerIn: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
+        if (GuiScreen.isShiftKeyDown())
+            tooltip.add(I18n.translateToLocal("${LibMisc.MOD_ID_SHORT}.misc.manaCAD.desc").replace('&', '\u00a7'))
+        super.addInformation(stack, playerIn, tooltip, advanced)
     }
 
     override fun registerStats() {

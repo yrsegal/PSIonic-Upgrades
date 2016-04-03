@@ -4,7 +4,7 @@ import net.minecraft.item.ItemStack
 import vazkii.botania.common.block.ModBlocks
 import vazkii.botania.common.lib.LibOreDict
 import wiresegal.psionup.common.crafting.ModRecipes
-import wiresegal.psionup.common.items.component.botania.CompatItems
+import wiresegal.psionup.common.items.CompatItems
 
 /**
  * @author WireSegal

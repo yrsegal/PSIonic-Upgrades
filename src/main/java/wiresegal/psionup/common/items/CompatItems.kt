@@ -1,7 +1,8 @@
-package wiresegal.psionup.common.items.component.botania
+package wiresegal.psionup.common.items
 
 import vazkii.psi.common.item.base.ItemMod
 import wiresegal.psionup.common.crafting.recipe.botania.CompatRecipes
+import wiresegal.psionup.common.items.component.botania.ItemBlasterAssembly
 import wiresegal.psionup.common.lib.LibNames
 
 /**

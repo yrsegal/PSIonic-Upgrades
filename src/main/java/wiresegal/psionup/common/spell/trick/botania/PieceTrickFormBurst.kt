@@ -23,7 +23,7 @@ import wiresegal.psionup.common.lib.LibMisc
  * @author WireSegal
  * Created at 9:01 AM on 4/1/16.
  */
-class PieceTrickFormBurst(spell: Spell) : PieceComponentTrick(spell), IManaTrick {
+class PieceTrickFormBurst(spell: Spell) : PieceComponentTrick(spell) {
 
     internal lateinit var position: SpellParam
     internal lateinit var ray: SpellParam
@@ -57,10 +57,6 @@ class PieceTrickFormBurst(spell: Spell) : PieceComponentTrick(spell), IManaTrick
             context.caster.worldObj.spawnEntityInWorld(burst)
         }
         return null
-    }
-
-    override fun manaDrain(context: SpellContext?, spell: Spell?, x: Int, y: Int): Int {
-        return 120
     }
 
     fun getBurst(posVec: Vector3, rayVec: Vector3, world: World, cad: ItemStack): EntityManaBurst {

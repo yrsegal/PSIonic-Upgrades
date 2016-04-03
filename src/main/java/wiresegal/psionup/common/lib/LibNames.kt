@@ -32,13 +32,17 @@ object LibNames {
 
         const val PARTICLE_TRAIL = "particleTrail"
 
+
         const val MAKE_BURST = "makeManaBurst"
+        const val WILD_DRUM = "drumOfTheWild"
+        const val CANOPY_DRUM = "drumOfTheCanopy"
+        const val GATHERING_DRUM = "drumOfTheGathering"
     }
 
     object PieceGroups {
         const val REDSTONE_CONJURATION = "${LibMisc.MOD_ID_SHORT}.redstoneConjuration"
         const val SECONDARY_VECTOR_OPERATORS = "${LibMisc.MOD_ID_SHORT}.secondaryVectors"
 
-        const val BURST_CONJURATION = "${LibMisc.MOD_ID_SHORT}.burstConjuration"
+        const val MANA_PSIONICS = "${LibMisc.MOD_ID_SHORT}.manaPsionics"
     }
 }

@@ -2,11 +2,13 @@ package wiresegal.psionup.common.block.base
 
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.ItemMeshDefinition
+import net.minecraft.client.resources.ResourcePackListEntry
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
+import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
 import vazkii.psi.common.block.base.IPsiBlock
 import vazkii.psi.common.item.base.IVariantHolder
@@ -17,7 +19,9 @@ import wiresegal.psionup.common.lib.LibMisc
  * @author WireSegal
  * Created at 5:48 PM on 3/20/16.
  */
-class ItemModBlock(block: Block) : ItemBlock(block), IVariantHolder {
+class ItemModBlock(block: Block, resourceLocation: ResourceLocation?) : ItemBlock(block), IVariantHolder {
+    constructor(block: Block) : this(block, null) {}
+
     private val psiBlock: IPsiBlock
 
     init {
@@ -34,7 +38,7 @@ class ItemModBlock(block: Block) : ItemBlock(block), IVariantHolder {
     }
 
     override fun setUnlocalizedName(par1Str: String): ItemBlock {
-        GameRegistry.registerItem(this, par1Str)
+        GameRegistry.register(this, ResourceLocation(LibMisc.MOD_ID, par1Str))
         return super.setUnlocalizedName(par1Str)
     }
 

@@ -6,8 +6,10 @@ import net.minecraft.block.properties.IProperty
 import net.minecraft.client.renderer.ItemMeshDefinition
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemStack
+import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
 import vazkii.psi.common.block.base.IPsiBlock
+import wiresegal.psionup.common.lib.LibMisc
 
 /**
  * @author WireSegal
@@ -29,8 +31,9 @@ open class BlockMod(name: String, materialIn: Material, vararg variants: String)
 
     override fun setUnlocalizedName(name: String): Block {
         super.setUnlocalizedName(name)
-        this.registryName = name
-        GameRegistry.registerBlock(this, ItemModBlock::class.java)
+        setRegistryName(name)
+        GameRegistry.register(this)
+        GameRegistry.register(ItemModBlock(this), ResourceLocation(LibMisc.MOD_ID, name))
         return this
     }
 

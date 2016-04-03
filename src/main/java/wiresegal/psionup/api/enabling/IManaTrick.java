@@ -9,4 +9,6 @@ import vazkii.psi.api.spell.SpellContext;
  */
 public interface IManaTrick {
     int manaDrain(SpellContext context, Spell spell, int x, int y);
+
+    EnumManaTier tier(SpellContext context, Spell spell, int x, int y);
 }

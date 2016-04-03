@@ -38,33 +38,33 @@ class PieceTrickConjurePulsarSequence(spell: Spell) : PieceTrick(spell) {
     @Throws(SpellCompilationException::class)
     override fun addToMetadata(meta: SpellMetadata) {
         super.addToMetadata(meta)
-        val maxBlocksVal = this.getParamEvaluation<Any>(this.maxBlocks) as Double?
+        val maxBlocksVal = this.getParamEvaluation<Double>(this.maxBlocks)
         if (maxBlocksVal != null && maxBlocksVal.toDouble() > 0.0) {
             meta.addStat(EnumSpellStat.POTENCY, (maxBlocksVal.toDouble() * 20.0).toInt())
             meta.addStat(EnumSpellStat.COST, (maxBlocksVal.toDouble() * 30.0).toInt())
         } else {
-            throw SpellCompilationException("psi.spellerror.nonpositivevalue", this.x, this.y)
+            throw SpellCompilationException(SpellCompilationException.NON_POSITIVE_INTEGER, this.x, this.y)
         }
     }
 
     @Throws(SpellRuntimeException::class)
-    override fun execute(context: SpellContext?): Any? {
+    override fun execute(context: SpellContext): Any? {
         val positionVal = this.getParamValue<Vector3>(context, this.position)
         val targetVal = this.getParamValue<Vector3>(context, this.target)
         val maxBlocksVal = this.getParamValue<Double>(context, this.maxBlocks)
         val timeVal = this.getParamValue<Double>(context, this.time)
         val maxBlocksInt = maxBlocksVal.toInt()
         if (positionVal == null) {
-            throw SpellRuntimeException("psi.spellerror.nullvector")
+            throw SpellRuntimeException(SpellRuntimeException.NULL_VECTOR)
         } else if (targetVal != null) {
             val len = targetVal.mag().toInt()
             val targetNorm = targetVal.copy().normalize()
-            val cad = PsiAPI.getPlayerCAD(context!!.caster)
+            val cad = PsiAPI.getPlayerCAD(context.caster)
 
             for (i in 0..Math.min(len, maxBlocksInt) - 1) {
                 val blockVec = positionVal.copy().add(targetNorm.copy().multiply(i.toDouble()))
                 if (!context.isInRadius(blockVec)) {
-                    throw SpellRuntimeException("psi.spellerror.outsideradius")
+                    throw SpellRuntimeException(SpellRuntimeException.OUTSIDE_RADIUS)
                 }
 
                 val pos = BlockPos(blockVec.x, blockVec.y, blockVec.z)

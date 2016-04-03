@@ -34,6 +34,15 @@ psi.spellpiece.psionicupgrades.particleTrail.desc=Makes a particle trail from a 
 psi.spellpiece.psionicupgrades.makeManaBurst=Trick: Form Burst
 psi.spellpiece.psionicupgrades.makeManaBurst.desc=Makes a mana burst from a position along a ray
 
+psi.spellpiece.psionicupgrades.drumOfTheWild=Trick: Wild Pulse
+psi.spellpiece.psionicupgrades.drumOfTheWild.desc=Pulses with the sound of the Drum of the Wild
+
+psi.spellpiece.psionicupgrades.drumOfTheCanopy=Trick: Canopy Pulse
+psi.spellpiece.psionicupgrades.drumOfTheCanopy.desc=Pulses with the sound of the Drum of the Canopy
+
+psi.spellpiece.psionicupgrades.drumOfTheGathering=Trick: Gathering Pulse
+psi.spellpiece.psionicupgrades.drumOfTheGathering.desc=Pulses with the sound of the Drum of the Gathering
+
 itemGroup.psionup=PSIonic Upgrades
 
 psionup.learn.usage=/psi-learn <group> [player]
@@ -48,7 +57,11 @@ psionup.learn.players=%s isn't a player, only players can have Psi knowledge
 psionup.learn.notAGroup='%s' is not a valid Psi piece group
 
 psionup.misc.psidust=Psidust Infusion
+
 psionup.misc.formBurstRequirements=Blaster CAD Assembly&7, &bMana
+psionup.misc.manaCAD=&bMana&5 Flow Enabler
+psionup.misc.alfenCAD=&aElven&b Mana&5 Flow Enabler
+psionup.misc.manaCAD.desc=Allows &bMana&7 Flow
 
 psionup.misc.lens=Lens&7: %s
 psionup.misc.color=Color
@@ -73,6 +86,6 @@ psi.piecegroup.psionup.secondaryVectors.desc=As the name implies, this group inc
 psi.piecegroup.psionup.redstoneConjuration=Pulsar Conjuration
 psi.piecegroup.psionup.redstoneConjuration.desc=These pieces are quite similar to those of the previous group, Block Conjuration. The singular difference is that conjured Pulsars have a red flare at their center, and emit redstone.
 
-psi.piecegroup.psionup.burstConjuration=Mana Manipulation
-psi.piecegroup.psionup.burstConjuration.desc=What is elemental magic worth without its most base counterpart?<br><br>This group allows the caster to manipulate the power of Mana. Specifically, making a burst of Mana from your inventory, similar to a Mana Blaster. This requires a special CAD assembly to function, as Psionic materials cannot carry Mana naturally. A CAD made with a Blaster CAD Assembly can store a lens, just like a regular Blaster. Anything a blaster can accept, the Blaster CAD can too.
+psi.piecegroup.psionup.manaPsionics=Mana Manipulation
+psi.piecegroup.psionup.manaPsionics.desc=What is elemental magic worth without its most base counterpart?<br><br>This group allows the caster to manipulate the power of Mana. Specifically, making a burst of Mana from your inventory, similar to a Mana Blaster. This requires a special CAD assembly to function, as Psionic materials cannot carry Mana naturally. A CAD made with a Blaster CAD Assembly can store a lens, just like a regular Blaster. Anything a blaster can accept, the Blaster CAD can too.
 

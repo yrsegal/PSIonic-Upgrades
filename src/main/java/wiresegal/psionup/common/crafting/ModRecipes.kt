@@ -15,7 +15,7 @@ import wiresegal.psionup.common.crafting.recipe.RecipeLiquidDye
 import wiresegal.psionup.common.crafting.recipe.cad.RecipeCadComponent
 import wiresegal.psionup.common.crafting.recipe.cad.RecipeCadComponentShapeless
 import wiresegal.psionup.common.items.ModItems
-import wiresegal.psionup.common.items.component.botania.CompatItems
+import wiresegal.psionup.common.items.CompatItems
 import wiresegal.psionup.common.lib.LibMisc
 import vazkii.psi.common.item.base.ModItems as PsiItems
 
