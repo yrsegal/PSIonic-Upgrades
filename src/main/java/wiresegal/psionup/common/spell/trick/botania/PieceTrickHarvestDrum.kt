@@ -74,7 +74,7 @@ open class PieceTrickHarvestDrum(spell: Spell) : PieceComponentTrick(spell), IMa
                         break
 
                     val stacks = (entity as IShearable).onSheared(stack, world, BlockPos(entity), 0)
-                    if (stacks != null)
+                    if (stacks != null && !world.isRemote)
                         for (wool in stacks) {
                             val ent = entity.entityDropItem(wool, 1.0f)
                             ent.motionY += world.rand.nextFloat() * 0.05f
