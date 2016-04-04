@@ -54,8 +54,8 @@ class ItemBlasterAssembly(name: String) : ItemComponent(name, name), ICADAssembl
         val tier = if (isElven) EnumManaTier.ALFHEIM else EnumManaTier.BASE
 
         val spellpiece = spell.grid.gridData[x][y]
-        if (spellpiece is IManaTrick && EnumManaTier.allowed(tier, spellpiece.tier(context, spell, x, y))) {
-            val drain = spellpiece.manaDrain(context, spell, x, y)
+        if (spellpiece is IManaTrick && EnumManaTier.allowed(tier, spellpiece.tier())) {
+            val drain = spellpiece.manaDrain(context, x, y)
             return ITrickEnablerComponent.EnableResult.fromBoolean(ManaItemHandler.requestManaExact(cad, context.caster, drain, true))
         } else if (spellpiece is PieceTrickFormBurst) {
             return ITrickEnablerComponent.EnableResult.fromBoolean(ManaItemHandler.requestManaExact(cad, context.caster, 120, true))
@@ -65,7 +65,7 @@ class ItemBlasterAssembly(name: String) : ItemComponent(name, name), ICADAssembl
 
     override fun addInformation(stack: ItemStack, playerIn: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
         if (GuiScreen.isShiftKeyDown())
-            tooltip.add(I18n.translateToLocal("${LibMisc.MOD_ID_SHORT}.misc.manaCAD.desc").replace('&', '\u00a7'))
+            tooltip.add(I18n.translateToLocal("${LibMisc.MOD_ID_SHORT}.requirement.manaCAD").replace('&', '\u00a7'))
         super.addInformation(stack, playerIn, tooltip, advanced)
     }
 

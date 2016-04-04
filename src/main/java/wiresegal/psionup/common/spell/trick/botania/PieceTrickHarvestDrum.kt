@@ -85,15 +85,11 @@ open class PieceTrickHarvestDrum(spell: Spell) : PieceComponentTrick(spell), IMa
                 }
             }
 
-            override fun requiredObjects(): Array<out String>? {
-                return arrayOf("${LibMisc.MOD_ID_SHORT}.misc.alfenCAD")
-            }
-
-            override fun manaDrain(context: SpellContext?, spell: Spell?, x: Int, y: Int): Int {
+            override fun manaDrain(context: SpellContext?, x: Int, y: Int): Int {
                 return 500
             }
 
-            override fun tier(context: SpellContext?, spell: Spell?, x: Int, y: Int) = EnumManaTier.ALFHEIM
+            override fun tier() = EnumManaTier.ALFHEIM
         }
     }
 
@@ -112,12 +108,8 @@ open class PieceTrickHarvestDrum(spell: Spell) : PieceComponentTrick(spell), IMa
         meta.addStat(EnumSpellStat.POTENCY, 125)
     }
 
-    override fun manaDrain(context: SpellContext?, spell: Spell?, x: Int, y: Int): Int {
+    override fun manaDrain(context: SpellContext?, x: Int, y: Int): Int {
         return 120
-    }
-
-    override fun requiredObjects(): Array<out String>? {
-        return arrayOf("${LibMisc.MOD_ID_SHORT}.misc.manaCAD")
     }
 
     @Throws(SpellRuntimeException::class)
@@ -139,6 +131,4 @@ open class PieceTrickHarvestDrum(spell: Spell) : PieceComponentTrick(spell), IMa
     open fun effect(context: SpellContext, pos: BlockPos) {
         ItemGrassHorn.breakGrass(context.caster.worldObj, null, 0, pos)
     }
-
-    override fun tier(context: SpellContext?, spell: Spell?, x: Int, y: Int) = EnumManaTier.BASE
 }

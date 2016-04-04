@@ -10,6 +10,11 @@ public enum EnumManaTier {
     GAIA,
     RELICS;
 
+    @Override
+    public String toString() {
+        return super.toString().toLowerCase();
+    }
+
     public static boolean allowed(EnumManaTier cadTier, EnumManaTier pieceTier) {
         return cadTier.ordinal() >= pieceTier.ordinal();
     }

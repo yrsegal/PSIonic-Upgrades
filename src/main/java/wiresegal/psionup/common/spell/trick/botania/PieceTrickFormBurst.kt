@@ -109,6 +109,6 @@ class PieceTrickFormBurst(spell: Spell) : PieceComponentTrick(spell) {
     }
 
     override fun requiredObjects(): Array<String> {
-        return arrayOf("${LibMisc.MOD_ID_SHORT}.misc.formBurstRequirements")
+        return arrayOf("${LibMisc.MOD_ID_SHORT}.requirement.formBurst")
     }
 }

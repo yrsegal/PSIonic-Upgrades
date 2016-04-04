@@ -3,14 +3,15 @@ package wiresegal.psionup.api.enabling;
 import vazkii.psi.api.spell.Spell;
 import vazkii.psi.api.spell.SpellContext;
 import vazkii.psi.api.spell.SpellRuntimeException;
+import vazkii.psi.api.spell.piece.PieceOperator;
 import vazkii.psi.api.spell.piece.PieceTrick;
 
 import java.util.List;
 
 
-public abstract class PieceComponentTrick extends PieceTrick implements IComponentPiece {
+public abstract class PieceComponentOperator extends PieceOperator implements IComponentPiece {
 
-    public PieceComponentTrick(Spell spell) {
+    public PieceComponentOperator(Spell spell) {
         super(spell);
     }
 

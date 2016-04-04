@@ -58,10 +58,14 @@ psionup.learn.notAGroup='%s' is not a valid Psi piece group
 
 psionup.misc.psidust=Psidust Infusion
 
-psionup.misc.formBurstRequirements=Blaster CAD Assembly&7, &bMana
-psionup.misc.manaCAD=&bMana&5 Flow Enabler
-psionup.misc.alfenCAD=&aElven&b Mana&5 Flow Enabler
-psionup.misc.manaCAD.desc=Allows &bMana&7 Flow
+psionup.requirement.formBurst=Blaster CAD Assembly&7, &bMana
+
+psionup.requirement.base=&bMana&5 Flow Enabler
+psionup.requirement.alfheim=&aElven&b Mana&5 Flow Enabler
+psionup.requirement.gaia=&dGaian&b Mana&5 Flow Enabler
+psionup.requirement.relic=&6Reliquary&b Mana&5 Flow Enabler
+
+psionup.requirement.manaCAD=Allows &bMana&7 Flow
 
 psionup.misc.lens=Lens&7: %s
 psionup.misc.color=Color
