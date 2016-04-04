@@ -1,11 +1,10 @@
 package wiresegal.psionup.common.items
 
 import net.minecraftforge.fml.common.Loader
-import vazkii.psi.common.item.base.ItemMod
+import wiresegal.psionup.common.items.base.ItemMod
 import wiresegal.psionup.common.items.component.ItemEmptyColorizer
 import wiresegal.psionup.common.items.component.ItemLiquidColorizer
 import wiresegal.psionup.common.items.component.ItemWideCADSocket
-import wiresegal.psionup.common.items.CompatItems
 import wiresegal.psionup.common.items.spell.ItemCADMagazine
 import wiresegal.psionup.common.items.spell.ItemFakeCAD
 import wiresegal.psionup.common.lib.LibNames

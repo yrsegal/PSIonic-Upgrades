@@ -6,7 +6,9 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import vazkii.psi.api.PsiAPI;
 import vazkii.psi.api.cad.EnumCADComponent;
+import vazkii.psi.api.cad.EnumCADStat;
 import vazkii.psi.api.cad.ICAD;
+import vazkii.psi.api.cad.ICADComponent;
 import vazkii.psi.api.internal.TooltipHelper;
 import vazkii.psi.api.spell.Spell;
 import vazkii.psi.api.spell.SpellContext;
@@ -37,11 +39,27 @@ public abstract class PieceComponentTrick extends PieceTrick {
             ItemStack component = item.getComponentInSlot(cad, type);
             if (component.getItem() instanceof ITrickEnablerComponent) {
                 ITrickEnablerComponent compItem = (ITrickEnablerComponent) component.getItem();
-                flag = true;
-                if (compItem.enablePiece(context.caster, component, cad, context, spell, x, y))
+                ITrickEnablerComponent.EnableResult result = compItem.enablePiece(context.caster, component, cad, context, spell, x, y);
+                switch (result) {
+                    case MISSING_REQUIREMENT:
+                        flag = true;
+                        break;
+                    case SUCCESS:
+                        return executeIfAllowed(context);
+                }
+            } else if (component.getItem() instanceof ICADComponent) {
+                ICADComponent compItem = (ICADComponent) component.getItem();
+                if (compItem.getCADStatValue(component, EnumCADStat.POTENCY) < 0)
                     return executeIfAllowed(context);
-            } else if (acceptsPiece(context.caster, component, cad, context, spell, x, y)) {
-                return executeIfAllowed(context);
+
+                ITrickEnablerComponent.EnableResult result = acceptsPiece(context.caster, component, cad, context, spell, x, y);
+                switch (result) {
+                    case MISSING_REQUIREMENT:
+                        flag = true;
+                        break;
+                    case SUCCESS:
+                        return executeIfAllowed(context);
+                }
             }
         }
 
@@ -54,8 +72,8 @@ public abstract class PieceComponentTrick extends PieceTrick {
 
     public abstract String[] requiredObjects();
 
-    public boolean acceptsPiece(EntityPlayer player, ItemStack component, ItemStack cad, SpellContext context, Spell spell, int x, int y) {
-        return false;
+    public ITrickEnablerComponent.EnableResult acceptsPiece(EntityPlayer player, ItemStack component, ItemStack cad, SpellContext context, Spell spell, int x, int y) {
+        return ITrickEnablerComponent.EnableResult.NOT_ENABLED;
     }
 
     @Override

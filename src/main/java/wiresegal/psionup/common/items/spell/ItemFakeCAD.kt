@@ -75,7 +75,7 @@ class ItemFakeCAD(name: String) : ItemMod(name, name), ISocketable, ISpellSettab
         return super.onItemRightClick(itemstack, worldIn, player, hand)
     }
 
-    override fun addInformation(stack: ItemStack?, playerIn: EntityPlayer?, tooltip: MutableList<String>?, advanced: Boolean) {
+    override fun addInformation(stack: ItemStack, playerIn: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
         tooltipIfShift(tooltip, {
             val componentName = local(ISocketable.getSocketedItemName(stack, "psimisc.none"))
             addToTooltip(tooltip, "psimisc.spellSelected", componentName)

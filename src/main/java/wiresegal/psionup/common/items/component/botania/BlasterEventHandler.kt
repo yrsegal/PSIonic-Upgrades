@@ -41,7 +41,9 @@ class BlasterEventHandler {
         if (e.itemStack.item is ICAD) {
             val item = e.itemStack.item as ICAD
 
-            if (item.getComponentInSlot(e.itemStack, EnumCADComponent.ASSEMBLY).item == CompatItems.blaster) {
+            val component = item.getComponentInSlot(e.itemStack, EnumCADComponent.ASSEMBLY)
+
+            if (component != null && component.item == CompatItems.blaster) {
                 val lens = ItemManaGun.getLens(e.itemStack)
                 if (lens != null) {
                     if (e.isShowAdvancedItemTooltips) {

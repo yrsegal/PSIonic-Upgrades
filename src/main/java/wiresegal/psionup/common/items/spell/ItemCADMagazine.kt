@@ -80,7 +80,7 @@ class ItemCADMagazine(name: String) : ItemMod(name, name), ISocketable, ICadComp
         setMaxStackSize(1)
     }
 
-    override fun getSubItems(itemIn: Item?, tab: CreativeTabs?, subItems: MutableList<ItemStack>) {
+    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: MutableList<ItemStack>) {
         for (i in ModRecipes.examplesockets) {
             subItems.add(setSocket(ItemStack(itemIn), i))
         }
@@ -143,7 +143,7 @@ class ItemCADMagazine(name: String) : ItemMod(name, name), ISocketable, ICadComp
         return ItemSpellDrive.getSpell(getBulletInSocket(stack, getSelectedSlot(stack)))
     }
 
-    override fun addInformation(stack: ItemStack, playerIn: EntityPlayer?, tooltip: MutableList<String>?, advanced: Boolean) {
+    override fun addInformation(stack: ItemStack, playerIn: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
         tooltipIfShift(tooltip, {
             val socketName = local(getSocket(stack).displayName)
             var line = TextFormatting.GREEN.toString() + local(EnumCADComponent.SOCKET.getName()) + TextFormatting.GRAY.toString() + ": " + socketName

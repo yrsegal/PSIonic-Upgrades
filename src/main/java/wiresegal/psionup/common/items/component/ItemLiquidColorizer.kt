@@ -83,7 +83,7 @@ class ItemLiquidColorizer(name: String) : ItemComponent(name, name), ICADColoriz
         return if (itemcolor == Int.MAX_VALUE) ICADColorizer.DEFAULT_SPELL_COLOR else itemcolor
     }
 
-    override fun addInformation(stack: ItemStack, playerIn: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
+    override fun addInformation(stack: ItemStack, playerIn: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
         super.addInformation(stack, playerIn, tooltip, advanced)
 
         if (GuiScreen.isShiftKeyDown()) {
