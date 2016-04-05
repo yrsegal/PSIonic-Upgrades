@@ -34,9 +34,9 @@ object ModRecipes {
             ItemStack(PsiItems.cadSocket, 1, 4))
 
     init {
-        RecipeSorter.register("${LibMisc.MOD_ID_SHORT}:liquiddye", RecipeLiquidDye::class.java, RecipeSorter.Category.SHAPELESS, "")
-        RecipeSorter.register("${LibMisc.MOD_ID_SHORT}:cadcraft", RecipeCadComponent::class.java, RecipeSorter.Category.SHAPED, "")
-        RecipeSorter.register("${LibMisc.MOD_ID_SHORT}:cadcraftshapeless", RecipeCadComponentShapeless::class.java, RecipeSorter.Category.SHAPELESS, "")
+        RecipeSorter.register("${LibMisc.MOD_ID}:liquiddye", RecipeLiquidDye::class.java, RecipeSorter.Category.SHAPELESS, "")
+        RecipeSorter.register("${LibMisc.MOD_ID}:cadcraft", RecipeCadComponent::class.java, RecipeSorter.Category.SHAPED, "")
+        RecipeSorter.register("${LibMisc.MOD_ID}:cadcraftshapeless", RecipeCadComponentShapeless::class.java, RecipeSorter.Category.SHAPELESS, "")
 
         GameRegistry.addRecipe(RecipeLiquidDye())
 

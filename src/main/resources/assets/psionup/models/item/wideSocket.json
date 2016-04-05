@@ -1,6 +1,6 @@
 {
 	"parent": "psi:item/_standard_item",
 	"textures": { 
-		"layer0": "psionicupgrades:items/wideSocket"
+		"layer0": "psionup:items/wideSocket"
 	}
 }

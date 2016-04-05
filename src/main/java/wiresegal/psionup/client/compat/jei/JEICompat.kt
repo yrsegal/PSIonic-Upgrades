@@ -38,7 +38,7 @@ class JEICompat : BlankModPlugin() {
         helper.itemBlacklist.addItemToBlacklist(ItemStack(PsiBlocks.conjured))
         helper.itemBlacklist.addItemToBlacklist(ItemStack(ModBlocks.conjured))
 
-        registry.addDescription(ItemStack(ModItems.liquidColorizer), "jei.${LibMisc.MOD_ID_SHORT}.drained.desc")
-        registry.addDescription(ItemStack(ModItems.emptyColorizer), "jei.${LibMisc.MOD_ID_SHORT}.drained.desc")
+        registry.addDescription(ItemStack(ModItems.liquidColorizer), "jei.${LibMisc.MOD_ID}.drained.desc")
+        registry.addDescription(ItemStack(ModItems.emptyColorizer), "jei.${LibMisc.MOD_ID}.drained.desc")
     }
 }

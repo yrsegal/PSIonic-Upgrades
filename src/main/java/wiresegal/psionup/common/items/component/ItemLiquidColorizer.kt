@@ -89,7 +89,7 @@ class ItemLiquidColorizer(name: String) : ItemComponent(name, name), ICADColoriz
         if (GuiScreen.isShiftKeyDown()) {
             val inheriting = getInheriting(stack)
             if (inheriting != null) {
-                tooltip.add("${TextFormatting.GREEN}${I18n.translateToLocal("${LibMisc.MOD_ID_SHORT}.misc.colorInheritance")}${TextFormatting.GRAY}: ${inheriting.displayName}")
+                tooltip.add("${TextFormatting.GREEN}${I18n.translateToLocal("${LibMisc.MOD_ID}.misc.colorInheritance")}${TextFormatting.GRAY}: ${inheriting.displayName}")
             }
 
             if (advanced) {
@@ -97,7 +97,7 @@ class ItemLiquidColorizer(name: String) : ItemComponent(name, name), ICADColoriz
                 var number = String.format("%06X", color)
                 if (number.length > 6) number = number.substring(number.length - 6)
                 if (color != Int.MAX_VALUE)
-                    tooltip.add("${TextFormatting.GREEN}${I18n.translateToLocal("${LibMisc.MOD_ID_SHORT}.misc.color")}${TextFormatting.GRAY}: #$number")
+                    tooltip.add("${TextFormatting.GREEN}${I18n.translateToLocal("${LibMisc.MOD_ID}.misc.color")}${TextFormatting.GRAY}: #$number")
             }
         }
     }

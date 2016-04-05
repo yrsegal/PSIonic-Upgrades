@@ -35,9 +35,9 @@ import wiresegal.psionup.common.spell.trick.botania.PieceTrickFormBurst
 class ItemBlasterAssembly(name: String) : ItemComponent(name, name), ICADAssembly, IExtraVariantHolder, ITrickEnablerComponent {
 
     init {
-        RecipeSorter.register("${LibMisc.MOD_ID_SHORT}:blasterClip", RecipeBlasterCADClip::class.java, RecipeSorter.Category.SHAPELESS, "")
+        RecipeSorter.register("${LibMisc.MOD_ID}:blasterClip", RecipeBlasterCADClip::class.java, RecipeSorter.Category.SHAPELESS, "")
         GameRegistry.addRecipe(RecipeBlasterCADClip())
-        RecipeSorter.register("${LibMisc.MOD_ID_SHORT}:blaster", RecipeBlasterCADLens::class.java, RecipeSorter.Category.SHAPELESS, "")
+        RecipeSorter.register("${LibMisc.MOD_ID}:blaster", RecipeBlasterCADLens::class.java, RecipeSorter.Category.SHAPELESS, "")
         GameRegistry.addRecipe(RecipeBlasterCADLens())
 
         BlasterEventHandler.register()
@@ -65,7 +65,7 @@ class ItemBlasterAssembly(name: String) : ItemComponent(name, name), ICADAssembl
 
     override fun addInformation(stack: ItemStack, playerIn: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
         if (GuiScreen.isShiftKeyDown())
-            tooltip.add(I18n.translateToLocal("${LibMisc.MOD_ID_SHORT}.requirement.manaCAD").replace('&', '\u00a7'))
+            tooltip.add(I18n.translateToLocal("${LibMisc.MOD_ID}.requirement.manaCAD").replace('&', '\u00a7'))
         super.addInformation(stack, playerIn, tooltip, advanced)
     }
 

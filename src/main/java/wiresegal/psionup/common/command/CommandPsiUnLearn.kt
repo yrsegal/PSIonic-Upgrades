@@ -43,5 +43,5 @@ open class CommandPsiUnlearn : CommandPsiLearn() {
     }
 
     override val localizationkey: String
-        get() = "${LibMisc.MOD_ID_SHORT}.unlearn"
+        get() = "${LibMisc.MOD_ID}.unlearn"
 }

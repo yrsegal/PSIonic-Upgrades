@@ -52,7 +52,7 @@ class ItemModBlock(block: Block, resourceLocation: ResourceLocation?) : ItemBloc
             name = variants[dmg]
         }
 
-        return "tile.${LibMisc.MOD_ID_SHORT}:" + name
+        return "tile.${LibMisc.MOD_ID}:" + name
     }
 
     override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: MutableList<ItemStack>) {

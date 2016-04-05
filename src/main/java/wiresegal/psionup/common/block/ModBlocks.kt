@@ -17,6 +17,6 @@ object ModBlocks {
     init {
         conjured = BlockConjuredPulsar(LibNames.Blocks.CONJURED_PULSAR)
 
-        GameRegistry.registerTileEntity(TileConjuredPulsar::class.java, "${LibMisc.MOD_ID_SHORT}:pulsar");
+        GameRegistry.registerTileEntity(TileConjuredPulsar::class.java, "${LibMisc.MOD_ID}:pulsar");
     }
 }

@@ -8,6 +8,7 @@ import net.minecraft.util.ResourceLocation
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.util.text.translation.I18n
 import vazkii.psi.api.PsiAPI
+import vazkii.psi.api.spell.Spell
 import vazkii.psi.api.spell.SpellPiece
 import vazkii.psi.common.item.base.ItemMod
 import wiresegal.psionup.api.TrickRecipe
@@ -28,6 +29,7 @@ constructor(private val recipe: TrickRecipe) : BlankRecipeWrapper() {
 
     val icon: IDrawable?
     val clazz: Class<out SpellPiece>?
+    val piece: SpellPiece?
 
     init {
         val location = PsiAPI.simpleSpellTextures[recipe.piece]
@@ -36,6 +38,13 @@ constructor(private val recipe: TrickRecipe) : BlankRecipeWrapper() {
             icon = JEICompat.helper.guiHelper.createDrawable(location, 0, 0, 256, 256)
         else
             icon = null
+
+        if (clazz != null) {
+            val constructor = clazz.getDeclaredConstructor(Spell::class.java)
+            piece = constructor.newInstance(null)
+        } else {
+            piece = null
+        }
     }
 
     override fun getInputs(): List<Any> {
@@ -61,12 +70,9 @@ constructor(private val recipe: TrickRecipe) : BlankRecipeWrapper() {
     }
 
     override fun getTooltipStrings(mouseX: Int, mouseY: Int): MutableList<String>? {
-        if (onTrick(mouseX, mouseY) && clazz != null) {
+        if (onTrick(mouseX, mouseY) && piece != null) {
             val tooltip = ArrayList<String>()
-            tooltip.add(I18n.translateToLocal("psi.spellpiece.${recipe.piece}"))
-            ItemMod.tooltipIfShift(tooltip, {
-                tooltip.add(TextFormatting.GRAY.toString() + I18n.translateToLocal("psi.spellpiece.${recipe.piece}.desc"))
-            })
+            piece.getTooltip(tooltip)
             return tooltip
         }
         return null

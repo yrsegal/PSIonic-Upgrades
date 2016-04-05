@@ -5,9 +5,8 @@ package wiresegal.psionup.common.lib
  * Created at 3:24 PM on 3/26/16.
  */
 object LibMisc {
-    const val MOD_ID = "psionicupgrades"
     const val MOD_NAME = "PSIonic Upgrades"
-    const val MOD_ID_SHORT = "psionup"
+    const val MOD_ID = "psionup"
 
     const val BUILD = "GRADLE:BUILD"
     const val VERSION = "GRADLE:VERSION-$BUILD"

@@ -13,14 +13,14 @@ import wiresegal.psionup.common.lib.LibMisc
 
 class TrickCraftingCategory : IRecipeCategory {
 
-    private val background = JEICompat.helper.guiHelper.createDrawable(ResourceLocation("psionicupgrades", "textures/gui/jei/trick.png"), 0, 0, 108, 30)
+    private val background = JEICompat.helper.guiHelper.createDrawable(ResourceLocation(LibMisc.MOD_ID, "textures/gui/jei/trick.png"), 0, 0, 108, 30)
 
     override fun getUid(): String {
-        return "${LibMisc.MOD_ID_SHORT}:trickCrafting"
+        return "${LibMisc.MOD_ID}:trickCrafting"
     }
 
     override fun getTitle(): String {
-        return I18n.translateToLocal("jei.${LibMisc.MOD_ID_SHORT}.recipe.trickCrafting")
+        return I18n.translateToLocal("jei.${LibMisc.MOD_ID}.recipe.trickCrafting")
     }
 
     override fun getBackground(): IDrawable {

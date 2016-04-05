@@ -110,7 +110,7 @@ class ItemCADMagazine(name: String) : ItemMod(name, name), ISocketable, ICadComp
                 val enabled = tile.isEnabled
                 val compiled = SpellCompiler(spell)
                 if ((compiled.compiledSpell.metadata.stats[EnumSpellStat.BANDWIDTH] ?: Integer.MAX_VALUE) > getBandwidth(stack) && !worldIn.isRemote)
-                    playerIn.addChatComponentMessage(TextComponentTranslation("${LibMisc.MOD_ID_SHORT}.misc.tooComplexBullet").setChatStyle(Style().setColor(TextFormatting.RED)))
+                    playerIn.addChatComponentMessage(TextComponentTranslation("${LibMisc.MOD_ID}.misc.tooComplexBullet").setChatStyle(Style().setColor(TextFormatting.RED)))
                 else if (!worldIn.isRemote) {
                     if (enabled && !tile.playerLock.isEmpty()) {
                         if (tile.playerLock != playerIn.name) {
@@ -222,7 +222,7 @@ class ItemCADMagazine(name: String) : ItemMod(name, name), ISocketable, ICadComp
         val compiled = SpellCompiler(spell)
         if ((compiled.compiledSpell.metadata.stats[EnumSpellStat.BANDWIDTH] ?: Integer.MAX_VALUE) > getBandwidth(stack)) {
             if (!player.worldObj.isRemote)
-                player.addChatComponentMessage(TextComponentTranslation("${LibMisc.MOD_ID_SHORT}.misc.tooComplexProgrammer").setChatStyle(Style().setColor(TextFormatting.RED)))
+                player.addChatComponentMessage(TextComponentTranslation("${LibMisc.MOD_ID}.misc.tooComplexProgrammer").setChatStyle(Style().setColor(TextFormatting.RED)))
         } else if (bullet != null && bullet.item is ISpellSettable) {
             (bullet.item as ISpellSettable).setSpell(player, bullet, spell)
             this.setBulletInSocket(stack, slot, bullet)

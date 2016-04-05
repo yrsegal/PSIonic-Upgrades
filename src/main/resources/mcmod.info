@@ -1,6 +1,6 @@
 [
 {
-  "modid": "psionicupgrades",
+  "modid": "psionup",
   "name": "PSIonic Upgrades",
   "description": "Assorted addons for PSI.",
   "version": "${version}",

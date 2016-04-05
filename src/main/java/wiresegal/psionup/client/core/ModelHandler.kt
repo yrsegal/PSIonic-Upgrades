@@ -72,7 +72,7 @@ object ModelHandler {
         }
 
         for (var11 in variants.indices) {
-            val var12 = "psionicupgrades:" + variants[var11]
+            val var12 = "psionup:" + variants[var11]
             val var13 = ModelResourceLocation(var12, "inventory")
             if (!extra) {
                 ModelLoader.setCustomModelResourceLocation(item, var11, var13)

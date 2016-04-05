@@ -12,12 +12,12 @@ import wiresegal.psionup.common.lib.LibMisc
  * @author WireSegal
  * Created at 1:17 PM on 3/20/16.
  */
-class CreativeTab : CreativeTabs(LibMisc.MOD_ID_SHORT) {
+class CreativeTab : CreativeTabs(LibMisc.MOD_ID) {
     internal lateinit var list: List<ItemStack>
 
     init {
         this.setNoTitle()
-        this.backgroundImageName = "${LibMisc.MOD_ID_SHORT}.png"
+        this.backgroundImageName = "${LibMisc.MOD_ID}.png"
     }
 
     override fun getIconItemStack(): ItemStack {

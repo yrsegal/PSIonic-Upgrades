@@ -60,7 +60,7 @@ open class ItemMod(name: String, vararg variants: String) : Item(), IVariantHold
     }
     override fun setUnlocalizedName(name: String): Item {
         super.setUnlocalizedName(name)
-        GameRegistry.register(this, ResourceLocation(LibMisc.MOD_ID_SHORT, name))
+        GameRegistry.register(this, ResourceLocation(LibMisc.MOD_ID, name))
         return this
     }
 

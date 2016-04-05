@@ -1,5 +1,5 @@
 {
-  "parent": "psionicupgrades:block/conjuredPulsar",
+  "parent": "psionup:block/conjuredPulsar",
   "display": {
     "thirdperson": {
       "rotation": [ 10, -45, 170 ],

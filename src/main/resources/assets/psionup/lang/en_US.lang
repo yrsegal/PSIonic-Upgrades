@@ -7,41 +7,41 @@ item.psionup:cadAssemblyLivingwood.name=Blaster CAD Assembly
 
 tile.psionup:conjuredPulsar.name=Conjured Pulsar
 
-psi.spellpiece.psionicupgrades.conjurePulsar=Trick: Conjure Pulsar
-psi.spellpiece.psionicupgrades.conjurePulsar.desc=Conjures a redstone emitting block in the given position
+psi.spellpiece.psionup.conjurePulsar=Trick: Conjure Pulsar
+psi.spellpiece.psionup.conjurePulsar.desc=Conjures a redstone emitting block in the given position
 
-psi.spellpiece.psionicupgrades.conjurePulsarSequence=Trick: Conjure Pulsar Sequence
-psi.spellpiece.psionicupgrades.conjurePulsarSequence.desc=Conjures a redstone emitting block
+psi.spellpiece.psionup.conjurePulsarSequence=Trick: Conjure Pulsar Sequence
+psi.spellpiece.psionup.conjurePulsarSequence.desc=Conjures a redstone emitting block
 
-psi.spellpiece.psionicupgrades.conjurePulsarLight=Trick: Conjure Pulsar Light
-psi.spellpiece.psionicupgrades.conjurePulsarLight.desc=Conjures a redstone emitting light in the given position
+psi.spellpiece.psionup.conjurePulsarLight=Trick: Conjure Pulsar Light
+psi.spellpiece.psionup.conjurePulsarLight.desc=Conjures a redstone emitting light in the given position
 
-psi.spellpiece.psionicupgrades.planarNorm=Operator: Planar Normal Vector
-psi.spellpiece.psionicupgrades.planarNorm.desc=Creates a perpendicular vector to an axial vector
+psi.spellpiece.psionup.planarNorm=Operator: Planar Normal Vector
+psi.spellpiece.psionup.planarNorm.desc=Creates a perpendicular vector to an axial vector
 
-psi.spellpiece.psionicupgrades.vectorRotate=Operator: Rotate Vector
-psi.spellpiece.psionicupgrades.vectorRotate.desc=Rotates a vector around an axis
+psi.spellpiece.psionup.vectorRotate=Operator: Rotate Vector
+psi.spellpiece.psionup.vectorRotate.desc=Rotates a vector around an axis
 
-psi.spellpiece.psionicupgrades.strongVectorRaycast=Operator: Vector Strong Raycast
-psi.spellpiece.psionicupgrades.strongVectorRaycast.desc=Gets a raycast result, ignoring nonsolids (max 32)
+psi.spellpiece.psionup.strongVectorRaycast=Operator: Vector Strong Raycast
+psi.spellpiece.psionup.strongVectorRaycast.desc=Gets a raycast result, ignoring nonsolids (max 32)
 
-psi.spellpiece.psionicupgrades.strongVectorRaycastAxis=Operator: Vector Axis Strong Raycast
-psi.spellpiece.psionicupgrades.strongVectorRaycastAxis.desc=Gets a raycast side, ignoring nonsolids (max 32)
+psi.spellpiece.psionup.strongVectorRaycastAxis=Operator: Vector Axis Strong Raycast
+psi.spellpiece.psionup.strongVectorRaycastAxis.desc=Gets a raycast side, ignoring nonsolids (max 32)
 
-psi.spellpiece.psionicupgrades.particleTrail=Trick: Particle Trail
-psi.spellpiece.psionicupgrades.particleTrail.desc=Makes a particle trail from a position along a ray
+psi.spellpiece.psionup.particleTrail=Trick: Particle Trail
+psi.spellpiece.psionup.particleTrail.desc=Makes a particle trail from a position along a ray
 
-psi.spellpiece.psionicupgrades.makeManaBurst=Trick: Form Burst
-psi.spellpiece.psionicupgrades.makeManaBurst.desc=Makes a mana burst from a position along a ray
+psi.spellpiece.psionup.makeManaBurst=Trick: Form Burst
+psi.spellpiece.psionup.makeManaBurst.desc=Makes a mana burst from a position along a ray
 
-psi.spellpiece.psionicupgrades.drumOfTheWild=Trick: Wild Pulse
-psi.spellpiece.psionicupgrades.drumOfTheWild.desc=Pulses with the sound of the Drum of the Wild
+psi.spellpiece.psionup.drumOfTheWild=Trick: Wild Pulse
+psi.spellpiece.psionup.drumOfTheWild.desc=Pulses with the sound of the Drum of the Wild
 
-psi.spellpiece.psionicupgrades.drumOfTheCanopy=Trick: Canopy Pulse
-psi.spellpiece.psionicupgrades.drumOfTheCanopy.desc=Pulses with the sound of the Drum of the Canopy
+psi.spellpiece.psionup.drumOfTheCanopy=Trick: Canopy Pulse
+psi.spellpiece.psionup.drumOfTheCanopy.desc=Pulses with the sound of the Drum of the Canopy
 
-psi.spellpiece.psionicupgrades.drumOfTheGathering=Trick: Gathering Pulse
-psi.spellpiece.psionicupgrades.drumOfTheGathering.desc=Pulses with the sound of the Drum of the Gathering
+psi.spellpiece.psionup.drumOfTheGathering=Trick: Gathering Pulse
+psi.spellpiece.psionup.drumOfTheGathering.desc=Pulses with the sound of the Drum of the Gathering
 
 itemGroup.psionup=PSIonic Upgrades
 
@@ -58,12 +58,12 @@ psionup.learn.notAGroup='%s' is not a valid Psi piece group
 
 psionup.misc.psidust=Psidust Infusion
 
-psionup.requirement.formBurst=Blaster CAD Assembly&7, &bMana
+psionup.requirement.formBurst=Blaster CAD Assembly
 
-psionup.requirement.base=&bMana&5 Flow Enabler
-psionup.requirement.alfheim=&aElven&b Mana&5 Flow Enabler
-psionup.requirement.gaia=&dGaian&b Mana&5 Flow Enabler
-psionup.requirement.relic=&6Reliquary&b Mana&5 Flow Enabler
+psionup.requirement.base=&bMana Flow Enabler
+psionup.requirement.alfheim=&aElven&b Mana Flow Enabler
+psionup.requirement.gaia=&dGaian&b Mana Flow Enabler
+psionup.requirement.relic=&6Reliquary&b Mana Flow Enabler
 
 psionup.requirement.manaCAD=Allows &bMana&7 Flow
 

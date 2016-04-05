@@ -21,8 +21,8 @@ class PieceOperatorVectorRotate(spell: Spell) : PieceOperator(spell) {
 
     override fun initParams() {
         vec = ParamVector(SpellParam.GENERIC_NAME_TARGET, SpellParam.RED, false, false)
-        axis = ParamVector("${LibMisc.MOD_ID_SHORT}.spellparam.axis", SpellParam.CYAN, false, false)
-        angle = ParamNumber("${LibMisc.MOD_ID_SHORT}.spellparam.angle", SpellParam.GREEN, false, false)
+        axis = ParamVector("${LibMisc.MOD_ID}.spellparam.axis", SpellParam.CYAN, false, false)
+        angle = ParamNumber("${LibMisc.MOD_ID}.spellparam.angle", SpellParam.GREEN, false, false)
         this.addParam(vec)
         this.addParam(axis)
         this.addParam(angle)

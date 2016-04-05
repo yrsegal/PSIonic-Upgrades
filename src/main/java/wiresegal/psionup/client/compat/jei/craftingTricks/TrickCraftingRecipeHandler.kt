@@ -10,7 +10,7 @@ class TrickCraftingRecipeHandler : IRecipeHandler<TrickCraftingRecipeJEI> {
     }
 
     override fun getRecipeCategoryUid(): String {
-        return "${LibMisc.MOD_ID_SHORT}:trickCrafting"
+        return "${LibMisc.MOD_ID}:trickCrafting"
     }
 
     override fun getRecipeWrapper(recipe: TrickCraftingRecipeJEI): IRecipeWrapper {
