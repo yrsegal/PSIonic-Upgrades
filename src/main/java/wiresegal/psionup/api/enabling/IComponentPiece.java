@@ -12,7 +12,9 @@ import vazkii.psi.api.cad.ICADComponent;
 import vazkii.psi.api.internal.TooltipHelper;
 import vazkii.psi.api.spell.*;
 
+import javax.annotation.Nullable;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * @author WireSegal
@@ -26,13 +28,24 @@ public interface IComponentPiece {
 
     String[] requiredObjects();
 
-    default ITrickEnablerComponent.EnableResult acceptsPiece(EntityPlayer player, ItemStack component, ItemStack cad, SpellContext context, Spell spell, int x, int y) {
+    default ITrickEnablerComponent.EnableResult acceptsPiece(ItemStack component, ItemStack cad, SpellContext context, Spell spell, int x, int y) {
         return ITrickEnablerComponent.EnableResult.NOT_ENABLED;
     }
 
+    static @Nullable ItemStack firstMatchingPiece(ItemStack cad, Predicate<ItemStack> pred) {
+        if (!(cad.getItem() instanceof ICAD))
+            return null;
+        ICAD cadItem = (ICAD) cad.getItem();
+        for (EnumCADComponent component : EnumCADComponent.values()) {
+            ItemStack compStack = cadItem.getComponentInSlot(cad, component);
+            if (compStack != null) {
+                if (pred.test(compStack)) return compStack;
+            }
+        }
+        return null;
+    }
 
-
-    static Object execute(SpellPiece piece, SpellContext context) throws SpellRuntimeException {
+    static @Nullable Object execute(SpellPiece piece, SpellContext context) throws SpellRuntimeException {
         if (!(piece instanceof IComponentPiece))
             return null;
         IComponentPiece componentPiece = (IComponentPiece) piece;
@@ -52,7 +65,7 @@ public interface IComponentPiece {
                 if (compItem.getCADStatValue(component, EnumCADStat.POTENCY) < 0)
                     return componentPiece.executeIfAllowed(context);
 
-                ITrickEnablerComponent.EnableResult result = componentPiece.acceptsPiece(context.caster, component, cad, context, piece.spell, piece.x, piece.y);
+                ITrickEnablerComponent.EnableResult result = componentPiece.acceptsPiece(component, cad, context, piece.spell, piece.x, piece.y);
                 switch (result) {
                     case MISSING_REQUIREMENT:
                         flag = true;

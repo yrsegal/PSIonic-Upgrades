@@ -10,6 +10,7 @@ import vazkii.botania.api.mana.ILensControl
 import vazkii.botania.common.item.ItemManaGun
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.ICAD
+import wiresegal.psionup.api.enabling.botania.IBlasterComponent
 import wiresegal.psionup.common.items.CompatItems
 
 /**
@@ -31,7 +32,7 @@ class RecipeBlasterCADLens : IRecipe {
                         return false
 
                     val item = stack.item as ICAD
-                    if (item.getComponentInSlot(stack, EnumCADComponent.ASSEMBLY).item == CompatItems.blaster) {
+                    if (item.getComponentInSlot(stack, EnumCADComponent.ASSEMBLY).item is IBlasterComponent) {
                         foundCAD = true
                         cad = stack
                     } else

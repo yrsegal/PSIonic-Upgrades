@@ -9,6 +9,7 @@ import vazkii.botania.common.item.ItemManaGun
 import vazkii.botania.common.item.ModItems
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.ICAD
+import wiresegal.psionup.api.enabling.botania.IBlasterComponent
 import wiresegal.psionup.common.items.CompatItems
 
 /**
@@ -23,7 +24,7 @@ class RecipeBlasterCADClip : IRecipe {
         for (i in 0..var1.sizeInventory - 1) {
             val stack = var1.getStackInSlot(i)
             if (stack != null) {
-                if (stack.item is ICAD && (stack.item as ICAD).getComponentInSlot(stack, EnumCADComponent.ASSEMBLY).item == CompatItems.blaster && !ItemManaGun.hasClip(stack) && !foundCAD)
+                if (stack.item is ICAD && (stack.item as ICAD).getComponentInSlot(stack, EnumCADComponent.ASSEMBLY).item is IBlasterComponent && !ItemManaGun.hasClip(stack) && !foundCAD)
                     foundCAD = true
                 else if (stack.item === ModItems.clip && !foundClip)
                     foundClip = true

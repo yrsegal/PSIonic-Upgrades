@@ -1,7 +1,8 @@
-package wiresegal.psionup.api.enabling;
+package wiresegal.psionup.api.enabling.botania;
 
 import net.minecraft.util.text.translation.I18n;
 import vazkii.psi.api.spell.SpellContext;
+import wiresegal.psionup.api.enabling.IComponentPiece;
 
 /**
  * @author WireSegal

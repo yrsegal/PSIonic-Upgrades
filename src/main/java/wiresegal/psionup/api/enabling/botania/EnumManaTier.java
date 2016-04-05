@@ -1,4 +1,4 @@
-package wiresegal.psionup.api.enabling;
+package wiresegal.psionup.api.enabling.botania;
 
 /**
  * @author WireSegal

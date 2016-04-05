@@ -1,5 +1,6 @@
 package wiresegal.psionup.common.spell.trick.botania
 
+import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.BlockPos
@@ -7,6 +8,7 @@ import net.minecraft.util.math.MathHelper
 import net.minecraft.world.World
 import vazkii.botania.api.mana.BurstProperties
 import vazkii.botania.api.mana.ILens
+import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.api.sound.BotaniaSoundEvents
 import vazkii.botania.common.entity.EntityManaBurst
 import vazkii.botania.common.item.ItemManaGun
@@ -15,8 +17,11 @@ import vazkii.psi.api.cad.ICAD
 import vazkii.psi.api.internal.Vector3
 import vazkii.psi.api.spell.*
 import vazkii.psi.api.spell.param.ParamVector
-import wiresegal.psionup.api.enabling.IManaTrick
+import wiresegal.psionup.api.enabling.IComponentPiece
+import wiresegal.psionup.api.enabling.ITrickEnablerComponent
+import wiresegal.psionup.api.enabling.botania.IManaTrick
 import wiresegal.psionup.api.enabling.PieceComponentTrick
+import wiresegal.psionup.api.enabling.botania.IBlasterComponent
 import wiresegal.psionup.common.lib.LibMisc
 
 /**
@@ -41,6 +46,12 @@ class PieceTrickFormBurst(spell: Spell) : PieceComponentTrick(spell) {
 
         meta.addStat(EnumSpellStat.COST, 400)
         meta.addStat(EnumSpellStat.POTENCY, 150)
+    }
+
+    override fun acceptsPiece(component: ItemStack, cad: ItemStack, context: SpellContext, spell: Spell?, x: Int, y: Int): ITrickEnablerComponent.EnableResult? {
+        if (component.item is IBlasterComponent)
+            return ITrickEnablerComponent.EnableResult.fromBoolean(ManaItemHandler.requestManaExact(cad, context.caster, 120, true))
+        return ITrickEnablerComponent.EnableResult.NOT_ENABLED
     }
 
     @Throws(SpellCompilationException::class)

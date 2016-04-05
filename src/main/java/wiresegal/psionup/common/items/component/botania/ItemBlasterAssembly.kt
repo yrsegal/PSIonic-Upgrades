@@ -17,9 +17,10 @@ import vazkii.psi.api.spell.Spell
 import vazkii.psi.api.spell.SpellContext
 import vazkii.psi.common.item.base.IExtraVariantHolder
 import vazkii.psi.common.item.base.ModItems
-import wiresegal.psionup.api.enabling.EnumManaTier
-import wiresegal.psionup.api.enabling.IManaTrick
+import wiresegal.psionup.api.enabling.botania.EnumManaTier
+import wiresegal.psionup.api.enabling.botania.IManaTrick
 import wiresegal.psionup.api.enabling.ITrickEnablerComponent
+import wiresegal.psionup.api.enabling.botania.IBlasterComponent
 import wiresegal.psionup.client.core.ModelHandler
 import wiresegal.psionup.common.crafting.recipe.botania.RecipeBlasterCADClip
 import wiresegal.psionup.common.crafting.recipe.botania.RecipeBlasterCADLens
@@ -32,7 +33,7 @@ import wiresegal.psionup.common.spell.trick.botania.PieceTrickFormBurst
  * @author WireSegal
  * Created at 7:05 PM on 3/31/16.
  */
-class ItemBlasterAssembly(name: String) : ItemComponent(name, name), ICADAssembly, IExtraVariantHolder, ITrickEnablerComponent {
+class ItemBlasterAssembly(name: String) : ItemComponent(name, name), IExtraVariantHolder, IBlasterComponent {
 
     init {
         RecipeSorter.register("${LibMisc.MOD_ID}:blasterClip", RecipeBlasterCADClip::class.java, RecipeSorter.Category.SHAPELESS, "")
@@ -57,8 +58,6 @@ class ItemBlasterAssembly(name: String) : ItemComponent(name, name), ICADAssembl
         if (spellpiece is IManaTrick && EnumManaTier.allowed(tier, spellpiece.tier())) {
             val drain = spellpiece.manaDrain(context, x, y)
             return ITrickEnablerComponent.EnableResult.fromBoolean(ManaItemHandler.requestManaExact(cad, context.caster, drain, true))
-        } else if (spellpiece is PieceTrickFormBurst) {
-            return ITrickEnablerComponent.EnableResult.fromBoolean(ManaItemHandler.requestManaExact(cad, context.caster, 120, true))
         }
         return ITrickEnablerComponent.EnableResult.NOT_ENABLED
     }
@@ -73,8 +72,6 @@ class ItemBlasterAssembly(name: String) : ItemComponent(name, name), ICADAssembl
         this.addStat(EnumCADStat.EFFICIENCY, 0, 80)
         this.addStat(EnumCADStat.POTENCY, 0, 250)
     }
-
-    override fun getComponentType(p0: ItemStack) = EnumCADComponent.ASSEMBLY
 
     override fun getCADModel(stack: ItemStack, cad: ItemStack): ModelResourceLocation? {
         return ModelHandler.resourceLocations[LibNames.Items.LIVINGWOOD_CAD_MODEL]

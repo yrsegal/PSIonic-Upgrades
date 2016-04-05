@@ -15,6 +15,7 @@ import vazkii.botania.common.item.ItemManaGun
 import vazkii.botania.common.item.ModItems
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.ICAD
+import wiresegal.psionup.api.enabling.botania.IBlasterComponent
 import wiresegal.psionup.common.items.CompatItems
 import java.util.*
 import java.util.regex.Pattern
@@ -43,7 +44,7 @@ class BlasterEventHandler {
 
             val component = item.getComponentInSlot(e.itemStack, EnumCADComponent.ASSEMBLY)
 
-            if (component != null && component.item == CompatItems.blaster) {
+            if (component != null && component.item is IBlasterComponent) {
                 val lens = ItemManaGun.getLens(e.itemStack)
                 if (lens != null) {
                     if (e.isShowAdvancedItemTooltips) {
@@ -71,7 +72,7 @@ class BlasterEventHandler {
             val hand = e.hand
             if (heldItem != null && heldItem.item is ICAD) {
                 val item = heldItem.item as ICAD
-                if (item.getComponentInSlot(heldItem, EnumCADComponent.ASSEMBLY).item == CompatItems.blaster && ItemManaGun.hasClip(heldItem)) {
+                if (item.getComponentInSlot(heldItem, EnumCADComponent.ASSEMBLY).item is IBlasterComponent && ItemManaGun.hasClip(heldItem)) {
                     ItemManaGun.rotatePos(heldItem)
                     e.world.playSound(null, e.entityPlayer.posX, e.entityPlayer.posY, e.entityPlayer.posZ, SoundEvents.block_stone_button_click_on, SoundCategory.PLAYERS, 0.6F, (1.0F + (e.world.rand.nextFloat() - e.world.rand.nextFloat()) * 0.2F) * 0.7F)
                     if (e.world.isRemote)
