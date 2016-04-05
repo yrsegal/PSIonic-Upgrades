@@ -65,23 +65,21 @@ class BlasterEventHandler {
     }
 
     @SubscribeEvent
-    fun onInteract(e: PlayerInteractEvent) {
-        if (e.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK || e.action == PlayerInteractEvent.Action.RIGHT_CLICK_AIR) {
-            if (e.entityPlayer.isSneaking) {
-                val heldItem = e.entityPlayer.heldItemMainhand ?: e.entityPlayer.heldItemOffhand ?: return
-                val hand = if (e.entityPlayer.heldItemMainhand == null) EnumHand.OFF_HAND else EnumHand.MAIN_HAND
-                if (heldItem.item is ICAD) {
-                    val item = heldItem.item as ICAD
-                    if (item.getComponentInSlot(heldItem, EnumCADComponent.ASSEMBLY).item == CompatItems.blaster && ItemManaGun.hasClip(heldItem)) {
-                        ItemManaGun.rotatePos(heldItem)
-                        e.world.playSound(null, e.entityPlayer.posX, e.entityPlayer.posY, e.entityPlayer.posZ, SoundEvents.block_stone_button_click_on, SoundCategory.PLAYERS, 0.6F, (1.0F + (e.world.rand.nextFloat() - e.world.rand.nextFloat()) * 0.2F) * 0.7F)
-                        if (e.world.isRemote)
-                            e.entityPlayer.swingArm(hand)
-                        val lens = ItemManaGun.getLens(heldItem)
-                        ItemsRemainingRenderHandler.set(lens, -2)
+    fun onInteract(e: PlayerInteractEvent.RightClickItem) {
+        if (e.entityPlayer.isSneaking) {
+            val heldItem = e.itemStack
+            val hand = e.hand
+            if (heldItem != null && heldItem.item is ICAD) {
+                val item = heldItem.item as ICAD
+                if (item.getComponentInSlot(heldItem, EnumCADComponent.ASSEMBLY).item == CompatItems.blaster && ItemManaGun.hasClip(heldItem)) {
+                    ItemManaGun.rotatePos(heldItem)
+                    e.world.playSound(null, e.entityPlayer.posX, e.entityPlayer.posY, e.entityPlayer.posZ, SoundEvents.block_stone_button_click_on, SoundCategory.PLAYERS, 0.6F, (1.0F + (e.world.rand.nextFloat() - e.world.rand.nextFloat()) * 0.2F) * 0.7F)
+                    if (e.world.isRemote)
+                        e.entityPlayer.swingArm(hand)
+                    val lens = ItemManaGun.getLens(heldItem)
+                    ItemsRemainingRenderHandler.set(lens, -2)
 
-                        e.isCanceled = true
-                    }
+                    e.isCanceled = true
                 }
             }
         }

@@ -27,27 +27,27 @@ object ModelHandler {
 
     fun preInit() {
         for (holder in ItemMod.variantCache) {
-            registerModels(holder)
+            registerModels(holder.key, holder.value)
         }
     }
 
     // The following is a blatant copy of Psi's ModelHandler.
 
-    fun registerModels(holder: IVariantHolder) {
+    fun registerModels(key: String, holder: IVariantHolder) {
         val def = holder.customMeshDefinition
         if (def != null) {
             ModelLoader.setCustomMeshDefinition(holder as Item, def)
         } else {
             val i = holder as Item
-            registerModels(i, holder.variants, false)
+            registerModels(key, i, holder.variants, false)
             if (holder is IExtraVariantHolder) {
-                registerModels(i, holder.extraVariants, true)
+                registerModels(key, i, holder.extraVariants, true)
             }
         }
 
     }
 
-    fun registerModels(item: Item, variants: Array<String>, extra: Boolean) {
+    fun registerModels(key: String, item: Item, variants: Array<String>, extra: Boolean) {
         if (item is ItemBlock && item.getBlock() is IPsiBlock) {
             val i = item.getBlock() as IPsiBlock
             val name = i.variantEnum
@@ -66,14 +66,13 @@ object ModelHandler {
             }
 
             if (name != null) {
-                registerVariantsDefaulted(item, i as Block, name, "variant")
+                registerVariantsDefaulted(key, item, i as Block, name, "variant")
                 return
             }
         }
 
         for (var11 in variants.indices) {
-            val var12 = "psionup:" + variants[var11]
-            val var13 = ModelResourceLocation(var12, "inventory")
+            val var13 = ModelResourceLocation(key, "inventory")
             if (!extra) {
                 ModelLoader.setCustomModelResourceLocation(item, var11, var13)
                 resourceLocations.put(getKey(item, var11), var13)
@@ -85,14 +84,12 @@ object ModelHandler {
 
     }
 
-    private fun registerVariantsDefaulted(item: Item, b: Block, enumclazz: Class<*>, variantHeader: String) {
-        val baseName = GameData.getBlockRegistry().getNameForObject(b).toString()
-
+    private fun registerVariantsDefaulted(key: String, item: Item, b: Block, enumclazz: Class<*>, variantHeader: String) {
         if (enumclazz.enumConstants != null)
             for (e in enumclazz.enumConstants) {
                 if (e is IStringSerializable && e is Enum<*>) {
                     val variantName = variantHeader + "=" + e.name
-                    val loc = ModelResourceLocation(baseName, variantName)
+                    val loc = ModelResourceLocation(key, variantName)
                     val i = e.ordinal
                     ModelLoader.setCustomModelResourceLocation(item, i, loc)
                     resourceLocations.put(getKey(item, i), loc)

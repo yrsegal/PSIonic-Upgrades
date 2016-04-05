@@ -19,18 +19,17 @@ import wiresegal.psionup.common.lib.LibMisc
  * @author WireSegal
  * Created at 5:48 PM on 3/20/16.
  */
-class ItemModBlock(block: Block, resourceLocation: ResourceLocation?) : ItemBlock(block), IVariantHolder {
-    constructor(block: Block) : this(block, null) {}
+class ItemModBlock(block: Block) : ItemBlock(block), IVariantHolder {
 
     private val psiBlock: IPsiBlock
 
     init {
         this.psiBlock = block as IPsiBlock
-        ItemMod.variantCache.add(this)
         if (this.variants.size > 1) {
             this.setHasSubtypes(true)
         }
-
+        val rl = ResourceLocation(LibMisc.MOD_ID, block.unlocalizedName.replace("tile.", ""))
+        ItemMod.variantCache.put(rl.toString(), this)
     }
 
     override fun getMetadata(damage: Int): Int {
@@ -38,7 +37,8 @@ class ItemModBlock(block: Block, resourceLocation: ResourceLocation?) : ItemBloc
     }
 
     override fun setUnlocalizedName(par1Str: String): ItemBlock {
-        GameRegistry.register(this, ResourceLocation(LibMisc.MOD_ID, par1Str))
+        val rl = ResourceLocation(LibMisc.MOD_ID, par1Str)
+        GameRegistry.register(this, rl)
         return super.setUnlocalizedName(par1Str)
     }
 

@@ -21,7 +21,7 @@ import vazkii.psi.common.item.base.ItemMod as PsiItem
 open class ItemMod(name: String, vararg variants: String) : Item(), IVariantHolder {
 
     companion object {
-        val variantCache = ArrayList<IVariantHolder>()
+        val variantCache = HashMap<String, IVariantHolder>()
 
         fun tooltipIfShift(tooltip: List<String>, r: () -> Unit) {
             TooltipHelper.tooltipIfShift(tooltip, r)
@@ -54,14 +54,15 @@ open class ItemMod(name: String, vararg variants: String) : Item(), IVariantHold
 
         this.bareName = name
         this.variants = variantTemp
-        variantCache.add(this)
         PsiItem.variantHolders.add(this)
         creativeTab = CreativeTab.INSTANCE
     }
+
     override fun setUnlocalizedName(name: String): Item {
-        super.setUnlocalizedName(name)
-        GameRegistry.register(this, ResourceLocation(LibMisc.MOD_ID, name))
-        return this
+        val rl = ResourceLocation(LibMisc.MOD_ID, name)
+        GameRegistry.register(this, rl)
+        variantCache.put(rl.toString(), this)
+        return super.setUnlocalizedName(name)
     }
 
     override fun getUnlocalizedName(par1ItemStack: ItemStack?): String {
