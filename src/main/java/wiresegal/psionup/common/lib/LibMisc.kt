@@ -9,8 +9,9 @@ object LibMisc {
     const val MOD_ID = "psionup"
 
     const val BUILD = "GRADLE:BUILD"
-    const val VERSION = "GRADLE:VERSION-$BUILD"
-    const val DEPENDENCIES = "required-after:Forge@[12.16.0.1840,);required-after:Psi;after:Botania;"
+    const val VERSIONID = "GRADLE:VERSION"
+    const val VERSION = "$VERSIONID.$BUILD"
+    const val DEPENDENCIES = "required-after:Forge@[12.16.0.1841,);required-after:Psi;after:Botania[r1.8-301,);"
 
     const val PROXY_COMMON = "wiresegal.psionup.common.core.CommonProxy"
     const val PROXY_CLIENT = "wiresegal.psionup.client.core.ClientProxy"

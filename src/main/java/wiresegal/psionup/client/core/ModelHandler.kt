@@ -66,7 +66,7 @@ object ModelHandler {
             }
 
             if (name != null) {
-                registerVariantsDefaulted(key, item, i as Block, name, "variant")
+                registerVariantsDefaulted(key, item, name, "variant")
                 return
             }
         }
@@ -84,7 +84,7 @@ object ModelHandler {
 
     }
 
-    private fun registerVariantsDefaulted(key: String, item: Item, b: Block, enumclazz: Class<*>, variantHeader: String) {
+    private fun registerVariantsDefaulted(key: String, item: Item, enumclazz: Class<*>, variantHeader: String) {
         if (enumclazz.enumConstants != null)
             for (e in enumclazz.enumConstants) {
                 if (e is IStringSerializable && e is Enum<*>) {

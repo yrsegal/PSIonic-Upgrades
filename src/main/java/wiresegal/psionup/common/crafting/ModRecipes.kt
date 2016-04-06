@@ -93,8 +93,9 @@ object ModRecipes {
                 'S', EnumCADComponent.SOCKET,
                 'D', ItemStack(PsiItems.spellDrive))
 
-        if (Loader.isModLoaded("Botania"))
+        if (Loader.isModLoaded("Botania")) {
             CompatItems.initRecipes()
+        }
 
         PsionicAPI.addTrickRecipe("", ItemStack(Items.redstone), ItemStack(PsiItems.material), ItemStack(PsiItems.cadAssembly))
         PsionicAPI.addTrickRecipe(LibPieceNames.TRICK_INFUSION, ItemStack(Items.gold_ingot), ItemStack(PsiItems.material, 1, 1), ItemStack(PsiItems.cadAssembly))
