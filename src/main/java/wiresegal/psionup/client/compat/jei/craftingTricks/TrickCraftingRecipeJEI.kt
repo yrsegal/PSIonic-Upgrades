@@ -34,17 +34,9 @@ constructor(private val recipe: TrickRecipe) : BlankRecipeWrapper() {
     init {
         val location = PsiAPI.simpleSpellTextures[recipe.piece]
         clazz = PsiAPI.spellPieceRegistry.getObject(recipe.piece)
-        if (location != null)
-            icon = JEICompat.helper.guiHelper.createDrawable(location, 0, 0, 256, 256)
-        else
-            icon = null
 
-        if (clazz != null) {
-            val constructor = clazz.getDeclaredConstructor(Spell::class.java)
-            piece = constructor.newInstance(null)
-        } else {
-            piece = null
-        }
+        icon = if (location != null) JEICompat.helper.guiHelper.createDrawable(location, 0, 0, 256, 256) else null
+        piece = if (clazz != null) SpellPiece.create(clazz, null) else null
     }
 
     override fun getInputs(): List<Any> {
