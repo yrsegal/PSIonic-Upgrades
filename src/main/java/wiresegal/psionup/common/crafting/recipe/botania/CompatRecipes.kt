@@ -17,8 +17,8 @@ object CompatRecipes {
     fun initRecipes() {
         isInitialized = true
         ModRecipes.addOreDictRecipe(ItemStack(CompatItems.blaster),
-                "PLS",
-                "M  ",
+                "MPS",
+                "L  ",
                 'M', LibOreDict.RUNE[8], // Mana
                 'L', LibOreDict.LIVING_WOOD,
                 'P', "gemPsi",
