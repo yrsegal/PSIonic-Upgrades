@@ -18,7 +18,7 @@ import java.util.*
  * @author WireSegal
  * *         Created at 9:37 AM on 3/21/16.
  */
-class RecipeCadComponentShapeless : IRecipe {
+open class RecipeCadComponentShapeless : IRecipe {
     private var output: ItemStack
     val input = ArrayList<Any>()
 

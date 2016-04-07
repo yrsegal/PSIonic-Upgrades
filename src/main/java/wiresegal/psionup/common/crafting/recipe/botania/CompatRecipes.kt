@@ -11,7 +11,11 @@ import wiresegal.psionup.common.items.CompatItems
  * Created at 3:36 PM on 4/1/16.
  */
 object CompatRecipes {
+
+    var isInitialized = false
+
     fun initRecipes() {
+        isInitialized = true
         ModRecipes.addOreDictRecipe(ItemStack(CompatItems.blaster),
                 "PLS",
                 "M  ",

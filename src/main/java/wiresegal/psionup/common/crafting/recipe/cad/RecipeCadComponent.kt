@@ -18,7 +18,7 @@ import java.util.*
  * @author WireSegal
  * Created at 7:49 PM on 3/20/16.
  */
-class RecipeCadComponent : IRecipe {
+open class RecipeCadComponent : IRecipe {
 
     var output: ItemStack
     var input: Array<Any?>
