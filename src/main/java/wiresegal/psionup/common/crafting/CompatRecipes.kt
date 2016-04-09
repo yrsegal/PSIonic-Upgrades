@@ -1,4 +1,4 @@
-package wiresegal.psionup.common.crafting.recipe.botania
+package wiresegal.psionup.common.crafting
 
 import net.minecraft.item.ItemStack
 import vazkii.botania.common.block.ModBlocks

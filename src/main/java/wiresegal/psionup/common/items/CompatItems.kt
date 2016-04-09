@@ -1,6 +1,6 @@
 package wiresegal.psionup.common.items
 
-import wiresegal.psionup.common.crafting.recipe.botania.CompatRecipes
+import wiresegal.psionup.common.crafting.CompatRecipes
 import wiresegal.psionup.common.items.base.ItemMod
 import wiresegal.psionup.common.items.component.botania.ItemBlasterAssembly
 import wiresegal.psionup.common.lib.LibNames

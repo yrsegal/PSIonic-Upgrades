@@ -13,13 +13,11 @@ import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.common.lib.LibPieceNames
 import wiresegal.psionup.api.PsionicAPI
 import wiresegal.psionup.common.crafting.recipe.RecipeLiquidDye
-import wiresegal.psionup.common.crafting.recipe.botania.CompatRecipes
 import wiresegal.psionup.common.crafting.recipe.cad.RecipeCadComponent
 import wiresegal.psionup.common.crafting.recipe.cad.RecipeCadComponentShapeless
-import wiresegal.psionup.common.items.ModItems
 import wiresegal.psionup.common.items.CompatItems
+import wiresegal.psionup.common.items.ModItems
 import wiresegal.psionup.common.lib.LibMisc
-import java.util.*
 import vazkii.psi.common.item.base.ModItems as PsiItems
 
 /**
