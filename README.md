@@ -1,6 +1,7 @@
 # PSIonic Upgrades
 Magic?? Tech?? Addons??
 
+[![Build Status](https://travis-ci.org/yrsegal/PSIonic-Upgrades.svg?branch=master)](https://travis-ci.org/yrsegal/PSIonic-Upgrades?branch=master)
 
 ## Items
 
