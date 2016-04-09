@@ -2,7 +2,6 @@ package wiresegal.psionup.common.block.base
 
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.ItemMeshDefinition
-import net.minecraft.client.resources.ResourcePackListEntry
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.Item

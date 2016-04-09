@@ -17,10 +17,9 @@ import vazkii.psi.api.internal.MathHelper
 import vazkii.psi.api.internal.Vector3
 import vazkii.psi.api.spell.*
 import vazkii.psi.api.spell.param.ParamVector
+import wiresegal.psionup.api.enabling.PieceComponentTrick
 import wiresegal.psionup.api.enabling.botania.EnumManaTier
 import wiresegal.psionup.api.enabling.botania.IManaTrick
-import wiresegal.psionup.api.enabling.PieceComponentTrick
-import wiresegal.psionup.common.lib.LibMisc
 import java.util.*
 
 /**
@@ -30,13 +29,13 @@ import java.util.*
 open class PieceTrickHarvestDrum(spell: Spell) : PieceComponentTrick(spell), IManaTrick {
 
     companion object {
-        class PieceTrickLeafDrum(spell: Spell): PieceTrickHarvestDrum(spell) {
+        class PieceTrickLeafDrum(spell: Spell) : PieceTrickHarvestDrum(spell) {
             override fun effect(context: SpellContext, pos: BlockPos) {
                 ItemGrassHorn.breakGrass(context.caster.worldObj, null, 1, pos)
             }
         }
 
-        class PieceTrickShearDrum(spell: Spell): PieceTrickHarvestDrum(spell) {
+        class PieceTrickShearDrum(spell: Spell) : PieceTrickHarvestDrum(spell) {
             override fun effect(context: SpellContext, pos: BlockPos) {
                 val world = context.caster.worldObj
 
@@ -118,8 +117,8 @@ open class PieceTrickHarvestDrum(spell: Spell) : PieceComponentTrick(spell), IMa
         if (MathHelper.pointDistanceSpace(position.x, position.y, position.z, context.focalPoint.posX, context.focalPoint.posY, context.focalPoint.posZ) > 22.0)
             throw SpellRuntimeException(SpellRuntimeException.OUTSIDE_RADIUS)
 
-        if(!context.caster.worldObj.isRemote)
-            for(i in 0..9)
+        if (!context.caster.worldObj.isRemote)
+            for (i in 0..9)
                 context.caster.worldObj.playSound(null, BlockPos(position.x, position.y, position.z), SoundEvents.block_note_basedrum, SoundCategory.BLOCKS, 1F, 1F);
         else context.caster.worldObj.spawnParticle(EnumParticleTypes.NOTE, position.x + 0.5, position.y + 1.2, position.z + 0.5, 1.0 / 24.0, 0.0, 0.0);
 

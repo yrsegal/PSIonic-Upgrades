@@ -15,7 +15,6 @@ import wiresegal.psionup.common.spell.trick.PieceTrickConjurePulsar
 import wiresegal.psionup.common.spell.trick.PieceTrickConjurePulsarLight
 import wiresegal.psionup.common.spell.trick.PieceTrickConjurePulsarSequence
 import wiresegal.psionup.common.spell.trick.PieceTrickParticleTrail
-import wiresegal.psionup.common.spell.CompatTricks
 
 /**
  * @author WireSegal

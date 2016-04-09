@@ -2,7 +2,6 @@ package wiresegal.psionup.common.items.component.botania
 
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.init.SoundEvents
-import net.minecraft.util.EnumHand
 import net.minecraft.util.SoundCategory
 import net.minecraft.util.text.TextFormatting
 import net.minecraftforge.common.MinecraftForge
@@ -16,7 +15,6 @@ import vazkii.botania.common.item.ModItems
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.ICAD
 import wiresegal.psionup.api.enabling.botania.IBlasterComponent
-import wiresegal.psionup.common.items.CompatItems
 import java.util.*
 import java.util.regex.Pattern
 

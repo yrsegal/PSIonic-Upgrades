@@ -17,6 +17,6 @@ public interface IManaTrick extends IComponentPiece {
 
     @Override
     default String[] requiredObjects() {
-        return new String[] {I18n.translateToLocal("psionup.requirement." + tier().toString())};
+        return new String[]{I18n.translateToLocal("psionup.requirement." + tier().toString())};
     }
 }

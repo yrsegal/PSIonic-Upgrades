@@ -1,6 +1,5 @@
 package wiresegal.psionup.common.spell.trick.botania
 
-import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.BlockPos
@@ -17,9 +16,7 @@ import vazkii.psi.api.cad.ICAD
 import vazkii.psi.api.internal.Vector3
 import vazkii.psi.api.spell.*
 import vazkii.psi.api.spell.param.ParamVector
-import wiresegal.psionup.api.enabling.IComponentPiece
 import wiresegal.psionup.api.enabling.ITrickEnablerComponent
-import wiresegal.psionup.api.enabling.botania.IManaTrick
 import wiresegal.psionup.api.enabling.PieceComponentTrick
 import wiresegal.psionup.api.enabling.botania.IBlasterComponent
 import wiresegal.psionup.common.lib.LibMisc

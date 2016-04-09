@@ -10,7 +10,6 @@ import vazkii.botania.common.item.ModItems
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.ICAD
 import wiresegal.psionup.api.enabling.botania.IBlasterComponent
-import wiresegal.psionup.common.items.CompatItems
 
 /**
  * @author WireSegal

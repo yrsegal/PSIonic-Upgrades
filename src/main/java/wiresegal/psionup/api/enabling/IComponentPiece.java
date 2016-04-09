@@ -1,6 +1,5 @@
 package wiresegal.psionup.api.enabling;
 
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
@@ -24,15 +23,9 @@ import java.util.function.Predicate;
  * The abstract classes prodvided in this package should be sufficient.
  */
 public interface IComponentPiece {
-    Object executeIfAllowed(SpellContext context) throws SpellRuntimeException;
-
-    String[] requiredObjects();
-
-    default ITrickEnablerComponent.EnableResult acceptsPiece(ItemStack component, ItemStack cad, SpellContext context, Spell spell, int x, int y) {
-        return ITrickEnablerComponent.EnableResult.NOT_ENABLED;
-    }
-
-    static @Nullable ItemStack firstMatchingPiece(ItemStack cad, Predicate<ItemStack> pred) {
+    static
+    @Nullable
+    ItemStack firstMatchingPiece(ItemStack cad, Predicate<ItemStack> pred) {
         if (!(cad.getItem() instanceof ICAD))
             return null;
         ICAD cadItem = (ICAD) cad.getItem();
@@ -45,7 +38,9 @@ public interface IComponentPiece {
         return null;
     }
 
-    static @Nullable Object execute(SpellPiece piece, SpellContext context) throws SpellRuntimeException {
+    static
+    @Nullable
+    Object execute(SpellPiece piece, SpellContext context) throws SpellRuntimeException {
         if (!(piece instanceof IComponentPiece))
             return null;
         IComponentPiece componentPiece = (IComponentPiece) piece;
@@ -101,7 +96,8 @@ public interface IComponentPiece {
 
         TooltipHelper.addToTooltip(tooltip, TextFormatting.GRAY + "%s", piece.getUnlocalizedDesc());
 
-        for (String obj : componentPiece.requiredObjects()) TooltipHelper.addToTooltip(tooltip, "psionup.spelldesc.requires", obj);
+        for (String obj : componentPiece.requiredObjects())
+            TooltipHelper.addToTooltip(tooltip, "psionup.spelldesc.requires", obj);
 
         TooltipHelper.addToTooltip(tooltip, "");
         String eval = piece.getEvaluationTypeString();
@@ -113,5 +109,13 @@ public interface IComponentPiece {
             TooltipHelper.addToTooltip(tooltip, (param.canDisable ? "[->] " : " ->  ") + TextFormatting.YELLOW + pName + " [" + pEval + "]");
         }
 
+    }
+
+    Object executeIfAllowed(SpellContext context) throws SpellRuntimeException;
+
+    String[] requiredObjects();
+
+    default ITrickEnablerComponent.EnableResult acceptsPiece(ItemStack component, ItemStack cad, SpellContext context, Spell spell, int x, int y) {
+        return ITrickEnablerComponent.EnableResult.NOT_ENABLED;
     }
 }

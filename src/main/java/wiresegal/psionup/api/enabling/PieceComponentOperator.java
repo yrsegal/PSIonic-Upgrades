@@ -4,7 +4,6 @@ import vazkii.psi.api.spell.Spell;
 import vazkii.psi.api.spell.SpellContext;
 import vazkii.psi.api.spell.SpellRuntimeException;
 import vazkii.psi.api.spell.piece.PieceOperator;
-import vazkii.psi.api.spell.piece.PieceTrick;
 
 import java.util.List;
 

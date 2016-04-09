@@ -9,7 +9,6 @@ import net.minecraft.item.ItemBlock
 import net.minecraft.util.IStringSerializable
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.model.ModelLoader
-import net.minecraftforge.fml.common.registry.GameData
 import vazkii.psi.common.block.base.IPsiBlock
 import vazkii.psi.common.item.base.IExtraVariantHolder
 import vazkii.psi.common.item.base.IVariantHolder

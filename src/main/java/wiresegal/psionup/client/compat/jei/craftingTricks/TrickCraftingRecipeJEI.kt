@@ -5,12 +5,8 @@ import mezz.jei.api.recipe.BlankRecipeWrapper
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.util.ResourceLocation
-import net.minecraft.util.text.TextFormatting
-import net.minecraft.util.text.translation.I18n
 import vazkii.psi.api.PsiAPI
-import vazkii.psi.api.spell.Spell
 import vazkii.psi.api.spell.SpellPiece
-import vazkii.psi.common.item.base.ItemMod
 import wiresegal.psionup.api.TrickRecipe
 import wiresegal.psionup.client.compat.jei.JEICompat
 import java.util.*

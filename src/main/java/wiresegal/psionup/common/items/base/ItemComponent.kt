@@ -6,7 +6,6 @@ import net.minecraft.util.text.TextFormatting
 import org.apache.commons.lang3.tuple.Pair
 import vazkii.psi.api.cad.EnumCADStat
 import vazkii.psi.api.cad.ICADComponent
-import wiresegal.psionup.common.core.CreativeTab
 import java.util.*
 import vazkii.psi.common.item.base.ItemMod as PsiItem
 

@@ -4,7 +4,6 @@ import vazkii.psi.api.PsiAPI
 import vazkii.psi.common.lib.LibPieceGroups
 import vazkii.psi.common.spell.base.ModSpellPieces
 import wiresegal.psionup.common.lib.LibNames
-import wiresegal.psionup.common.spell.ModPieces
 import wiresegal.psionup.common.spell.trick.botania.PieceTrickFormBurst
 import wiresegal.psionup.common.spell.trick.botania.PieceTrickHarvestDrum
 
