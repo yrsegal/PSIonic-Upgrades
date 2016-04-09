@@ -17,14 +17,14 @@ open class CommonProxy {
         ModItems
         ModBlocks
         ModPieces
-        ModRecipes.pre()
+        ModRecipes
     }
 
     open fun init(e: FMLInitializationEvent) {
-        ModRecipes.init()
+
     }
 
     open fun post(e: FMLPostInitializationEvent) {
-        ModRecipes.post()
+        ModRecipes
     }
 }

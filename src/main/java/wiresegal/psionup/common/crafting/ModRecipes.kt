@@ -36,7 +36,7 @@ object ModRecipes {
             ItemStack(PsiItems.cadSocket, 1, 3),
             ItemStack(PsiItems.cadSocket, 1, 4))
 
-    fun pre() {
+    init {
         RecipeSorter.register("${LibMisc.MOD_ID}:liquiddye", RecipeLiquidDye::class.java, RecipeSorter.Category.SHAPELESS, "")
         RecipeSorter.register("${LibMisc.MOD_ID}:cadcraft", RecipeCadComponent::class.java, RecipeSorter.Category.SHAPED, "")
         RecipeSorter.register("${LibMisc.MOD_ID}:cadcraftshapeless", RecipeCadComponentShapeless::class.java, RecipeSorter.Category.SHAPELESS, "")
@@ -102,15 +102,8 @@ object ModRecipes {
         PsionicAPI.addTrickRecipe(LibPieceNames.TRICK_EBONY_IVORY, ItemStack(Items.coal), ItemStack(PsiItems.material, 1, 5), ItemStack(PsiItems.cadAssembly, 1, 2))
         PsionicAPI.addTrickRecipe(LibPieceNames.TRICK_EBONY_IVORY, ItemStack(Items.quartz), ItemStack(PsiItems.material, 1, 6), ItemStack(PsiItems.cadAssembly, 1, 2))
 
-    }
-
-    fun init() {
         if (Loader.isModLoaded("Botania"))
             CompatItems.initRecipes()
-    }
-
-    fun post() {
-        
     }
 
 
