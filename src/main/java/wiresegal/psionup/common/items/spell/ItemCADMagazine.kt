@@ -22,8 +22,8 @@ import vazkii.psi.api.internal.VanillaPacketDispatcher
 import vazkii.psi.api.spell.EnumSpellStat
 import vazkii.psi.api.spell.ISpellSettable
 import vazkii.psi.api.spell.Spell
-import vazkii.psi.client.core.handler.PsiSoundHandler
 import vazkii.psi.common.block.tile.TileProgrammer
+import vazkii.psi.common.core.handler.PsiSoundHandler
 import vazkii.psi.common.core.helper.ItemNBTHelper
 import vazkii.psi.common.item.ItemSpellDrive
 import vazkii.psi.common.spell.SpellCompiler
@@ -76,6 +76,8 @@ class ItemCADMagazine(name: String) : ItemMod(name, name), ISocketable, ICadComp
         }
     }
 
+    override fun requiresSneakForSpellSet(p0: ItemStack?) = true
+
     init {
         setMaxStackSize(1)
     }
@@ -110,12 +112,12 @@ class ItemCADMagazine(name: String) : ItemMod(name, name), ISocketable, ICadComp
                 val enabled = tile.isEnabled
                 val compiled = SpellCompiler(spell)
                 if ((compiled.compiledSpell.metadata.stats[EnumSpellStat.BANDWIDTH] ?: Integer.MAX_VALUE) > getBandwidth(stack) && !worldIn.isRemote)
-                    playerIn.addChatComponentMessage(TextComponentTranslation("${LibMisc.MOD_ID}.misc.tooComplexBullet").setChatStyle(Style().setColor(TextFormatting.RED)))
+                    playerIn.addChatComponentMessage(TextComponentTranslation("${LibMisc.MOD_ID}.misc.tooComplexBullet").setStyle(Style().setColor(TextFormatting.RED)))
                 else if (!worldIn.isRemote) {
                     if (enabled && !tile.playerLock.isEmpty()) {
                         if (tile.playerLock != playerIn.name) {
                             if (!worldIn.isRemote) {
-                                playerIn.addChatComponentMessage(TextComponentTranslation("psimisc.notYourProgrammer").setChatStyle(Style().setColor(TextFormatting.RED)))
+                                playerIn.addChatComponentMessage(TextComponentTranslation("psimisc.notYourProgrammer").setStyle(Style().setColor(TextFormatting.RED)))
                             }
 
                             return EnumActionResult.SUCCESS
@@ -222,7 +224,7 @@ class ItemCADMagazine(name: String) : ItemMod(name, name), ISocketable, ICadComp
         val compiled = SpellCompiler(spell)
         if ((compiled.compiledSpell.metadata.stats[EnumSpellStat.BANDWIDTH] ?: Integer.MAX_VALUE) > getBandwidth(stack)) {
             if (!player.worldObj.isRemote)
-                player.addChatComponentMessage(TextComponentTranslation("${LibMisc.MOD_ID}.misc.tooComplexProgrammer").setChatStyle(Style().setColor(TextFormatting.RED)))
+                player.addChatComponentMessage(TextComponentTranslation("${LibMisc.MOD_ID}.misc.tooComplexProgrammer").setStyle(Style().setColor(TextFormatting.RED)))
         } else if (bullet != null && bullet.item is ISpellSettable) {
             (bullet.item as ISpellSettable).setSpell(player, bullet, spell)
             this.setBulletInSocket(stack, slot, bullet)

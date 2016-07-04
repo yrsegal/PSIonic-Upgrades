@@ -5,7 +5,6 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
-import net.minecraft.util.text.translation.I18n
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.oredict.RecipeSorter
 import vazkii.botania.api.mana.ManaItemHandler
@@ -61,7 +60,7 @@ class ItemBlasterAssembly(name: String) : ItemComponent(name, name), IExtraVaria
 
     override fun addInformation(stack: ItemStack, playerIn: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
         if (GuiScreen.isShiftKeyDown())
-            tooltip.add(I18n.translateToLocal("${LibMisc.MOD_ID}.requirement.manaCAD").replace('&', '\u00a7'))
+            addToTooltip(tooltip, "${LibMisc.MOD_ID}.requirement.manaCAD")
         super.addInformation(stack, playerIn, tooltip, advanced)
     }
 

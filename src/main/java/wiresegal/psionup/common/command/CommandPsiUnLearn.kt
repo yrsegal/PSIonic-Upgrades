@@ -21,13 +21,13 @@ open class CommandPsiUnlearn : CommandPsiLearn() {
         val data = PlayerDataHandler.get(player)
         if (group == level0) {
             data.lockPieceGroup(level0)
-            CommandBase.notifyOperators(sender, this, "$localizationkey.success", player.name, getGroupComponent(group))
+            CommandBase.notifyCommandListener(sender, this, "$localizationkey.success", player.name, getGroupComponent(group))
         }
         if (group in groups) {
             val pieceGroup = PsiAPI.groupsForName[group]
             if (pieceGroup != null && data.isPieceGroupUnlocked(group)) {
                 data.lockPieceGroup(group)
-                CommandBase.notifyOperators(sender, this, "$localizationkey.success", player.name, getGroupComponent(group))
+                CommandBase.notifyCommandListener(sender, this, "$localizationkey.success", player.name, getGroupComponent(group))
             }
         }
     }
@@ -35,7 +35,7 @@ open class CommandPsiUnlearn : CommandPsiLearn() {
     override fun applyAll(player: EntityPlayer, sender: ICommandSender) {
         val data = PlayerDataHandler.get(player)
         data.lockAll()
-        CommandBase.notifyOperators(sender, this, "$localizationkey.success.all", player.displayName)
+        CommandBase.notifyCommandListener(sender, this, "$localizationkey.success.all", player.displayName)
     }
 
     override fun shouldntApply(player: EntityPlayer, group: String): Boolean {

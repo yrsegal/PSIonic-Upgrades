@@ -1,5 +1,6 @@
 package wiresegal.psionup.common.command
 
+import net.minecraft.client.resources.I18n
 import net.minecraft.command.CommandBase
 import net.minecraft.command.CommandException
 import net.minecraft.command.ICommandSender
@@ -14,7 +15,6 @@ import net.minecraft.util.text.TextComponentString
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.util.text.event.HoverEvent
-import net.minecraft.util.text.translation.I18n
 import vazkii.psi.api.PsiAPI
 import vazkii.psi.common.core.handler.PlayerDataHandler
 import vazkii.psi.common.network.NetworkHandler
@@ -99,21 +99,21 @@ open class CommandPsiLearn : CommandBase() {
 
         fun getGroupComponent(group: String): ITextComponent {
             if (group == level0) {
-                val nameComponent = TextComponentString("[" + I18n.translateToLocal("${LibMisc.MOD_ID}.misc.psidust") + "]")
-                nameComponent.chatStyle.color = TextFormatting.AQUA
-                nameComponent.chatStyle.chatHoverEvent = HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponentTranslation("psimisc.levelDisplay", 0))
+                val nameComponent = TextComponentString("[" + I18n.format("${LibMisc.MOD_ID}.misc.psidust") + "]")
+                nameComponent.style.color = TextFormatting.AQUA
+                nameComponent.style.hoverEvent = HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponentTranslation("psimisc.levelDisplay", 0))
                 return nameComponent
             }
 
             val pieceGroup = PsiAPI.groupsForName[group]
             if (pieceGroup == null) {
                 val errorComponent = TextComponentString("ERROR")
-                errorComponent.chatStyle.color = TextFormatting.RED
+                errorComponent.style.color = TextFormatting.RED
                 return errorComponent
             }
-            val nameComponent = TextComponentString("[" + I18n.translateToLocal(pieceGroup.unlocalizedName) + "]")
-            nameComponent.chatStyle.color = TextFormatting.AQUA
-            nameComponent.chatStyle.chatHoverEvent = HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponentTranslation("psimisc.levelDisplay", pieceGroup.levelRequirement))
+            val nameComponent = TextComponentString("[" + I18n.format(pieceGroup.unlocalizedName) + "]")
+            nameComponent.style.color = TextFormatting.AQUA
+            nameComponent.style.hoverEvent = HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponentTranslation("psimisc.levelDisplay", pieceGroup.levelRequirement))
             return nameComponent
         }
     }
@@ -123,7 +123,7 @@ open class CommandPsiLearn : CommandBase() {
     }
 
     override fun getCommandUsage(var1: ICommandSender): String {
-        return I18n.translateToLocal("$localizationkey.usage")
+        return I18n.format("$localizationkey.usage")
     }
 
     override fun getRequiredPermissionLevel(): Int {
@@ -135,7 +135,7 @@ open class CommandPsiLearn : CommandBase() {
         data.unlockPieceGroupFree(level0)
 
         if (group == level0) {
-            CommandBase.notifyOperators(sender, this, "$localizationkey.success", player.name, getGroupComponent(group))
+            CommandBase.notifyCommandListener(sender, this, "$localizationkey.success", player.name, getGroupComponent(group))
         } else if (group in groups) {
             val pieceGroup = PsiAPI.groupsForName[group]
             if (pieceGroup != null && !data.isPieceGroupUnlocked(group)) {
@@ -143,7 +143,7 @@ open class CommandPsiLearn : CommandBase() {
                     if (!data.isPieceGroupUnlocked(subgroup))
                         applyPlayerData(player, subgroup, sender)
                 data.unlockPieceGroupFree(group)
-                CommandBase.notifyOperators(sender, this, "$localizationkey.success", player.name, getGroupComponent(group))
+                CommandBase.notifyCommandListener(sender, this, "$localizationkey.success", player.name, getGroupComponent(group))
             }
         }
     }
@@ -151,7 +151,7 @@ open class CommandPsiLearn : CommandBase() {
     open fun applyAll(player: EntityPlayer, sender: ICommandSender) {
         val data = PlayerDataHandler.get(player)
         data.unlockAll()
-        CommandBase.notifyOperators(sender, this, "$localizationkey.success.all", player.displayName)
+        CommandBase.notifyCommandListener(sender, this, "$localizationkey.success.all", player.displayName)
     }
 
     open fun shouldntApply(player: EntityPlayer, group: String): Boolean {
@@ -176,7 +176,7 @@ open class CommandPsiLearn : CommandBase() {
             }
 
             if (player == null || player !is EntityPlayer) {
-                throw CommandException("${LibMisc.MOD_ID}.learn.players", player.displayName)
+                throw CommandException("${LibMisc.MOD_ID}.learn.players", player?.displayName)
             } else if (args[0] == "*") {
                 applyAll(player, sender)
                 if (player is EntityPlayerMP) {

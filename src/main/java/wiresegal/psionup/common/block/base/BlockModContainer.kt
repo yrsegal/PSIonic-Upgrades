@@ -17,10 +17,10 @@ open class BlockModContainer(name: String, materialIn: Material, vararg variants
         worldIn.removeTileEntity(pos)
     }
 
-    override fun onBlockEventReceived(worldIn: World?, pos: BlockPos?, state: IBlockState?, eventID: Int, eventParam: Int): Boolean {
-        super.onBlockEventReceived(worldIn, pos, state, eventID, eventParam)
+    override fun eventReceived(state: IBlockState?, worldIn: World?, pos: BlockPos?, id: Int, param: Int): Boolean {
+        super.eventReceived(state, worldIn, pos, id, param)
         val tileentity = worldIn!!.getTileEntity(pos)
-        return if (tileentity == null) false else tileentity.receiveClientEvent(eventID, eventParam)
+        return if (tileentity == null) false else tileentity.receiveClientEvent(id, param)
     }
 
     override fun createNewTileEntity(worldIn: World, meta: Int): TileEntity? {

@@ -48,7 +48,7 @@ class CreativeTab : CreativeTabs(LibMisc.MOD_ID) {
     }
 
     private fun addBlock(block: Block) {
-        this.addItem(Item.getItemFromBlock(block))
+        this.addItem(Item.getItemFromBlock(block)?: return)
     }
 
     companion object {

@@ -86,7 +86,7 @@ open class PieceTrickConjurePulsar(spell: Spell) : PieceTrick(spell) {
                     if (!world.isRemote) {
                         world.setBlockState(pos, ModBlocks.conjured.defaultState)
                         if (particles) {
-                            world.playAuxSFX(2001, pos, Block.getStateId(world.getBlockState(pos)))
+                            world.playEvent(2001, pos, Block.getStateId(world.getBlockState(pos)))
                         }
                     }
                 }

@@ -17,7 +17,6 @@ open class CommonProxy {
         ModItems
         ModBlocks
         ModPieces
-        ModRecipes
     }
 
     open fun init(e: FMLInitializationEvent) {

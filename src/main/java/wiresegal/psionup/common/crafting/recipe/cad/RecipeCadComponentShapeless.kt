@@ -54,7 +54,7 @@ open class RecipeCadComponentShapeless : IRecipe {
     }
 
     internal constructor(recipe: ShapelessRecipes, replacements: Map<ItemStack, String>) {
-        output = recipe.recipeOutput
+        output = recipe.recipeOutput!!
 
         for (ingred in recipe.recipeItems) {
             var finalObj: Any = ingred

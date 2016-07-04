@@ -25,7 +25,7 @@ import java.util.*
  * @author WireSegal
  * Created at 4:30 PM on 3/20/16.
  */
-class BlockConjuredPulsar(name: String) : BlockModContainer(name, Material.glass, name) {
+class BlockConjuredPulsar(name: String) : BlockModContainer(name, Material.GLASS, name) {
 
     init {
         this.defaultState = this.makeDefaultState()

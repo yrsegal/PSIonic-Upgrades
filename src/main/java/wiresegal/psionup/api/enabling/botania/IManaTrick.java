@@ -1,6 +1,6 @@
 package wiresegal.psionup.api.enabling.botania;
 
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.client.resources.I18n;
 import vazkii.psi.api.spell.SpellContext;
 import wiresegal.psionup.api.enabling.IComponentPiece;
 
@@ -17,6 +17,6 @@ public interface IManaTrick extends IComponentPiece {
 
     @Override
     default String[] requiredObjects() {
-        return new String[]{I18n.translateToLocal("psionup.requirement." + tier().toString())};
+        return new String[]{I18n.format("psionup.requirement." + tier().toString())};
     }
 }

@@ -47,11 +47,11 @@ object ModRecipes {
                 " I ",
                 'I', "ingotIron",
                 'G', "blockGlass",
-                'B', ItemStack(Items.water_bucket),
+                'B', ItemStack(Items.WATER_BUCKET),
                 'D', "dustPsi")
 
         addShapelessCADRecipe(ItemStack(ModItems.liquidColorizer),
-                EnumCADComponent.DYE, ItemStack(Items.water_bucket))
+                EnumCADComponent.DYE, ItemStack(Items.WATER_BUCKET))
 
         addOreDictRecipe(ItemStack(ModItems.emptyColorizer),
                 " D ",
@@ -62,7 +62,7 @@ object ModRecipes {
                 'D', "dustPsi")
 
         addShapelessOreDictRecipe(ItemStack(ModItems.liquidColorizer),
-                ItemStack(Items.water_bucket), ItemStack(ModItems.emptyColorizer))
+                ItemStack(Items.WATER_BUCKET), ItemStack(ModItems.emptyColorizer))
 
         addOreDictRecipe(ItemStack(ModItems.socket),
                 " GI",
@@ -94,11 +94,11 @@ object ModRecipes {
                 'S', EnumCADComponent.SOCKET,
                 'D', ItemStack(PsiItems.spellDrive))
 
-        PsionicAPI.addTrickRecipe("", ItemStack(Items.redstone), ItemStack(PsiItems.material), ItemStack(PsiItems.cadAssembly))
-        PsionicAPI.addTrickRecipe(LibPieceNames.TRICK_INFUSION, ItemStack(Items.gold_ingot), ItemStack(PsiItems.material, 1, 1), ItemStack(PsiItems.cadAssembly))
-        PsionicAPI.addTrickRecipe(LibPieceNames.TRICK_GREATER_INFUSION, ItemStack(Items.diamond), ItemStack(PsiItems.material, 1, 2), ItemStack(PsiItems.cadAssembly, 1, 2))
-        PsionicAPI.addTrickRecipe(LibPieceNames.TRICK_EBONY_IVORY, ItemStack(Items.coal), ItemStack(PsiItems.material, 1, 5), ItemStack(PsiItems.cadAssembly, 1, 2))
-        PsionicAPI.addTrickRecipe(LibPieceNames.TRICK_EBONY_IVORY, ItemStack(Items.quartz), ItemStack(PsiItems.material, 1, 6), ItemStack(PsiItems.cadAssembly, 1, 2))
+        PsionicAPI.addTrickRecipe("", ItemStack(Items.REDSTONE), ItemStack(PsiItems.material), ItemStack(PsiItems.cadAssembly))
+        PsionicAPI.addTrickRecipe(LibPieceNames.TRICK_INFUSION, ItemStack(Items.GOLD_INGOT), ItemStack(PsiItems.material, 1, 1), ItemStack(PsiItems.cadAssembly))
+        PsionicAPI.addTrickRecipe(LibPieceNames.TRICK_GREATER_INFUSION, ItemStack(Items.DIAMOND), ItemStack(PsiItems.material, 1, 2), ItemStack(PsiItems.cadAssembly, 1, 2))
+        PsionicAPI.addTrickRecipe(LibPieceNames.TRICK_EBONY_IVORY, ItemStack(Items.COAL), ItemStack(PsiItems.material, 1, 5), ItemStack(PsiItems.cadAssembly, 1, 2))
+        PsionicAPI.addTrickRecipe(LibPieceNames.TRICK_EBONY_IVORY, ItemStack(Items.QUARTZ), ItemStack(PsiItems.material, 1, 6), ItemStack(PsiItems.cadAssembly, 1, 2))
 
         if (Loader.isModLoaded("Botania"))
             CompatItems.initRecipes()

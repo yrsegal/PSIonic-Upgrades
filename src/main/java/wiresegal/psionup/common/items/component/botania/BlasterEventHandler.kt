@@ -72,7 +72,7 @@ class BlasterEventHandler {
                 val item = heldItem.item as ICAD
                 if (item.getComponentInSlot(heldItem, EnumCADComponent.ASSEMBLY).item is IBlasterComponent && ItemManaGun.hasClip(heldItem)) {
                     ItemManaGun.rotatePos(heldItem)
-                    e.world.playSound(null, e.entityPlayer.posX, e.entityPlayer.posY, e.entityPlayer.posZ, SoundEvents.block_stone_button_click_on, SoundCategory.PLAYERS, 0.6F, (1.0F + (e.world.rand.nextFloat() - e.world.rand.nextFloat()) * 0.2F) * 0.7F)
+                    e.world.playSound(null, e.entityPlayer.posX, e.entityPlayer.posY, e.entityPlayer.posZ, SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, SoundCategory.PLAYERS, 0.6F, (1.0F + (e.world.rand.nextFloat() - e.world.rand.nextFloat()) * 0.2F) * 0.7F)
                     if (e.world.isRemote)
                         e.entityPlayer.swingArm(hand)
                     val lens = ItemManaGun.getLens(heldItem)

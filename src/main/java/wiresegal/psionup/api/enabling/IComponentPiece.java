@@ -1,8 +1,8 @@
 package wiresegal.psionup.api.enabling;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import vazkii.psi.api.PsiAPI;
 import vazkii.psi.api.cad.EnumCADComponent;
 import vazkii.psi.api.cad.EnumCADStat;
@@ -104,7 +104,7 @@ public interface IComponentPiece {
         TooltipHelper.addToTooltip(tooltip, "<- " + TextFormatting.GOLD + eval);
 
         for (SpellParam param : piece.paramSides.keySet()) {
-            String pName = I18n.translateToLocal(param.name);
+            String pName = I18n.format(param.name);
             String pEval = param.getRequiredTypeString();
             TooltipHelper.addToTooltip(tooltip, (param.canDisable ? "[->] " : " ->  ") + TextFormatting.YELLOW + pName + " [" + pEval + "]");
         }

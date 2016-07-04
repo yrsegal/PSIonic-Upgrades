@@ -1,0 +1,7 @@
+{
+  "parent": "psi:item/_standard_item",
+  "textures": {
+    "layer0": "psionup:items/cadAssemblyBlaster",
+    "layer1": "psionup:items/cadAssemblyBlasterOverlay"
+  }
+}

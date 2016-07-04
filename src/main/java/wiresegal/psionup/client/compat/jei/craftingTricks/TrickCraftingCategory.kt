@@ -5,9 +5,9 @@ import mezz.jei.api.gui.IRecipeLayout
 import mezz.jei.api.recipe.IRecipeCategory
 import mezz.jei.api.recipe.IRecipeWrapper
 import net.minecraft.client.Minecraft
+import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
-import net.minecraft.util.text.translation.I18n
 import wiresegal.psionup.client.compat.jei.JEICompat
 import wiresegal.psionup.common.lib.LibMisc
 
@@ -20,7 +20,7 @@ class TrickCraftingCategory : IRecipeCategory {
     }
 
     override fun getTitle(): String {
-        return I18n.translateToLocal("jei.${LibMisc.MOD_ID}.recipe.trickCrafting")
+        return I18n.format("jei.${LibMisc.MOD_ID}.recipe.trickCrafting")
     }
 
     override fun getBackground(): IDrawable {

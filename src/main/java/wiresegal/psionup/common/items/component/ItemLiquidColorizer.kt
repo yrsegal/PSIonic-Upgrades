@@ -8,7 +8,6 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.ActionResult
 import net.minecraft.util.EnumHand
 import net.minecraft.util.text.TextFormatting
-import net.minecraft.util.text.translation.I18n
 import net.minecraft.world.World
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.ICADColorizer
@@ -89,7 +88,7 @@ class ItemLiquidColorizer(name: String) : ItemComponent(name, name), ICADColoriz
         if (GuiScreen.isShiftKeyDown()) {
             val inheriting = getInheriting(stack)
             if (inheriting != null) {
-                tooltip.add("${TextFormatting.GREEN}${I18n.translateToLocal("${LibMisc.MOD_ID}.misc.colorInheritance")}${TextFormatting.GRAY}: ${inheriting.displayName}")
+                tooltip.add("${TextFormatting.GREEN}${local("${LibMisc.MOD_ID}.misc.colorInheritance")}${TextFormatting.GRAY}: ${inheriting.displayName}")
             }
 
             if (advanced) {
@@ -97,7 +96,7 @@ class ItemLiquidColorizer(name: String) : ItemComponent(name, name), ICADColoriz
                 var number = String.format("%06X", color)
                 if (number.length > 6) number = number.substring(number.length - 6)
                 if (color != Int.MAX_VALUE)
-                    tooltip.add("${TextFormatting.GREEN}${I18n.translateToLocal("${LibMisc.MOD_ID}.misc.color")}${TextFormatting.GRAY}: #$number")
+                    tooltip.add("${TextFormatting.GREEN}${local("${LibMisc.MOD_ID}.misc.color")}${TextFormatting.GRAY}: #$number")
             }
         }
     }

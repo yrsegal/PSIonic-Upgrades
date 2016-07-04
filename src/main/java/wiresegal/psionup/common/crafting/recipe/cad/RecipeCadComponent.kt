@@ -113,7 +113,7 @@ open class RecipeCadComponent : IRecipe {
     }
 
     internal constructor(recipe: ShapedRecipes, replacements: Map<ItemStack, String>) {
-        output = recipe.recipeOutput
+        output = recipe.recipeOutput!!
         width = recipe.recipeWidth
         height = recipe.recipeHeight
 

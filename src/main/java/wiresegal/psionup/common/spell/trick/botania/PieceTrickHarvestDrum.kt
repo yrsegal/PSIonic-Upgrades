@@ -51,9 +51,9 @@ open class PieceTrickHarvestDrum(spell: Spell) : PieceComponentTrick(spell), IMa
                         val items = world.getEntitiesWithinAABB(EntityItem::class.java, AxisAlignedBB(entity.posX, entity.posY, entity.posZ, entity.posX + entity.width, entity.posY + entity.height, entity.posZ + entity.width))
                         for (item in items) {
                             val itemstack = item.entityItem
-                            if (itemstack != null && itemstack.item === Items.bucket && !world.isRemote) {
+                            if (itemstack != null && itemstack.item === Items.BUCKET && !world.isRemote) {
                                 while (itemstack.stackSize > 0) {
-                                    val ent = entity.entityDropItem(ItemStack(Items.milk_bucket), 1.0f)
+                                    val ent = entity.entityDropItem(ItemStack(Items.MILK_BUCKET), 1.0f)
                                     ent.motionY += world.rand.nextFloat() * 0.05f
                                     ent.motionX += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1f
                                     ent.motionZ += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1f
@@ -119,7 +119,7 @@ open class PieceTrickHarvestDrum(spell: Spell) : PieceComponentTrick(spell), IMa
 
         if (!context.caster.worldObj.isRemote)
             for (i in 0..9)
-                context.caster.worldObj.playSound(null, BlockPos(position.x, position.y, position.z), SoundEvents.block_note_basedrum, SoundCategory.BLOCKS, 1F, 1F);
+                context.caster.worldObj.playSound(null, BlockPos(position.x, position.y, position.z), SoundEvents.BLOCK_NOTE_BASEDRUM, SoundCategory.BLOCKS, 1F, 1F);
         else context.caster.worldObj.spawnParticle(EnumParticleTypes.NOTE, position.x + 0.5, position.y + 1.2, position.z + 0.5, 1.0 / 24.0, 0.0, 0.0);
 
         effect(context, BlockPos(position.x, position.y, position.z))

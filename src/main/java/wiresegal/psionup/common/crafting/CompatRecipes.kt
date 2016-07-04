@@ -19,7 +19,7 @@ object CompatRecipes {
                 "MPS",
                 "L  ",
                 'M', LibOreDict.RUNE[8], // Mana
-                'L', LibOreDict.LIVING_WOOD,
+                'L', LibOreDict.MANA_STEEL,
                 'P', "gemPsi",
                 'S', ItemStack(ModBlocks.spreader, 1, 1)) // Redstone Spreader
     }

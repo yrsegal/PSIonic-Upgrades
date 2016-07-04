@@ -15,7 +15,7 @@ import vazkii.psi.api.cad.ISocketable
 import vazkii.psi.api.spell.ISpellSettable
 import vazkii.psi.api.spell.Spell
 import vazkii.psi.client.core.handler.ClientTickHandler
-import vazkii.psi.client.core.handler.PsiSoundHandler
+import vazkii.psi.common.core.handler.PsiSoundHandler
 import vazkii.psi.common.core.handler.PlayerDataHandler
 import vazkii.psi.common.core.helper.ItemNBTHelper
 import vazkii.psi.common.item.ItemCAD
@@ -55,7 +55,7 @@ class ItemFakeCAD(name: String) : ItemMod(name, name), ISocketable, ISpellSettab
         if (playerCad != null) {
             val bullet = this.getBulletInSocket(itemstack, this.getSelectedSlot(itemstack))
             if (bullet == null) {
-                if (ItemCAD.craft(player, ItemStack(Items.redstone), ItemStack(ModItems.material))) {
+                if (ItemCAD.craft(player, ItemStack(Items.REDSTONE), ItemStack(ModItems.material))) {
                     if (!worldIn.isRemote) {
                         worldIn.playSound(player, player.posX, player.posY, player.posZ, PsiSoundHandler.cadShoot, SoundCategory.PLAYERS, 0.5f, (0.5 + Math.random() * 0.5).toFloat())
                     }
@@ -73,6 +73,10 @@ class ItemFakeCAD(name: String) : ItemMod(name, name), ISocketable, ISpellSettab
             }
         }
         return super.onItemRightClick(itemstack, worldIn, player, hand)
+    }
+
+    override fun requiresSneakForSpellSet(p0: ItemStack?): Boolean {
+        return true
     }
 
     override fun addInformation(stack: ItemStack, playerIn: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {

@@ -3,7 +3,7 @@ item.psionup:fakeCAD.name=Inline Caster
 item.psionup:magazine.name=Spell Magazine
 item.psionup:liquidColorizer.name=Liquid-Ink CAD Colorizer
 item.psionup:emptyColorizer.name=Drained CAD Colorizer
-item.psionup:cadAssemblyLivingwood.name=Blaster CAD Assembly
+item.psionup:cadAssemblyBlaster.name=Blaster CAD Assembly
 
 tile.psionup:conjuredPulsar.name=Conjured Pulsar
 
