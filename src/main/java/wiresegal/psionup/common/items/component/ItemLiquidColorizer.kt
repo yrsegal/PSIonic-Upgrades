@@ -9,6 +9,9 @@ import net.minecraft.util.ActionResult
 import net.minecraft.util.EnumHand
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
+import shadowfox.botanicaladdons.client.core.ModelHandler
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.ICADColorizer
 import vazkii.psi.common.core.helper.ItemNBTHelper
@@ -23,7 +26,7 @@ import java.awt.Color
  * @author WireSegal
  * Created at 8:44 AM on 3/20/16.
  */
-class ItemLiquidColorizer(name: String) : ItemComponent(name, name), ICADColorizer, IColorProvider, ICadComponentAcceptor {
+class ItemLiquidColorizer(name: String) : ItemComponent(name, name), ICADColorizer, ModelHandler.IItemColorProvider, ICadComponentAcceptor {
 
     companion object {
         fun getColorFromStack(p0: ItemStack): Int = ItemNBTHelper.getInt(p0, "color", Int.MAX_VALUE)
@@ -59,7 +62,8 @@ class ItemLiquidColorizer(name: String) : ItemComponent(name, name), ICADColoriz
         return getInheriting(stack)
     }
 
-    override fun getColor() = IItemColor {
+    @SideOnly(Side.CLIENT)
+    override fun getItemColor() = IItemColor {
         stack, tintIndex ->
         if (tintIndex == 1) getColor(stack) else 0xFFFFFF
     }

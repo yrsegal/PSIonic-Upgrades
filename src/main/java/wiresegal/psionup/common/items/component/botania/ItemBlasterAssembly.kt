@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.oredict.RecipeSorter
+import shadowfox.botanicaladdons.client.core.ModelHandler
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.item.ItemManaGun
 import vazkii.psi.api.cad.EnumCADStat
@@ -18,7 +19,6 @@ import wiresegal.psionup.api.enabling.ITrickEnablerComponent
 import wiresegal.psionup.api.enabling.botania.EnumManaTier
 import wiresegal.psionup.api.enabling.botania.IBlasterComponent
 import wiresegal.psionup.api.enabling.botania.IManaTrick
-import wiresegal.psionup.client.core.ModelHandler
 import wiresegal.psionup.common.crafting.recipe.botania.RecipeBlasterCADClip
 import wiresegal.psionup.common.crafting.recipe.botania.RecipeBlasterCADLens
 import wiresegal.psionup.common.items.base.ItemComponent
@@ -29,7 +29,7 @@ import wiresegal.psionup.common.lib.LibNames
  * @author WireSegal
  * Created at 7:05 PM on 3/31/16.
  */
-class ItemBlasterAssembly(name: String) : ItemComponent(name, name), IExtraVariantHolder, IBlasterComponent {
+class ItemBlasterAssembly(name: String) : ItemComponent(name, name), ModelHandler.IExtraVariantHolder, IBlasterComponent {
 
     init {
         RecipeSorter.register("${LibMisc.MOD_ID}:blasterClip", RecipeBlasterCADClip::class.java, RecipeSorter.Category.SHAPELESS, "")
@@ -73,6 +73,7 @@ class ItemBlasterAssembly(name: String) : ItemComponent(name, name), IExtraVaria
         return ModelHandler.resourceLocations[LibNames.Items.LIVINGWOOD_CAD_MODEL]
     }
 
-    override fun getExtraVariants() = arrayOf(LibNames.Items.LIVINGWOOD_CAD_MODEL)
+    override val extraVariants: Array<out String>
+        get() = arrayOf(LibNames.Items.LIVINGWOOD_CAD_MODEL)
 
 }

@@ -18,6 +18,9 @@ object LibNames {
     object Blocks {
         const val CONJURED_PULSAR = "conjuredPulsar"
         const val CONJURED_STAR = "conjuredStar"
+
+        const val BRIGHT_PLATE = "brightPlate"
+        const val DARK_PLATE = "darkPlate"
     }
 
     object Spell {
@@ -48,4 +51,9 @@ object LibNames {
 
         const val MANA_PSIONICS = "${LibMisc.MOD_ID}.manaPsionics"
     }
+
+    val Colors = arrayOf("White",     "Orange", "Magenta", "LightBlue",
+                         "Yellow",    "Lime",   "Pink",    "Gray",
+                         "LightGray", "Cyan",   "Purple",  "Blue",
+                         "Brown",     "Green",  "Red",     "Black")
 }

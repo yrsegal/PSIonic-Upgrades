@@ -1,0 +1,21 @@
+{
+    "forge_marker": 1,
+    "variants": {
+        "color=white": { "model": "psionup:brightPlate" },
+        "color=orange": { "model": "psionup:brightPlate" },
+        "color=magenta": { "model": "psionup:brightPlate" },
+        "color=light_blue": { "model": "psionup:brightPlate" },
+        "color=yellow": { "model": "psionup:brightPlate" },
+        "color=lime": { "model": "psionup:brightPlate" },
+        "color=pink": { "model": "psionup:brightPlate" },
+        "color=gray": { "model": "psionup:brightPlate" },
+        "color=silver": { "model": "psionup:brightPlate" },
+        "color=cyan": { "model": "psionup:brightPlate" },
+        "color=purple": { "model": "psionup:brightPlate" },
+        "color=blue": { "model": "psionup:brightPlate" },
+        "color=brown": { "model": "psionup:brightPlate" },
+        "color=green": { "model": "psionup:brightPlate" },
+        "color=red": { "model": "psionup:brightPlate" },
+        "color=black": { "model": "psionup:brightPlate" }
+    }
+}

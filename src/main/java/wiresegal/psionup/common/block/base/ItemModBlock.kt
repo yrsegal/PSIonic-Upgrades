@@ -9,6 +9,9 @@ import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
+import shadowfox.botanicaladdons.client.core.ModelHandler
 import vazkii.psi.common.block.base.IPsiBlock
 import vazkii.psi.common.item.base.IVariantHolder
 import wiresegal.psionup.common.items.base.ItemMod
@@ -18,17 +21,16 @@ import wiresegal.psionup.common.lib.LibMisc
  * @author WireSegal
  * Created at 5:48 PM on 3/20/16.
  */
-class ItemModBlock(block: Block) : ItemBlock(block), IVariantHolder {
+open class ItemModBlock(block: Block) : ItemBlock(block), ModelHandler.IVariantHolder, ModelHandler.IItemColorProvider {
 
-    private val psiBlock: IPsiBlock
+    private val psiBlock: ModelHandler.IModBlock
 
     init {
-        this.psiBlock = block as IPsiBlock
+        this.psiBlock = block as ModelHandler.IModBlock
         if (this.variants.size > 1) {
             this.setHasSubtypes(true)
         }
-        val rl = ResourceLocation(LibMisc.MOD_ID, block.unlocalizedName.replace("tile.", ""))
-        ItemMod.variantCache.put(rl.toString(), this)
+        ModelHandler.variantCache.add(this)
     }
 
     override fun getMetadata(damage: Int): Int {
@@ -41,8 +43,8 @@ class ItemModBlock(block: Block) : ItemBlock(block), IVariantHolder {
         return super.setUnlocalizedName(par1Str)
     }
 
-    override fun getUnlocalizedName(par1ItemStack: ItemStack?): String {
-        val dmg = par1ItemStack!!.itemDamage
+    override fun getUnlocalizedName(stack: ItemStack?): String {
+        val dmg = stack!!.itemDamage
         val variants = this.variants
         val name: String
         if (dmg >= variants.size) {
@@ -63,15 +65,16 @@ class ItemModBlock(block: Block) : ItemBlock(block), IVariantHolder {
 
     }
 
-    override fun getVariants(): Array<String> {
-        return this.psiBlock.variants
-    }
+    @SideOnly(Side.CLIENT)
+    override fun getCustomMeshDefinition() = this.psiBlock.getCustomMeshDefinition()
 
-    override fun getCustomMeshDefinition(): ItemMeshDefinition? {
-        return this.psiBlock.customMeshDefinition
-    }
+    override val variants: Array<out String>
+        get() = this.psiBlock.variants
 
-    override fun getRarity(stack: ItemStack): EnumRarity {
+    @SideOnly(Side.CLIENT)
+    override fun getItemColor() = if (this.psiBlock is ModelHandler.IItemColorProvider) this.psiBlock.getItemColor() else null
+
+    override fun getRarity(stack: ItemStack): EnumRarity? {
         return this.psiBlock.getBlockRarity(stack)
     }
 }

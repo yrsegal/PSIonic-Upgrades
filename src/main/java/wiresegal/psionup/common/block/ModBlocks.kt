@@ -17,9 +17,16 @@ object ModBlocks {
     val conjured: Block
     val crackle: Block
 
+    val brightColoredPlate: Block
+
+    val darkColoredPlate: Block
+
     init {
         conjured = BlockConjuredPulsar(LibNames.Blocks.CONJURED_PULSAR)
         crackle = BlockConjuredStar(LibNames.Blocks.CONJURED_STAR)
+
+        brightColoredPlate = BlockPlate(LibNames.Blocks.BRIGHT_PLATE)
+        darkColoredPlate = BlockPlate(LibNames.Blocks.DARK_PLATE)
 
         GameRegistry.registerTileEntity(TileConjuredPulsar::class.java, "${LibMisc.MOD_ID}:pulsar")
         GameRegistry.registerTileEntity(TileCracklingStar::class.java, "${LibMisc.MOD_ID}:star")

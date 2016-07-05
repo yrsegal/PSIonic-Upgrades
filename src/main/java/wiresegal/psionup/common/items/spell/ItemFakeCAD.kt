@@ -10,6 +10,9 @@ import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumHand
 import net.minecraft.util.SoundCategory
 import net.minecraft.world.World
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
+import shadowfox.botanicaladdons.client.core.ModelHandler
 import vazkii.psi.api.PsiAPI
 import vazkii.psi.api.cad.ISocketable
 import vazkii.psi.api.spell.ISpellSettable
@@ -29,13 +32,14 @@ import vazkii.psi.common.item.base.ItemMod as PsiItem
  * @author WireSegal
  * Created at 8:46 AM on 3/20/16.
  */
-class ItemFakeCAD(name: String) : ItemMod(name, name), ISocketable, ISpellSettable, IColorProvider {
+class ItemFakeCAD(name: String) : ItemMod(name, name), ISocketable, ISpellSettable, ModelHandler.IItemColorProvider {
 
     init {
         setMaxStackSize(1)
     }
 
-    override fun getColor() = IItemColor {
+    @SideOnly(Side.CLIENT)
+    override fun getItemColor() = IItemColor {
         stack, tintIndex ->
         colorCalc()
     }

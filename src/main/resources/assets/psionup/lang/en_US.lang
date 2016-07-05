@@ -8,6 +8,40 @@ item.psionup:cadAssemblyBlaster.name=Blaster CAD Assembly
 tile.psionup:conjuredPulsar.name=Conjured Pulsar
 tile.psionup:conjuredStar.name=Conjured Star
 
+tile.psionup:brightPlateWhite.name=White Psimetal Flow Plate
+tile.psionup:brightPlateOrange.name=Orange Psimetal Flow Plate
+tile.psionup:brightPlateMagenta.name=Magenta Psimetal Flow Plate
+tile.psionup:brightPlateLightBlue.name=Light Blue Psimetal Flow Plate
+tile.psionup:brightPlateYellow.name=Yellow Psimetal Flow Plate
+tile.psionup:brightPlateLime.name=Lime Psimetal Flow Plate
+tile.psionup:brightPlatePink.name=Pink Psimetal Flow Plate
+tile.psionup:brightPlateGray.name=Gray Psimetal Flow Plate
+tile.psionup:brightPlateLightGray.name=Light Gray Psimetal Flow Plate
+tile.psionup:brightPlateCyan.name=Cyan Psimetal Flow Plate
+tile.psionup:brightPlatePurple.name=Purple Psimetal Flow Plate
+tile.psionup:brightPlateBlue.name=Blue Psimetal Flow Plate
+tile.psionup:brightPlateBrown.name=Brown Psimetal Flow Plate
+tile.psionup:brightPlateGreen.name=Green Psimetal Flow Plate
+tile.psionup:brightPlateRed.name=Red Psimetal Flow Plate
+tile.psionup:brightPlateBlack.name=Black Psimetal Flow Plate
+
+tile.psionup:darkPlateWhite.name=Dark White Psimetal Flow Plate
+tile.psionup:darkPlateOrange.name=Dark Orange Psimetal Flow Plate
+tile.psionup:darkPlateMagenta.name=Dark Magenta Psimetal Flow Plate
+tile.psionup:darkPlateLightBlue.name=Dark Light Blue Psimetal Flow Plate
+tile.psionup:darkPlateYellow.name=Dark Yellow Psimetal Flow Plate
+tile.psionup:darkPlateLime.name=Dark Lime Psimetal Flow Plate
+tile.psionup:darkPlatePink.name=Dark Pink Psimetal Flow Plate
+tile.psionup:darkPlateGray.name=Dark Gray Psimetal Flow Plate
+tile.psionup:darkPlateLightGray.name=Dark Light Gray Psimetal Flow Plate
+tile.psionup:darkPlateCyan.name=Dark Cyan Psimetal Flow Plate
+tile.psionup:darkPlatePurple.name=Dark Purple Psimetal Flow Plate
+tile.psionup:darkPlateBlue.name=Dark Blue Psimetal Flow Plate
+tile.psionup:darkPlateBrown.name=Dark Brown Psimetal Flow Plate
+tile.psionup:darkPlateGreen.name=Dark Green Psimetal Flow Plate
+tile.psionup:darkPlateRed.name=Dark Red Psimetal Flow Plate
+tile.psionup:darkPlateBlack.name=Dark Black Psimetal Flow Plate
+
 psi.spellpiece.psionup.conjurePulsar=Trick: Conjure Pulsar
 psi.spellpiece.psionup.conjurePulsar.desc=Conjures a redstone emitting block in the given position
 

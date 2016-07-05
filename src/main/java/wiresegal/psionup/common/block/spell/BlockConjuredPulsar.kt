@@ -6,6 +6,7 @@ import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.item.ItemBlock
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.BlockRenderLayer
 import net.minecraft.util.EnumBlockRenderType
@@ -27,8 +28,8 @@ import java.util.*
  */
 class BlockConjuredPulsar(name: String) : BlockModContainer(name, Material.GLASS, name) {
 
-    override val shouldHaveItem: Boolean
-        get() = false
+    override val item: ItemBlock?
+        get() = null
 
     init {
         this.defaultState = this.makeDefaultState()
@@ -53,9 +54,8 @@ class BlockConjuredPulsar(name: String) : BlockModContainer(name, Material.GLASS
         return BlockStateContainer(this, *this.allProperties)
     }
 
-    override fun getIgnoredProperties(): Array<IProperty<*>> {
-        return this.allProperties
-    }
+    override val ignoredProperties: Array<IProperty<*>>?
+        get() = allProperties
 
     val allProperties: Array<IProperty<*>>
         get() = arrayOf(SOLID, LIGHT, BLOCK_UP, BLOCK_DOWN, BLOCK_NORTH, BLOCK_SOUTH, BLOCK_WEST, BLOCK_EAST)

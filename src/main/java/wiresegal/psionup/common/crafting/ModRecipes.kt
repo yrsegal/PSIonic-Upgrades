@@ -12,12 +12,15 @@ import net.minecraftforge.oredict.ShapelessOreRecipe
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.common.lib.LibPieceNames
 import wiresegal.psionup.api.PsionicAPI
+import wiresegal.psionup.common.block.ModBlocks
 import wiresegal.psionup.common.crafting.recipe.RecipeLiquidDye
 import wiresegal.psionup.common.crafting.recipe.cad.RecipeCadComponent
 import wiresegal.psionup.common.crafting.recipe.cad.RecipeCadComponentShapeless
 import wiresegal.psionup.common.items.CompatItems
 import wiresegal.psionup.common.items.ModItems
 import wiresegal.psionup.common.lib.LibMisc
+import wiresegal.psionup.common.lib.LibNames
+import vazkii.psi.common.block.base.ModBlocks as PsiBlocks
 import vazkii.psi.common.item.base.ModItems as PsiItems
 
 /**
@@ -93,6 +96,12 @@ object ModRecipes {
                 'M', "ingotPsi",
                 'S', EnumCADComponent.SOCKET,
                 'D', ItemStack(PsiItems.spellDrive))
+
+        for (i in 0..15) {
+            addShapelessOreDictRecipe(ItemStack(ModBlocks.brightColoredPlate, 1, i), ItemStack(PsiBlocks.psiDecorative, 1, 3), "dustGlowstone", "dye" + LibNames.Colors[i])
+            addShapelessOreDictRecipe(ItemStack(ModBlocks.darkColoredPlate, 1, i), ItemStack(PsiBlocks.psiDecorative, 1, 5), "dustGlowstone", "dye" + LibNames.Colors[i])
+        }
+
 
         PsionicAPI.addTrickRecipe("", ItemStack(Items.REDSTONE), ItemStack(PsiItems.material), ItemStack(PsiItems.cadAssembly))
         PsionicAPI.addTrickRecipe(LibPieceNames.TRICK_INFUSION, ItemStack(Items.GOLD_INGOT), ItemStack(PsiItems.material, 1, 1), ItemStack(PsiItems.cadAssembly))

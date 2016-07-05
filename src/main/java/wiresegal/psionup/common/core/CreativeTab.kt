@@ -7,13 +7,14 @@ import net.minecraft.item.ItemStack
 import wiresegal.psionup.common.items.CompatItems
 import wiresegal.psionup.common.items.ModItems
 import wiresegal.psionup.common.lib.LibMisc
+import java.util.*
 
 /**
  * @author WireSegal
  * Created at 1:17 PM on 3/20/16.
  */
 class CreativeTab : CreativeTabs(LibMisc.MOD_ID) {
-    internal lateinit var list: List<ItemStack>
+    internal lateinit var list: MutableList<ItemStack>
 
     init {
         this.setNoTitle()
@@ -32,27 +33,36 @@ class CreativeTab : CreativeTabs(LibMisc.MOD_ID) {
         return true
     }
 
-    override fun displayAllRelevantItems(p_78018_1_: List<ItemStack>) {
-        this.list = p_78018_1_
-        this.addItem(ModItems.emptyColorizer)
-        this.addItem(ModItems.liquidColorizer)
-        this.addItem(ModItems.fakeCAD)
-        this.addItem(ModItems.magazine)
-        this.addItem(ModItems.socket)
-        if (CompatItems.isInitialized)
-            this.addItem(CompatItems.blaster)
+    override fun displayAllRelevantItems(initialList: MutableList<ItemStack>) {
+        this.list = initialList
+        for (item in items)
+            addItem(item)
     }
 
     private fun addItem(item: Item) {
-        item.getSubItems(item, this, this.list)
-    }
-
-    private fun addBlock(block: Block) {
-        this.addItem(Item.getItemFromBlock(block) ?: return)
+        val tempList = mutableListOf<ItemStack>()
+        item.getSubItems(item, this, tempList)
+        if (item == tabIconItem)
+            this.list.addAll(0, tempList)
+        else
+            this.list.addAll(tempList)
     }
 
     companion object {
         var INSTANCE = CreativeTab()
+
+        private val items = ArrayList<Item>()
+
+        fun set(block: Block) {
+            val item = Item.getItemFromBlock(block) ?: return
+            items.add(item)
+            block.setCreativeTab(INSTANCE)
+        }
+
+        fun set(item: Item) {
+            items.add(item)
+            item.creativeTab = INSTANCE
+        }
     }
 }
 

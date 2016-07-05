@@ -1,11 +1,13 @@
 package wiresegal.psionup.common
 
+import net.minecraft.launchwrapper.Launch
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.SidedProxy
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent
+import org.apache.logging.log4j.LogManager
 import wiresegal.psionup.common.command.CommandPsiLearn
 import wiresegal.psionup.common.command.CommandPsiUnlearn
 import wiresegal.psionup.common.core.CommonProxy
@@ -24,6 +26,12 @@ class PsionicUpgrades {
         @SidedProxy(serverSide = LibMisc.PROXY_COMMON,
                 clientSide = LibMisc.PROXY_CLIENT)
         lateinit var proxy: CommonProxy
+
+        val LOGGER = LogManager.getLogger(LibMisc.MOD_ID)
+
+        val DEV_ENVIRONMENT: Boolean by lazy {
+            Launch.blackboard["fml.deobfuscatedEnvironment"] as Boolean
+        }
     }
 
     @Mod.EventHandler

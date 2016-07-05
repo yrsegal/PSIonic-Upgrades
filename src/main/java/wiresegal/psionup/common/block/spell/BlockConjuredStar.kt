@@ -3,6 +3,7 @@ package wiresegal.psionup.common.block.spell
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
+import net.minecraft.item.ItemBlock
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumBlockRenderType
 import net.minecraft.util.EnumFacing
@@ -19,8 +20,8 @@ import wiresegal.psionup.common.block.tile.TileCracklingStar
  */
 class BlockConjuredStar(name: String) : BlockModContainer(name, Material.GLASS, name) {
 
-    override val shouldHaveItem: Boolean
-        get() = false
+    override val item: ItemBlock?
+        get() = null
 
     private val AABB = AxisAlignedBB(0.25, 0.25, 0.25, 0.75, 0.75, 0.75)
 
