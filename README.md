@@ -56,3 +56,4 @@ Magic?? Tech?? Addons??
 ## Misc. Features
 - JEI compat with the Crafting tricks.
 - `/psi-learn` and `/psi-unlearn` commands.
+- Colored Flow Plates.
