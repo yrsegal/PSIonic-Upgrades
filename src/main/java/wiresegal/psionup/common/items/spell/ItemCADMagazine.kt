@@ -14,6 +14,10 @@ import net.minecraft.util.text.Style
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
+import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.event.entity.player.PlayerInteractEvent
+import net.minecraftforge.fml.common.eventhandler.Event
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.EnumCADStat
 import vazkii.psi.api.cad.ICADComponent
@@ -22,6 +26,7 @@ import vazkii.psi.api.internal.VanillaPacketDispatcher
 import vazkii.psi.api.spell.EnumSpellStat
 import vazkii.psi.api.spell.ISpellSettable
 import vazkii.psi.api.spell.Spell
+import vazkii.psi.common.block.base.ModBlocks
 import vazkii.psi.common.block.tile.TileProgrammer
 import vazkii.psi.common.core.handler.PsiSoundHandler
 import vazkii.psi.common.core.helper.ItemNBTHelper
@@ -76,7 +81,7 @@ class ItemCADMagazine(name: String) : ItemMod(name, name), ISocketable, ICadComp
         }
     }
 
-    override fun requiresSneakForSpellSet(p0: ItemStack?) = true
+    override fun requiresSneakForSpellSet(p0: ItemStack?) = false
 
     init {
         setMaxStackSize(1)
@@ -108,7 +113,7 @@ class ItemCADMagazine(name: String) : ItemMod(name, name), ISocketable, ICadComp
         val tile = worldIn!!.getTileEntity(pos)
         if (tile is TileProgrammer && playerIn != null) {
             val spell = getSpell(stack)
-            if (spell != null && playerIn.isSneaking) {
+            if (spell != null) {
                 val enabled = tile.isEnabled
                 val compiled = SpellCompiler(spell)
                 if ((compiled.compiledSpell.metadata.stats[EnumSpellStat.BANDWIDTH] ?: Integer.MAX_VALUE) > getBandwidth(stack) && !worldIn.isRemote)
@@ -116,10 +121,7 @@ class ItemCADMagazine(name: String) : ItemMod(name, name), ISocketable, ICadComp
                 else if (!worldIn.isRemote) {
                     if (enabled && !tile.playerLock.isEmpty()) {
                         if (tile.playerLock != playerIn.name) {
-                            if (!worldIn.isRemote) {
-                                playerIn.addChatComponentMessage(TextComponentTranslation("psimisc.notYourProgrammer").setStyle(Style().setColor(TextFormatting.RED)))
-                            }
-
+                            playerIn.addChatComponentMessage(TextComponentTranslation("psimisc.notYourProgrammer").setStyle(Style().setColor(TextFormatting.RED)))
                             return EnumActionResult.SUCCESS
                         }
                     } else {
@@ -128,12 +130,17 @@ class ItemCADMagazine(name: String) : ItemMod(name, name), ISocketable, ICadComp
 
                     tile.spell = spell
                     tile.onSpellChanged()
-                    if (!worldIn.isRemote) {
-                        worldIn.playSound(pos!!.x.toDouble() + 0.5, pos.y.toDouble() + 0.5, pos.z.toDouble() + 0.5, PsiSoundHandler.bulletCreate, SoundCategory.PLAYERS, 0.5f, 1.0f, false)
-                        VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile)
-                    }
+                    VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile)
 
                     return EnumActionResult.SUCCESS
+                } else {
+                    if (!enabled || tile.playerLock.isEmpty() || tile.playerLock == playerIn.name) {
+                        tile.spell = spell
+                        tile.onSpellChanged()
+                        worldIn.markBlockRangeForRenderUpdate(tile.pos, tile.pos)
+                        worldIn.playSound(pos!!.x.toDouble() + 0.5, pos.y.toDouble() + 0.5, pos.z.toDouble() + 0.5, PsiSoundHandler.bulletCreate, SoundCategory.PLAYERS, 0.5f, 1.0f, false)
+                        return EnumActionResult.SUCCESS
+                    }
                 }
             }
         }
