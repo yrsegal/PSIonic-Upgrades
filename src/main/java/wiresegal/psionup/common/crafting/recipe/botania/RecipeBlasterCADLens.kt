@@ -18,7 +18,7 @@ import wiresegal.psionup.api.enabling.botania.IBlasterComponent
  */
 class RecipeBlasterCADLens : IRecipe {
 
-    override fun matches(var1: InventoryCrafting, var2: World): Boolean {
+    override fun matches(var1: InventoryCrafting, var2: World?): Boolean {
         var foundLens = false
         var foundCAD = false
         var cad: ItemStack? = null

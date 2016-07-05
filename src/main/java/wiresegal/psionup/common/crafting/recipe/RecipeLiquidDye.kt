@@ -21,7 +21,7 @@ class RecipeLiquidDye : IRecipe {
     val dyeNames = arrayOf("White", "Orange", "Magenta", "LightBlue", "Yellow", "Lime", "Pink", "Gray", "LightGray", "Cyan", "Purple", "Blue", "Brown", "Green", "Red", "Black")
     val dyes = Array(dyeNames.size, { i -> "dye${dyeNames[i]}" })
 
-    override fun matches(inv: InventoryCrafting, worldIn: World): Boolean {
+    override fun matches(inv: InventoryCrafting, worldIn: World?): Boolean {
         var ink: ItemStack? = null
         var foundDye = false
 

@@ -16,7 +16,7 @@ import wiresegal.psionup.api.enabling.botania.IBlasterComponent
  * *         Created at 7:36 AM on 4/1/16.
  */
 class RecipeBlasterCADClip : IRecipe {
-    override fun matches(var1: InventoryCrafting, var2: World): Boolean {
+    override fun matches(var1: InventoryCrafting, var2: World?): Boolean {
         var foundCAD = false
         var foundClip = false
 

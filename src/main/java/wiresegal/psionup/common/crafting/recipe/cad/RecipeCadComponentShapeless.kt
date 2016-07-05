@@ -92,8 +92,7 @@ open class RecipeCadComponentShapeless : IRecipe {
         return out
     }
 
-    @SuppressWarnings("unchecked")
-    override fun matches(var1: InventoryCrafting, world: World): Boolean {
+    override fun matches(var1: InventoryCrafting, world: World?): Boolean {
         val required = ArrayList(input)
 
         for (x in 0..var1.sizeInventory - 1) {
