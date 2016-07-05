@@ -10,7 +10,6 @@ import wiresegal.psionup.client.compat.jei.crafting.ShapelessCadRecipeHandler
 import wiresegal.psionup.client.compat.jei.craftingTricks.TrickCraftingCategory
 import wiresegal.psionup.client.compat.jei.craftingTricks.TrickCraftingRecipeHandler
 import wiresegal.psionup.client.compat.jei.craftingTricks.TrickCraftingRecipeMaker
-import wiresegal.psionup.common.block.ModBlocks
 import wiresegal.psionup.common.items.ModItems
 import wiresegal.psionup.common.lib.LibMisc
 import vazkii.psi.common.block.base.ModBlocks as PsiBlocks
@@ -36,7 +35,6 @@ class JEICompat : BlankModPlugin() {
         registry.addRecipes(TrickCraftingRecipeMaker.recipes)
 
         helper.itemBlacklist.addItemToBlacklist(ItemStack(PsiBlocks.conjured))
-        helper.itemBlacklist.addItemToBlacklist(ItemStack(ModBlocks.conjured))
 
         registry.addDescription(ItemStack(ModItems.liquidColorizer), "jei.${LibMisc.MOD_ID}.drained.desc")
         registry.addDescription(ItemStack(ModItems.emptyColorizer), "jei.${LibMisc.MOD_ID}.drained.desc")

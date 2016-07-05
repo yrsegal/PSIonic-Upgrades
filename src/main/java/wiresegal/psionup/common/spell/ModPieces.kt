@@ -11,10 +11,7 @@ import wiresegal.psionup.common.spell.operator.PieceOperatorPlanarNorm
 import wiresegal.psionup.common.spell.operator.PieceOperatorVectorRotate
 import wiresegal.psionup.common.spell.operator.PieceOperatorVectorStrongRaycast
 import wiresegal.psionup.common.spell.operator.PieceOperatorVectorStrongRaycastAxis
-import wiresegal.psionup.common.spell.trick.PieceTrickConjurePulsar
-import wiresegal.psionup.common.spell.trick.PieceTrickConjurePulsarLight
-import wiresegal.psionup.common.spell.trick.PieceTrickConjurePulsarSequence
-import wiresegal.psionup.common.spell.trick.PieceTrickParticleTrail
+import wiresegal.psionup.common.spell.trick.*
 
 /**
  * @author WireSegal
@@ -34,21 +31,23 @@ object ModPieces {
 
     val particleTrail: ModSpellPieces.PieceContainer
 
+    val conjureCrackle: ModSpellPieces.PieceContainer
+
     init {
 
-        PsiAPI.setGroupRequirements(LibNames.PieceGroups.REDSTONE_CONJURATION, 21, LibPieceGroups.BLOCK_CONJURATION)
+        PsiAPI.setGroupRequirements(LibNames.PieceGroups.ALTERNATE_CONJURATION, 21, LibPieceGroups.BLOCK_CONJURATION)
         PsiAPI.setGroupRequirements(LibNames.PieceGroups.SECONDARY_VECTOR_OPERATORS, 21, LibPieceGroups.TRIGNOMETRY)
 
         conjurePulsar = register(PieceTrickConjurePulsar::class.java,
                 LibNames.Spell.CONJURE_PULSAR,
-                LibNames.PieceGroups.REDSTONE_CONJURATION,
+                LibNames.PieceGroups.ALTERNATE_CONJURATION,
                 true)
         conjurePulsarSequence = register(PieceTrickConjurePulsarSequence::class.java,
                 LibNames.Spell.CONJURE_PULSAR_SEQUENCE,
-                LibNames.PieceGroups.REDSTONE_CONJURATION)
+                LibNames.PieceGroups.ALTERNATE_CONJURATION)
         conjurePulsarLight = register(PieceTrickConjurePulsarLight::class.java,
                 LibNames.Spell.CONJURE_PULSAR_LIGHT,
-                LibNames.PieceGroups.REDSTONE_CONJURATION)
+                LibNames.PieceGroups.ALTERNATE_CONJURATION)
 
         planarNorm = register(PieceOperatorPlanarNorm::class.java,
                 LibNames.Spell.PLANAR_NORMAL_VECTOR,
@@ -68,6 +67,10 @@ object ModPieces {
         particleTrail = register(PieceTrickParticleTrail::class.java,
                 LibNames.Spell.PARTICLE_TRAIL,
                 LibNames.PieceGroups.SECONDARY_VECTOR_OPERATORS)
+
+        conjureCrackle = register(PieceTrickConjureStar::class.java,
+                LibNames.Spell.CONJURE_CRACKLE,
+                LibNames.PieceGroups.ALTERNATE_CONJURATION)
 
         if (Loader.isModLoaded("Botania"))
             CompatTricks.init()

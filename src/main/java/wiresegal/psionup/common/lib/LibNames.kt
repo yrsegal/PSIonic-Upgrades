@@ -17,6 +17,7 @@ object LibNames {
 
     object Blocks {
         const val CONJURED_PULSAR = "conjuredPulsar"
+        const val CONJURED_STAR = "conjuredStar"
     }
 
     object Spell {
@@ -32,6 +33,8 @@ object LibNames {
 
         const val PARTICLE_TRAIL = "particleTrail"
 
+        const val CONJURE_CRACKLE = "conjureCrackle"
+
 
         const val MAKE_BURST = "makeManaBurst"
         const val WILD_DRUM = "drumOfTheWild"
@@ -40,7 +43,7 @@ object LibNames {
     }
 
     object PieceGroups {
-        const val REDSTONE_CONJURATION = "${LibMisc.MOD_ID}.redstoneConjuration"
+        const val ALTERNATE_CONJURATION = "${LibMisc.MOD_ID}.redstoneConjuration"
         const val SECONDARY_VECTOR_OPERATORS = "${LibMisc.MOD_ID}.secondaryVectors"
 
         const val MANA_PSIONICS = "${LibMisc.MOD_ID}.manaPsionics"

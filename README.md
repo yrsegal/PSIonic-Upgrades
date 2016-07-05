@@ -17,13 +17,15 @@ Magic?? Tech?? Addons??
     A CAD assembly with the stats of Psimetal. A CAD made with it can take Lenses and cast Mana Tricks at the base level. It can take a Lens Clip, and with it can cast Mana Tricks at the Alfheim level.
 
 ## Spell Pieces
-### Pulsar Conjuration
+### Alternate Conjuration
 - Trick: Conjure Pulsar  
     Conjures a redstone emitting block, similar to Trick: Conjure Block.
 - Trick: Conjure Pulsar Sequence  
     Conjures a sequence of redstone emitting blocks, similar to Trick: Conjure Block Sequence.
 - Trick: Conjure Pulsar Light  
     Conjures a redstone emitting light, similar to Trick: Conjure Light.
+- Trick: Conjure Star
+    Conjures a light that emits a ray of particles along a given vector.
 
 ### Vector Operators II
 - Operator: Planar Normal Vector  

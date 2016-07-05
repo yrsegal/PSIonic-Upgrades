@@ -29,11 +29,15 @@ open class BlockMod(name: String, materialIn: Material, vararg variants: String)
         this.unlocalizedName = name
     }
 
+    open val shouldHaveItem: Boolean
+        get() = true
+
     override fun setUnlocalizedName(name: String): Block {
         super.setUnlocalizedName(name)
         setRegistryName(name)
         GameRegistry.register(this)
-        GameRegistry.register(ItemModBlock(this), ResourceLocation(LibMisc.MOD_ID, name))
+        if (shouldHaveItem)
+            GameRegistry.register(ItemModBlock(this), ResourceLocation(LibMisc.MOD_ID, name))
         return this
     }
 

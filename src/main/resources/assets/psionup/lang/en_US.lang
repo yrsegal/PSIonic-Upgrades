@@ -6,6 +6,7 @@ item.psionup:emptyColorizer.name=Drained CAD Colorizer
 item.psionup:cadAssemblyBlaster.name=Blaster CAD Assembly
 
 tile.psionup:conjuredPulsar.name=Conjured Pulsar
+tile.psionup:conjuredStar.name=Conjured Star
 
 psi.spellpiece.psionup.conjurePulsar=Trick: Conjure Pulsar
 psi.spellpiece.psionup.conjurePulsar.desc=Conjures a redstone emitting block in the given position
@@ -30,6 +31,9 @@ psi.spellpiece.psionup.strongVectorRaycastAxis.desc=Gets a raycast side, ignorin
 
 psi.spellpiece.psionup.particleTrail=Trick: Particle Trail
 psi.spellpiece.psionup.particleTrail.desc=Makes a particle trail from a position along a ray
+
+psi.spellpiece.psionup.conjureCrackle=Trick: Conjure Star
+psi.spellpiece.psionup.conjureCrackle.desc=Conjures a light that emits particles along the given ray
 
 psi.spellpiece.psionup.makeManaBurst=Trick: Form Burst
 psi.spellpiece.psionup.makeManaBurst.desc=Makes a mana burst from a position along a ray
@@ -87,8 +91,8 @@ jei.psionup.drained.desc=Sneak-using the Liquid-Ink Colorizer will drain the flu
 psi.piecegroup.psionup.secondaryVectors=Vector Operators II
 psi.piecegroup.psionup.secondaryVectors.desc=As the name implies, this group includes nonessential vector operators. The pieces can be separated into two sets.<br><br>The first set is rotation. The red piece, Planar Norm, will get a perpendicular vector to any axial vector, without needing Operator: Vector Cross Product. Vector Rotate will rotate a vector around another, by an angle (in radians).<br><br>The second set is Strong raycasts. These act exactly like their regular counterparts, except they ignore nonsolid blocks such as tall grass.<br><br>The final piece is Trick: Particle Trail, which displays a ray in particles for up to twenty seconds, based on the Time parameter.
 
-psi.piecegroup.psionup.redstoneConjuration=Pulsar Conjuration
-psi.piecegroup.psionup.redstoneConjuration.desc=These pieces are quite similar to those of the previous group, Block Conjuration. The singular difference is that conjured Pulsars have a red flare at their center, and emit redstone.
+psi.piecegroup.psionup.redstoneConjuration=Alternate Conjuration
+psi.piecegroup.psionup.redstoneConjuration.desc=These pieces are quite similar to those of the previous group, Block Conjuration. The first type of alternate conjuration is Pulsar. The singular difference between these and the previous group is that conjured Pulsars have a red flare at their center, and emit redstone. The second type is Trick: Conjure Star. It creates a small ball of light that emits a ray of particles. Subsequent casts on the same position will add more rays, but not change the color.
 
 psi.piecegroup.psionup.manaPsionics=Mana Manipulation
 psi.piecegroup.psionup.manaPsionics.desc=What is elemental magic worth without its most base counterpart?<br><br>This group allows the caster to manipulate the power of Mana. Specifically, making a burst of Mana from your inventory, similar to a Mana Blaster. This requires a special CAD assembly to function, as Psionic materials cannot carry Mana naturally. A CAD made with a Blaster CAD Assembly can store a lens, just like a regular Blaster. Anything a blaster can accept, the Blaster CAD can too.

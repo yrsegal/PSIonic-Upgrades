@@ -2,6 +2,7 @@ package wiresegal.psionup.common.spell.trick
 
 import net.minecraft.world.World
 import vazkii.psi.api.PsiAPI
+import vazkii.psi.api.cad.ICADColorizer
 import vazkii.psi.api.internal.Vector3
 import vazkii.psi.api.spell.*
 import vazkii.psi.api.spell.param.ParamNumber
@@ -50,7 +51,7 @@ class PieceTrickParticleTrail(spell: Spell) : PieceTrick(spell) {
         val pos = getParamValue<Vector3>(context, position)
         val dir = getParamValue<Vector3>(context, ray)
         val len = getParamValue<Double>(context, length)
-        var time = Math.min(getParamValue<Double>(context, time) ?: 20.0, 400.0)
+        val time = Math.min(getParamValue<Double>(context, time) ?: 20.0, 400.0)
 
         if (time < 0.0) {
             throw SpellRuntimeException(SpellRuntimeException.NEGATIVE_NUMBER)
@@ -71,7 +72,7 @@ class PieceTrickParticleTrail(spell: Spell) : PieceTrick(spell) {
             if (!context.isInRadius(x, y, z))
                 throw SpellRuntimeException(SpellRuntimeException.OUTSIDE_RADIUS)
 
-            var color = Color(1295871)
+            var color = Color(ICADColorizer.DEFAULT_SPELL_COLOR)
             val cad = PsiAPI.getPlayerCAD(context.caster)
             if (cad != null) {
                 color = Psi.proxy.getCADColor(cad)
@@ -88,9 +89,9 @@ class PieceTrickParticleTrail(spell: Spell) : PieceTrick(spell) {
     }
 
     fun makeParticle(world: World, r: Float, g: Float, b: Float, xp: Double, yp: Double, zp: Double, xv: Double, yv: Double, zv: Double, time: Int) {
-        var xvn = xv * 0.1
-        var yvn = yv * 0.1
-        var zvn = zv * 0.1
+        val xvn = xv * 0.1
+        val yvn = yv * 0.1
+        val zvn = zv * 0.1
         Psi.proxy.sparkleFX(world, xp, yp, zp, r, g, b, xvn.toFloat(), yvn.toFloat(), zvn.toFloat(), 0.25f, time)
 
     }

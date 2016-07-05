@@ -3,6 +3,7 @@ package wiresegal.psionup.common.block.tile
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.ITickable
+import vazkii.psi.api.cad.ICADColorizer
 import vazkii.psi.common.Psi
 import vazkii.psi.common.block.BlockConjured
 import vazkii.psi.common.block.tile.base.TileMod
@@ -22,7 +23,7 @@ class TileConjuredPulsar : TileMod(), ITickable {
 
     override fun update() {
         if (this.worldObj.isRemote) {
-            var color = Color(1295871)
+            var color = Color(ICADColorizer.DEFAULT_SPELL_COLOR)
             if (this.colorizer != null) {
                 color = Psi.proxy.getColorizerColor(this.colorizer)
             }

@@ -15,8 +15,8 @@ import vazkii.psi.api.cad.ISocketable
 import vazkii.psi.api.spell.ISpellSettable
 import vazkii.psi.api.spell.Spell
 import vazkii.psi.client.core.handler.ClientTickHandler
-import vazkii.psi.common.core.handler.PsiSoundHandler
 import vazkii.psi.common.core.handler.PlayerDataHandler
+import vazkii.psi.common.core.handler.PsiSoundHandler
 import vazkii.psi.common.core.helper.ItemNBTHelper
 import vazkii.psi.common.item.ItemCAD
 import vazkii.psi.common.item.base.IColorProvider
