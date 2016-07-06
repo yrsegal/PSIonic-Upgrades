@@ -21,6 +21,8 @@ object LibNames {
 
         const val BRIGHT_PLATE = "brightPlate"
         const val DARK_PLATE = "darkPlate"
+
+        const val CAD_CASE = "cadCase"
     }
 
     object Spell {
