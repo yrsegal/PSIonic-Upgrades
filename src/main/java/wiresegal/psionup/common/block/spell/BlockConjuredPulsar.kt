@@ -28,9 +28,6 @@ import java.util.*
  */
 class BlockConjuredPulsar(name: String) : BlockModContainer(name, Material.GLASS, name) {
 
-    override val item: ItemBlock?
-        get() = null
-
     init {
         this.defaultState = this.makeDefaultState()
         this.setLightOpacity(0)

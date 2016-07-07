@@ -42,6 +42,23 @@ tile.psionup:darkPlateGreen.name=Dark Green Psimetal Flow Plate
 tile.psionup:darkPlateRed.name=Dark Red Psimetal Flow Plate
 tile.psionup:darkPlateBlack.name=Dark Black Psimetal Flow Plate
 
+tile.psionup:cadCaseWhite.name=White CAD Case
+tile.psionup:cadCaseOrange.name=Orange CAD Case
+tile.psionup:cadCaseMagenta.name=Magenta CAD Case
+tile.psionup:cadCaseLightBlue.name=Light Blue CAD Case
+tile.psionup:cadCaseYellow.name=Yellow CAD Case
+tile.psionup:cadCaseLime.name=Lime CAD Case
+tile.psionup:cadCasePink.name=Pink CAD Case
+tile.psionup:cadCaseGray.name=Gray CAD Case
+tile.psionup:cadCaseLightGray.name=Light Gray CAD Case
+tile.psionup:cadCaseCyan.name=Cyan CAD Case
+tile.psionup:cadCasePurple.name=Purple CAD Case
+tile.psionup:cadCaseBlue.name=Blue CAD Case
+tile.psionup:cadCaseBrown.name=Brown CAD Case
+tile.psionup:cadCaseGreen.name=Green CAD Case
+tile.psionup:cadCaseRed.name=Red CAD Case
+tile.psionup:cadCaseBlack.name=Black CAD Case
+
 psi.spellpiece.psionup.conjurePulsar=Trick: Conjure Pulsar
 psi.spellpiece.psionup.conjurePulsar.desc=Conjures a redstone emitting block in the given position
 

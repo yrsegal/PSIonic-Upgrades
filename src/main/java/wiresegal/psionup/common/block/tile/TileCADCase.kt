@@ -13,6 +13,7 @@ import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.items.ItemHandlerHelper
 import net.minecraftforge.items.ItemStackHandler
+import vazkii.botania.api.internal.VanillaPacketDispatcher
 import vazkii.psi.api.cad.ICAD
 import vazkii.psi.api.cad.ISocketable
 import vazkii.psi.common.block.tile.base.TileMod
@@ -32,24 +33,65 @@ class TileCADCase : TileMod() {
 
     override fun readSharedNBT(cmp: NBTTagCompound) {
         woolColor = cmp.getByte("color").toInt()
-        itemHandler.deserializeNBT(cmp)
+        itemHandler.deserializeNBT(cmp.getCompoundTag("inv"))
     }
 
-    val itemHandler: ItemStackHandler by lazy {
-        BlockCADCase.CaseStackHandler()
+    val itemHandler: BlockCADCase.CaseStackHandler by lazy {
+        object : BlockCADCase.CaseStackHandler() {
+            override fun onContentsChanged(slot: Int) {
+                markDirty()
+                VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this@TileCADCase)
+            }
+        }
     }
 
-    fun onClick(worldIn: World, pos: BlockPos, state: IBlockState, playerIn: EntityPlayer, hand: EnumHand?, heldItem: ItemStack?, hitX: Float, hitY: Float, hitZ: Float): Boolean {
-        return false //todo
+    fun onClick(state: IBlockState, playerIn: EntityPlayer, hand: EnumHand, heldItem: ItemStack?, hitX: Float, hitZ: Float): Boolean {
+        val slot = getSlot(state.getValue(BlockCADCase.FACING), hitX, hitZ)
+        if (heldItem == null) {
+            if (itemHandler.getStackInSlot(slot) != null) {
+                if (!world.isRemote)
+                    playerIn.setHeldItem(hand, itemHandler.extractItem(slot, 1, false))
+                return true
+            }
+        } else {
+            if (itemHandler.getStackInSlot(slot) == null && itemHandler.canInsertIntoSlot(slot, heldItem)) {
+                if (!world.isRemote) {
+                    val heldCopy = heldItem.copy()
+                    playerIn.setHeldItem(hand, itemHandler.insertItem(slot, heldCopy, false))
+                }
+                return true
+            } else if (itemHandler.getStackInSlot(slot) != null) {
+                if (!world.isRemote) {
+                    val toAdd = itemHandler.extractItem(slot, 1, false)
+                    if (!playerIn.inventory.addItemStackToInventory(toAdd))
+                        playerIn.dropItem(toAdd, false)
+                }
+                return true
+            }
+        }
+        return false
+    }
+
+    private fun getSlot(facing: EnumFacing, hitX: Float, hitZ: Float): Int {
+        var x = hitX
+        if (facing == EnumFacing.NORTH) {
+            x = 1 - x
+        } else if (facing == EnumFacing.EAST) {
+            x = 1 - hitZ
+        } else if (facing == EnumFacing.WEST) {
+            x = hitZ
+        }
+
+        return if (x < 0.5) return 1 else 0
     }
 
     override fun hasCapability(capability: Capability<*>?, facing: EnumFacing?): Boolean {
-        return (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && facing == null) || super.hasCapability(capability, facing)
+        return (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY/* && facing == null*/) || super.hasCapability(capability, facing)
     }
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : Any?> getCapability(capability: Capability<T>?, facing: EnumFacing?): T? {
-        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && facing == null)
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY/* && facing == null*/)
             return itemHandler as T
         return super.getCapability(capability, facing)
     }

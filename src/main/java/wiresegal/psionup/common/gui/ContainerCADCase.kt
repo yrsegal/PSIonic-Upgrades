@@ -1,5 +1,8 @@
 package wiresegal.psionup.common.gui
 
+import net.minecraft.client.Minecraft
+import net.minecraft.client.renderer.texture.TextureAtlasSprite
+import net.minecraft.client.renderer.texture.TextureMap
 import java.util.HashMap
 
 import net.minecraft.entity.player.EntityPlayer
@@ -9,6 +12,7 @@ import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.inventory.Slot
 import net.minecraft.item.ItemArmor
 import net.minecraft.item.ItemStack
+import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import vazkii.psi.api.cad.EnumCADComponent
@@ -63,11 +67,11 @@ class ContainerCADCase(player: EntityPlayer, val stack: ItemStack) : Container()
             addSlotToContainer(object : Slot(playerInventory, k, xs + k * 18, ys + 58) {
 
                 override fun canTakeStack(playerIn: EntityPlayer?): Boolean {
-                    return stack == null || stack?.item !is ItemCADCase
+                    return !ItemStack.areItemStacksEqual(stack, this@ContainerCADCase.stack)
                 }
 
                 override fun canBeHovered(): Boolean {
-                    return stack == null || stack?.item !is ItemCADCase
+                    return !ItemStack.areItemStacksEqual(stack, this@ContainerCADCase.stack)
                 }
             })
 
@@ -99,11 +103,11 @@ class ContainerCADCase(player: EntityPlayer, val stack: ItemStack) : Container()
             }
 
             override fun canTakeStack(playerIn: EntityPlayer?): Boolean {
-                return stack == null || stack?.item !is ItemCADCase
+                return !ItemStack.areItemStacksEqual(stack, this@ContainerCADCase.stack)
             }
 
             override fun canBeHovered(): Boolean {
-                return stack == null || stack?.item !is ItemCADCase
+                return !ItemStack.areItemStacksEqual(stack, this@ContainerCADCase.stack)
             }
         })
     }

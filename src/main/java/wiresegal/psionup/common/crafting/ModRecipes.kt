@@ -1,5 +1,6 @@
 package wiresegal.psionup.common.crafting
 
+import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.CraftingManager
@@ -102,6 +103,16 @@ object ModRecipes {
             addShapelessOreDictRecipe(ItemStack(ModBlocks.darkColoredPlate, 1, i), ItemStack(PsiBlocks.psiDecorative, 1, 5), "dustGlowstone", "dye" + LibNames.Colors[i])
         }
 
+        for (i in 0..15)
+            addOreDictRecipe(ItemStack(ModBlocks.cadCase, 1, i),
+                    " B ",
+                    "GWG",
+                    "MMM",
+                    'B', ItemStack(Blocks.WOOL, 1, 15),
+                    'G', "gemPsi",
+                    'W', ItemStack(Blocks.WOOL, 1, i),
+                    'M', "ingotPsi")
+
 
         PsionicAPI.addTrickRecipe("", ItemStack(Items.REDSTONE), ItemStack(PsiItems.material), ItemStack(PsiItems.cadAssembly))
         PsionicAPI.addTrickRecipe(LibPieceNames.TRICK_INFUSION, ItemStack(Items.GOLD_INGOT), ItemStack(PsiItems.material, 1, 1), ItemStack(PsiItems.cadAssembly))
@@ -115,59 +126,18 @@ object ModRecipes {
 
 
     fun addOreDictRecipe(output: ItemStack, vararg recipe: Any) {
-        CraftingManager.getInstance().recipeList.add(object : ShapedOreRecipe(output, *recipe) {
-            override fun toString(): String {
-                return recipeToString(this)
-            }
-        })
+        CraftingManager.getInstance().recipeList.add(ShapedOreRecipe(output, *recipe))
     }
 
     fun addShapelessOreDictRecipe(output: ItemStack, vararg recipe: Any) {
-        CraftingManager.getInstance().recipeList.add(object : ShapelessOreRecipe(output, *recipe) {
-            override fun toString(): String {
-                return recipeToString(this)
-            }
-        })
+        CraftingManager.getInstance().recipeList.add(ShapelessOreRecipe(output, *recipe))
     }
 
     fun addCADRecipe(output: ItemStack, vararg recipe: Any) {
-        CraftingManager.getInstance().recipeList.add(object : RecipeCadComponent(output, *recipe) {
-            override fun toString(): String {
-                return recipeToString(this)
-            }
-        })
+        CraftingManager.getInstance().recipeList.add(RecipeCadComponent(output, *recipe))
     }
 
     fun addShapelessCADRecipe(output: ItemStack, vararg recipe: Any) {
-        CraftingManager.getInstance().recipeList.add(object : RecipeCadComponentShapeless(output, *recipe) {
-            override fun toString(): String {
-                return recipeToString(this)
-            }
-        })
-    }
-
-
-    private fun recipeToString(recipe: IRecipe): String {
-        if (recipe is ShapedOreRecipe)
-            return "${joinArr(recipe.input)} -> ${recipe.recipeOutput}"
-        if (recipe is ShapelessOreRecipe)
-            return "${joinArr(recipe.input)} -> ${recipe.recipeOutput}"
-        return recipe.toString()
-    }
-
-    private fun joinArr(arr: Array<*>): String {
-        var out = "["
-        for (item in arr) {
-            out += if (out.equals("[")) "" else ", " + item.toString()
-        }
-        return out + "]"
-    }
-
-    private fun joinArr(arr: List<*>): String {
-        var out = "["
-        for (item in arr) {
-            out += if (out.equals("[")) "" else ", " + item.toString()
-        }
-        return out + "]"
+        CraftingManager.getInstance().recipeList.add(RecipeCadComponentShapeless(output, *recipe))
     }
 }

@@ -23,7 +23,7 @@ import wiresegal.psionup.common.lib.LibMisc
  */
 open class ItemModBlock(block: Block) : ItemBlock(block), ModelHandler.IVariantHolder, ModelHandler.IItemColorProvider {
 
-    private val psiBlock: ModelHandler.IModBlock
+    protected val psiBlock: ModelHandler.IModBlock
 
     init {
         this.psiBlock = block as ModelHandler.IModBlock

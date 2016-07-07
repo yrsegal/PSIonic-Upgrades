@@ -1,6 +1,7 @@
 package wiresegal.psionup.common.items
 
 import net.minecraft.block.Block
+import net.minecraft.client.renderer.ItemMeshDefinition
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
@@ -12,9 +13,12 @@ import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.capabilities.ICapabilityProvider
 import net.minecraftforge.common.capabilities.ICapabilitySerializable
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.ItemHandlerHelper
 import net.minecraftforge.items.ItemStackHandler
+import shadowfox.botanicaladdons.client.core.ModelHandler
 import vazkii.botania.common.core.helper.ItemNBTHelper
 import vazkii.psi.api.cad.ICAD
 import vazkii.psi.api.cad.ISocketable
@@ -27,7 +31,7 @@ import wiresegal.psionup.common.block.base.ItemModBlock
  * @author WireSegal
  * Created at 9:09 PM on 7/5/16.
  */
-class ItemCADCase(block: Block) : ItemModBlock(block) {
+class ItemCADCase(block: Block) : ItemModBlock(block), ModelHandler.IExtraVariantHolder {
 
     init {
         setMaxStackSize(1)
@@ -42,6 +46,16 @@ class ItemCADCase(block: Block) : ItemModBlock(block) {
     override fun initCapabilities(stack: ItemStack, nbt: NBTTagCompound?): ICapabilityProvider? {
         return CaseCapabilityProvider()
     }
+
+    @SideOnly(Side.CLIENT)
+    override fun getCustomMeshDefinition(): ItemMeshDefinition? {
+        return ItemMeshDefinition {
+            ModelHandler.resourceLocations[psiBlock.bareName]
+        }
+    }
+
+    override val extraVariants: Array<out String>
+        get() = arrayOf(psiBlock.bareName)
 
     class CaseCapabilityProvider : ICapabilitySerializable<NBTTagCompound> {
         override fun hasCapability(capability: Capability<*>?, facing: EnumFacing?): Boolean {

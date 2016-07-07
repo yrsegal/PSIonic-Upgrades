@@ -1,9 +1,12 @@
 package wiresegal.psionup.client.core
 
+import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import shadowfox.botanicaladdons.client.core.ModelHandler
+import wiresegal.psionup.client.render.tile.RenderTileCADCase
 import wiresegal.psionup.common.PsionicUpgrades
+import wiresegal.psionup.common.block.tile.TileCADCase
 import wiresegal.psionup.common.core.CommonProxy
 import wiresegal.psionup.common.lib.LibMisc
 
@@ -20,5 +23,6 @@ class ClientProxy : CommonProxy() {
     override fun init(e: FMLInitializationEvent) {
         super.init(e)
         ModelHandler.init()
+        ClientRegistry.bindTileEntitySpecialRenderer(TileCADCase::class.java, RenderTileCADCase())
     }
 }
