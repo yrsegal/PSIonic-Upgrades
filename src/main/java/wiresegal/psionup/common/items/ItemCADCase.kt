@@ -3,12 +3,11 @@ package wiresegal.psionup.common.items
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.ItemMeshDefinition
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.SoundEvents
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
-import net.minecraft.util.ActionResult
-import net.minecraft.util.EnumActionResult
-import net.minecraft.util.EnumFacing
-import net.minecraft.util.EnumHand
+import net.minecraft.util.*
+import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.capabilities.ICapabilityProvider
@@ -16,12 +15,8 @@ import net.minecraftforge.common.capabilities.ICapabilitySerializable
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.items.CapabilityItemHandler
-import net.minecraftforge.items.ItemHandlerHelper
 import net.minecraftforge.items.ItemStackHandler
 import shadowfox.botanicaladdons.client.core.ModelHandler
-import vazkii.botania.common.core.helper.ItemNBTHelper
-import vazkii.psi.api.cad.ICAD
-import vazkii.psi.api.cad.ISocketable
 import wiresegal.psionup.client.core.GuiHandler
 import wiresegal.psionup.common.PsionicUpgrades
 import wiresegal.psionup.common.block.BlockCADCase
@@ -38,9 +33,17 @@ class ItemCADCase(block: Block) : ItemModBlock(block), ModelHandler.IExtraVarian
     }
 
     override fun onItemRightClick(itemStackIn: ItemStack, worldIn: World, playerIn: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack>? {
-        if (!worldIn.isRemote)
+        if (!worldIn.isRemote) {
             playerIn.openGui(PsionicUpgrades.instance, GuiHandler.GUI_CASE, worldIn, 0, 0, 0)
+            playerIn.worldObj.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.BLOCK_WOODEN_TRAPDOOR_OPEN, SoundCategory.PLAYERS, 1f, 1f)
+        }
         return ActionResult(EnumActionResult.SUCCESS, itemStackIn)
+    }
+
+    override fun onItemUse(stack: ItemStack?, playerIn: EntityPlayer, worldIn: World, pos: BlockPos?, hand: EnumHand?, facing: EnumFacing?, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult? {
+        if (facing != EnumFacing.UP)
+            return EnumActionResult.FAIL
+        return super.onItemUse(stack, playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ)
     }
 
     override fun initCapabilities(stack: ItemStack, nbt: NBTTagCompound?): ICapabilityProvider? {

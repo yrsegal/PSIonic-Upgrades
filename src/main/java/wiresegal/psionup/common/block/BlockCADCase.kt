@@ -1,7 +1,6 @@
 package wiresegal.psionup.common.block
 
 import net.minecraft.block.Block
-import net.minecraft.block.BlockDirectional
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.IProperty
 import net.minecraft.block.properties.PropertyBool
@@ -15,37 +14,32 @@ import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.passive.EntitySheep
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.Blocks
 import net.minecraft.init.SoundEvents
 import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
-import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.tileentity.TileEntity
-import net.minecraft.util.*
+import net.minecraft.util.EnumFacing
+import net.minecraft.util.EnumHand
+import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
-import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
-import net.minecraftforge.common.capabilities.Capability
-import net.minecraftforge.common.capabilities.ICapabilityProvider
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.items.CapabilityItemHandler
-import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.items.ItemHandlerHelper
 import net.minecraftforge.items.ItemStackHandler
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import vazkii.psi.api.cad.ICAD
 import vazkii.psi.api.cad.ISocketable
-import vazkii.psi.api.internal.Vector3
 import wiresegal.psionup.common.block.base.BlockModContainer
-import wiresegal.psionup.common.block.base.ItemModBlock
 import wiresegal.psionup.common.block.tile.TileCADCase
 import wiresegal.psionup.common.items.ItemCADCase
-import wiresegal.psionup.common.items.base.ItemMod
 import wiresegal.psionup.common.lib.LibNames
 import java.awt.Color
 
@@ -106,10 +100,14 @@ class BlockCADCase(name: String) : BlockModContainer(name, Material.IRON, *makeV
         val te = (world.getTileEntity(pos) ?: return mutableListOf(baseStack)) as TileCADCase
 
         val handler = baseStack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null) ?: return mutableListOf(baseStack)
-        for (slot in 0..te.itemHandler.slots-1)
+        for (slot in 0..te.itemHandler.slots - 1)
             handler.insertItem(slot, te.itemHandler.getStackInSlot(slot)?.copy(), false)
 
         return mutableListOf(baseStack)
+    }
+
+    override fun canPlaceBlockAt(worldIn: World, pos: BlockPos): Boolean {
+        return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos, EnumFacing.UP) || worldIn.getBlockState(pos.down()).block === Blocks.GLOWSTONE
     }
 
     override fun addInformation(stack: ItemStack, player: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
@@ -147,17 +145,40 @@ class BlockCADCase(name: String) : BlockModContainer(name, Material.IRON, *makeV
 
     override fun neighborChanged(state: IBlockState, worldIn: World, pos: BlockPos, blockIn: Block) {
         if (!worldIn.isRemote) {
-            val redstone = worldIn.isBlockPowered(pos)
+            if (this.canPlaceBlockAt(worldIn, pos)) {
+                val redstone = worldIn.isBlockPowered(pos)
 
-            if (redstone || blockIn.defaultState.canProvidePower()) {
-                val open = state.getValue(OPEN)
+                if (redstone || blockIn.defaultState.canProvidePower()) {
+                    val open = state.getValue(OPEN)
 
-                if (open != redstone) {
-                    worldIn.setBlockState(pos, state.withProperty(OPEN, redstone), 2)
-                    playSound(worldIn, pos, redstone)
+                    if (open != redstone) {
+                        worldIn.setBlockState(pos, state.withProperty(OPEN, redstone), 2)
+                        playSound(worldIn, pos, redstone)
+                    }
                 }
+            } else {
+                this.dropBlockAsItem(worldIn, pos, state, 0)
+                worldIn.setBlockToAir(pos)
             }
         }
+    }
+
+    override fun hasComparatorInputOverride(state: IBlockState?): Boolean {
+        return true
+    }
+
+    override fun getComparatorInputOverride(blockState: IBlockState?, worldIn: World?, pos: BlockPos?): Int {
+        val tile = (worldIn?.getTileEntity(pos) ?: return 0) as TileCADCase
+        val handler = tile.itemHandler
+        var i = 0
+
+        for (j in 0..handler.slots - 1) {
+            val itemstack = handler.getStackInSlot(j)
+
+            if (itemstack != null) ++i
+        }
+
+        return Math.ceil(15.0 / handler.slots * i).toInt()
     }
 
     fun playSound(worldIn: World, pos: BlockPos, closing: Boolean) {

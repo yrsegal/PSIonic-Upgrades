@@ -4,7 +4,6 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
 import net.minecraft.util.text.ITextComponent
-import net.minecraft.util.text.TextComponentString
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.IItemHandlerModifiable
@@ -20,7 +19,7 @@ class InventoryCADCase(stack: ItemStack) : IInventory {
     val handler = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null) as IItemHandlerModifiable
 
     override fun clear() {
-        for (i in 0..handler.slots-1)
+        for (i in 0..handler.slots - 1)
             handler.setStackInSlot(i, null)
     }
 

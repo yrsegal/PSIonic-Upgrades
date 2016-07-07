@@ -57,3 +57,6 @@ Magic?? Tech?? Addons??
 - JEI compat with the Crafting tricks.
 - `/psi-learn` and `/psi-unlearn` commands.
 - Colored Flow Plates.
+- CAD Cases
+    A portable storage that can store one CAD and one other spell holder. They can be placed on the ground or used in-hand.
+    On the ground, they can be opened and closed with a shift-click, and can be interacted with while open.

@@ -13,7 +13,6 @@ import vazkii.botania.common.item.ItemManaGun
 import vazkii.psi.api.cad.EnumCADStat
 import vazkii.psi.api.spell.Spell
 import vazkii.psi.api.spell.SpellContext
-import vazkii.psi.common.item.base.IExtraVariantHolder
 import vazkii.psi.common.item.base.ModItems
 import wiresegal.psionup.api.enabling.ITrickEnablerComponent
 import wiresegal.psionup.api.enabling.botania.EnumManaTier

@@ -15,7 +15,6 @@ import shadowfox.botanicaladdons.client.core.ModelHandler
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.ICADColorizer
 import vazkii.psi.common.core.helper.ItemNBTHelper
-import vazkii.psi.common.item.base.IColorProvider
 import wiresegal.psionup.common.items.ModItems
 import wiresegal.psionup.common.items.base.ICadComponentAcceptor
 import wiresegal.psionup.common.items.base.ItemComponent

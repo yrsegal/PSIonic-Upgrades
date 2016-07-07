@@ -6,16 +6,9 @@ import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
-import net.minecraft.util.math.BlockPos
-import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.items.CapabilityItemHandler
-import net.minecraftforge.items.IItemHandler
-import net.minecraftforge.items.ItemHandlerHelper
-import net.minecraftforge.items.ItemStackHandler
 import vazkii.botania.api.internal.VanillaPacketDispatcher
-import vazkii.psi.api.cad.ICAD
-import vazkii.psi.api.cad.ISocketable
 import vazkii.psi.common.block.tile.base.TileMod
 import wiresegal.psionup.common.block.BlockCADCase
 
@@ -86,12 +79,12 @@ class TileCADCase : TileMod() {
     }
 
     override fun hasCapability(capability: Capability<*>?, facing: EnumFacing?): Boolean {
-        return (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY/* && facing == null*/) || super.hasCapability(capability, facing)
+        return (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && facing == null) || super.hasCapability(capability, facing)
     }
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : Any?> getCapability(capability: Capability<T>?, facing: EnumFacing?): T? {
-        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY/* && facing == null*/)
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && facing == null)
             return itemHandler as T
         return super.getCapability(capability, facing)
     }

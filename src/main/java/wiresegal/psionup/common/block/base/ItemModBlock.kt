@@ -1,7 +1,6 @@
 package wiresegal.psionup.common.block.base
 
 import net.minecraft.block.Block
-import net.minecraft.client.renderer.ItemMeshDefinition
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.Item
@@ -12,9 +11,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.client.core.ModelHandler
-import vazkii.psi.common.block.base.IPsiBlock
-import vazkii.psi.common.item.base.IVariantHolder
-import wiresegal.psionup.common.items.base.ItemMod
 import wiresegal.psionup.common.lib.LibMisc
 
 /**

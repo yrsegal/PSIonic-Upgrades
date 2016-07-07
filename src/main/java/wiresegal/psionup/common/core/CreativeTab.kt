@@ -4,7 +4,6 @@ import net.minecraft.block.Block
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
-import wiresegal.psionup.common.items.CompatItems
 import wiresegal.psionup.common.items.ModItems
 import wiresegal.psionup.common.lib.LibMisc
 import java.util.*

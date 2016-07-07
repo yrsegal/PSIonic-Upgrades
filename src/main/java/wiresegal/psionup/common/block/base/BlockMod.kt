@@ -4,7 +4,6 @@ import net.minecraft.block.Block
 import net.minecraft.block.material.MapColor
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.IProperty
-import net.minecraft.client.renderer.ItemMeshDefinition
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
@@ -14,7 +13,6 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import vazkii.psi.api.internal.TooltipHelper
-import vazkii.psi.common.block.base.IPsiBlock
 import wiresegal.psionup.common.core.CreativeTab
 import wiresegal.psionup.common.lib.LibMisc
 

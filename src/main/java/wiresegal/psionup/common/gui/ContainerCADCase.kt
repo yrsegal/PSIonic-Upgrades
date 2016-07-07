@@ -1,31 +1,15 @@
 package wiresegal.psionup.common.gui
 
-import net.minecraft.client.Minecraft
-import net.minecraft.client.renderer.texture.TextureAtlasSprite
-import net.minecraft.client.renderer.texture.TextureMap
-import java.util.HashMap
-
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.inventory.Container
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.inventory.Slot
 import net.minecraft.item.ItemArmor
 import net.minecraft.item.ItemStack
-import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.ICAD
-import vazkii.psi.api.cad.ICADComponent
 import vazkii.psi.api.cad.ISocketable
-import vazkii.psi.common.block.tile.TileCADAssembler
-import vazkii.psi.common.block.tile.container.slot.SlotBullet
-import vazkii.psi.common.block.tile.container.slot.SlotCADComponent
-import vazkii.psi.common.block.tile.container.slot.SlotCADOutput
-import vazkii.psi.common.block.tile.container.slot.SlotSocketable
-import vazkii.psi.common.item.base.ModItems
-import wiresegal.psionup.common.items.ItemCADCase
 
 class ContainerCADCase(player: EntityPlayer, val stack: ItemStack) : Container() {
     val inventory = InventoryCADCase(stack)
@@ -33,7 +17,7 @@ class ContainerCADCase(player: EntityPlayer, val stack: ItemStack) : Container()
     init {
         val playerInventory = player.inventory
 
-        addSlotToContainer(object : Slot(inventory, 0, 35, 21) {
+        addSlotToContainer(object : Slot(inventory, 0, 132, 7) {
 
             override fun getItemStackLimit(stack: ItemStack?): Int {
                 return 1
@@ -45,7 +29,7 @@ class ContainerCADCase(player: EntityPlayer, val stack: ItemStack) : Container()
         })
 
 
-        addSlotToContainer(object : Slot(inventory, 1, 205, 21) {
+        addSlotToContainer(object : Slot(inventory, 1, 79, 7) {
 
             override fun getItemStackLimit(stack: ItemStack?): Int {
                 return 1
@@ -56,8 +40,8 @@ class ContainerCADCase(player: EntityPlayer, val stack: ItemStack) : Container()
             }
         })
 
-        val xs = 48
-        val ys = 143
+        val xs = 34
+        val ys = 48
 
         for (i in 0..2)
             for (j in 0..8)
@@ -95,7 +79,7 @@ class ContainerCADCase(player: EntityPlayer, val stack: ItemStack) : Container()
             })
         }
 
-        addSlotToContainer(object : Slot(playerInventory, playerInventory.sizeInventory - 1, 219, 143) {
+        addSlotToContainer(object : Slot(playerInventory, playerInventory.sizeInventory - 1, 205, 48) {
 
             @SideOnly(Side.CLIENT)
             override fun getSlotTexture(): String? {

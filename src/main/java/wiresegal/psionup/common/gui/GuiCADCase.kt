@@ -2,37 +2,39 @@ package wiresegal.psionup.common.gui
 
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.renderer.GlStateManager
-import net.minecraft.client.resources.I18n
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
-import net.minecraft.util.text.TextFormatting
-import vazkii.psi.api.cad.EnumCADStat
-import vazkii.psi.api.cad.ICAD
-import vazkii.psi.common.block.base.ModBlocks
-import vazkii.psi.common.block.tile.TileCADAssembler
-import vazkii.psi.common.block.tile.container.ContainerCADAssembler
-import vazkii.psi.common.lib.LibResources
+import wiresegal.psionup.common.lib.LibMisc
 
 class GuiCADCase(player: EntityPlayer, internal var stack: ItemStack) : GuiContainer(ContainerCADCase(player, stack)) {
     val inventory = InventoryCADCase(stack)
 
+    val xOffset = 72
+    val yOffset = 5 + 29
+
     override fun initGui() {
-        xSize = 256
-        ySize = 225
+        xSize = 227
+        ySize = 130
         super.initGui()
     }
 
     override fun drawGuiContainerBackgroundLayer(partialTicks: Float, mouseX: Int, mouseY: Int) {
         GlStateManager.color(1f, 1f, 1f)
-        mc.textureManager.bindTexture(texture)
+        mc.textureManager.bindTexture(textureMain)
         val x = (width - xSize) / 2
         val y = (height - ySize) / 2
-        drawTexturedModalRect(x, y, 0, 0, xSize, ySize)
+        drawTexturedModalRect(x, y + yOffset, 0, 0, xSize, 96)
+
+        mc.textureManager.bindTexture(textureCase)
+        val caseX = (stack.itemDamage % 3) * 83
+        val caseY = (stack.itemDamage / 3) * 29
+        drawTexturedModalRect(x + xOffset, y, caseX, caseY, 83, 29)
     }
 
     companion object {
-        private val texture = ResourceLocation(LibResources.GUI_CAD_ASSEMBLER) //todo
+        private val textureMain = ResourceLocation(LibMisc.MOD_ID, "textures/gui/caseBase.png") // 227 x 96
+        private val textureCase = ResourceLocation(LibMisc.MOD_ID, "textures/gui/cases.png") // 83 x 29 per
     }
 
 }

@@ -14,10 +14,6 @@ import net.minecraft.util.text.Style
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
-import net.minecraftforge.common.MinecraftForge
-import net.minecraftforge.event.entity.player.PlayerInteractEvent
-import net.minecraftforge.fml.common.eventhandler.Event
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.EnumCADStat
 import vazkii.psi.api.cad.ICADComponent
@@ -26,7 +22,6 @@ import vazkii.psi.api.internal.VanillaPacketDispatcher
 import vazkii.psi.api.spell.EnumSpellStat
 import vazkii.psi.api.spell.ISpellSettable
 import vazkii.psi.api.spell.Spell
-import vazkii.psi.common.block.base.ModBlocks
 import vazkii.psi.common.block.tile.TileProgrammer
 import vazkii.psi.common.core.handler.PsiSoundHandler
 import vazkii.psi.common.core.helper.ItemNBTHelper

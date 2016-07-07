@@ -22,7 +22,6 @@ import vazkii.psi.common.core.handler.PlayerDataHandler
 import vazkii.psi.common.core.handler.PsiSoundHandler
 import vazkii.psi.common.core.helper.ItemNBTHelper
 import vazkii.psi.common.item.ItemCAD
-import vazkii.psi.common.item.base.IColorProvider
 import vazkii.psi.common.item.base.ModItems
 import wiresegal.psionup.common.items.base.ItemMod
 import java.awt.Color

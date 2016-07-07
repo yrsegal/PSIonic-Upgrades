@@ -10,11 +10,8 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import shadowfox.botanicaladdons.client.core.ModelHandler
 import vazkii.psi.api.internal.TooltipHelper
-import vazkii.psi.common.core.PsiCreativeTab
-import vazkii.psi.common.item.base.IVariantHolder
 import wiresegal.psionup.common.core.CreativeTab
 import wiresegal.psionup.common.lib.LibMisc
-import java.util.*
 import vazkii.psi.common.item.base.ItemMod as PsiItem
 
 /**
