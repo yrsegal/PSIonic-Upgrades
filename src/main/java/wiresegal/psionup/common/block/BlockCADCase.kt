@@ -102,6 +102,8 @@ class BlockCADCase(name: String) : BlockModContainer(name, Material.IRON, *makeV
         val handler = baseStack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null) ?: return mutableListOf(baseStack)
         for (slot in 0..te.itemHandler.slots - 1)
             handler.insertItem(slot, te.itemHandler.getStackInSlot(slot)?.copy(), false)
+        if (te.name != null)
+            baseStack.setStackDisplayName(te.name)
 
         return mutableListOf(baseStack)
     }
@@ -141,6 +143,8 @@ class BlockCADCase(name: String) : BlockModContainer(name, Material.IRON, *makeV
         val handler = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null) ?: return
         for (slot in 0..handler.slots - 1)
             tile.itemHandler.insertItem(slot, handler.getStackInSlot(slot)?.copy(), false)
+        if (stack.hasDisplayName())
+            tile.name = stack.displayName
     }
 
     override fun neighborChanged(state: IBlockState, worldIn: World, pos: BlockPos, blockIn: Block) {

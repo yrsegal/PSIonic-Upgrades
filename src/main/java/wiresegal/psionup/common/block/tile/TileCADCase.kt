@@ -18,15 +18,20 @@ import wiresegal.psionup.common.block.BlockCADCase
  */
 class TileCADCase : TileMod() {
     var woolColor = 0
+    var name: String? = null
 
     override fun writeSharedNBT(cmp: NBTTagCompound) {
         cmp.setByte("color", woolColor.toByte())
         cmp.setTag("inv", itemHandler.serializeNBT())
+        if (name != null)
+            cmp.setString("name", name)
     }
 
     override fun readSharedNBT(cmp: NBTTagCompound) {
         woolColor = cmp.getByte("color").toInt()
         itemHandler.deserializeNBT(cmp.getCompoundTag("inv"))
+        if (cmp.hasKey("name"))
+            name = cmp.getString("name")
     }
 
     val itemHandler: BlockCADCase.CaseStackHandler by lazy {
