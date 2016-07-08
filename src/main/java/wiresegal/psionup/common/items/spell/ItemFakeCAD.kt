@@ -79,7 +79,7 @@ class ItemFakeCAD(name: String) : ItemMod(name, name), ISocketable, ISpellSettab
     }
 
     override fun requiresSneakForSpellSet(p0: ItemStack?): Boolean {
-        return true
+        return false
     }
 
     override fun addInformation(stack: ItemStack, playerIn: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
