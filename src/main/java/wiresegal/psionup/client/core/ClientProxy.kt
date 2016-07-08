@@ -3,7 +3,7 @@ package wiresegal.psionup.client.core
 import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
-import shadowfox.botanicaladdons.client.core.ModelHandler
+import wiresegal.psionup.client.core.ModelHandler
 import wiresegal.psionup.client.render.tile.RenderTileCADCase
 import wiresegal.psionup.common.PsionicUpgrades
 import wiresegal.psionup.common.block.tile.TileCADCase

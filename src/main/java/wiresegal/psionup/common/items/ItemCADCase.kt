@@ -16,7 +16,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.ItemStackHandler
-import shadowfox.botanicaladdons.client.core.ModelHandler
+import wiresegal.psionup.client.core.ModelHandler
 import wiresegal.psionup.client.core.GuiHandler
 import wiresegal.psionup.common.PsionicUpgrades
 import wiresegal.psionup.common.block.BlockCADCase

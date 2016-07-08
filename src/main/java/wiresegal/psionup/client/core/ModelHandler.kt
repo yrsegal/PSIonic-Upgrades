@@ -1,4 +1,4 @@
-package shadowfox.botanicaladdons.client.core
+package wiresegal.psionup.client.core
 
 import net.minecraft.block.Block
 import net.minecraft.block.properties.IProperty
@@ -101,10 +101,15 @@ object ModelHandler {
                 if (color != null)
                     itemColors.registerItemColorHandler(color, holder)
             }
+
             if (holder is ItemBlock && holder.getBlock() is IBlockColorProvider) {
                 val color = (holder.getBlock() as IBlockColorProvider).getBlockColor()
                 if (color != null)
                     blockColors.registerBlockColorHandler(color, holder.getBlock())
+            } else if (holder is Block && holder is IBlockColorProvider) {
+                val color = holder.getBlockColor()
+                if (color != null)
+                    blockColors.registerBlockColorHandler(color, holder)
             }
         }
     }
@@ -113,18 +118,17 @@ object ModelHandler {
 
     fun registerModels(holder: IVariantHolder) {
         val def = holder.getCustomMeshDefinition()
-        val i = holder as Item
-        if (def != null) {
-            ModelLoader.setCustomMeshDefinition(i, def)
+        if (def != null && holder is Item) {
+            ModelLoader.setCustomMeshDefinition(holder, def)
         } else {
-            registerModels(i, holder.variants, false)
+            registerModels(holder, holder.variants, false)
         }
         if (holder is IExtraVariantHolder) {
-            registerModels(i, holder.extraVariants, true)
+            registerModels(holder, holder.extraVariants, true)
         }
     }
 
-    fun registerModels(item: Item, variants: Array<out String>, extra: Boolean) {
+    fun registerModels(item: IVariantHolder, variants: Array<out String>, extra: Boolean) {
         if (item is ItemBlock && item.getBlock() is IModBlock) {
             val i = item.getBlock() as IModBlock
             val name = i.variantEnum
@@ -146,34 +150,50 @@ object ModelHandler {
                 registerVariantsDefaulted(item, i as Block, name, "variant")
                 return
             }
+        } else if (item is IModBlock) {
+            val loc = item.ignoredProperties
+            if (loc != null && loc.size > 0) {
+                val builder = StateMap.Builder()
+                val var7 = loc
+                val var8 = loc.size
+
+                for (var9 in 0..var8 - 1) {
+                    val p = var7[var9]
+                    builder.ignore(p)
+                }
+
+                ModelLoader.setCustomStateMapper(item as Block, builder.build())
+            }
         }
 
-        for (variant in variants.withIndex()) {
-            if (variant.index == 0) {
-                var print = "$namePad | Registering "
-                if (variant.value != item.registryName.resourcePath || variants.size != 1)
-                    print += "variant" + if (variants.size == 1) "" else "s" + " of "
-                print += if (item is ItemBlock) "block" else "item"
-                print += " ${item.registryName.resourcePath}"
-                log(print)
-                if (item is ICustomLogHolder)
-                    log(item.customLog())
-            }
-            if ((variant.value != item.registryName.resourcePath || variants.size != 1)) {
-                if (item is ICustomLogHolder) {
-                    if (item.shouldLogForVariant(variant.index + 1, variant.value))
-                        log(item.customLogVariant(variant.index + 1, variant.value))
-                } else
-                    log("$namePad |  Variant #${variant.index + 1}: ${variant.value}")
-            }
+        if (item is Item) {
+            for (variant in variants.withIndex()) {
+                if (variant.index == 0) {
+                    var print = "$namePad | Registering "
+                    if (variant.value != item.registryName.resourcePath || variants.size != 1)
+                        print += "variant" + if (variants.size == 1) "" else "s" + " of "
+                    print += if (item is ItemBlock) "block" else "item"
+                    print += " ${item.registryName.resourcePath}"
+                    log(print)
+                    if (item is ICustomLogHolder)
+                        log(item.customLog())
+                }
+                if ((variant.value != item.registryName.resourcePath || variants.size != 1)) {
+                    if (item is ICustomLogHolder) {
+                        if (item.shouldLogForVariant(variant.index + 1, variant.value))
+                            log(item.customLogVariant(variant.index + 1, variant.value))
+                    } else
+                        log("$namePad |  Variant #${variant.index + 1}: ${variant.value}")
+                }
 
-            val model = ModelResourceLocation(ResourceLocation(modName, variant.value).toString(), "inventory")
-            if (!extra) {
-                ModelLoader.setCustomModelResourceLocation(item, variant.index, model)
-                resourceLocations.put(getKey(item, variant.index), model)
-            } else {
-                ModelBakery.registerItemVariants(item, model)
-                resourceLocations.put(variant.value, model)
+                val model = ModelResourceLocation(ResourceLocation(modName, variant.value).toString(), "inventory")
+                if (!extra) {
+                    ModelLoader.setCustomModelResourceLocation(item, variant.index, model)
+                    resourceLocations.put(getKey(item, variant.index), model)
+                } else {
+                    ModelBakery.registerItemVariants(item, model)
+                    resourceLocations.put(variant.value, model)
+                }
             }
         }
 
@@ -187,7 +207,7 @@ object ModelHandler {
                     val variantName = variantHeader + "=" + e.name
 
                     if (e.ordinal == 0) {
-                        var print = "$namePad | Registering "
+                        var print = "${namePad} | Registering "
                         if (variantName != item.registryName.resourcePath || enumclazz.enumConstants.size != 1)
                             print += "variant" + (if (enumclazz.enumConstants.size == 1) "" else "s") + " of "
                         print += if (item is ItemBlock) "block" else "item"

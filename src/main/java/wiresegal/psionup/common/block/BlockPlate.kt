@@ -12,7 +12,7 @@ import net.minecraft.item.EnumDyeColor
 import net.minecraft.util.BlockRenderLayer
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import shadowfox.botanicaladdons.client.core.ModelHandler
+import wiresegal.psionup.client.core.ModelHandler
 import wiresegal.psionup.common.block.base.BlockMod
 import wiresegal.psionup.common.lib.LibNames
 

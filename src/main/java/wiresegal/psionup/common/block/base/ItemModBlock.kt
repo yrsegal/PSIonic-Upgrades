@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import shadowfox.botanicaladdons.client.core.ModelHandler
+import wiresegal.psionup.client.core.ModelHandler
 import wiresegal.psionup.common.lib.LibMisc
 
 /**

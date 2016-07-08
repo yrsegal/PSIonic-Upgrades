@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import shadowfox.botanicaladdons.client.core.ModelHandler
+import wiresegal.psionup.client.core.ModelHandler
 import vazkii.psi.api.internal.TooltipHelper
 import wiresegal.psionup.common.core.CreativeTab
 import wiresegal.psionup.common.lib.LibMisc
@@ -50,6 +50,8 @@ open class BlockMod(name: String, materialIn: Material, color: MapColor, vararg 
         this.unlocalizedName = name
         if (itemForm != null)
             CreativeTab.set(this)
+        else
+            ModelHandler.variantCache.add(this)
     }
 
     override fun setUnlocalizedName(name: String): Block {
