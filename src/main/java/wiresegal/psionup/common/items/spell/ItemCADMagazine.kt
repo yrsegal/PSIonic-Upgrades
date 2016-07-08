@@ -235,7 +235,7 @@ class ItemCADMagazine(name: String) : ItemMod(name, name), ISocketable, ICadComp
         val compiled = SpellCompiler(spell)
         if ((compiled.compiledSpell.metadata.stats[EnumSpellStat.BANDWIDTH] ?: Integer.MAX_VALUE) > getBandwidth(stack)) {
             if (!player.worldObj.isRemote)
-                player.addChatComponentMessage(TextComponentTranslation("${LibMisc.MOD_ID}.misc.tooComplexProgrammer").setStyle(Style().setColor(TextFormatting.RED)))
+                player.addChatComponentMessage(TextComponentTranslation("${LibMisc.MOD_ID}.misc.tooComplex").setStyle(Style().setColor(TextFormatting.RED)))
         } else if (bullet != null && bullet.item is ISpellSettable) {
             (bullet.item as ISpellSettable).setSpell(player, bullet, spell)
             this.setBulletInSocket(stack, slot, bullet)
