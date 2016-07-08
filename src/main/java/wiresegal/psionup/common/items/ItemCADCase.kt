@@ -36,6 +36,7 @@ class ItemCADCase(block: Block) : ItemModBlock(block), ModelHandler.IExtraVarian
         if (!worldIn.isRemote) {
             playerIn.openGui(PsionicUpgrades.instance, GuiHandler.GUI_CASE, worldIn, 0, 0, 0)
             playerIn.worldObj.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.BLOCK_WOODEN_TRAPDOOR_OPEN, SoundCategory.PLAYERS, 1f, 1f)
+            return ActionResult(EnumActionResult.SUCCESS, itemStackIn)
         }
         return ActionResult(EnumActionResult.SUCCESS, itemStackIn)
     }

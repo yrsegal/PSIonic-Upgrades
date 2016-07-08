@@ -1,4 +1,4 @@
-package wiresegal.psionup.common.gui
+package wiresegal.psionup.common.gui.cadcase
 
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.renderer.GlStateManager
@@ -8,8 +8,6 @@ import net.minecraft.util.ResourceLocation
 import wiresegal.psionup.common.lib.LibMisc
 
 class GuiCADCase(player: EntityPlayer, internal var stack: ItemStack) : GuiContainer(ContainerCADCase(player, stack)) {
-    val inventory = InventoryCADCase(stack)
-
     val xOffset = 72
     val yOffset = 5 + 29
 

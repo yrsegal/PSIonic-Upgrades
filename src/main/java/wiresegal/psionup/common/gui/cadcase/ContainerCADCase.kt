@@ -1,4 +1,4 @@
-package wiresegal.psionup.common.gui
+package wiresegal.psionup.common.gui.cadcase
 
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.Container

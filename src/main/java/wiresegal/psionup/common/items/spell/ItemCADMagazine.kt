@@ -2,18 +2,17 @@ package wiresegal.psionup.common.items.spell
 
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.SoundEvents
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
-import net.minecraft.util.EnumActionResult
-import net.minecraft.util.EnumFacing
-import net.minecraft.util.EnumHand
-import net.minecraft.util.SoundCategory
+import net.minecraft.util.*
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.text.Style
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
+import vazkii.psi.api.PsiAPI
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.EnumCADStat
 import vazkii.psi.api.cad.ICADComponent
@@ -27,6 +26,8 @@ import vazkii.psi.common.core.handler.PsiSoundHandler
 import vazkii.psi.common.core.helper.ItemNBTHelper
 import vazkii.psi.common.item.ItemSpellDrive
 import vazkii.psi.common.spell.SpellCompiler
+import wiresegal.psionup.client.core.GuiHandler
+import wiresegal.psionup.common.PsionicUpgrades
 import wiresegal.psionup.common.crafting.ModRecipes
 import wiresegal.psionup.common.items.base.ICadComponentAcceptor
 import wiresegal.psionup.common.items.base.ItemMod
@@ -102,6 +103,14 @@ class ItemCADMagazine(name: String) : ItemMod(name, name), ISocketable, ICadComp
 
     override fun acceptsPiece(stack: ItemStack, type: EnumCADComponent): Boolean {
         return type == EnumCADComponent.SOCKET
+    }
+
+    override fun onItemRightClick(itemStackIn: ItemStack, worldIn: World, playerIn: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack>? {
+        if (!worldIn.isRemote && PsiAPI.getPlayerCAD(playerIn) != null) {
+            playerIn.openGui(PsionicUpgrades.instance, GuiHandler.GUI_MAGAZINE, worldIn, 0, 0, 0)
+            return ActionResult(EnumActionResult.SUCCESS, itemStackIn)
+        }
+        return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand)
     }
 
     override fun onItemUse(stack: ItemStack, playerIn: EntityPlayer?, worldIn: World?, pos: BlockPos?, hand: EnumHand?, side: EnumFacing?, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult {
