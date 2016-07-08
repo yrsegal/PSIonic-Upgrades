@@ -36,6 +36,8 @@ Magic?? Tech?? Addons??
     Raycasts similarly to Operator: Vector Raycast, except ignoring nonsolid blocks.
 - Operator: Vector Axis Strong Raycast  
     Raycasts similarly to Operator: Vector Axis Raycast, except ignoring nonsolid blocks.
+- Operator: Vector Fallback
+    Replaces null and zero vectors with a fallback vector.
 - Trick: Particle Trail  
     Creates a particle trail from a position, along a ray, for a given distance. No Psi cost, but increases potency.
 
