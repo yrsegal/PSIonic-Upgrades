@@ -7,10 +7,7 @@ import vazkii.psi.api.spell.SpellPiece
 import vazkii.psi.common.lib.LibPieceGroups
 import vazkii.psi.common.spell.base.ModSpellPieces
 import wiresegal.psionup.common.lib.LibNames
-import wiresegal.psionup.common.spell.operator.PieceOperatorPlanarNorm
-import wiresegal.psionup.common.spell.operator.PieceOperatorVectorRotate
-import wiresegal.psionup.common.spell.operator.PieceOperatorVectorStrongRaycast
-import wiresegal.psionup.common.spell.operator.PieceOperatorVectorStrongRaycastAxis
+import wiresegal.psionup.common.spell.operator.*
 import wiresegal.psionup.common.spell.trick.*
 
 /**
@@ -28,6 +25,8 @@ object ModPieces {
 
     val strongCast: ModSpellPieces.PieceContainer
     val strongCastAxis: ModSpellPieces.PieceContainer
+
+    val vectorFallback: ModSpellPieces.PieceContainer
 
     val particleTrail: ModSpellPieces.PieceContainer
 
@@ -62,6 +61,10 @@ object ModPieces {
                 LibNames.PieceGroups.SECONDARY_VECTOR_OPERATORS)
         strongCastAxis = register(PieceOperatorVectorStrongRaycastAxis::class.java,
                 LibNames.Spell.STRONG_VECTOR_RAYCAST_AXIS,
+                LibNames.PieceGroups.SECONDARY_VECTOR_OPERATORS)
+
+        vectorFallback = register(PieceOperatorVectorFallback::class.java,
+                LibNames.Spell.VECTOR_FALLBACK,
                 LibNames.PieceGroups.SECONDARY_VECTOR_OPERATORS)
 
         particleTrail = register(PieceTrickParticleTrail::class.java,

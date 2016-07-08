@@ -36,6 +36,8 @@ object LibNames {
         const val STRONG_VECTOR_RAYCAST = "strongVectorRaycast"
         const val STRONG_VECTOR_RAYCAST_AXIS = "strongVectorRaycastAxis"
 
+        const val VECTOR_FALLBACK = "vectorFallback"
+
         const val PARTICLE_TRAIL = "particleTrail"
 
         const val CONJURE_CRACKLE = "conjureCrackle"

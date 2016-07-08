@@ -33,7 +33,7 @@ class PieceOperatorVectorStrongRaycast(spell: Spell) : PieceOperator(spell) {
     }
 
     @Throws(SpellRuntimeException::class)
-    override fun execute(context: SpellContext): Any {
+    override fun execute(context: SpellContext): Any? {
         val originVal = this.getParamValue<Vector3>(context, this.origin)
         val rayVal = this.getParamValue<Vector3>(context, this.ray)
         if (originVal != null && rayVal != null) {
@@ -48,10 +48,10 @@ class PieceOperatorVectorStrongRaycast(spell: Spell) : PieceOperator(spell) {
             if (pos != null && pos.blockPos != null) {
                 return Vector3(pos.blockPos.x.toDouble(), pos.blockPos.y.toDouble(), pos.blockPos.z.toDouble())
             } else {
-                throw SpellRuntimeException(SpellRuntimeException.NULL_VECTOR)
+                return null
             }
         } else {
-            throw SpellRuntimeException(SpellRuntimeException.NULL_VECTOR)
+            return null
         }
     }
 

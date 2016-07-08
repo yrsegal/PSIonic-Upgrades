@@ -80,6 +80,9 @@ psi.spellpiece.psionup.strongVectorRaycast.desc=Gets a raycast result, ignoring 
 psi.spellpiece.psionup.strongVectorRaycastAxis=Operator: Vector Axis Strong Raycast
 psi.spellpiece.psionup.strongVectorRaycastAxis.desc=Gets a raycast side, ignoring nonsolids (max 32)
 
+psi.spellpiece.psionup.vectorFallback=Operator: Vector Fallback
+psi.spellpiece.psionup.vectorFallback.desc=Uses the fallback vector if the target has 0 length or doesn't exist
+
 psi.spellpiece.psionup.particleTrail=Trick: Particle Trail
 psi.spellpiece.psionup.particleTrail.desc=Makes a particle trail from a position along a ray
 
@@ -135,12 +138,13 @@ psionup.spelldesc.requires=&7Requires: &5%s
 
 psionup.spellparam.axis=Axis
 psionup.spellparam.angle=Radians
+psionup.spellparam.fallback=Fallback
 
 jei.psionup.recipe.trickCrafting=Spell Infusion
 jei.psionup.drained.desc=Sneak-using the Liquid-Ink Colorizer will drain the fluid out, resulting in a Drained Colorizer.
 
 psi.piecegroup.psionup.secondaryVectors=Vector Operators II
-psi.piecegroup.psionup.secondaryVectors.desc=As the name implies, this group includes nonessential vector operators. The pieces can be separated into two sets.<br><br>The first set is rotation. The red piece, Planar Norm, will get a perpendicular vector to any axial vector, without needing Operator: Vector Cross Product. Vector Rotate will rotate a vector around another, by an angle (in radians).<br><br>The second set is Strong raycasts. These act exactly like their regular counterparts, except they ignore nonsolid blocks such as tall grass.<br><br>The final piece is Trick: Particle Trail, which displays a ray in particles for up to twenty seconds, based on the Time parameter.
+psi.piecegroup.psionup.secondaryVectors.desc=As the name implies, this group includes nonessential vector operators. The pieces can be separated into three sets.<br><br>The first set is rotation. The red piece, Planar Norm, will get a perpendicular vector to any axial vector, without needing Operator: Vector Cross Product. Vector Rotate will rotate a vector around another, by an angle (in radians).<br><br>The second set is strong raycasts. These act exactly like their regular counterparts, except they ignore nonsolid blocks such as tall grass.<br><br>The final piece is Trick: Particle Trail, which displays a ray in particles for up to twenty seconds, based on the Time parameter.<br>The last set is safety. The single safety piece is Operator: Vector Fallback. If a nonexistent or 0-length vector is given to it as a target, it will pass its fallback along. Otherwise, it will pass the target along.
 
 psi.piecegroup.psionup.redstoneConjuration=Alternate Conjuration
 psi.piecegroup.psionup.redstoneConjuration.desc=These pieces are quite similar to those of the previous group, Block Conjuration. The first type of alternate conjuration is Pulsar. The singular difference between these and the previous group is that conjured Pulsars have a red flare at their center, and emit redstone. The second type is Trick: Conjure Star. It creates a small ball of light that emits a ray of particles. Subsequent casts on the same position will add more rays, but not change the color.
