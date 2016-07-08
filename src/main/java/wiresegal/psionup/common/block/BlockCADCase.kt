@@ -1,6 +1,7 @@
 package wiresegal.psionup.common.block
 
 import net.minecraft.block.Block
+import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.IProperty
 import net.minecraft.block.properties.PropertyBool
@@ -47,7 +48,7 @@ import java.awt.Color
  * @author WireSegal
  * Created at 2:52 PM on 7/5/16.
  */
-class BlockCADCase(name: String) : BlockModContainer(name, Material.IRON, *makeVariants(name)), ModelHandler.IBlockColorProvider {
+class BlockCADCase(name: String) : BlockModContainer(name, Material.CLOTH, *makeVariants(name)), ModelHandler.IBlockColorProvider {
     companion object {
         fun makeVariants(name: String): Array<String> {
             return Array(16) {
@@ -66,7 +67,8 @@ class BlockCADCase(name: String) : BlockModContainer(name, Material.IRON, *makeV
     }
 
     init {
-        setHardness(2.5f)
+        setHardness(0.5f)
+        soundType = SoundType.METAL
     }
 
     override fun removedByPlayer(state: IBlockState, world: World, pos: BlockPos, player: EntityPlayer, willHarvest: Boolean): Boolean {
