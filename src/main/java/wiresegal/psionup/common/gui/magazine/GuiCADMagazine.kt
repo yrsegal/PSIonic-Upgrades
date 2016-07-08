@@ -20,6 +20,9 @@ class GuiCADMagazine(player: EntityPlayer, var stack: ItemStack) : GuiContainer(
             (inventorySlots as ContainerCADMagazine).tooltipTime = value
         }
 
+    val tooltipText: String
+        get() = (inventorySlots as ContainerCADMagazine).tooltipText
+
     var lastTick = 0
 
     override fun initGui() {
@@ -42,7 +45,7 @@ class GuiCADMagazine(player: EntityPlayer, var stack: ItemStack) : GuiContainer(
 
     override fun drawGuiContainerForegroundLayer(mouseX: Int, mouseY: Int) {
         if (tooltipTime != 0) {
-            GuiUtils.drawHoveringText(listOf(TextFormatting.RED.toString() + I18n.format("${LibMisc.MOD_ID}.misc.tooComplex")), -10, ySize / 2, width, height, xSize, Minecraft.getMinecraft().fontRendererObj)
+            GuiUtils.drawHoveringText(listOf(TextFormatting.RED.toString() + I18n.format(tooltipText)), -10, ySize / 2, width, height, xSize, Minecraft.getMinecraft().fontRendererObj)
             tooltipTime -= ClientTickHandler.ticksInGame - lastTick
         }
         lastTick = ClientTickHandler.ticksInGame

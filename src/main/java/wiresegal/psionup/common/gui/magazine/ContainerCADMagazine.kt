@@ -77,6 +77,7 @@ class ContainerCADMagazine(val player: EntityPlayer, val stack: ItemStack) : Con
     var dontNotify = false
     var notifyOnce = false
     var tooltipTime = 0
+    var tooltipText = ""
 
     inner class SlotBullet(val socketable: InventorySocketable, index: Int, xPosition: Int, yPosition: Int, var socketSlot: Int, val dark: Boolean) : Slot(socketable, index, xPosition, yPosition) {
 
@@ -87,6 +88,7 @@ class ContainerCADMagazine(val player: EntityPlayer, val stack: ItemStack) : Con
                     val ret = socketable.isItemValidForSlot(socketSlot, stack)
                     if (!ret && (!dontNotify || notifyOnce) && player.worldObj.isRemote) {
                         tooltipTime = 80
+                        tooltipText = "${LibMisc.MOD_ID}.misc.tooComplex"
                         if (notifyOnce) notifyOnce = false
                     } else if (ret)
                         tooltipTime = 0
@@ -95,6 +97,17 @@ class ContainerCADMagazine(val player: EntityPlayer, val stack: ItemStack) : Con
             }
 
             return false
+        }
+
+        override fun canTakeStack(playerIn: EntityPlayer?): Boolean {
+            val ret = socketable.isItemValidForSlot(socketSlot, stack)
+            if (!ret && (!dontNotify || notifyOnce) && player.worldObj.isRemote) {
+                tooltipTime = 80
+                tooltipText = "${LibMisc.MOD_ID}.misc.tooComplexBullet"
+                if (notifyOnce) notifyOnce = false
+            } else if (ret)
+                tooltipTime = 0
+            return ret
         }
 
         override fun canBeHovered(): Boolean {
