@@ -108,9 +108,8 @@ class ItemCADMagazine(name: String) : ItemMod(name, name), ISocketable, ICadComp
     override fun onItemRightClick(itemStackIn: ItemStack, worldIn: World, playerIn: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack>? {
         if (!worldIn.isRemote && PsiAPI.getPlayerCAD(playerIn) != null) {
             playerIn.openGui(PsionicUpgrades.instance, GuiHandler.GUI_MAGAZINE, worldIn, 0, 0, 0)
-            return ActionResult(EnumActionResult.SUCCESS, itemStackIn)
         }
-        return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand)
+        return ActionResult(EnumActionResult.SUCCESS, itemStackIn)
     }
 
     override fun onItemUse(stack: ItemStack, playerIn: EntityPlayer?, worldIn: World?, pos: BlockPos?, hand: EnumHand?, side: EnumFacing?, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult {
