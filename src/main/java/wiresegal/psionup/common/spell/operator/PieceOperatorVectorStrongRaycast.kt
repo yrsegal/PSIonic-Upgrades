@@ -48,10 +48,10 @@ class PieceOperatorVectorStrongRaycast(spell: Spell) : PieceOperator(spell) {
             if (pos != null && pos.blockPos != null) {
                 return Vector3(pos.blockPos.x.toDouble(), pos.blockPos.y.toDouble(), pos.blockPos.z.toDouble())
             } else {
-                return null
+                throw SpellRuntimeException(SpellRuntimeException.NULL_VECTOR)
             }
         } else {
-            return null
+            throw SpellRuntimeException(SpellRuntimeException.NULL_VECTOR)
         }
     }
 

@@ -40,10 +40,10 @@ class PieceOperatorVectorStrongRaycastAxis(spell: Spell) : PieceOperator(spell) 
                 val facing = pos.sideHit
                 return Vector3(facing.frontOffsetX.toDouble(), facing.frontOffsetY.toDouble(), facing.frontOffsetZ.toDouble())
             } else {
-                return null
+                throw SpellRuntimeException(SpellRuntimeException.NULL_VECTOR)
             }
         } else {
-            return null
+            throw SpellRuntimeException(SpellRuntimeException.NULL_VECTOR)
         }
     }
 
