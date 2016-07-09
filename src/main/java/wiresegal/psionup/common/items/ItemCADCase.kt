@@ -62,12 +62,12 @@ class ItemCADCase(block: Block) : ItemModBlock(block), ModelHandler.IExtraVarian
 
     class CaseCapabilityProvider : ICapabilitySerializable<NBTTagCompound> {
         override fun hasCapability(capability: Capability<*>?, facing: EnumFacing?): Boolean {
-            return (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && facing == null)
+            return (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
         }
 
         @Suppress("UNCHECKED_CAST")
         override fun <T : Any> getCapability(capability: Capability<T>?, facing: EnumFacing?): T? {
-            if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && facing == null)
+            if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
                 return itemHandler as T
             return null
         }

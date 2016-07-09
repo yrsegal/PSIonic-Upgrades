@@ -1,9 +1,11 @@
 package wiresegal.psionup.client.core
 
+import net.minecraft.client.Minecraft
 import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import wiresegal.psionup.client.core.ModelHandler
+import wiresegal.psionup.client.render.entity.ExosuitGlowLayer
 import wiresegal.psionup.client.render.tile.RenderTileCADCase
 import wiresegal.psionup.common.PsionicUpgrades
 import wiresegal.psionup.common.block.tile.TileCADCase
@@ -24,5 +26,12 @@ class ClientProxy : CommonProxy() {
         super.init(e)
         ModelHandler.init()
         ClientRegistry.bindTileEntitySpecialRenderer(TileCADCase::class.java, RenderTileCADCase())
+
+        val skinMap = Minecraft.getMinecraft().renderManager.skinMap
+        var render = skinMap["default"]
+        render?.addLayer(ExosuitGlowLayer(render))
+
+        render = skinMap["slim"]
+        render?.addLayer(ExosuitGlowLayer(render))
     }
 }

@@ -2,8 +2,3 @@ Flash Ring
   A portable mini-programmer that can cast spells at 4x their regular Psi cost.
   It's in the shape of a ring, missing slots from the center and outside of the programmer.
   It can be used as a regular spell bullet, loaded into a programmer, or snapped into a magazine.
-
-Flow Plated Exosuit
-  An exosuit that is plated with either Ivory or Ebony.
-  It has no special properties armor-wise or Psi-wise from the Exosuit.
-  It has lines that glow with the user's colorizer.

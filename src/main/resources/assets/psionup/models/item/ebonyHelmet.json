@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "psionup:items/ebonyHelmet",
+    "layer1": "psi:items/psimetalExosuitHelmetSensor"
+  }
+}

@@ -13,6 +13,11 @@ Magic?? Tech?? Addons??
     A caster that has one spell slot and one empty slot. It uses your main CAD stats.
 - Spell Magazine  
     Spell storage based on the socket used to craft it.
+- CAD Cases
+    A portable storage that can store one CAD and one other spell holder. They can be placed on the ground or used in-hand.
+    On the ground, they can be opened and closed with a shift-click, and can be interacted with while open.
+- Flowsuits
+    Aesthetically upgraded versions of the Exosuit that is plated with Ebony or Ivory.
 - Blaster CAD Assembly *Botania integration*  
     A CAD assembly with the stats of Psimetal. A CAD made with it can take Lenses and cast Mana Tricks at the base level. It can take a Lens Clip, and with it can cast Mana Tricks at the Alfheim level.
 
@@ -59,6 +64,3 @@ Magic?? Tech?? Addons??
 - JEI compat with the Crafting tricks.
 - `/psi-learn` and `/psi-unlearn` commands.
 - Colored Flow Plates.
-- CAD Cases
-    A portable storage that can store one CAD and one other spell holder. They can be placed on the ground or used in-hand.
-    On the ground, they can be opened and closed with a shift-click, and can be interacted with while open.

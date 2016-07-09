@@ -14,6 +14,7 @@ import vazkii.psi.common.lib.LibPieceNames
 import wiresegal.psionup.api.PsionicAPI
 import wiresegal.psionup.common.block.ModBlocks
 import wiresegal.psionup.common.crafting.recipe.RecipeLiquidDye
+import wiresegal.psionup.common.crafting.recipe.RecipeSocketTransferShapeless
 import wiresegal.psionup.common.crafting.recipe.cad.RecipeCadComponent
 import wiresegal.psionup.common.crafting.recipe.cad.RecipeCadComponentShapeless
 import wiresegal.psionup.common.items.CompatItems
@@ -41,6 +42,7 @@ object ModRecipes {
         RecipeSorter.register("${LibMisc.MOD_ID}:liquiddye", RecipeLiquidDye::class.java, RecipeSorter.Category.SHAPELESS, "")
         RecipeSorter.register("${LibMisc.MOD_ID}:cadcraft", RecipeCadComponent::class.java, RecipeSorter.Category.SHAPED, "")
         RecipeSorter.register("${LibMisc.MOD_ID}:cadcraftshapeless", RecipeCadComponentShapeless::class.java, RecipeSorter.Category.SHAPELESS, "")
+        RecipeSorter.register("${LibMisc.MOD_ID}:transfershapeless", RecipeSocketTransferShapeless::class.java, RecipeSorter.Category.SHAPELESS, "")
 
         GameRegistry.addRecipe(RecipeLiquidDye())
 
@@ -112,6 +114,15 @@ object ModRecipes {
                     'W', ItemStack(Blocks.WOOL, 1, i),
                     'M', "ingotPsi")
 
+        GameRegistry.addRecipe(RecipeSocketTransferShapeless(ItemStack(ModItems.ebonyExosuitHead), ItemStack(PsiItems.psimetalExosuitHelmet), "dustGlowstone", "ingotEbonyPsi"))
+        GameRegistry.addRecipe(RecipeSocketTransferShapeless(ItemStack(ModItems.ebonyExosuitChest), ItemStack(PsiItems.psimetalExosuitChestplate), "dustGlowstone", "ingotEbonyPsi"))
+        GameRegistry.addRecipe(RecipeSocketTransferShapeless(ItemStack(ModItems.ebonyExosuitLegs), ItemStack(PsiItems.psimetalExosuitLeggings), "dustGlowstone", "ingotEbonyPsi"))
+        GameRegistry.addRecipe(RecipeSocketTransferShapeless(ItemStack(ModItems.ebonyExosuitBoots), ItemStack(PsiItems.psimetalExosuitBoots), "dustGlowstone", "ingotEbonyPsi"))
+
+        GameRegistry.addRecipe(RecipeSocketTransferShapeless(ItemStack(ModItems.ivoryExosuitHead), ItemStack(PsiItems.psimetalExosuitHelmet), "dustGlowstone", "ingotIvoryPsi"))
+        GameRegistry.addRecipe(RecipeSocketTransferShapeless(ItemStack(ModItems.ivoryExosuitChest), ItemStack(PsiItems.psimetalExosuitChestplate), "dustGlowstone", "ingotIvoryPsi"))
+        GameRegistry.addRecipe(RecipeSocketTransferShapeless(ItemStack(ModItems.ivoryExosuitLegs), ItemStack(PsiItems.psimetalExosuitLeggings), "dustGlowstone", "ingotIvoryPsi"))
+        GameRegistry.addRecipe(RecipeSocketTransferShapeless(ItemStack(ModItems.ivoryExosuitBoots), ItemStack(PsiItems.psimetalExosuitBoots), "dustGlowstone", "ingotIvoryPsi"))
 
         PsionicAPI.addTrickRecipe("", ItemStack(Items.REDSTONE), ItemStack(PsiItems.material), ItemStack(PsiItems.cadAssembly))
         PsionicAPI.addTrickRecipe(LibPieceNames.TRICK_INFUSION, ItemStack(Items.GOLD_INGOT), ItemStack(PsiItems.material, 1, 1), ItemStack(PsiItems.cadAssembly))

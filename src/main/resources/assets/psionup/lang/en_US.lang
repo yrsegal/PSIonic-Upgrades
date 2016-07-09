@@ -59,6 +59,16 @@ tile.psionup:cadCaseGreen.name=Green CAD Case
 tile.psionup:cadCaseRed.name=Red CAD Case
 tile.psionup:cadCaseBlack.name=Black CAD Case
 
+item.psionup:ebonyHelmet.name=Ebony Flowsuit Helmet
+item.psionup:ebonyChestplate.name=Ebony Flowsuit Chestplate
+item.psionup:ebonyLeggings.name=Ebony Flowsuit Leggings
+item.psionup:ebonyBoots.name=Ebony Flowsuit Boots
+
+item.psionup:ivoryHelmet.name=Ivory Flowsuit Helmet
+item.psionup:ivoryChestplate.name=Ivory Flowsuit Chestplate
+item.psionup:ivoryLeggings.name=Ivory Flowsuit Leggings
+item.psionup:ivoryBoots.name=Ivory Flowsuit Boots
+
 psi.spellpiece.psionup.conjurePulsar=Trick: Conjure Pulsar
 psi.spellpiece.psionup.conjurePulsar.desc=Conjures a redstone emitting block in the given position
 

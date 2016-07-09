@@ -12,6 +12,7 @@ import vazkii.psi.api.cad.ISocketable
 import vazkii.psi.api.spell.EnumSpellStat
 import vazkii.psi.api.spell.ISpellContainer
 import vazkii.psi.common.spell.SpellCompiler
+import wiresegal.psionup.common.core.helper.IteratorSocketable
 import wiresegal.psionup.common.items.spell.ItemCADMagazine
 
 /**
@@ -22,22 +23,8 @@ class InventorySocketable(val stack: ItemStack, val maxBandwidth: Int = -1) : II
 
     val item = stack.item as ISocketable
 
-    private inner class IteratorSocketable : Iterator<Pair<Int, ItemStack?>> {
-
-        var current = 0
-
-        override fun hasNext(): Boolean {
-            return item.isSocketSlotAvailable(stack, current + 1)
-        }
-
-        override fun next(): Pair<Int, ItemStack?> {
-            current++
-            return current to item.getBulletInSocket(stack, current)
-        }
-    }
-
     val slots: Iterator<Pair<Int, ItemStack?>>
-        get() = IteratorSocketable()
+        get() = IteratorSocketable(stack)
 
     val totalSlots: Int
         get() {

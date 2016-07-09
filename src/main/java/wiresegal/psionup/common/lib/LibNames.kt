@@ -11,6 +11,17 @@ object LibNames {
         const val INLINE_CASTER = "fakeCAD"
         const val SPELL_MAGAZINE = "magazine"
         const val WIDE_BAND_SOCKET = "wideSocket"
+
+        const val EBONY_HELMET = "ebonyHelmet"
+        const val EBONY_CHEST = "ebonyChestplate"
+        const val EBONY_LEGS = "ebonyLeggings"
+        const val EBONY_BOOTS = "ebonyBoots"
+
+        const val IVORY_HELMET = "ivoryHelmet"
+        const val IVORY_CHEST = "ivoryChestplate"
+        const val IVORY_LEGS = "ivoryLeggings"
+        const val IVORY_BOOTS = "ivoryBoots"
+
         const val LIVINGWOOD_CAD = "cadAssemblyBlaster"
         const val LIVINGWOOD_CAD_MODEL = "cadBlaster"
     }
