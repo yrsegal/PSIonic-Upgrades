@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.world.World
 import net.minecraftforge.fml.common.network.IGuiHandler
 import wiresegal.psionup.common.block.BlockCADCase
+import wiresegal.psionup.common.gui.AssemblerGUIHijacker
 import wiresegal.psionup.common.gui.cadcase.ContainerCADCase
 import wiresegal.psionup.common.gui.cadcase.GuiCADCase
 import wiresegal.psionup.common.gui.magazine.ContainerCADMagazine
@@ -17,6 +18,11 @@ import wiresegal.psionup.common.items.spell.ItemCADMagazine
  * Created at 8:30 PM on 7/5/16.
  */
 object GuiHandler : IGuiHandler {
+
+    init {
+        AssemblerGUIHijacker
+    }
+
     val GUI_CASE = 0
     val GUI_MAGAZINE = 1
 
