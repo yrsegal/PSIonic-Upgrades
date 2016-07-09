@@ -50,11 +50,6 @@ class ExosuitGlowLayer(val renderer: RenderLivingBase<*>) : LayerBipedArmor(rend
                 GlStateManager.enableLighting()
                 ShaderHandler.releaseShader()
                 GlStateManager.color(1f, 1f, 1f, 1f)
-
-                if (itemstack.hasEffect()) {
-                    renderEnchantedGlint(this.renderer, entityLivingBaseIn, t, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale)
-                }
-
             }
         }
     }
