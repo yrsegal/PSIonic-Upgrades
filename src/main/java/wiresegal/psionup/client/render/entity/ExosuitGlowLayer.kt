@@ -39,7 +39,8 @@ class ExosuitGlowLayer(val renderer: RenderLivingBase<*>) : LayerBipedArmor(rend
                 this.setModelSlotVisible(t, slotIn)
 
                 this.renderer.bindTexture(RESOURCE)
-                val i = if (entityLivingBaseIn is EntityPlayer) itemarmor.getColorFromPlayer(entityLivingBaseIn) else 0
+                val i = if (entityLivingBaseIn is EntityPlayer) itemarmor.getColorFromPlayer(entityLivingBaseIn) else return
+                if (i == 0) return
                 val f = (i shr 16 and 255).toFloat() / 255.0f
                 val f1 = (i shr 8 and 255).toFloat() / 255.0f
                 val f2 = (i and 255).toFloat() / 255.0f
