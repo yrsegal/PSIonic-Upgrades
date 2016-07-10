@@ -1,5 +1,6 @@
 package wiresegal.psionup.common.crafting.recipe
 
+import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.inventory.InventoryCrafting
 import net.minecraft.item.ItemStack
 import net.minecraftforge.oredict.ShapelessOreRecipe
@@ -25,6 +26,7 @@ class RecipeSocketTransferShapeless(val result: ItemStack, vararg recipe: Any) :
                 val selectedSlot = stackItem.getSelectedSlot(stack)
                 if (outputItem.showSlotInRadialMenu(output, selectedSlot))
                     outputItem.setSelectedSlot(output, selectedSlot)
+                EnchantmentHelper.setEnchantments(EnchantmentHelper.getEnchantments(stack), output)
                 break
             }
         }
