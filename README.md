@@ -13,10 +13,10 @@ Magic?? Tech?? Addons??
     A caster that has one spell slot and one empty slot. It uses your main CAD stats.
 - Spell Magazine  
     Spell storage based on the socket used to craft it.
-- CAD Cases
+- CAD Cases  
     A portable storage that can store one CAD and one other spell holder. They can be placed on the ground or used in-hand.
     On the ground, they can be opened and closed with a shift-click, and can be interacted with while open.
-- Flowsuits
+- Flowsuits  
     Aesthetically upgraded versions of the Exosuit that is plated with Ebony or Ivory.
 - Blaster CAD Assembly *Botania integration*  
     A CAD assembly with the stats of Psimetal. A CAD made with it can take Lenses and cast Mana Tricks at the base level. It can take a Lens Clip, and with it can cast Mana Tricks at the Alfheim level.
@@ -29,7 +29,7 @@ Magic?? Tech?? Addons??
     Conjures a sequence of redstone emitting blocks, similar to Trick: Conjure Block Sequence.
 - Trick: Conjure Pulsar Light  
     Conjures a redstone emitting light, similar to Trick: Conjure Light.
-- Trick: Conjure Star
+- Trick: Conjure Star  
     Conjures a light that emits a ray of particles along a given vector.
 
 ### Vector Operators II
