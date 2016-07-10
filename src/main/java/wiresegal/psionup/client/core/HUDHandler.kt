@@ -67,10 +67,14 @@ object HUDHandler {
         val mainHand = mc.thePlayer.heldItemMainhand
         val offHand = mc.thePlayer.heldItemOffhand
 
-        if (ConfigHandler.contextSensitiveBar &&
-                currPsi == totalPsi &&
-                (mainHand == null || (mainHand.item is ISocketable && mainHand.item !is ItemFlashRing)) &&
-                (offHand == null || (offHand.item is ISocketable && offHand.item !is ItemFlashRing)))
+        if (ConfigHandler.contextSensitiveBar ||
+                (currPsi == totalPsi &&
+                (mainHand == null || mainHand.item is ISocketable) &&
+                (offHand == null || offHand.item is ISocketable)))
+            return
+
+        if ((mainHand == null || mainHand.item !is ItemFlashRing) &&
+                (offHand == null || offHand.item !is ItemFlashRing))
             return
 
         GlStateManager.pushMatrix()
@@ -129,6 +133,7 @@ object HUDHandler {
             texture = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D)
         }
 
+        GlStateManager.enableAlpha()
         GlStateManager.enableBlend()
         GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA)
 
