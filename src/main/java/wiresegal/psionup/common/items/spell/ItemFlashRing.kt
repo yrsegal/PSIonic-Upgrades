@@ -82,7 +82,8 @@ class ItemFlashRing(name: String) : ItemMod(name), ISpellContainer {
     }
 
     override fun containsSpell(p0: ItemStack): Boolean {
-        return getSpell(p0) != null
+        val spell = getSpell(p0)
+        return spell != null && !spell.grid.isEmpty
     }
 
     override fun getCostModifier(p0: ItemStack): Double {

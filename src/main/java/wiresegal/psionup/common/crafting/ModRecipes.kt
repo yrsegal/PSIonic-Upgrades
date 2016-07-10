@@ -131,10 +131,11 @@ object ModRecipes {
 
         if (ConfigHandler.enableRing)
             addOreDictRecipe(ItemStack(ModItems.flashRing),
-                    "DID",
+                    "DED",
                     "IGI",
                     " P ",
                     'D', "dustPsi",
+                    'E', "ingotEbonyPsi",
                     'I', "ingotIron",
                     'G', "dustGlowstone",
                     'P', "gemPsi")

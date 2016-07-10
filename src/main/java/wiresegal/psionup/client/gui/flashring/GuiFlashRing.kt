@@ -10,6 +10,7 @@ import wiresegal.psionup.client.core.PsionicClientMethodHandles
 import wiresegal.psionup.client.gui.flashring.FlashRingProgrammingWrapper
 import wiresegal.psionup.common.network.MessageFlashSync
 import wiresegal.psionup.common.network.NetworkHandler
+import java.util.*
 
 /**
  * @author WireSegal
@@ -25,6 +26,7 @@ class GuiFlashRing(val player: EntityPlayer, stack: ItemStack) : GuiProgrammer(F
         set(value) = PsionicClientMethodHandles.setSpellCompiler(this, value)
 
     override fun onSpellChanged(nameOnly: Boolean) {
+        programmer.spell.uuid = UUID.randomUUID()
         val message = MessageFlashSync(programmer.spell)
         NetworkHandler.INSTANCE.sendToServer(message)
 
