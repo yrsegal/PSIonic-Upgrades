@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import wiresegal.psionup.common.block.ModBlocks
 import wiresegal.psionup.common.crafting.ModRecipes
 import wiresegal.psionup.common.items.ModItems
+import wiresegal.psionup.common.network.NetworkHandler
 import wiresegal.psionup.common.spell.ModPieces
 
 /**
@@ -14,9 +15,13 @@ import wiresegal.psionup.common.spell.ModPieces
  */
 open class CommonProxy {
     open fun pre(e: FMLPreInitializationEvent) {
+
+        ConfigHandler.loadConfig(e.suggestedConfigurationFile)
+
         ModItems
         ModBlocks
         ModPieces
+        NetworkHandler
     }
 
     open fun init(e: FMLInitializationEvent) {

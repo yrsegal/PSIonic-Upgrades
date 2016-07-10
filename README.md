@@ -18,6 +18,8 @@ Magic?? Tech?? Addons??
     On the ground, they can be opened and closed with a shift-click, and can be interacted with while open.
 - Flowsuits  
     Aesthetically upgraded versions of the Exosuit that is plated with Ebony or Ivory.
+- Flash Ring
+    A porta-programmer that takes a lot out of you to use.
 - Blaster CAD Assembly *Botania integration*  
     A CAD assembly with the stats of Psimetal. A CAD made with it can take Lenses and cast Mana Tricks at the base level. It can take a Lens Clip, and with it can cast Mana Tricks at the Alfheim level.
 

@@ -19,6 +19,7 @@ import wiresegal.psionup.common.lib.LibMisc
 class ClientProxy : CommonProxy() {
     override fun pre(e: FMLPreInitializationEvent) {
         super.pre(e)
+        HUDHandler
         ModelHandler.preInit(LibMisc.MOD_ID, PsionicUpgrades.DEV_ENVIRONMENT, PsionicUpgrades.LOGGER)
     }
 

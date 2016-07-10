@@ -8,9 +8,9 @@ import wiresegal.psionup.common.PsionicUpgrades;
 
 import javax.annotation.Nonnull;
 import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Field;
-import java.util.List;
+
+import static java.lang.invoke.MethodHandles.publicLookup;
 
 /**
  * @author WireSegal
@@ -18,12 +18,12 @@ import java.util.List;
  */
 public class PsionicMethodHandles {
     @Nonnull
-    private static MethodHandle socketSlotGetter;
+    private static final MethodHandle socketSlotGetter;
 
     static {
         try {
             Field f = ReflectionHelper.findField(SlotBullet.class, "socketSlot");
-            socketSlotGetter = MethodHandles.publicLookup().unreflectGetter(f);
+            socketSlotGetter = publicLookup().unreflectGetter(f);
         } catch (Throwable t) {
             PsionicUpgrades.Companion.getLOGGER().log(Level.ERROR, "Couldn't initialize methodhandles! Things will be broken!");
             t.printStackTrace();

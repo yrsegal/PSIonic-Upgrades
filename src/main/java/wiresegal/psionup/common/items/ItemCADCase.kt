@@ -34,7 +34,7 @@ class ItemCADCase(block: Block) : ItemModBlock(block), ModelHandler.IExtraVarian
 
     override fun onItemRightClick(itemStackIn: ItemStack, worldIn: World, playerIn: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack>? {
         if (!worldIn.isRemote) {
-            playerIn.openGui(PsionicUpgrades.instance, GuiHandler.GUI_CASE, worldIn, 0, 0, 0)
+            playerIn.openGui(PsionicUpgrades.INSTANCE, GuiHandler.GUI_CASE, worldIn, 0, 0, 0)
             playerIn.worldObj.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.BLOCK_WOODEN_TRAPDOOR_OPEN, SoundCategory.PLAYERS, 1f, 1f)
         }
         return ActionResult(EnumActionResult.SUCCESS, itemStackIn)

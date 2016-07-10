@@ -22,6 +22,8 @@ object LibNames {
         const val IVORY_LEGS = "ivoryLeggings"
         const val IVORY_BOOTS = "ivoryBoots"
 
+        const val FLASH_RING = "flashRing"
+
         const val LIVINGWOOD_CAD = "cadAssemblyBlaster"
         const val LIVINGWOOD_CAD_MODEL = "cadBlaster"
     }

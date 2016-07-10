@@ -3,6 +3,7 @@ package wiresegal.psionup.common.crafting.recipe
 import net.minecraft.entity.passive.EntitySheep
 import net.minecraft.inventory.InventoryCrafting
 import net.minecraft.item.EnumDyeColor
+import net.minecraft.item.ItemDye
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.IRecipe
 import net.minecraft.world.World
@@ -64,7 +65,7 @@ class RecipeLiquidDye : IRecipe {
                     val newstack = stack.copy()
                     newstack.stackSize = 1
 
-                    if (ItemLiquidColorizer.getColorFromStack(stack) != -1) {
+                    if (ItemLiquidColorizer.getColorFromStack(stack) != Int.MAX_VALUE) {
                         val color = Color(ItemLiquidColorizer.Companion.getColorFromStack(stack))
                         r += color.red
                         g += color.green
@@ -118,8 +119,7 @@ class RecipeLiquidDye : IRecipe {
     fun getColorFromDye(stack: ItemStack): Int {
         for (i in dyes.indices) {
             if (checkStack(stack, dyes[i])) {
-                var carr = EntitySheep.getDyeRgb(EnumDyeColor.byDyeDamage(stack.metadata))
-                return Color(carr[0], carr[1], carr[2]).rgb
+                return ItemDye.DYE_COLORS[15-stack.metadata]
             }
         }
         return 0xFFFFFF

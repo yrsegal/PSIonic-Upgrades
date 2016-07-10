@@ -31,7 +31,7 @@ import vazkii.psi.common.item.base.ItemMod as PsiItem
  * @author WireSegal
  * Created at 8:46 AM on 3/20/16.
  */
-class ItemFakeCAD(name: String) : ItemMod(name, name), ISocketable, ISpellSettable, ModelHandler.IItemColorProvider {
+class ItemFakeCAD(name: String) : ItemMod(name), ISocketable, ISpellSettable, ModelHandler.IItemColorProvider {
 
     init {
         setMaxStackSize(1)

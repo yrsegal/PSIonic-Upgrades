@@ -13,6 +13,7 @@ import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.common.lib.LibPieceNames
 import wiresegal.psionup.api.PsionicAPI
 import wiresegal.psionup.common.block.ModBlocks
+import wiresegal.psionup.common.core.ConfigHandler
 import wiresegal.psionup.common.crafting.recipe.RecipeLiquidDye
 import wiresegal.psionup.common.crafting.recipe.RecipeSocketTransferShapeless
 import wiresegal.psionup.common.crafting.recipe.cad.RecipeCadComponent
@@ -77,42 +78,46 @@ object ModRecipes {
                 'D', "dustPsi",
                 'G', "dustGlowstone")
 
-        addOreDictRecipe(ItemStack(ModItems.fakeCAD),
-                "MMG",
-                "MS ",
-                'M', "ingotPsi",
-                'S', ItemStack(ModItems.socket),
-                'G', "gemPsi")
+        if (ConfigHandler.enableInline)
+            addOreDictRecipe(ItemStack(ModItems.fakeCAD),
+                    "MMG",
+                    "MS ",
+                    'M', "ingotPsi",
+                    'S', ItemStack(ModItems.socket),
+                    'G', "gemPsi")
 
-        addCADRecipe(ItemStack(ModItems.magazine),
-                "MD",
-                "MS",
-                "MD",
-                'M', "ingotPsi",
-                'S', EnumCADComponent.SOCKET,
-                'D', ItemStack(PsiItems.spellDrive))
-        addCADRecipe(ItemStack(ModItems.magazine),
-                "DM",
-                "SM",
-                "DM",
-                'M', "ingotPsi",
-                'S', EnumCADComponent.SOCKET,
-                'D', ItemStack(PsiItems.spellDrive))
+        if (ConfigHandler.enableMagazine) {
+            addCADRecipe(ItemStack(ModItems.magazine),
+                    "MD",
+                    "MS",
+                    "MD",
+                    'M', "ingotPsi",
+                    'S', EnumCADComponent.SOCKET,
+                    'D', ItemStack(PsiItems.spellDrive))
+            addCADRecipe(ItemStack(ModItems.magazine),
+                    "DM",
+                    "SM",
+                    "DM",
+                    'M', "ingotPsi",
+                    'S', EnumCADComponent.SOCKET,
+                    'D', ItemStack(PsiItems.spellDrive))
+        }
 
         for (i in 0..15) {
             addShapelessOreDictRecipe(ItemStack(ModBlocks.brightColoredPlate, 1, i), ItemStack(PsiBlocks.psiDecorative, 1, 3), "dustGlowstone", "dye" + LibNames.Colors[i])
             addShapelessOreDictRecipe(ItemStack(ModBlocks.darkColoredPlate, 1, i), ItemStack(PsiBlocks.psiDecorative, 1, 5), "dustGlowstone", "dye" + LibNames.Colors[i])
         }
 
-        for (i in 0..15)
-            addOreDictRecipe(ItemStack(ModBlocks.cadCase, 1, i),
-                    " B ",
-                    "GWG",
-                    "MMM",
-                    'B', ItemStack(Blocks.WOOL, 1, 15),
-                    'G', "gemPsi",
-                    'W', ItemStack(Blocks.WOOL, 1, i),
-                    'M', "ingotPsi")
+        if (ConfigHandler.enableCase)
+            for (i in 0..15)
+                addOreDictRecipe(ItemStack(ModBlocks.cadCase, 1, i),
+                        " B ",
+                        "GWG",
+                        "MMM",
+                        'B', ItemStack(Blocks.WOOL, 1, 15),
+                        'G', "gemPsi",
+                        'W', ItemStack(Blocks.WOOL, 1, i),
+                        'M', "ingotPsi")
 
         GameRegistry.addRecipe(RecipeSocketTransferShapeless(ItemStack(ModItems.ebonyExosuitHead), ItemStack(PsiItems.psimetalExosuitHelmet), "dustGlowstone", "ingotEbonyPsi"))
         GameRegistry.addRecipe(RecipeSocketTransferShapeless(ItemStack(ModItems.ebonyExosuitChest), ItemStack(PsiItems.psimetalExosuitChestplate), "dustGlowstone", "ingotEbonyPsi"))
@@ -123,6 +128,16 @@ object ModRecipes {
         GameRegistry.addRecipe(RecipeSocketTransferShapeless(ItemStack(ModItems.ivoryExosuitChest), ItemStack(PsiItems.psimetalExosuitChestplate), "dustGlowstone", "ingotIvoryPsi"))
         GameRegistry.addRecipe(RecipeSocketTransferShapeless(ItemStack(ModItems.ivoryExosuitLegs), ItemStack(PsiItems.psimetalExosuitLeggings), "dustGlowstone", "ingotIvoryPsi"))
         GameRegistry.addRecipe(RecipeSocketTransferShapeless(ItemStack(ModItems.ivoryExosuitBoots), ItemStack(PsiItems.psimetalExosuitBoots), "dustGlowstone", "ingotIvoryPsi"))
+
+        if (ConfigHandler.enableRing)
+            addOreDictRecipe(ItemStack(ModItems.flashRing),
+                    "DID",
+                    "IGI",
+                    " P ",
+                    'D', "dustPsi",
+                    'I', "ingotIron",
+                    'G', "dustGlowstone",
+                    'P', "gemPsi")
 
         PsionicAPI.addTrickRecipe("", ItemStack(Items.REDSTONE), ItemStack(PsiItems.material), ItemStack(PsiItems.cadAssembly))
         PsionicAPI.addTrickRecipe(LibPieceNames.TRICK_INFUSION, ItemStack(Items.GOLD_INGOT), ItemStack(PsiItems.material, 1, 1), ItemStack(PsiItems.cadAssembly))

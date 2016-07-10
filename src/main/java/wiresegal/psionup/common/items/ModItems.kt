@@ -8,6 +8,7 @@ import wiresegal.psionup.common.items.component.ItemLiquidColorizer
 import wiresegal.psionup.common.items.component.ItemWideCADSocket
 import wiresegal.psionup.common.items.spell.ItemCADMagazine
 import wiresegal.psionup.common.items.spell.ItemFakeCAD
+import wiresegal.psionup.common.items.spell.ItemFlashRing
 import wiresegal.psionup.common.items.spell.ItemFlowExosuit
 import wiresegal.psionup.common.lib.LibNames
 
@@ -32,6 +33,8 @@ object ModItems {
     val ivoryExosuitLegs: ItemModArmor
     val ivoryExosuitBoots: ItemModArmor
 
+    val flashRing: ItemMod
+
     init {
         liquidColorizer = ItemLiquidColorizer(LibNames.Items.LIQUID_INK_COLORIZER)
         emptyColorizer = ItemEmptyColorizer(LibNames.Items.DRAINED_COLORIZER)
@@ -48,6 +51,8 @@ object ModItems {
         ivoryExosuitChest = ItemFlowExosuit.Chest(LibNames.Items.IVORY_CHEST, false)
         ivoryExosuitLegs = ItemFlowExosuit.Legs(LibNames.Items.IVORY_LEGS, false)
         ivoryExosuitBoots = ItemFlowExosuit.Boots(LibNames.Items.IVORY_BOOTS, false)
+
+        flashRing = ItemFlashRing(LibNames.Items.FLASH_RING)
 
         if (Loader.isModLoaded("Botania"))
             CompatItems.init()

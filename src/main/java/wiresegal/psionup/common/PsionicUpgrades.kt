@@ -23,11 +23,11 @@ import wiresegal.psionup.common.lib.LibMisc
 class PsionicUpgrades {
     companion object {
         @Mod.Instance(LibMisc.MOD_ID)
-        lateinit var instance: PsionicUpgrades
+        lateinit var INSTANCE: PsionicUpgrades
 
         @SidedProxy(serverSide = LibMisc.PROXY_COMMON,
                 clientSide = LibMisc.PROXY_CLIENT)
-        lateinit var proxy: CommonProxy
+        lateinit var PROXY: CommonProxy
 
         val LOGGER = LogManager.getLogger(LibMisc.MOD_ID)
 
@@ -38,18 +38,18 @@ class PsionicUpgrades {
 
     @Mod.EventHandler
     fun preInit(event: FMLPreInitializationEvent) {
-        proxy.pre(event)
+        PROXY.pre(event)
     }
 
     @Mod.EventHandler
     fun init(event: FMLInitializationEvent) {
         NetworkRegistry.INSTANCE.registerGuiHandler(this, GuiHandler)
-        proxy.init(event)
+        PROXY.init(event)
     }
 
     @Mod.EventHandler
     fun post(event: FMLPostInitializationEvent) {
-        proxy.post(event)
+        PROXY.post(event)
     }
 
     @Mod.EventHandler

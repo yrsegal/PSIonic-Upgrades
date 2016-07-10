@@ -9,7 +9,7 @@ import wiresegal.psionup.common.items.base.ItemComponent
  * @author WireSegal
  * Created at 8:43 AM on 3/20/16.
  */
-class ItemWideCADSocket(name: String) : ItemComponent(name, name) {
+class ItemWideCADSocket(name: String) : ItemComponent(name) {
 
     override fun registerStats() {
         addStat(EnumCADStat.BANDWIDTH, 0, 9)

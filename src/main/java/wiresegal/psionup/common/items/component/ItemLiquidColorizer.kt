@@ -25,7 +25,7 @@ import java.awt.Color
  * @author WireSegal
  * Created at 8:44 AM on 3/20/16.
  */
-class ItemLiquidColorizer(name: String) : ItemComponent(name, name), ICADColorizer, ModelHandler.IItemColorProvider, ICadComponentAcceptor {
+class ItemLiquidColorizer(name: String) : ItemComponent(name), ICADColorizer, ModelHandler.IItemColorProvider, ICadComponentAcceptor {
 
     companion object {
         fun getColorFromStack(p0: ItemStack): Int = ItemNBTHelper.getInt(p0, "color", Int.MAX_VALUE)

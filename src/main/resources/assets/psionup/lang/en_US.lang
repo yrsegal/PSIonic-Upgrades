@@ -69,6 +69,8 @@ item.psionup:ivoryChestplate.name=Ivory Flowsuit Chestplate
 item.psionup:ivoryLeggings.name=Ivory Flowsuit Leggings
 item.psionup:ivoryBoots.name=Ivory Flowsuit Boots
 
+item.psionup:flashRing.name=Flash Ring
+
 psi.spellpiece.psionup.conjurePulsar=Trick: Conjure Pulsar
 psi.spellpiece.psionup.conjurePulsar.desc=Conjures a redstone emitting block in the given position
 
