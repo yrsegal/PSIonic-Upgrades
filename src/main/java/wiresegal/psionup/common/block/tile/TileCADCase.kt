@@ -8,7 +8,7 @@ import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.items.CapabilityItemHandler
-import vazkii.botania.api.internal.VanillaPacketDispatcher
+import vazkii.psi.api.internal.VanillaPacketDispatcher
 import vazkii.psi.common.block.tile.base.TileMod
 import wiresegal.psionup.common.block.BlockCADCase
 
