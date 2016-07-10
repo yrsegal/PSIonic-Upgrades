@@ -1,6 +1,7 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "psionup:items/ebonyLeggings"
+    "layer0": "psionup:items/ebonyLeggings",
+    "layer1": "psionup:items/leggingsOverlay"
   }
 }

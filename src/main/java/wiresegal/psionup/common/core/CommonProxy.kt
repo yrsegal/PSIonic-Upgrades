@@ -4,6 +4,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import wiresegal.psionup.common.block.ModBlocks
+import wiresegal.psionup.common.core.helper.FlowColors
 import wiresegal.psionup.common.crafting.ModRecipes
 import wiresegal.psionup.common.items.ModItems
 import wiresegal.psionup.common.network.NetworkHandler
@@ -22,6 +23,8 @@ open class CommonProxy {
         ModBlocks
         ModPieces
         NetworkHandler
+
+        FlowColors.EventHandler
     }
 
     open fun init(e: FMLInitializationEvent) {

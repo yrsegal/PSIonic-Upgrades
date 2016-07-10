@@ -2,6 +2,7 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "psionup:items/ivoryHelmet",
-    "layer1": "psi:items/psimetalExosuitHelmetSensor"
+    "layer1": "psionup:items/helmetOverlay",
+    "layer2": "psi:items/psimetalExosuitHelmetSensor"
   }
 }

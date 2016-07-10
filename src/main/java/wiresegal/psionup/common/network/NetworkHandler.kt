@@ -15,5 +15,6 @@ object NetworkHandler {
 
     init {
         INSTANCE.registerMessage(MessageFlashSync.MessageFlashSyncHandler::class.java, MessageFlashSync::class.java, i++, Side.SERVER)
+        INSTANCE.registerMessage(MessageFlowColorUpdate.MessageFlowColorHandler::class.java, MessageFlowColorUpdate::class.java, i++, Side.SERVER)
     }
 }

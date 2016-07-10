@@ -29,6 +29,7 @@ import vazkii.psi.common.item.base.ModItems
 import vazkii.psi.common.item.tool.IPsimetalTool
 import vazkii.psi.common.item.tool.ItemPsimetalTool
 import wiresegal.psionup.client.core.ModelHandler
+import wiresegal.psionup.common.core.helper.FlowColors
 import wiresegal.psionup.common.items.base.ItemModArmor
 import wiresegal.psionup.common.lib.LibMisc
 
@@ -36,7 +37,7 @@ import wiresegal.psionup.common.lib.LibMisc
  * @author WireSegal
  * Created at 4:42 PM on 7/9/16.
  */
-open class ItemFlowExosuit(name:String, type: Int, slot: EntityEquipmentSlot, val ebony: Boolean): ItemModArmor(name, PsiAPI.PSIMETAL_ARMOR_MATERIAL, type, slot), IPsimetalTool, IPsiEventArmor, ModelHandler.IItemColorProvider {
+open class ItemFlowExosuit(name:String, type: Int, slot: EntityEquipmentSlot, val ebony: Boolean): ItemModArmor(name, PsiAPI.PSIMETAL_ARMOR_MATERIAL, type, slot), IPsimetalTool, IPsiEventArmor, ModelHandler.IItemColorProvider, FlowColors.IAcceptor {
     companion object {
         val models by lazy {
             Array(4) {
@@ -117,7 +118,13 @@ open class ItemFlowExosuit(name:String, type: Int, slot: EntityEquipmentSlot, va
     @SideOnly(Side.CLIENT)
     override fun getItemColor(): IItemColor {
         return IItemColor {
-            stack, tintIndex -> if (tintIndex == 1) this@ItemFlowExosuit.getColor(stack) else 16777215
+            stack, tintIndex ->
+            if (tintIndex == 1)
+                FlowColors.getColor(stack)
+            else if (tintIndex == 2)
+                this@ItemFlowExosuit.getColor(stack)
+            else
+                16777215
         }
     }
 
@@ -131,6 +138,9 @@ open class ItemFlowExosuit(name:String, type: Int, slot: EntityEquipmentSlot, va
         return false
     }
 
+    override fun shouldCauseReequipAnimation(oldStack: ItemStack, newStack: ItemStack, slotChanged: Boolean): Boolean {
+        return super.shouldCauseReequipAnimation(oldStack, newStack, slotChanged) && FlowColors.getColor(oldStack) == FlowColors.getColor(newStack)
+    }
 
     class Helmet(name: String, ebony: Boolean) : ItemFlowExosuit(name, 0, EntityEquipmentSlot.HEAD, ebony), ISensorHoldable {
 

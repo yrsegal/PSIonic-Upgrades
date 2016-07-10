@@ -30,7 +30,7 @@ class InventorySocketable(val stack: ItemStack, val maxBandwidth: Int = -1) : II
         get() {
             var ret = 0
             for ((i) in slots) ret++
-            return ret
+            return ret - 1
         }
 
 

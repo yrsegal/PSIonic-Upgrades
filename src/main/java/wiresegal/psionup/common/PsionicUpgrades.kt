@@ -19,7 +19,7 @@ import wiresegal.psionup.common.lib.LibMisc
  * @author WireSegal
  * Created at 8:29 AM on 3/20/16.
  */
-@Mod(modid = LibMisc.MOD_ID, name = LibMisc.MOD_NAME, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES)
+@Mod(modid = LibMisc.MOD_ID, name = LibMisc.MOD_NAME, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES, acceptedMinecraftVersions = LibMisc.VERSIONS)
 class PsionicUpgrades {
     companion object {
         @Mod.Instance(LibMisc.MOD_ID)
