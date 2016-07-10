@@ -41,6 +41,7 @@ import vazkii.psi.api.cad.ISocketable
 import wiresegal.psionup.common.block.base.BlockModContainer
 import wiresegal.psionup.common.block.tile.TileCADCase
 import wiresegal.psionup.common.items.ItemCADCase
+import wiresegal.psionup.common.items.spell.ItemFlashRing
 import wiresegal.psionup.common.lib.LibNames
 import java.awt.Color
 
@@ -311,7 +312,7 @@ class BlockCADCase(name: String) : BlockModContainer(name, Material.CLOTH, *make
 
         fun canInsertIntoSlot(slot: Int, stack: ItemStack): Boolean {
             if (slot == 0) return stack.item is ICAD
-            if (slot == 1) return stack.item is ISocketable && stack.item !is ICAD
+            if (slot == 1) return stack.item is ISocketable && stack.item !is ICAD || stack.item is ItemFlashRing
             return false
         }
 
