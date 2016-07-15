@@ -24,6 +24,22 @@ object LibNames {
 
         const val FLASH_RING = "flashRing"
 
+        const val EBONY_PICKAXE = "ebonyPickaxe"
+        const val EBONY_SHOVEL = "ebonyShovel"
+        const val EBONY_AXE = "ebonyAxe"
+        const val EBONY_SWORD = "ebonySword"
+
+        const val IVORY_PICKAXE = "ivoryPickaxe"
+        const val IVORY_SHOVEL = "ivoryShovel"
+        const val IVORY_AXE = "ivoryAxe"
+        const val IVORY_SWORD = "ivorySword"
+
+        const val BIOTIC_SENSOR = "bioticSensor"
+
+        const val GAUSS_RIFLE = "gaussRifle"
+
+        const val GAUSS_BULLET = "gaussBullet"
+
         const val LIVINGWOOD_CAD = "cadAssemblyBlaster"
         const val LIVINGWOOD_CAD_MODEL = "cadBlaster"
     }
@@ -55,6 +71,8 @@ object LibNames {
 
         const val CONJURE_CRACKLE = "conjureCrackle"
 
+        const val BREAK_LOOP = "loopcastBreak"
+
 
         const val MAKE_BURST = "makeManaBurst"
         const val WILD_DRUM = "drumOfTheWild"
@@ -67,6 +85,14 @@ object LibNames {
         const val SECONDARY_VECTOR_OPERATORS = "${LibMisc.MOD_ID}.secondaryVectors"
 
         const val MANA_PSIONICS = "${LibMisc.MOD_ID}.manaPsionics"
+    }
+
+    object Entities {
+        const val GAUSS_PULSE = "gaussPulse"
+    }
+
+    object Potions {
+        const val PSISHOCK = "psishock"
     }
 
     val Colors = arrayOf("White",     "Orange", "Magenta", "LightBlue",

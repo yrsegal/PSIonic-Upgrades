@@ -1,4 +1,4 @@
-package wiresegal.psionup.client.core
+package wiresegal.psionup.client.core.handler
 
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemBlock

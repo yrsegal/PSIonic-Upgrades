@@ -26,7 +26,7 @@ import vazkii.psi.common.core.handler.PsiSoundHandler
 import vazkii.psi.common.core.helper.ItemNBTHelper
 import vazkii.psi.common.item.ItemSpellDrive
 import vazkii.psi.common.spell.SpellCompiler
-import wiresegal.psionup.client.core.GuiHandler
+import wiresegal.psionup.client.core.handler.GuiHandler
 import wiresegal.psionup.common.PsionicUpgrades
 import wiresegal.psionup.common.crafting.ModRecipes
 import wiresegal.psionup.common.items.base.ICadComponentAcceptor

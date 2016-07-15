@@ -32,6 +32,8 @@ object ModPieces {
 
     val conjureCrackle: ModSpellPieces.PieceContainer
 
+    val loopcastBreak: ModSpellPieces.PieceContainer
+
     init {
 
         PsiAPI.setGroupRequirements(LibNames.PieceGroups.ALTERNATE_CONJURATION, 21, LibPieceGroups.BLOCK_CONJURATION)
@@ -74,6 +76,10 @@ object ModPieces {
         conjureCrackle = register(PieceTrickConjureStar::class.java,
                 LibNames.Spell.CONJURE_CRACKLE,
                 LibNames.PieceGroups.ALTERNATE_CONJURATION)
+
+        loopcastBreak = register(PieceTrickBreakLoop::class.java,
+                LibNames.Spell.BREAK_LOOP,
+                LibPieceGroups.FLOW_CONTROL)
 
         if (Loader.isModLoaded("Botania"))
             CompatTricks.init()

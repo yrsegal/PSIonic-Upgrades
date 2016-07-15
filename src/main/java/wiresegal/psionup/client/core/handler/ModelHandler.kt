@@ -1,4 +1,4 @@
-package wiresegal.psionup.client.core
+package wiresegal.psionup.client.core.handler
 
 import net.minecraft.block.Block
 import net.minecraft.block.properties.IProperty
@@ -169,7 +169,7 @@ object ModelHandler {
         if (item is Item) {
             for (variant in variants.withIndex()) {
                 if (variant.index == 0) {
-                    var print = "$namePad | Registering "
+                    var print = "${namePad} | Registering "
                     if (variant.value != item.registryName.resourcePath || variants.size != 1)
                         print += "variant" + if (variants.size == 1) "" else "s" + " of "
                     print += if (item is ItemBlock) "block" else "item"

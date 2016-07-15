@@ -12,7 +12,7 @@ import net.minecraft.util.SoundCategory
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import wiresegal.psionup.client.core.ModelHandler
+import wiresegal.psionup.client.core.handler.ModelHandler
 import vazkii.psi.api.PsiAPI
 import vazkii.psi.api.cad.ISocketable
 import vazkii.psi.api.spell.ISpellSettable

@@ -3,13 +3,13 @@ package wiresegal.psionup.common.items
 import net.minecraftforge.fml.common.Loader
 import wiresegal.psionup.common.items.base.ItemMod
 import wiresegal.psionup.common.items.base.ItemModArmor
+import wiresegal.psionup.common.items.base.ItemModSword
+import wiresegal.psionup.common.items.base.ItemModTool
+import wiresegal.psionup.common.items.component.ItemBioticSensor
 import wiresegal.psionup.common.items.component.ItemEmptyColorizer
 import wiresegal.psionup.common.items.component.ItemLiquidColorizer
 import wiresegal.psionup.common.items.component.ItemWideCADSocket
-import wiresegal.psionup.common.items.spell.ItemCADMagazine
-import wiresegal.psionup.common.items.spell.ItemFakeCAD
-import wiresegal.psionup.common.items.spell.ItemFlashRing
-import wiresegal.psionup.common.items.spell.ItemFlowExosuit
+import wiresegal.psionup.common.items.spell.*
 import wiresegal.psionup.common.lib.LibNames
 
 /**
@@ -35,6 +35,22 @@ object ModItems {
 
     val flashRing: ItemMod
 
+    val ebonyPickaxe: ItemModTool
+    val ebonyShovel: ItemModTool
+    val ebonyAxe: ItemModTool
+    val ebonySword: ItemModSword
+
+    val ivoryPickaxe: ItemModTool
+    val ivoryShovel: ItemModTool
+    val ivoryAxe: ItemModTool
+    val ivorySword: ItemModSword
+
+    val bioticSensor: ItemMod
+
+    val gaussRifle: ItemMod
+
+    val gaussBullet: ItemMod
+
     init {
         liquidColorizer = ItemLiquidColorizer(LibNames.Items.LIQUID_INK_COLORIZER)
         emptyColorizer = ItemEmptyColorizer(LibNames.Items.DRAINED_COLORIZER)
@@ -53,6 +69,22 @@ object ModItems {
         ivoryExosuitBoots = ItemFlowExosuit.Boots(LibNames.Items.IVORY_BOOTS, false)
 
         flashRing = ItemFlashRing(LibNames.Items.FLASH_RING)
+
+        ebonyPickaxe = ItemFlowTool.Pickaxe(LibNames.Items.EBONY_PICKAXE, true)
+        ebonyShovel = ItemFlowTool.Shovel(LibNames.Items.EBONY_SHOVEL, true)
+        ebonyAxe = ItemFlowTool.Axe(LibNames.Items.EBONY_AXE, true)
+        ebonySword = ItemFlowSword(LibNames.Items.EBONY_SWORD, true)
+
+        ivoryPickaxe = ItemFlowTool.Pickaxe(LibNames.Items.IVORY_PICKAXE, false)
+        ivoryShovel = ItemFlowTool.Shovel(LibNames.Items.IVORY_SHOVEL, false)
+        ivoryAxe = ItemFlowTool.Axe(LibNames.Items.IVORY_AXE, false)
+        ivorySword = ItemFlowSword(LibNames.Items.IVORY_SWORD, false)
+
+        bioticSensor = ItemBioticSensor(LibNames.Items.BIOTIC_SENSOR)
+
+        gaussRifle = ItemGaussRifle(LibNames.Items.GAUSS_RIFLE)
+
+        gaussBullet = ItemMod(LibNames.Items.GAUSS_BULLET)
 
         if (Loader.isModLoaded("Botania"))
             CompatItems.init()

@@ -1,9 +1,13 @@
 package wiresegal.psionup.common.items.base
 
+import net.minecraft.block.Block
 import net.minecraft.client.renderer.ItemMeshDefinition
 import net.minecraft.creativetab.CreativeTabs
+import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.Item
+import net.minecraft.item.ItemArmor
 import net.minecraft.item.ItemStack
+import net.minecraft.item.ItemTool
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
@@ -18,7 +22,7 @@ import vazkii.psi.common.item.base.ItemMod as PsiItem
  * @author WireSegal
  * Created at 8:50 AM on 3/20/16.
  */
-open class ItemMod(name: String, vararg variants: String) : Item(), ModelHandler.IVariantHolder {
+open class ItemModTool(name: String, material: ToolMaterial, attackDamage: Float, attackSpeed: Float, val type: String, effectiveOn: Set<Block>, vararg variants: String) : ItemTool(attackDamage, attackSpeed, material, effectiveOn), ModelHandler.IVariantHolder {
 
     companion object {
         fun tooltipIfShift(tooltip: MutableList<String>, r: () -> Unit) {
@@ -84,5 +88,9 @@ open class ItemMod(name: String, vararg variants: String) : Item(), ModelHandler
             subItems.add(ItemStack(itemIn, 1, i))
         }
 
+    }
+
+    override fun getToolClasses(stack: ItemStack?): MutableSet<String>? {
+        return mutableSetOf(type)
     }
 }

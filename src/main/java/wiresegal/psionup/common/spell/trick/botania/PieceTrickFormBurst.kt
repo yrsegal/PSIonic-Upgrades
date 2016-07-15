@@ -79,7 +79,7 @@ class PieceTrickFormBurst(spell: Spell) : PieceComponentTrick(spell) {
         burst.setLocationAndAngles(posVec.x, posVec.y, posVec.z, yaw.toFloat() + 180, -pitch.toFloat())
 
         burst.posX -= MathHelper.cos(((yaw + 180) / 180.0F * Math.PI).toFloat()) * 0.16F
-        burst.posY -= 0.10000000149011612
+        burst.posY -= 0.1
         burst.posZ -= MathHelper.sin(((yaw + 180) / 180.0F * Math.PI).toFloat()) * 0.16F
 
         burst.setPosition(posVec.x, posVec.y, posVec.z)

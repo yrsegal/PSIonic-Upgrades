@@ -71,6 +71,25 @@ item.psionup:ivoryBoots.name=Ivory Flowsuit Boots
 
 item.psionup:flashRing.name=Flash Ring
 
+item.psionup:ebonyPickaxe.name=Ebony Flowpick
+item.psionup:ebonyShovel.name=Ebony Flowspade
+item.psionup:ebonyAxe.name=Ebony Flowaxe
+item.psionup:ebonySword.name=Ebony Flowblade
+
+item.psionup:ivoryPickaxe.name=Ivory Flowpick
+item.psionup:ivoryShovel.name=Ivory Flowspade
+item.psionup:ivoryAxe.name=Ivory Flowaxe
+item.psionup:ivorySword.name=Ivory Flowblade
+
+item.psionup:bioticSensor.name=Exosuit Biotic Sensor
+
+item.psionup:gaussRifle.name=Gauss Pulse Rifle
+item.psionup:gaussBullet.name=Gauss Rifle Round
+
+psionup.potion.psishock=Psionic Shock
+
+psionup.event.nearbyEntities=&bEvent&7: Biotic Pulse
+
 psi.spellpiece.psionup.conjurePulsar=Trick: Conjure Pulsar
 psi.spellpiece.psionup.conjurePulsar.desc=Conjures a redstone emitting block in the given position
 
@@ -100,6 +119,9 @@ psi.spellpiece.psionup.particleTrail.desc=Makes a particle trail from a position
 
 psi.spellpiece.psionup.conjureCrackle=Trick: Conjure Star
 psi.spellpiece.psionup.conjureCrackle.desc=Conjures a light that emits particles along the given ray
+
+psi.spellpiece.psionup.loopcastBreak=Trick: Break Loop
+psi.spellpiece.psionup.loopcastBreak.desc=Stops loop if target is within ]-1, 1[
 
 psi.spellpiece.psionup.makeManaBurst=Trick: Form Burst
 psi.spellpiece.psionup.makeManaBurst.desc=Makes a mana burst from a position along a ray

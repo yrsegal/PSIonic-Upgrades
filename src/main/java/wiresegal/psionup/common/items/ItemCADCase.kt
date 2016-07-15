@@ -16,8 +16,8 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.ItemStackHandler
-import wiresegal.psionup.client.core.ModelHandler
-import wiresegal.psionup.client.core.GuiHandler
+import wiresegal.psionup.client.core.handler.ModelHandler
+import wiresegal.psionup.client.core.handler.GuiHandler
 import wiresegal.psionup.common.PsionicUpgrades
 import wiresegal.psionup.common.block.BlockCADCase
 import wiresegal.psionup.common.block.base.ItemModBlock

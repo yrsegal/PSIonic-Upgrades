@@ -6,6 +6,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import wiresegal.psionup.common.block.ModBlocks
 import wiresegal.psionup.common.core.helper.FlowColors
 import wiresegal.psionup.common.crafting.ModRecipes
+import wiresegal.psionup.common.effect.ModPotions
+import wiresegal.psionup.common.entity.ModEntities
 import wiresegal.psionup.common.items.ModItems
 import wiresegal.psionup.common.network.NetworkHandler
 import wiresegal.psionup.common.spell.ModPieces
@@ -22,6 +24,8 @@ open class CommonProxy {
         ModItems
         ModBlocks
         ModPieces
+        ModPotions
+        ModEntities
         NetworkHandler
 
         FlowColors.EventHandler

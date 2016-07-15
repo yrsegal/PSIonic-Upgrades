@@ -35,7 +35,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.ItemHandlerHelper
 import net.minecraftforge.items.ItemStackHandler
-import wiresegal.psionup.client.core.ModelHandler
+import wiresegal.psionup.client.core.handler.ModelHandler
 import vazkii.psi.api.cad.ICAD
 import vazkii.psi.api.cad.ISocketable
 import wiresegal.psionup.common.block.base.BlockModContainer

@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.CraftingManager
 import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.registry.GameRegistry
+import net.minecraftforge.oredict.OreDictionary
 import net.minecraftforge.oredict.RecipeSorter
 import net.minecraftforge.oredict.ShapedOreRecipe
 import net.minecraftforge.oredict.ShapelessOreRecipe
@@ -131,14 +132,45 @@ object ModRecipes {
 
         if (ConfigHandler.enableRing)
             addOreDictRecipe(ItemStack(ModItems.flashRing),
-                    "DED",
-                    "IGI",
+                    " E ",
+                    "EGE",
                     " P ",
-                    'D', "dustPsi",
                     'E', "ingotEbonyPsi",
-                    'I', "ingotIron",
                     'G', "dustGlowstone",
                     'P', "gemPsi")
+
+
+        GameRegistry.addRecipe(RecipeSocketTransferShapeless(ItemStack(ModItems.ebonyPickaxe), ItemStack(PsiItems.psimetalPickaxe), "dustGlowstone", "ingotEbonyPsi"))
+        GameRegistry.addRecipe(RecipeSocketTransferShapeless(ItemStack(ModItems.ebonyShovel), ItemStack(PsiItems.psimetalShovel), "dustGlowstone", "ingotEbonyPsi"))
+        GameRegistry.addRecipe(RecipeSocketTransferShapeless(ItemStack(ModItems.ebonyAxe), ItemStack(PsiItems.psimetalAxe), "dustGlowstone", "ingotEbonyPsi"))
+        GameRegistry.addRecipe(RecipeSocketTransferShapeless(ItemStack(ModItems.ebonySword), ItemStack(PsiItems.psimetalSword), "dustGlowstone", "ingotEbonyPsi"))
+
+        GameRegistry.addRecipe(RecipeSocketTransferShapeless(ItemStack(ModItems.ivoryPickaxe), ItemStack(PsiItems.psimetalPickaxe), "dustGlowstone", "ingotIvoryPsi"))
+        GameRegistry.addRecipe(RecipeSocketTransferShapeless(ItemStack(ModItems.ivoryShovel), ItemStack(PsiItems.psimetalShovel), "dustGlowstone", "ingotIvoryPsi"))
+        GameRegistry.addRecipe(RecipeSocketTransferShapeless(ItemStack(ModItems.ivoryAxe), ItemStack(PsiItems.psimetalAxe), "dustGlowstone", "ingotIvoryPsi"))
+        GameRegistry.addRecipe(RecipeSocketTransferShapeless(ItemStack(ModItems.ivorySword), ItemStack(PsiItems.psimetalSword), "dustGlowstone", "ingotIvoryPsi"))
+
+        addOreDictRecipe(ItemStack(ModItems.bioticSensor),
+                " P ",
+                "PEI",
+                " I ",
+                'P', "ingotPsi",
+                'E', Items.ENDER_EYE,
+                'I', "ingotIron")
+
+        val hasCopper = OreDictionary.doesOreNameExist("ingotCopper")
+        addOreDictRecipe(ItemStack(ModItems.gaussRifle),
+                "C  ",
+                "IIP",
+                "C I",
+                'C', if (hasCopper) "ingotCopper" else "dustRedstone",
+                'I', "ingotIron",
+                'P', "dustPsi")
+        addOreDictRecipe(ItemStack(ModItems.gaussBullet, 1, 4),
+                "ICP",
+                'I', "ingotIron",
+                'C', if (hasCopper) "ingotCopper" else "dustRedstone",
+                'P', "dustPsi")
 
         PsionicAPI.addTrickRecipe("", ItemStack(Items.REDSTONE), ItemStack(PsiItems.material), ItemStack(PsiItems.cadAssembly))
         PsionicAPI.addTrickRecipe(LibPieceNames.TRICK_INFUSION, ItemStack(Items.GOLD_INGOT), ItemStack(PsiItems.material, 1, 1), ItemStack(PsiItems.cadAssembly))

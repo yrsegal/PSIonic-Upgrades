@@ -1,16 +1,21 @@
 package wiresegal.psionup.common.core.helper
 
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.item.ItemEvent
 import net.minecraftforge.event.entity.living.LivingEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import vazkii.psi.api.PsiAPI
+import vazkii.psi.api.cad.EnumCADComponent
+import vazkii.psi.api.cad.ICAD
 import vazkii.psi.common.Psi
 import vazkii.psi.common.core.helper.ItemNBTHelper
-import wiresegal.psionup.common.network.MessageFlowColorUpdate
+import wiresegal.psionup.common.items.ModItems
 import wiresegal.psionup.common.network.NetworkHandler
+import java.util.*
 
 /**
  * @author WireSegal
@@ -27,8 +32,15 @@ object FlowColors {
 
         @SubscribeEvent
         fun onPlayerUpdate(e: LivingEvent.LivingUpdateEvent) {
-            if (e.entityLiving is EntityPlayer) {
-                updateColor(e.entityLiving as EntityPlayer)
+            val player = e.entityLiving
+            if (player is EntityPlayer && !player.worldObj.isRemote) {
+                val cad = PsiAPI.getPlayerCAD(player)
+                if (cad != null) {
+                    val colorizer = (cad.item as ICAD).getComponentInSlot(cad, EnumCADComponent.DYE) ?: ItemStack(ModItems.liquidColorizer)
+                    applyColor(player, colorizer)
+                } else {
+                    purgeColor(player)
+                }
             }
         }
     }
@@ -44,34 +56,26 @@ object FlowColors {
     }
 
     fun purgeColor(player: EntityPlayer) {
-        for (i in 0..player.inventory.sizeInventory-1) {
+        for (i in 0..player.inventory.sizeInventory - 1) {
             val stack = player.inventory.getStackInSlot(i)
             if (stack != null && stack.item is IAcceptor)
                 purgeColor(stack)
         }
     }
 
-    fun applyColor(player: EntityPlayer, color: Int) {
-        for (i in 0..player.inventory.sizeInventory-1) {
+    fun applyColor(player: EntityPlayer, color: ItemStack) {
+        for (i in 0..player.inventory.sizeInventory - 1) {
             val stack = player.inventory.getStackInSlot(i)
             if (stack != null && stack.item is IAcceptor)
                 setColor(stack, color)
         }
     }
 
-    fun setColor(stack: ItemStack, color: Int) {
-        ItemNBTHelper.setInt(stack, TAG_FLOW_COLOR, color)
+    fun setColor(stack: ItemStack, colorizer: ItemStack) {
+        ItemNBTHelper.setCompound(stack, TAG_FLOW_COLOR, colorizer.writeToNBT(NBTTagCompound()))
     }
 
-    fun getColor(stack: ItemStack): Int {
-        return ItemNBTHelper.getInt(stack.copy(), TAG_FLOW_COLOR, 0)
-    }
-
-    fun updateColor(player: EntityPlayer) {
-        val cad = PsiAPI.getPlayerCAD(player)
-        if (player.worldObj.isRemote && cad != null)
-            NetworkHandler.INSTANCE.sendToServer(MessageFlowColorUpdate(Psi.proxy.getCADColor(cad).rgb))
-        else if (cad == null)
-            purgeColor(player)
+    fun getColor(stack: ItemStack): ItemStack? {
+        return ItemStack.loadItemStackFromNBT(ItemNBTHelper.getCompound(stack.copy(), TAG_FLOW_COLOR, true) ?: return null)
     }
 }

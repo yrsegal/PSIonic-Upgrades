@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.oredict.RecipeSorter
-import wiresegal.psionup.client.core.ModelHandler
+import wiresegal.psionup.client.core.handler.ModelHandler
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.item.ItemManaGun
 import vazkii.psi.api.cad.EnumCADStat

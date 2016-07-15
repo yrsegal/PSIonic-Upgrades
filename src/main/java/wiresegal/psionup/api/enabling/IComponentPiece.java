@@ -55,7 +55,7 @@ public interface IComponentPiece {
         for (EnumCADComponent type : EnumCADComponent.values()) {
             ItemStack component = item.getComponentInSlot(cad, type);
 
-            if (component.getItem() instanceof ICADComponent) {
+            if (component != null && component.getItem() instanceof ICADComponent) {
                 ICADComponent compItem = (ICADComponent) component.getItem();
                 if (compItem.getCADStatValue(component, EnumCADStat.POTENCY) < 0)
                     return componentPiece.executeIfAllowed(context);

@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent
 import net.minecraftforge.fml.common.network.NetworkRegistry
 import org.apache.logging.log4j.LogManager
-import wiresegal.psionup.client.core.GuiHandler
+import wiresegal.psionup.client.core.handler.GuiHandler
 import wiresegal.psionup.common.command.CommandPsiLearn
 import wiresegal.psionup.common.command.CommandPsiUnlearn
 import wiresegal.psionup.common.core.CommonProxy

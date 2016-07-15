@@ -1,4 +1,4 @@
-package wiresegal.psionup.client.core
+package wiresegal.psionup.client.core.handler
 
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Gui

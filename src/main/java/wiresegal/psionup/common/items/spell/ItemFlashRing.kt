@@ -26,7 +26,7 @@ import vazkii.psi.common.core.helper.ItemNBTHelper
 import vazkii.psi.common.item.ItemCAD
 import vazkii.psi.common.item.ItemSpellDrive
 import vazkii.psi.common.spell.SpellCompiler
-import wiresegal.psionup.client.core.GuiHandler
+import wiresegal.psionup.client.core.handler.GuiHandler
 import wiresegal.psionup.common.PsionicUpgrades
 import wiresegal.psionup.common.crafting.ModRecipes
 import wiresegal.psionup.common.items.base.ICadComponentAcceptor
@@ -63,9 +63,7 @@ class ItemFlashRing(name: String) : ItemMod(name), ISpellContainer {
     }
 
     override fun addInformation(stack: ItemStack, playerIn: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
-        tooltipIfShift(tooltip) {
-            addToTooltip(tooltip, "psimisc.bulletCost", (this.getCostModifier(stack) * 100.0).toInt())
-        }
+        addToTooltip(tooltip, "psimisc.bulletCost", (this.getCostModifier(stack) * 100.0).toInt())
     }
 
     override fun getItemStackDisplayName(stack: ItemStack): String {

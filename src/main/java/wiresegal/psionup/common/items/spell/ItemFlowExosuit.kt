@@ -4,6 +4,7 @@ import net.minecraft.client.model.ModelBiped
 import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
+import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.ItemStack
@@ -28,7 +29,7 @@ import vazkii.psi.common.item.base.IColorProvider
 import vazkii.psi.common.item.base.ModItems
 import vazkii.psi.common.item.tool.IPsimetalTool
 import vazkii.psi.common.item.tool.ItemPsimetalTool
-import wiresegal.psionup.client.core.ModelHandler
+import wiresegal.psionup.client.core.handler.ModelHandler
 import wiresegal.psionup.common.core.helper.FlowColors
 import wiresegal.psionup.common.items.base.ItemModArmor
 import wiresegal.psionup.common.lib.LibMisc
@@ -119,9 +120,10 @@ open class ItemFlowExosuit(name:String, type: Int, slot: EntityEquipmentSlot, va
     override fun getItemColor(): IItemColor {
         return IItemColor {
             stack, tintIndex ->
-            if (tintIndex == 1)
-                FlowColors.getColor(stack)
-            else if (tintIndex == 2)
+            if (tintIndex == 1) {
+                val colorizer = FlowColors.getColor(stack)
+                if (colorizer == null) 0 else Psi.proxy.getColorizerColor(colorizer).rgb
+            } else if (tintIndex == 2)
                 this@ItemFlowExosuit.getColor(stack)
             else
                 16777215
@@ -138,8 +140,9 @@ open class ItemFlowExosuit(name:String, type: Int, slot: EntityEquipmentSlot, va
         return false
     }
 
-    override fun shouldCauseReequipAnimation(oldStack: ItemStack, newStack: ItemStack, slotChanged: Boolean): Boolean {
-        return super.shouldCauseReequipAnimation(oldStack, newStack, slotChanged) && FlowColors.getColor(oldStack) == FlowColors.getColor(newStack)
+    override fun onEntityItemUpdate(entityItem: EntityItem): Boolean {
+        FlowColors.purgeColor(entityItem.entityItem)
+        return super.onEntityItemUpdate(entityItem)
     }
 
     class Helmet(name: String, ebony: Boolean) : ItemFlowExosuit(name, 0, EntityEquipmentSlot.HEAD, ebony), ISensorHoldable {
