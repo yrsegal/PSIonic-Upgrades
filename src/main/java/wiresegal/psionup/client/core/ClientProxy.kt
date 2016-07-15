@@ -4,8 +4,11 @@ import net.minecraft.client.Minecraft
 import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
-import wiresegal.psionup.client.core.handler.ModelHandler
+import vazkii.psi.api.PsiAPI
+import vazkii.psi.api.cad.ICADColorizer
+import vazkii.psi.common.Psi
 import wiresegal.psionup.client.core.handler.HUDHandler
+import wiresegal.psionup.client.core.handler.ModelHandler
 import wiresegal.psionup.client.render.entity.ExosuitGlowLayer
 import wiresegal.psionup.client.render.tile.RenderTileCADCase
 import wiresegal.psionup.common.PsionicUpgrades

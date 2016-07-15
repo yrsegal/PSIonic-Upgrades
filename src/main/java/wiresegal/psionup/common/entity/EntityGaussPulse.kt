@@ -3,23 +3,18 @@ package wiresegal.psionup.common.entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.monster.EntityEnderman
-import net.minecraft.entity.projectile.EntityArrow
 import net.minecraft.entity.projectile.EntityThrowable
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EntityDamageSourceIndirect
 import net.minecraft.util.SoundCategory
-import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.World
 import vazkii.psi.api.cad.ICADColorizer
 import vazkii.psi.api.internal.Vector3
-import vazkii.psi.api.spell.SpellContext
 import vazkii.psi.common.Psi
 import vazkii.psi.common.core.handler.PsiSoundHandler
-import vazkii.psi.common.entity.EntitySpellGrenade
 import wiresegal.psionup.common.effect.ModPotions
-import wiresegal.psionup.common.effect.PotionPsishock
 import wiresegal.psionup.common.effect.base.ModPotionEffect
 import wiresegal.psionup.common.items.ModItems
 import java.awt.Color
@@ -112,7 +107,7 @@ open class EntityGaussPulse : EntityThrowable {
         val entity = pos.entityHit
         if (entity != null && entity is EntityLivingBase) {
             if (entity == thrower) return
-            entity.addPotionEffect(ModPotionEffect(ModPotions.psishock, if (ammo == AmmoStatus.NOTAMMO) 100 else 25))
+            if (!worldObj.isRemote) entity.addPotionEffect(ModPotionEffect(ModPotions.psishock, if (ammo == AmmoStatus.NOTAMMO) 100 else 25))
             entity.attackEntityFrom(EntityDamageSourceIndirect("arrow", this, thrower).setProjectile(), if (ammo == AmmoStatus.NOTAMMO) 2f else 8f)
             if (entity is EntityEnderman) return
             if (ammo == AmmoStatus.AMMO)

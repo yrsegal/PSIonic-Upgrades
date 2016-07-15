@@ -2,7 +2,6 @@ package wiresegal.psionup.common.effect
 
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
-import net.minecraft.client.renderer.Vector3d
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
@@ -10,16 +9,16 @@ import net.minecraft.potion.PotionEffect
 import net.minecraft.util.math.MathHelper
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import org.lwjgl.opengl.GL11
 import vazkii.psi.api.PsiAPI
 import vazkii.psi.api.cad.EnumCADStat
 import vazkii.psi.api.cad.ICAD
 import vazkii.psi.api.cad.ICADColorizer
 import vazkii.psi.client.core.handler.ClientTickHandler
+import vazkii.psi.common.Psi
 import vazkii.psi.common.core.handler.PlayerDataHandler
-import vazkii.psi.common.network.Message
 import vazkii.psi.common.network.NetworkHandler
 import vazkii.psi.common.network.message.MessageDataSync
+import wiresegal.psionup.common.PsionicUpgrades
 import wiresegal.psionup.common.effect.base.PotionMod
 import wiresegal.psionup.common.lib.LibNames
 
@@ -63,27 +62,33 @@ class PotionPsishock(iconIndex: Int) : PotionMod(LibNames.Potions.PSISHOCK, true
 
     @SideOnly(Side.CLIENT)
     override fun renderHUDEffect(x: Int, y: Int, effect: PotionEffect?, mc: Minecraft, alpha: Float) {
-        val pulse = pulseColor(0xE8E8E8)
-        GlStateManager.color(pulse.first / 255f, pulse.second / 255f, pulse.third / 255f)
+        var color = ICADColorizer.DEFAULT_SPELL_COLOR
+        val cad = PsiAPI.getPlayerCAD(Minecraft.getMinecraft().thePlayer)
+        if (cad != null) color = Psi.proxy.getCADColor(cad).rgb
+        val pulse = pulseColor(color)
+        GlStateManager.color(pulse.first / 255f, pulse.second / 255f, pulse.third / 255f, alpha)
         super.renderHUDEffect(x, y, effect, mc, alpha)
         GlStateManager.color(1f, 1f, 1f)
     }
 
     @SideOnly(Side.CLIENT)
     override fun renderInventoryEffect(x: Int, y: Int, effect: PotionEffect, mc: Minecraft) {
-        val pulse = pulseColor(0xE8E8E8)
+        var color = ICADColorizer.DEFAULT_SPELL_COLOR
+        val cad = PsiAPI.getPlayerCAD(Minecraft.getMinecraft().thePlayer)
+        if (cad != null) color = Psi.proxy.getCADColor(cad).rgb
+        val pulse = pulseColor(color)
         GlStateManager.color(pulse.first / 255f, pulse.second / 255f, pulse.third / 255f)
         super.renderInventoryEffect(x, y, effect, mc)
         GlStateManager.color(1f, 1f, 1f)
     }
 
     fun pulseColor(rgb: Int): Triple<Int, Int, Int> {
-        val add = (MathHelper.sin(ClientTickHandler.ticksInGame * 0.2f) * 24).toInt()
+        val add = (MathHelper.sin(ClientTickHandler.ticksInGame * 0.2f) * 32).toInt()
         val r = (rgb and (0xFF shl 16)) shr 16
         val b = (rgb and (0xFF shl 8)) shr 8
         val g = (rgb and (0xFF shl 0)) shr 0
         return Triple(Math.max(Math.min(r + add, 255), 0),
-               Math.max(Math.min(b + add, 255), 0),
-               Math.max(Math.min(g + add, 255), 0))
+                Math.max(Math.min(b + add, 255), 0),
+                Math.max(Math.min(g + add, 255), 0))
     }
 }

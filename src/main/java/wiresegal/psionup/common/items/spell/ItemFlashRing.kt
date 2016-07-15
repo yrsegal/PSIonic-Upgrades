@@ -1,35 +1,21 @@
 package wiresegal.psionup.common.items.spell
 
-import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.init.SoundEvents
-import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
-import net.minecraft.nbt.NBTTagCompound
-import net.minecraft.util.*
-import net.minecraft.util.math.BlockPos
-import net.minecraft.util.text.Style
-import net.minecraft.util.text.TextComponentTranslation
-import net.minecraft.util.text.TextFormatting
+import net.minecraft.util.ActionResult
+import net.minecraft.util.EnumActionResult
+import net.minecraft.util.EnumHand
+import net.minecraft.util.ResourceLocation
 import net.minecraft.world.World
 import vazkii.psi.api.PsiAPI
-import vazkii.psi.api.cad.EnumCADComponent
-import vazkii.psi.api.cad.EnumCADStat
-import vazkii.psi.api.cad.ICADComponent
-import vazkii.psi.api.cad.ISocketable
-import vazkii.psi.api.internal.VanillaPacketDispatcher
-import vazkii.psi.api.spell.*
-import vazkii.psi.common.block.tile.TileProgrammer
+import vazkii.psi.api.spell.ISpellContainer
+import vazkii.psi.api.spell.Spell
+import vazkii.psi.api.spell.SpellContext
 import vazkii.psi.common.core.handler.PlayerDataHandler
-import vazkii.psi.common.core.handler.PsiSoundHandler
-import vazkii.psi.common.core.helper.ItemNBTHelper
 import vazkii.psi.common.item.ItemCAD
 import vazkii.psi.common.item.ItemSpellDrive
-import vazkii.psi.common.spell.SpellCompiler
 import wiresegal.psionup.client.core.handler.GuiHandler
 import wiresegal.psionup.common.PsionicUpgrades
-import wiresegal.psionup.common.crafting.ModRecipes
-import wiresegal.psionup.common.items.base.ICadComponentAcceptor
 import wiresegal.psionup.common.items.base.ItemMod
 import wiresegal.psionup.common.lib.LibMisc
 import vazkii.psi.common.item.base.ItemMod as PsiItem
@@ -43,7 +29,8 @@ class ItemFlashRing(name: String) : ItemMod(name), ISpellContainer {
 
     init {
         addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, "active")) {
-            stack, world, entity -> if (containsSpell(stack)) 1f else 0f
+            stack, world, entity ->
+            if (containsSpell(stack)) 1f else 0f
         }
     }
 

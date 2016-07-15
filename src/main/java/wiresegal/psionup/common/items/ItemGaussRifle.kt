@@ -7,7 +7,6 @@ import net.minecraft.util.ActionResult
 import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumHand
 import net.minecraft.util.SoundCategory
-import net.minecraft.util.math.MathHelper
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
@@ -99,7 +98,7 @@ class ItemGaussRifle(name: String) : ItemMod(name), ModelHandler.IItemColorProvi
         val b = (rgb and (0xFF shl 8)) shr 8
         val g = (rgb and (0xFF shl 0)) shr 0
         return (Math.max(Math.min(r + add, 255), 0) shl 16) or
-               (Math.max(Math.min(b + add, 255), 0) shl 8) or
-               (Math.max(Math.min(g + add, 255), 0) shl 0)
+                (Math.max(Math.min(b + add, 255), 0) shl 8) or
+                (Math.max(Math.min(g + add, 255), 0) shl 0)
     }
 }

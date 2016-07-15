@@ -1,21 +1,16 @@
 package wiresegal.psionup.common.core.helper
 
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.common.MinecraftForge
-import net.minecraftforge.event.entity.item.ItemEvent
 import net.minecraftforge.event.entity.living.LivingEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import vazkii.psi.api.PsiAPI
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.ICAD
-import vazkii.psi.common.Psi
 import vazkii.psi.common.core.helper.ItemNBTHelper
 import wiresegal.psionup.common.items.ModItems
-import wiresegal.psionup.common.network.NetworkHandler
-import java.util.*
 
 /**
  * @author WireSegal

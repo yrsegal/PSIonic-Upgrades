@@ -2,17 +2,15 @@ package wiresegal.psionup.common.items.base
 
 import net.minecraft.client.renderer.ItemMeshDefinition
 import net.minecraft.creativetab.CreativeTabs
-import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.item.Item
-import net.minecraft.item.ItemArmor
 import net.minecraft.item.ItemStack
 import net.minecraft.item.ItemSword
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import wiresegal.psionup.client.core.handler.ModelHandler
 import vazkii.psi.api.internal.TooltipHelper
+import wiresegal.psionup.client.core.handler.ModelHandler
 import wiresegal.psionup.common.core.CreativeTab
 import wiresegal.psionup.common.lib.LibMisc
 

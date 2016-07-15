@@ -24,8 +24,6 @@ import vazkii.psi.common.Psi
 import vazkii.psi.common.core.handler.PlayerDataHandler
 import vazkii.psi.common.core.helper.ItemNBTHelper
 import vazkii.psi.common.item.ItemCAD
-import vazkii.psi.common.item.armor.ItemPsimetalArmor
-import vazkii.psi.common.item.base.IColorProvider
 import vazkii.psi.common.item.base.ModItems
 import vazkii.psi.common.item.tool.IPsimetalTool
 import vazkii.psi.common.item.tool.ItemPsimetalTool
@@ -38,7 +36,7 @@ import wiresegal.psionup.common.lib.LibMisc
  * @author WireSegal
  * Created at 4:42 PM on 7/9/16.
  */
-open class ItemFlowExosuit(name:String, type: Int, slot: EntityEquipmentSlot, val ebony: Boolean): ItemModArmor(name, PsiAPI.PSIMETAL_ARMOR_MATERIAL, type, slot), IPsimetalTool, IPsiEventArmor, ModelHandler.IItemColorProvider, FlowColors.IAcceptor {
+open class ItemFlowExosuit(name: String, type: Int, slot: EntityEquipmentSlot, val ebony: Boolean) : ItemModArmor(name, PsiAPI.PSIMETAL_ARMOR_MATERIAL, type, slot), IPsimetalTool, IPsiEventArmor, ModelHandler.IItemColorProvider, FlowColors.IAcceptor {
     companion object {
         val models by lazy {
             Array(4) {

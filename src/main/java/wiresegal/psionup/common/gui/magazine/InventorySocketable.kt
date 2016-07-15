@@ -5,15 +5,11 @@ import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
 import net.minecraft.util.text.ITextComponent
 import net.minecraft.util.text.TextComponentTranslation
-import net.minecraftforge.items.CapabilityItemHandler
-import net.minecraftforge.items.IItemHandlerModifiable
-import vazkii.psi.api.cad.ICAD
 import vazkii.psi.api.cad.ISocketable
 import vazkii.psi.api.spell.EnumSpellStat
 import vazkii.psi.api.spell.ISpellContainer
 import vazkii.psi.common.spell.SpellCompiler
 import wiresegal.psionup.common.core.helper.IteratorSocketable
-import wiresegal.psionup.common.items.spell.ItemCADMagazine
 
 /**
  * @author WireSegal

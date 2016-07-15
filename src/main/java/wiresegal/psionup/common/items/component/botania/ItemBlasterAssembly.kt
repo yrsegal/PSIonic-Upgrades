@@ -7,7 +7,6 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.oredict.RecipeSorter
-import wiresegal.psionup.client.core.handler.ModelHandler
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.item.ItemManaGun
 import vazkii.psi.api.cad.EnumCADStat
@@ -18,6 +17,7 @@ import wiresegal.psionup.api.enabling.ITrickEnablerComponent
 import wiresegal.psionup.api.enabling.botania.EnumManaTier
 import wiresegal.psionup.api.enabling.botania.IBlasterComponent
 import wiresegal.psionup.api.enabling.botania.IManaTrick
+import wiresegal.psionup.client.core.handler.ModelHandler
 import wiresegal.psionup.common.crafting.recipe.botania.RecipeBlasterCADClip
 import wiresegal.psionup.common.crafting.recipe.botania.RecipeBlasterCADLens
 import wiresegal.psionup.common.items.base.ItemComponent

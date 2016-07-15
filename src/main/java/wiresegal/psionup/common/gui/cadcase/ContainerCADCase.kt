@@ -8,37 +8,21 @@ import net.minecraft.item.ItemArmor
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import net.minecraftforge.items.CapabilityItemHandler
+import net.minecraftforge.items.SlotItemHandler
 import vazkii.psi.api.cad.ICAD
 import vazkii.psi.api.cad.ISocketable
 
 class ContainerCADCase(player: EntityPlayer, val stack: ItemStack) : Container() {
-    val inventory = InventoryCADCase(stack)
+    val inventory = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
 
     init {
         val playerInventory = player.inventory
 
-        addSlotToContainer(object : Slot(inventory, 0, 132, 7) {
-
-            override fun getItemStackLimit(stack: ItemStack?): Int {
-                return 1
-            }
-
-            override fun isItemValid(stack: ItemStack?): Boolean {
-                return stack?.item is ICAD
-            }
-        })
+        addSlotToContainer(SlotItemHandler(inventory, 0, 132, 7))
 
 
-        addSlotToContainer(object : Slot(inventory, 1, 79, 7) {
-
-            override fun getItemStackLimit(stack: ItemStack?): Int {
-                return 1
-            }
-
-            override fun isItemValid(stack: ItemStack?): Boolean {
-                return stack?.item is ISocketable && stack?.item !is ICAD
-            }
-        })
+        addSlotToContainer(SlotItemHandler(inventory, 1, 79, 7))
 
         val xs = 34
         val ys = 48
@@ -97,7 +81,7 @@ class ContainerCADCase(player: EntityPlayer, val stack: ItemStack) : Container()
     }
 
     override fun canInteractWith(playerIn: EntityPlayer): Boolean {
-        return inventory.isUseableByPlayer(playerIn)
+        return true
     }
 
     override fun transferStackInSlot(playerIn: EntityPlayer?, index: Int): ItemStack? {

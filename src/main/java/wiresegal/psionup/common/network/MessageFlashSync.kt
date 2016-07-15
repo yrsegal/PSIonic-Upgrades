@@ -9,10 +9,8 @@ import net.minecraftforge.fml.common.network.ByteBufUtils
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext
-import vazkii.psi.api.cad.ISocketable
 import vazkii.psi.api.spell.ISpellContainer
 import vazkii.psi.api.spell.Spell
-import vazkii.psi.common.item.ItemSpellDrive
 import wiresegal.psionup.common.items.spell.ItemFlashRing
 
 /**

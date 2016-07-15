@@ -5,11 +5,11 @@ import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 import net.minecraft.world.World
 import net.minecraftforge.fml.common.network.IGuiHandler
+import wiresegal.psionup.client.gui.flashring.GuiFlashRing
 import wiresegal.psionup.common.block.BlockCADCase
 import wiresegal.psionup.common.gui.AssemblerGUIHijacker
 import wiresegal.psionup.common.gui.cadcase.ContainerCADCase
 import wiresegal.psionup.common.gui.cadcase.GuiCADCase
-import wiresegal.psionup.client.gui.flashring.GuiFlashRing
 import wiresegal.psionup.common.gui.magazine.ContainerCADMagazine
 import wiresegal.psionup.common.gui.magazine.GuiCADMagazine
 import wiresegal.psionup.common.items.spell.ItemCADMagazine

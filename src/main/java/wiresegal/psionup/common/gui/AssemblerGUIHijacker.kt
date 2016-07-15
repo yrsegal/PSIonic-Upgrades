@@ -2,15 +2,11 @@ package wiresegal.psionup.common.gui
 
 import net.minecraft.inventory.Slot
 import net.minecraft.item.ItemStack
-import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.player.PlayerContainerEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 import vazkii.psi.api.cad.ICAD
 import vazkii.psi.api.spell.ISpellContainer
-import vazkii.psi.client.gui.GuiCADAssembler
 import vazkii.psi.common.block.tile.TileCADAssembler
 import vazkii.psi.common.block.tile.container.ContainerCADAssembler
 import vazkii.psi.common.block.tile.container.slot.SlotBullet

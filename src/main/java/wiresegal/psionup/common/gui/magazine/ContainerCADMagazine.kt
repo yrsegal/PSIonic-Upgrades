@@ -2,22 +2,10 @@ package wiresegal.psionup.common.gui.magazine
 
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.Container
-import net.minecraft.inventory.EntityEquipmentSlot
-import net.minecraft.inventory.IInventory
 import net.minecraft.inventory.Slot
-import net.minecraft.item.ItemArmor
 import net.minecraft.item.ItemStack
-import net.minecraft.util.text.Style
-import net.minecraft.util.text.TextComponentTranslation
-import net.minecraft.util.text.TextFormatting
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 import vazkii.psi.api.PsiAPI
-import vazkii.psi.api.cad.ICAD
-import vazkii.psi.api.cad.ISocketable
 import vazkii.psi.api.spell.ISpellContainer
-import vazkii.psi.common.block.tile.TileCADAssembler
-import wiresegal.psionup.common.gui.cadcase.InventoryCADCase
 import wiresegal.psionup.common.items.spell.ItemCADMagazine
 import wiresegal.psionup.common.lib.LibMisc
 

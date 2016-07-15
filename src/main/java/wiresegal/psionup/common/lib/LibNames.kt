@@ -95,8 +95,8 @@ object LibNames {
         const val PSISHOCK = "psishock"
     }
 
-    val Colors = arrayOf("White",     "Orange", "Magenta", "LightBlue",
-                         "Yellow",    "Lime",   "Pink",    "Gray",
-                         "LightGray", "Cyan",   "Purple",  "Blue",
-                         "Brown",     "Green",  "Red",     "Black")
+    val Colors = arrayOf("White", "Orange", "Magenta", "LightBlue",
+            "Yellow", "Lime", "Pink", "Gray",
+            "LightGray", "Cyan", "Purple", "Blue",
+            "Brown", "Green", "Red", "Black")
 }

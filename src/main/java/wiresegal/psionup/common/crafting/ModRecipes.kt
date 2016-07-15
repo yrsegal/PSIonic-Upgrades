@@ -166,7 +166,7 @@ object ModRecipes {
                 'C', if (hasCopper) "ingotCopper" else "dustRedstone",
                 'I', "ingotIron",
                 'P', "dustPsi")
-        addOreDictRecipe(ItemStack(ModItems.gaussBullet, 1, 4),
+        addOreDictRecipe(ItemStack(ModItems.gaussBullet, 2),
                 "ICP",
                 'I', "ingotIron",
                 'C', if (hasCopper) "ingotCopper" else "dustRedstone",

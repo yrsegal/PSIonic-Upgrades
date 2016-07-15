@@ -7,7 +7,6 @@ import vazkii.psi.api.spell.SpellCompilationException
 import vazkii.psi.client.gui.GuiProgrammer
 import vazkii.psi.common.spell.SpellCompiler
 import wiresegal.psionup.client.core.PsionicClientMethodHandles
-import wiresegal.psionup.client.gui.flashring.FlashRingProgrammingWrapper
 import wiresegal.psionup.common.network.MessageFlashSync
 import wiresegal.psionup.common.network.NetworkHandler
 import java.util.*

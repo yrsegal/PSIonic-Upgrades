@@ -1,8 +1,6 @@
 package wiresegal.psionup.common.crafting.recipe
 
-import net.minecraft.entity.passive.EntitySheep
 import net.minecraft.inventory.InventoryCrafting
-import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.ItemDye
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.IRecipe
@@ -119,7 +117,7 @@ class RecipeLiquidDye : IRecipe {
     fun getColorFromDye(stack: ItemStack): Int {
         for (i in dyes.indices) {
             if (checkStack(stack, dyes[i])) {
-                return ItemDye.DYE_COLORS[15-stack.metadata]
+                return ItemDye.DYE_COLORS[15 - stack.metadata]
             }
         }
         return 0xFFFFFF

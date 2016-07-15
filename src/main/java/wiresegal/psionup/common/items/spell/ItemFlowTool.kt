@@ -1,11 +1,11 @@
 package wiresegal.psionup.common.items.spell
 
-import com.google.common.collect.Sets
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.entity.Entity
+import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
@@ -14,9 +14,6 @@ import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
-import net.minecraft.util.math.MathHelper
-import net.minecraft.util.math.RayTraceResult
-import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
@@ -25,9 +22,7 @@ import vazkii.psi.api.cad.ISocketable
 import vazkii.psi.api.spell.SpellContext
 import vazkii.psi.common.Psi
 import vazkii.psi.common.core.handler.PlayerDataHandler
-import vazkii.psi.common.core.helper.ItemNBTHelper
 import vazkii.psi.common.item.ItemCAD
-import vazkii.psi.common.item.base.ItemMod
 import vazkii.psi.common.item.base.ModItems
 import vazkii.psi.common.item.tool.IPsimetalTool
 import vazkii.psi.common.item.tool.ItemPsimetalTool
@@ -84,6 +79,11 @@ open class ItemFlowTool(name: String, attackDamage: Float, speed: Float, effecti
             } else
                 16777215
         }
+    }
+
+    override fun onEntityItemUpdate(entityItem: EntityItem): Boolean {
+        FlowColors.purgeColor(entityItem.entityItem)
+        return super.onEntityItemUpdate(entityItem)
     }
 
     class Axe(name: String, ebony: Boolean) : ItemFlowTool(name, 6F, -3.1F, EFFECTIVE_ON, "axe", ebony) {

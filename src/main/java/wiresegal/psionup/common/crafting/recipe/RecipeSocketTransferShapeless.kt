@@ -15,7 +15,7 @@ class RecipeSocketTransferShapeless(val result: ItemStack, vararg recipe: Any) :
 
     override fun getCraftingResult(var1: InventoryCrafting): ItemStack {
         val output = result.copy()
-        for (i in 0..var1.sizeInventory-1) {
+        for (i in 0..var1.sizeInventory - 1) {
             val stack = var1.getStackInSlot(i)
             if (stack != null && stack.item is ISocketable && output.item is ISocketable) {
                 val outputItem = output.item as ISocketable

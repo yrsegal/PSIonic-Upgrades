@@ -35,13 +35,14 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.ItemHandlerHelper
 import net.minecraftforge.items.ItemStackHandler
-import wiresegal.psionup.client.core.handler.ModelHandler
 import vazkii.psi.api.cad.ICAD
 import vazkii.psi.api.cad.ISocketable
+import vazkii.psi.api.spell.ISpellContainer
+import wiresegal.psionup.client.core.handler.ModelHandler
 import wiresegal.psionup.common.block.base.BlockModContainer
 import wiresegal.psionup.common.block.tile.TileCADCase
 import wiresegal.psionup.common.items.ItemCADCase
-import wiresegal.psionup.common.items.spell.ItemFlashRing
+import wiresegal.psionup.common.items.ModItems
 import wiresegal.psionup.common.lib.LibNames
 import java.awt.Color
 
@@ -311,8 +312,8 @@ class BlockCADCase(name: String) : BlockModContainer(name, Material.CLOTH, *make
         }
 
         fun canInsertIntoSlot(slot: Int, stack: ItemStack): Boolean {
-            if (slot == 0) return stack.item is ICAD
-            if (slot == 1) return stack.item is ISocketable && stack.item !is ICAD || stack.item is ItemFlashRing
+            if (slot == 0) return stack.item is ICAD || stack.item == ModItems.gaussRifle
+            if (slot == 1) return (stack.item is ISocketable && stack.item !is ICAD) || stack.item is ISpellContainer
             return false
         }
 

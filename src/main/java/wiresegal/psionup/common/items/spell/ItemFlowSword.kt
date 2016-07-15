@@ -3,6 +3,7 @@ package wiresegal.psionup.common.items.spell
 import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
+import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.world.World
@@ -10,11 +11,9 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import vazkii.psi.api.PsiAPI
 import vazkii.psi.api.cad.ISocketable
-import vazkii.psi.api.spell.SpellContext
 import vazkii.psi.common.Psi
 import vazkii.psi.common.core.handler.PlayerDataHandler
 import vazkii.psi.common.item.ItemCAD
-import vazkii.psi.common.item.base.ItemMod
 import vazkii.psi.common.item.base.ModItems
 import vazkii.psi.common.item.tool.IPsimetalTool
 import vazkii.psi.common.item.tool.ItemPsimetalTool
@@ -39,7 +38,8 @@ class ItemFlowSword(name: String, val ebony: Boolean) : ItemModSword(name, PsiAP
             if (playerCad != null) {
                 val bullet = getBulletInSocket(itemstack, getSelectedSlot(itemstack))
                 ItemCAD.cast(attacker.worldObj, attacker, data, bullet, playerCad, 5, 10, 0.05f) {
-                    context -> context.attackedEntity = target
+                    context ->
+                    context.attackedEntity = target
                 }
             }
         }
@@ -73,6 +73,11 @@ class ItemFlowSword(name: String, val ebony: Boolean) : ItemModSword(name, PsiAP
             } else
                 16777215
         }
+    }
+
+    override fun onEntityItemUpdate(entityItem: EntityItem): Boolean {
+        FlowColors.purgeColor(entityItem.entityItem)
+        return super.onEntityItemUpdate(entityItem)
     }
 
 }

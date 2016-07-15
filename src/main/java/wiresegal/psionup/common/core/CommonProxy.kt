@@ -3,6 +3,7 @@ package wiresegal.psionup.common.core
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+import vazkii.psi.api.cad.ICADColorizer
 import wiresegal.psionup.common.block.ModBlocks
 import wiresegal.psionup.common.core.helper.FlowColors
 import wiresegal.psionup.common.crafting.ModRecipes

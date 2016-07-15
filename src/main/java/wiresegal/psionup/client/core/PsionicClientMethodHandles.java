@@ -9,7 +9,6 @@ import vazkii.psi.common.spell.SpellCompiler;
 import wiresegal.psionup.common.PsionicUpgrades;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.lang.invoke.MethodHandle;
 import java.lang.reflect.Field;
 

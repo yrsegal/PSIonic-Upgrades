@@ -1,8 +1,10 @@
 package wiresegal.psionup.common.spell.operator
 
 import vazkii.psi.api.internal.Vector3
-import vazkii.psi.api.spell.*
-import vazkii.psi.api.spell.param.ParamAny
+import vazkii.psi.api.spell.Spell
+import vazkii.psi.api.spell.SpellContext
+import vazkii.psi.api.spell.SpellParam
+import vazkii.psi.api.spell.SpellRuntimeException
 import vazkii.psi.api.spell.param.ParamVector
 import vazkii.psi.api.spell.piece.PieceOperator
 import wiresegal.psionup.common.lib.LibMisc

@@ -23,7 +23,6 @@ import vazkii.psi.common.core.handler.PlayerDataHandler
 import vazkii.psi.common.lib.LibResources
 import wiresegal.psionup.common.items.spell.ItemFlashRing
 import java.awt.Color
-import java.util.function.Consumer
 
 /**
  * @author WireSegal
@@ -69,8 +68,8 @@ object HUDHandler {
 
         if (ConfigHandler.contextSensitiveBar ||
                 (currPsi == totalPsi &&
-                (mainHand == null || mainHand.item is ISocketable) &&
-                (offHand == null || offHand.item is ISocketable)))
+                        (mainHand == null || mainHand.item is ISocketable) &&
+                        (offHand == null || offHand.item is ISocketable)))
             return
 
         if ((mainHand == null || mainHand.item !is ItemFlashRing) &&
