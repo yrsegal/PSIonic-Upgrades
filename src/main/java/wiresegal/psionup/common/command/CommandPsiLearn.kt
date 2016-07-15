@@ -123,7 +123,7 @@ open class CommandPsiLearn : CommandBase() {
     }
 
     override fun getCommandUsage(var1: ICommandSender): String {
-        return I18n.format("$localizationkey.usage")
+        return "$localizationkey.usage"
     }
 
     override fun getRequiredPermissionLevel(): Int {
