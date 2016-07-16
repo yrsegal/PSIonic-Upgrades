@@ -16,14 +16,22 @@ Magic?? Tech?? Addons??
 - CAD Cases  
     A portable storage that can store one CAD and one other spell holder. They can be placed on the ground or used in-hand.
     On the ground, they can be opened and closed with a shift-click, and can be interacted with while open.
-- Flowsuits  
-    Aesthetically upgraded versions of the Exosuit that is plated with Ebony or Ivory.
+- Flowsuits and Flowtools  
+    Aesthetically upgraded versions of the Exosuit and Psimetal Tools that are plated with Ebony or Ivory.
 - Flash Ring  
     A porta-programmer that takes a lot out of you to use.
+- Exosuit Biotic Sensor
+    A helmet sensor that senses life coming within 10 blocks from you.
+- Gauss Rifle
+    A weapon designed for fighting psimages, for those without a knack for programming. Nobody should be that powerful without a counter.
 - Blaster CAD Assembly *Botania integration*  
     A CAD assembly with the stats of Psimetal. A CAD made with it can take Lenses and cast Mana Tricks at the base level. It can take a Lens Clip, and with it can cast Mana Tricks at the Alfheim level.
 
 ## Spell Pieces
+### Flow Control
+- Trick: Break Loop
+    Acts like Trick: Die, except also breaks loopcasts and spell circles.
+
 ### Alternate Conjuration
 - Trick: Conjure Pulsar  
     Conjures a redstone emitting block, similar to Trick: Conjure Block.
