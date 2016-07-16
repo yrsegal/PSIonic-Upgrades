@@ -6,6 +6,7 @@ import net.minecraft.entity.monster.EntityEnderman
 import net.minecraft.entity.projectile.EntityThrowable
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.potion.PotionEffect
 import net.minecraft.util.EntityDamageSourceIndirect
 import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.RayTraceResult
@@ -15,7 +16,6 @@ import vazkii.psi.api.internal.Vector3
 import vazkii.psi.common.Psi
 import vazkii.psi.common.core.handler.PsiSoundHandler
 import wiresegal.psionup.common.effect.ModPotions
-import wiresegal.psionup.common.effect.base.ModPotionEffect
 import wiresegal.psionup.common.items.ModItems
 import java.awt.Color
 import java.util.*
@@ -107,7 +107,7 @@ open class EntityGaussPulse : EntityThrowable {
         val entity = pos.entityHit
         if (entity != null && entity is EntityLivingBase) {
             if (entity == thrower) return
-            if (!worldObj.isRemote) entity.addPotionEffect(ModPotionEffect(ModPotions.psishock, if (ammo == AmmoStatus.NOTAMMO) 100 else 25))
+            if (!worldObj.isRemote) entity.addPotionEffect(PotionEffect(ModPotions.psishock, if (ammo == AmmoStatus.NOTAMMO) 100 else 25))
             entity.attackEntityFrom(EntityDamageSourceIndirect("arrow", this, thrower).setProjectile(), if (ammo == AmmoStatus.NOTAMMO) 2f else 8f)
             if (entity is EntityEnderman) return
             if (ammo == AmmoStatus.AMMO)

@@ -22,10 +22,10 @@ open class CommonProxy {
 
         ConfigHandler.loadConfig(e.suggestedConfigurationFile)
 
+        ModPotions
         ModItems
         ModBlocks
         ModPieces
-        ModPotions
         ModEntities
         NetworkHandler
 

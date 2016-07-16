@@ -1,0 +1,7 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "psionup:items/ivoryShovel",
+    "layer1": "psionup:items/shovelOverlay"
+  }
+}

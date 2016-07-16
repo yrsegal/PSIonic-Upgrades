@@ -1,0 +1,7 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "psionup:items/ebonyAxe",
+    "layer1": "psionup:items/axeOverlay"
+  }
+}

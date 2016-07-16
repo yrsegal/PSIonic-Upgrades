@@ -25,7 +25,7 @@ import wiresegal.psionup.common.items.base.ItemModSword
  * @author WireSegal
  * *         Created at 10:42 PM on 7/11/16.
  */
-class ItemFlowSword(name: String, val ebony: Boolean) : ItemModSword(name, PsiAPI.PSIMETAL_TOOL_MATERIAL), IPsimetalTool, ModelHandler.IItemColorProvider {
+class ItemFlowSword(name: String, val ebony: Boolean) : ItemModSword(name, PsiAPI.PSIMETAL_TOOL_MATERIAL), IPsimetalTool, ModelHandler.IItemColorProvider, FlowColors.IAcceptor {
 
     override fun hitEntity(itemstack: ItemStack, target: EntityLivingBase?, attacker: EntityLivingBase): Boolean {
         super.hitEntity(itemstack, target, attacker)

@@ -87,6 +87,7 @@ item.psionup:gaussRifle.name=Gauss Pulse Rifle
 item.psionup:gaussBullet.name=Gauss Rifle Round
 
 psionup.potion.psishock=Psionic Shock
+psionup.brew.psishock=Eidos Distortion
 
 psionup.event.nearbyEntities=&bEvent&7: Biotic Pulse
 

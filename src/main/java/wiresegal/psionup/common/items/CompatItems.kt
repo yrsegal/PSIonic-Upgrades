@@ -1,6 +1,7 @@
 package wiresegal.psionup.common.items
 
 import wiresegal.psionup.common.crafting.CompatRecipes
+import wiresegal.psionup.common.effect.botania.brew.ModBrews
 import wiresegal.psionup.common.items.base.ItemMod
 import wiresegal.psionup.common.items.component.botania.ItemBlasterAssembly
 import wiresegal.psionup.common.lib.LibNames
@@ -18,6 +19,7 @@ object CompatItems {
     fun init() {
         isInitialized = true
         blaster = ItemBlasterAssembly(LibNames.Items.LIVINGWOOD_CAD)
+        ModBrews
     }
 
     fun initRecipes() {

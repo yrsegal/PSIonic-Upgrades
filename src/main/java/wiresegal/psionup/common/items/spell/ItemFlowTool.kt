@@ -34,7 +34,7 @@ import wiresegal.psionup.common.items.base.ItemModTool
  * @author WireSegal
  * Created at 10:23 PM on 7/11/16.
  */
-open class ItemFlowTool(name: String, attackDamage: Float, speed: Float, effectiveBlocks: Set<Block>, type: String, val ebony: Boolean) : ItemModTool(name, PsiAPI.PSIMETAL_TOOL_MATERIAL, attackDamage, speed, type, effectiveBlocks), IPsimetalTool, ModelHandler.IItemColorProvider {
+open class ItemFlowTool(name: String, attackDamage: Float, speed: Float, effectiveBlocks: Set<Block>, type: String, val ebony: Boolean) : ItemModTool(name, PsiAPI.PSIMETAL_TOOL_MATERIAL, attackDamage, speed, type, effectiveBlocks), IPsimetalTool, ModelHandler.IItemColorProvider, FlowColors.IAcceptor {
 
     override fun onBlockStartBreak(itemstack: ItemStack?, pos: BlockPos?, player: EntityPlayer?): Boolean {
         super.onBlockStartBreak(itemstack, pos, player)
