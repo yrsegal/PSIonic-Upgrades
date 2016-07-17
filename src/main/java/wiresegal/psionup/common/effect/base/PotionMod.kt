@@ -49,7 +49,7 @@ open class PotionMod(name: String, badEffect: Boolean, color: Int, iconIndex: In
     }
 
     companion object {
-        val resource = ResourceLocation(LibMisc.MOD_ID, "textures/gui/potions.png");
+        val resource = ResourceLocation(LibMisc.MOD_ID, "textures/gui/potions.png")
 
         fun hasEffect(entity: EntityLivingBase, potion: Potion): Boolean {
             return entity.getActivePotionEffect(potion) != null

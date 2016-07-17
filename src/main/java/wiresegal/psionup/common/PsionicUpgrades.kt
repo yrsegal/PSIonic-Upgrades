@@ -54,7 +54,7 @@ class PsionicUpgrades {
 
     @Mod.EventHandler
     fun serverStartingEvent(e: FMLServerStartingEvent) {
-        e.registerServerCommand(CommandPsiLearn());
-        e.registerServerCommand(CommandPsiUnlearn());
+        e.registerServerCommand(CommandPsiLearn())
+        e.registerServerCommand(CommandPsiUnlearn())
     }
 }

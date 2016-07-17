@@ -119,8 +119,8 @@ open class PieceTrickHarvestDrum(spell: Spell) : PieceComponentTrick(spell), IMa
 
         if (!context.caster.worldObj.isRemote)
             for (i in 0..9)
-                context.caster.worldObj.playSound(null, BlockPos(position.x, position.y, position.z), SoundEvents.BLOCK_NOTE_BASEDRUM, SoundCategory.BLOCKS, 1F, 1F);
-        else context.caster.worldObj.spawnParticle(EnumParticleTypes.NOTE, position.x + 0.5, position.y + 1.2, position.z + 0.5, 1.0 / 24.0, 0.0, 0.0);
+                context.caster.worldObj.playSound(null, BlockPos(position.x, position.y, position.z), SoundEvents.BLOCK_NOTE_BASEDRUM, SoundCategory.BLOCKS, 1F, 1F)
+        else context.caster.worldObj.spawnParticle(EnumParticleTypes.NOTE, position.x + 0.5, position.y + 1.2, position.z + 0.5, 1.0 / 24.0, 0.0, 0.0)
 
         effect(context, BlockPos(position.x, position.y, position.z))
 
