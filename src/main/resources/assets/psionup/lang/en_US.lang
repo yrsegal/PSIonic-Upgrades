@@ -89,6 +89,21 @@ item.psionup:gaussBullet.name=Gauss Rifle Round
 psionup.potion.psishock=Psionic Shock
 psionup.brew.psishock=Eidos Distortion
 
+tipped_arrow.effect.psishock=Arrow of Mental Disruption
+potion.effect.psishock=Potion of Mental Disruption
+splash_potion.effect.psishock=Splash Potion of Mental Disruption
+lingering_potion.effect.psishock=Lingering Potion of Mental Disruption
+
+tipped_arrow.effect.psishockLong=Arrow of Mental Disruption
+potion.effect.psishockLong=Potion of Mental Disruption
+splash_potion.effect.psishockLong=Splash Potion of Mental Disruption
+lingering_potion.effect.psishockLong=Lingering Potion of Mental Disruption
+
+tipped_arrow.effect.psishockStrong=Arrow of Mental Disruption
+potion.effect.psishockStrong=Potion of Mental Disruption
+splash_potion.effect.psishockStrong=Splash Potion of Mental Disruption
+lingering_potion.effect.psishockStrong=Lingering Potion of Mental Disruption
+
 psionup.event.nearbyEntities=&bEvent&7: Biotic Pulse
 
 psi.spellpiece.psionup.conjurePulsar=Trick: Conjure Pulsar

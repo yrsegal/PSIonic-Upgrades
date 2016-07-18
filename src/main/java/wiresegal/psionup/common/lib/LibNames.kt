@@ -93,6 +93,8 @@ object LibNames {
 
     object Potions {
         const val PSISHOCK = "psishock"
+        const val PSISHOCK_STRONG = "psishockStrong"
+        const val PSISHOCK_LONG = "psishockLong"
     }
 
     val Colors = arrayOf("White", "Orange", "Magenta", "LightBlue",
