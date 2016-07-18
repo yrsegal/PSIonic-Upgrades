@@ -1,5 +1,7 @@
 package wiresegal.psionup.common.crafting
 
+import com.google.common.base.Predicate
+import javafx.scene.paint.Material
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraft.init.PotionTypes
@@ -22,6 +24,7 @@ import vazkii.psi.common.lib.LibPieceNames
 import wiresegal.psionup.api.PsionicAPI
 import wiresegal.psionup.common.block.ModBlocks
 import wiresegal.psionup.common.core.ConfigHandler
+import wiresegal.psionup.common.core.PsionicMethodHandles
 import wiresegal.psionup.common.crafting.recipe.RecipeLiquidDye
 import wiresegal.psionup.common.crafting.recipe.RecipeSocketTransferShapeless
 import wiresegal.psionup.common.crafting.recipe.cad.RecipeCadComponent
@@ -40,7 +43,8 @@ import vazkii.psi.common.item.base.ModItems as PsiItems
  */
 object ModRecipes {
 
-    val POTION_ITEMS: Array<ItemPotion> = arrayOf(Items.POTIONITEM, Items.SPLASH_POTION, Items.LINGERING_POTION)
+    val predicateRedstone = potionPredicate(ItemStack(Items.REDSTONE))
+    val predicateGlowstone = potionPredicate(ItemStack(Items.GLOWSTONE_DUST))
 
     val examplesockets = arrayOf(// These are examples for JEI, but it will be subverted by the special recipe.
             ItemStack(ModItems.socket),
@@ -182,7 +186,14 @@ object ModRecipes {
                 'C', if (hasCopper) "ingotCopper" else "dustRedstone",
                 'P', "dustPsi")
 
-        addCompletePotionRecipes("dustPsi", ModPotions.psishockType, ModPotions.longPsishockType, ModPotions.strongPsishockType)
+
+        if (ConfigHandler.enablePsionicPulse) {
+            addCompletePotionRecipes(potionPredicate("dustPsi"), PotionTypes.AWKWARD, ModPotions.psipulseType, ModPotions.longPsipulseType, ModPotions.strongPsipulseType)
+            addPotionConversionRecipes(potionPredicate(ItemStack(Items.FERMENTED_SPIDER_EYE)),
+                    ModPotions.psipulseType, ModPotions.longPsipulseType, ModPotions.strongPsipulseType,
+                    ModPotions.psishockType, ModPotions.longPsishockType, ModPotions.strongPsishockType)
+        } else
+            addCompletePotionRecipes(potionPredicate("dustPsi"), PotionTypes.AWKWARD, ModPotions.psishockType, ModPotions.longPsishockType, ModPotions.strongPsishockType)
 
         PsionicAPI.addTrickRecipe("", ItemStack(Items.REDSTONE), ItemStack(PsiItems.material), ItemStack(PsiItems.cadAssembly))
         PsionicAPI.addTrickRecipe(LibPieceNames.TRICK_INFUSION, ItemStack(Items.GOLD_INGOT), ItemStack(PsiItems.material, 1, 1), ItemStack(PsiItems.cadAssembly))
@@ -211,36 +222,36 @@ object ModRecipes {
         CraftingManager.getInstance().recipeList.add(RecipeCadComponentShapeless(output, *recipe))
     }
 
-    fun addPotionRecipe(inputItem: Item, inputMaterial: String, inputType: PotionType, outputItem: Item, outputType: PotionType) {
-        BrewingRecipeRegistry.addRecipe(
-                PotionUtils.addPotionToItemStack(ItemStack(inputItem), inputType),
-                inputMaterial,
-                PotionUtils.addPotionToItemStack(ItemStack(outputItem), outputType))
+    fun potionPredicate(stack: ItemStack): Predicate<ItemStack> {
+        return Predicate { OreDictionary.itemMatches(stack, it, false) }
     }
 
-    fun addPotionRecipe(inputItem: Item, inputMaterial: ItemStack, inputType: PotionType, outputItem: Item, outputType: PotionType) {
-        BrewingRecipeRegistry.addRecipe(
-                PotionUtils.addPotionToItemStack(ItemStack(inputItem), inputType),
-                inputMaterial,
-                PotionUtils.addPotionToItemStack(ItemStack(outputItem), outputType))
+    fun potionPredicate(input: String): Predicate<ItemStack> {
+        val ores = OreDictionary.getOres(input)
+        return Predicate {
+            var flag = false
+            for (ore in ores)
+                if (OreDictionary.itemMatches(ore, it, false)) {
+                    flag = true
+                    break
+                }
+            flag
+        }
     }
 
-    fun addCompletePotionRecipes(inputMaterial: String, typeNormal: PotionType, typeLong: PotionType?, typeStrong: PotionType?) {
-        for (item in POTION_ITEMS) {
-            addPotionRecipe(item, inputMaterial, PotionTypes.WATER, item, PotionTypes.MUNDANE)
+    fun addCompletePotionRecipes(predicate: Predicate<ItemStack>, fromType: PotionType, normalType: PotionType, longType: PotionType?, strongType: PotionType?) {
+        if (fromType == PotionTypes.AWKWARD)
+            PsionicMethodHandles.registerPotionTypeConversion(PotionTypes.WATER, predicate, PotionTypes.MUNDANE)
+        PsionicMethodHandles.registerPotionTypeConversion(fromType, predicate, normalType)
+        if (longType != null) PsionicMethodHandles.registerPotionTypeConversion(normalType, predicateRedstone, longType)
+        if (strongType != null) PsionicMethodHandles.registerPotionTypeConversion(normalType, predicateGlowstone, strongType)
+    }
 
-            addPotionRecipe(item, inputMaterial, PotionTypes.AWKWARD, item, ModPotions.psishockType)
-            if (typeStrong != null) addPotionRecipe(item, ItemStack(Items.GLOWSTONE_DUST), typeNormal, item, typeStrong)
-            if (typeLong != null)  addPotionRecipe(item, ItemStack(Items.REDSTONE), typeNormal, item, typeLong)
-        }
-
-        val iteratorTypes = mutableListOf(typeNormal)
-        if (typeLong != null) iteratorTypes.add(typeLong)
-        if (typeStrong != null) iteratorTypes.add(typeStrong)
-
-        for (type in iteratorTypes) {
-            addPotionRecipe(Items.POTIONITEM, ItemStack(Items.GUNPOWDER), type, Items.SPLASH_POTION, type)
-            addPotionRecipe(Items.SPLASH_POTION, ItemStack(Items.DRAGON_BREATH), type, Items.LINGERING_POTION, type)
-        }
+    fun addPotionConversionRecipes(predicate: Predicate<ItemStack>, fromTypeNormal: PotionType, fromTypeLong: PotionType?, fromTypeStrong: PotionType?, normalType: PotionType, longType: PotionType?, strongType: PotionType?) {
+        addCompletePotionRecipes(predicate, fromTypeNormal, normalType, longType, strongType)
+        if (longType != null && fromTypeLong != null)
+            PsionicMethodHandles.registerPotionTypeConversion(fromTypeLong, predicate, longType)
+        if (strongType != null && fromTypeStrong != null)
+            PsionicMethodHandles.registerPotionTypeConversion(fromTypeStrong, predicate, strongType)
     }
 }

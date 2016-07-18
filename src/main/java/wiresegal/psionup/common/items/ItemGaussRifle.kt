@@ -23,14 +23,20 @@ import wiresegal.psionup.common.items.base.ItemMod
  * Created at 10:10 PM on 7/13/16.
  */
 class ItemGaussRifle(name: String) : ItemMod(name), ModelHandler.IItemColorProvider {
+
+    init {
+        setMaxStackSize(1)
+    }
+
     override fun onItemRightClick(itemStackIn: ItemStack, worldIn: World, playerIn: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
         val data = PlayerDataHandler.get(playerIn)
         val ammo = findAmmo(playerIn)
-        if (ammo != null || data.availablePsi > 0 || playerIn.capabilities.isCreativeMode) {
+        if (playerIn.capabilities.isCreativeMode || data.availablePsi > 0 || (ammo != null && data.availablePsi > 0)) {
             if (!playerIn.capabilities.isCreativeMode) {
                 if (ammo == null)
                     data.deductPsi(1000, 100, true)
                 else {
+                    data.deductPsi(250, 10, true)
                     ammo.stackSize--
                     if (ammo.stackSize == 0)
                         playerIn.inventory.deleteStack(ammo)
@@ -57,7 +63,7 @@ class ItemGaussRifle(name: String) : ItemMod(name), ModelHandler.IItemColorProvi
             worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, PsiSoundHandler.cadShoot, SoundCategory.PLAYERS, 1f, 1f)
 
             if (ammo != null && !playerIn.capabilities.isCreativeMode)
-                playerIn.cooldownTracker.setCooldown(this, 50)
+                playerIn.cooldownTracker.setCooldown(this, 30)
         }
         return ActionResult(EnumActionResult.SUCCESS, itemStackIn)
     }

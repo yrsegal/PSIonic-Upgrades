@@ -87,7 +87,24 @@ item.psionup:gaussRifle.name=Gauss Pulse Rifle
 item.psionup:gaussBullet.name=Gauss Rifle Round
 
 psionup.potion.psishock=Psionic Shock
+psionup.potion.psipulse=Psionic Pulse
 psionup.brew.psishock=Eidos Distortion
+psionup.brew.psipulse=Cognitive Acceleration
+
+tipped_arrow.effect.psipulse=Arrow of Intense Focus
+potion.effect.psipulse=Potion of Intense Focus
+splash_potion.effect.psipulse=Splash Potion of Intense Focus
+lingering_potion.effect.psipulse=Lingering Potion of Intense Focus
+
+tipped_arrow.effect.psipulseLong=Arrow of Intense Focus
+potion.effect.psipulseLong=Potion of Intense Focus
+splash_potion.effect.psipulseLong=Splash Potion of Intense Focus
+lingering_potion.effect.psipulseLong=Lingering Potion of Intense Focus
+
+tipped_arrow.effect.psipulseStrong=Arrow of Intense Focus
+potion.effect.psipulseStrong=Potion of Intense Focus
+splash_potion.effect.psipulseStrong=Splash Potion of Intense Focus
+lingering_potion.effect.psipulseStrong=Lingering Potion of Intense Focus
 
 tipped_arrow.effect.psishock=Arrow of Mental Disruption
 potion.effect.psishock=Potion of Mental Disruption

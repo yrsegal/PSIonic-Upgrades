@@ -73,9 +73,7 @@ open class EntityGaussPulse : EntityThrowable {
 
         ++timeAlive
 
-        val colorVal = ICADColorizer.DEFAULT_SPELL_COLOR
-
-        val color = Color(colorVal)
+        val color = Color(0xB87333)
         val r = color.red.toFloat() / 255.0f
         val g = color.green.toFloat() / 255.0f
         val b = color.blue.toFloat() / 255.0f

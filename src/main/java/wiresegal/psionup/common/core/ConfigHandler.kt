@@ -12,7 +12,7 @@ import java.io.File
  * Created at 1:09 AM on 7/10/16.
  */
 object ConfigHandler {
-    class ChangeListener {
+    object ChangeListener {
         @SubscribeEvent
         fun onConfigChanged(eventArgs: ConfigChangedEvent.OnConfigChangedEvent) {
             if (eventArgs.modID == LibMisc.MOD_ID)
@@ -24,6 +24,7 @@ object ConfigHandler {
     var enableMagazine = true
     var enableCase = true
     var enableRing = true
+    var enablePsionicPulse = true
 
     lateinit var config: Configuration
 
@@ -33,31 +34,36 @@ object ConfigHandler {
         config.load()
         load()
 
-        MinecraftForge.EVENT_BUS.register(ChangeListener())
+        MinecraftForge.EVENT_BUS.register(ChangeListener)
     }
 
+    var desc: String = ""
+
     fun load() {
-        var desc = "Set this to false to prevent the Inline Caster from being crafted."
-        enableInline = loadPropBool("inline.enabled", desc, enableInline)
+        desc = "Set this to false to prevent the Inline Caster from being crafted."
+        enableInline = loadPropBool("inline.enabled", enableInline)
 
         desc = "Set this to false to prevent the Spell Magazine from being crafted."
-        enableMagazine = loadPropBool("magazine.enabled", desc, enableMagazine)
+        enableMagazine = loadPropBool("magazine.enabled", enableMagazine)
 
         desc = "Set this to false to prevent the CAD Case from being crafted."
-        enableCase = loadPropBool("case.enabled", desc, enableCase)
+        enableCase = loadPropBool("case.enabled", enableCase)
 
         desc = "Set this to false to prevent the Flash Ring from being crafted."
-        enableRing = loadPropBool("ring.enabled", desc, enableRing)
+        enableRing = loadPropBool("ring.enabled", enableRing)
+
+        desc = "Set this to false to remove the Psionic Pulse potion. The effect will still remain for /effect."
+        enablePsionicPulse = loadPropBool("psiRegenPotion.enabled", enablePsionicPulse)
 
         if (config.hasChanged())
             config.save()
     }
 
-    fun loadPropBool(propName: String, desc: String, default_: Boolean): Boolean {
-        val prop = config.get(Configuration.CATEGORY_GENERAL, propName, default_)
+    fun loadPropBool(propName: String, default: Boolean): Boolean {
+        val prop = config.get(Configuration.CATEGORY_GENERAL, propName, default)
         prop.comment = desc
 
-        return prop.getBoolean(default_)
+        return prop.getBoolean(default)
     }
 
 }

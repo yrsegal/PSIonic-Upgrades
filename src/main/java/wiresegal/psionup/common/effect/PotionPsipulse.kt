@@ -28,9 +28,22 @@ import wiresegal.psionup.common.lib.LibNames
  * @author WireSegal
  * Created at 10:01 PM on 7/13/16.
  */
-class PotionPsishock(iconIndex: Int) : PotionPsiChange(LibNames.Potions.PSISHOCK, true, 0xFF4D12, iconIndex) {
+class PotionPsipulse(iconIndex: Int) : PotionPsiChange(LibNames.Potions.PSIPULSE, false, ICADColorizer.DEFAULT_SPELL_COLOR, iconIndex) {
     override val ampAmount: Int
-        get() = -15
+        get() = 10
     override val baseAmount: Int
-        get() = -30
+        get() = 20
+
+    override fun performEffect(entity: EntityLivingBase, amplifier: Int) {
+        val shockEffect = ModPotions.psishock.getEffect(entity)
+        if (shockEffect != null) {
+            val thisEffect = getEffect(entity)!!
+            entity.removePotionEffect(this)
+            entity.removePotionEffect(ModPotions.psishock)
+            val newEffect = PotionEffect(ModPotions.psishock, shockEffect.duration + thisEffect.duration, Math.min(shockEffect.amplifier + thisEffect.amplifier + 1, 127), shockEffect.isAmbient, shockEffect.doesShowParticles())
+            newEffect.curativeItems = shockEffect.curativeItems
+            entity.addPotionEffect(newEffect)
+        } else
+            super.performEffect(entity, amplifier)
+    }
 }

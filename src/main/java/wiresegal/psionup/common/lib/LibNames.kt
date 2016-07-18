@@ -95,6 +95,10 @@ object LibNames {
         const val PSISHOCK = "psishock"
         const val PSISHOCK_STRONG = "psishockStrong"
         const val PSISHOCK_LONG = "psishockLong"
+
+        const val PSIPULSE = "psipulse"
+        const val PSIPULSE_STRONG = "psipulseStrong"
+        const val PSIPULSE_LONG = "psipulseLong"
     }
 
     val Colors = arrayOf("White", "Orange", "Magenta", "LightBlue",

@@ -14,7 +14,7 @@ import wiresegal.psionup.common.lib.LibMisc
  * @author WireSegal
  * Created at 9:27 AM on 4/15/16.
  */
-open class PotionMod(name: String, badEffect: Boolean, color: Int, iconIndex: Int, val noClear: Boolean) : Potion(badEffect, color) {
+open class PotionMod(name: String, badEffect: Boolean, color: Int, iconIndex: Int) : Potion(badEffect, color) {
 
     val iconX = iconIndex % 8
     val iconY = iconIndex / 8

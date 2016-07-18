@@ -32,6 +32,7 @@ class ItemFlashRing(name: String) : ItemMod(name), ISpellContainer {
             stack, world, entity ->
             if (containsSpell(stack)) 1f else 0f
         }
+        setMaxStackSize(1)
     }
 
     override fun onItemRightClick(itemStackIn: ItemStack, worldIn: World, playerIn: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack> {

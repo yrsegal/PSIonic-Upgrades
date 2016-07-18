@@ -63,6 +63,10 @@ class ItemBioticSensor(name: String) : ItemMod(name), IExosuitSensor, ModelHandl
         }
     }
 
+    init {
+        setMaxStackSize(1)
+    }
+
     override fun getColor(p0: ItemStack?): Int {
         val add = Math.max((Math.sin(ClientTickHandler.ticksInGame * 0.1) * 96).toInt(), 0)
         val newColor =
