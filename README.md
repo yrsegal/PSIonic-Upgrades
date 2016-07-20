@@ -24,6 +24,8 @@ Magic?? Tech?? Addons??
     A helmet sensor that senses life coming within 10 blocks from you.
 - Gauss Rifle
     A weapon designed for fighting psimages, for those without a knack for programming. Nobody should be that powerful without a counter.
+- Psionic Potions
+    Potions which enhance or degrade Psi energy. Watch out, having both makes it drain even faster!
 - Blaster CAD Assembly *Botania integration*  
     A CAD assembly with the stats of Psimetal. A CAD made with it can take Lenses and cast Mana Tricks at the base level. It can take a Lens Clip, and with it can cast Mana Tricks at the Alfheim level.
 
