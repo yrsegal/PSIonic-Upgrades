@@ -119,8 +119,8 @@ object ModRecipes {
         }
 
         for (i in 0..15) {
-            addShapelessOreDictRecipe(ItemStack(ModBlocks.brightColoredPlate, 1, i), ItemStack(PsiBlocks.psiDecorative, 1, 3), "dustGlowstone", "dye" + LibNames.Colors[i])
-            addShapelessOreDictRecipe(ItemStack(ModBlocks.darkColoredPlate, 1, i), ItemStack(PsiBlocks.psiDecorative, 1, 5), "dustGlowstone", "dye" + LibNames.Colors[i])
+            addShapelessOreDictRecipe(ItemStack(ModBlocks.brightColoredPlate, 1, i), ItemStack(PsiBlocks.psiDecorative, 1, 5), "dustGlowstone", "dye" + LibNames.Colors[i])
+            addShapelessOreDictRecipe(ItemStack(ModBlocks.darkColoredPlate, 1, i), ItemStack(PsiBlocks.psiDecorative, 1, 3), "dustGlowstone", "dye" + LibNames.Colors[i])
         }
 
         if (ConfigHandler.enableCase)
