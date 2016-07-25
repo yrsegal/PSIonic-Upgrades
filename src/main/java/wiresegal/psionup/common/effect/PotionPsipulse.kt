@@ -38,11 +38,9 @@ class PotionPsipulse(iconIndex: Int) : PotionPsiChange(LibNames.Potions.PSIPULSE
         val shockEffect = ModPotions.psishock.getEffect(entity)
         if (shockEffect != null) {
             val thisEffect = getEffect(entity)!!
-            entity.removePotionEffect(this)
-            entity.removePotionEffect(ModPotions.psishock)
-            val newEffect = PotionEffect(ModPotions.psishock, shockEffect.duration + thisEffect.duration, Math.min(shockEffect.amplifier + thisEffect.amplifier + 1, 127), shockEffect.isAmbient, shockEffect.doesShowParticles())
-            newEffect.curativeItems = shockEffect.curativeItems
-            entity.addPotionEffect(newEffect)
+            val newEffect = PotionEffect(ModPotions.psishock, shockEffect.duration + thisEffect.duration, Math.min(shockEffect.amplifier + thisEffect.amplifier + 1, 127))
+            shockEffect.combine(newEffect)
+            thisEffect.combine(PotionEffect(this, 0, amplifier + 1))
         } else
             super.performEffect(entity, amplifier)
     }
