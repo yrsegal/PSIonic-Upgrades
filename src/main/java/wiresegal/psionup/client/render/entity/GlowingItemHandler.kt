@@ -70,17 +70,17 @@ class GlowingItemHandler {
 
                 GlStateManager.pushMatrix()
                 render.enableLightmap()
-                renderOverlayItemsInFirstPerson(e.partialTicks, false)
+                renderOverlayItemsInFirstPerson(e.partialTicks, false, e.isCanceled)
                 render.disableLightmap()
                 GlStateManager.popMatrix()
 
-                renderOverlayItemsInFirstPerson(e.partialTicks, true)
+                renderOverlayItemsInFirstPerson(e.partialTicks, true, false)
             }
 
             e.isCanceled = true
         }
 
-        fun renderOverlayItemsInFirstPerson(partialTicks: Float, overlay: Boolean) {
+        fun renderOverlayItemsInFirstPerson(partialTicks: Float, overlay: Boolean, renderNonOverlays: Boolean) {
             val render = Minecraft.getMinecraft().itemRenderer
 
             val abstractclientplayer = Minecraft.getMinecraft().thePlayer
@@ -116,13 +116,13 @@ class GlowingItemHandler {
                 GlStateManager.disableLighting()
                 ShaderHandler.useShader(ShaderHandler.rawColor)
             }
-            if (flag && (stackMain?.item is IOverlayable || !overlay)) {
+            if (flag && (stackMain?.item is IOverlayable || !overlay && renderNonOverlays)) {
                 val f3 = if (Objects.firstNonNull(abstractclientplayer.swingingHand, EnumHand.MAIN_HAND) == EnumHand.MAIN_HAND) f else 0F
                 val f5 = 1F - (prevProgMain + (progMain - prevProgMain) * partialTicks)
                 render.renderItemInFirstPerson(abstractclientplayer, partialTicks, f1, EnumHand.MAIN_HAND, f3, if (overlay) IOverlayable.overlayStackOf(stackMain!!) else stackMain, f5)
             }
 
-            if (flag1 && (stackOff?.item is IOverlayable || !overlay)) {
+            if (flag1 && (stackOff?.item is IOverlayable || !overlay && renderNonOverlays)) {
                 val f4 = if (Objects.firstNonNull(abstractclientplayer.swingingHand, EnumHand.MAIN_HAND) == EnumHand.OFF_HAND) f else 0F
                 val f6 = 1F - (prevProgOff + (progOff - prevProgOff) * partialTicks)
                 render.renderItemInFirstPerson(abstractclientplayer, partialTicks, f1, EnumHand.OFF_HAND, f4, if (overlay) IOverlayable.overlayStackOf(stackOff!!) else stackOff, f6)
