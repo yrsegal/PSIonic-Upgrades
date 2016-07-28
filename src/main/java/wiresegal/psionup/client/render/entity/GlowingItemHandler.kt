@@ -55,27 +55,32 @@ class GlowingItemHandler {
             MinecraftForge.EVENT_BUS.register(this)
         }
 
-        @SubscribeEvent
+        @SubscribeEvent(receiveCanceled = true)
         fun onRenderHand(e: RenderHandEvent) {
             val entity = Minecraft.getMinecraft().renderViewEntity
             val flag = entity is EntityLivingBase && entity.isPlayerSleeping
 
+
             val render = Minecraft.getMinecraft().entityRenderer
+
+            val stackMain = PsionicClientMethodHandles.getStackMainHand(render.itemRenderer)
+            val stackOff = PsionicClientMethodHandles.getStackOffHand(render.itemRenderer)
+            if (stackMain?.item !is IOverlayable && stackOff?.item !is IOverlayable) return
             if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 0 && !flag && !Minecraft.getMinecraft().gameSettings.hideGUI && !Minecraft.getMinecraft().playerController!!.isSpectator) {
 
                 GlStateManager.pushMatrix()
                 render.enableLightmap()
-                render.itemRenderer.renderItemInFirstPerson(e.partialTicks)
+                renderOverlayItemsInFirstPerson(e.partialTicks, false)
                 render.disableLightmap()
                 GlStateManager.popMatrix()
 
-                renderOverlayItemsInFirstPerson(e.partialTicks)
+                renderOverlayItemsInFirstPerson(e.partialTicks, true)
             }
 
             e.isCanceled = true
         }
 
-        fun renderOverlayItemsInFirstPerson(partialTicks: Float) {
+        fun renderOverlayItemsInFirstPerson(partialTicks: Float, overlay: Boolean) {
             val render = Minecraft.getMinecraft().itemRenderer
 
             val abstractclientplayer = Minecraft.getMinecraft().thePlayer
@@ -107,22 +112,26 @@ class GlowingItemHandler {
             val stackMain = PsionicClientMethodHandles.getStackMainHand(render)
             val stackOff = PsionicClientMethodHandles.getStackOffHand(render)
 
-            GlStateManager.disableLighting()
-            ShaderHandler.useShader(ShaderHandler.rawColor)
-            if (flag && stackMain?.item is IOverlayable) {
+            if (overlay) {
+                GlStateManager.disableLighting()
+                ShaderHandler.useShader(ShaderHandler.rawColor)
+            }
+            if (flag && (stackMain?.item is IOverlayable || !overlay)) {
                 val f3 = if (Objects.firstNonNull(abstractclientplayer.swingingHand, EnumHand.MAIN_HAND) == EnumHand.MAIN_HAND) f else 0F
                 val f5 = 1F - (prevProgMain + (progMain - prevProgMain) * partialTicks)
-                render.renderItemInFirstPerson(abstractclientplayer, partialTicks, f1, EnumHand.MAIN_HAND, f3, IOverlayable.overlayStackOf(stackMain!!), f5)
+                render.renderItemInFirstPerson(abstractclientplayer, partialTicks, f1, EnumHand.MAIN_HAND, f3, if (overlay) IOverlayable.overlayStackOf(stackMain!!) else stackMain, f5)
             }
 
-            if (flag1 && stackOff?.item is IOverlayable) {
+            if (flag1 && (stackOff?.item is IOverlayable || !overlay)) {
                 val f4 = if (Objects.firstNonNull(abstractclientplayer.swingingHand, EnumHand.MAIN_HAND) == EnumHand.OFF_HAND) f else 0F
                 val f6 = 1F - (prevProgOff + (progOff - prevProgOff) * partialTicks)
-                render.renderItemInFirstPerson(abstractclientplayer, partialTicks, f1, EnumHand.OFF_HAND, f4, IOverlayable.overlayStackOf(stackOff!!), f6)
+                render.renderItemInFirstPerson(abstractclientplayer, partialTicks, f1, EnumHand.OFF_HAND, f4, if (overlay) IOverlayable.overlayStackOf(stackOff!!) else stackOff, f6)
             }
-            ShaderHandler.releaseShader()
-            GlStateManager.enableLighting()
-
+            if (overlay) {
+                ShaderHandler.releaseShader()
+                GlStateManager.enableLighting()
+            }
+            
             GlStateManager.disableRescaleNormal()
             RenderHelper.disableStandardItemLighting()
         }
