@@ -131,7 +131,7 @@ class GlowingItemHandler {
                 ShaderHandler.releaseShader()
                 GlStateManager.enableLighting()
             }
-            
+
             GlStateManager.disableRescaleNormal()
             RenderHelper.disableStandardItemLighting()
         }
