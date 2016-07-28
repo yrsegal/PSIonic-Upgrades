@@ -47,6 +47,10 @@ class GlowingItemHandler {
                 return ret
             }
         }
+
+        fun disableLighting(stack: ItemStack): Boolean = true
+
+        fun useShader(stack: ItemStack): Boolean = true
     }
 
     @SideOnly(Side.CLIENT)
@@ -112,24 +116,41 @@ class GlowingItemHandler {
             val stackMain = PsionicClientMethodHandles.getStackMainHand(render)
             val stackOff = PsionicClientMethodHandles.getStackOffHand(render)
 
-            if (overlay) {
-                GlStateManager.disableLighting()
-                ShaderHandler.useShader(ShaderHandler.rawColor)
-            }
+
             if (flag && (stackMain?.item is IOverlayable || !overlay && renderNonOverlays)) {
+                if (overlay && stackMain?.item is IOverlayable) {
+                    val item = stackMain?.item as IOverlayable
+                    if (item.disableLighting(stackMain!!)) GlStateManager.disableLighting()
+                    if (item.useShader(stackMain)) ShaderHandler.useShader(ShaderHandler.rawColor)
+                }
+
                 val f3 = if (Objects.firstNonNull(abstractclientplayer.swingingHand, EnumHand.MAIN_HAND) == EnumHand.MAIN_HAND) f else 0F
                 val f5 = 1F - (prevProgMain + (progMain - prevProgMain) * partialTicks)
                 render.renderItemInFirstPerson(abstractclientplayer, partialTicks, f1, EnumHand.MAIN_HAND, f3, if (overlay) IOverlayable.overlayStackOf(stackMain!!) else stackMain, f5)
+
+                if (overlay && stackMain?.item is IOverlayable) {
+                    val item = stackMain?.item as IOverlayable
+                    if (item.useShader(stackMain!!)) ShaderHandler.releaseShader()
+                    if (item.disableLighting(stackMain))GlStateManager.enableLighting()
+                }
             }
 
             if (flag1 && (stackOff?.item is IOverlayable || !overlay && renderNonOverlays)) {
+                if (overlay && stackOff?.item is IOverlayable) {
+                    val item = stackOff?.item as IOverlayable
+                    if (item.disableLighting(stackOff!!)) GlStateManager.disableLighting()
+                    if (item.useShader(stackOff)) ShaderHandler.useShader(ShaderHandler.rawColor)
+                }
+
                 val f4 = if (Objects.firstNonNull(abstractclientplayer.swingingHand, EnumHand.MAIN_HAND) == EnumHand.OFF_HAND) f else 0F
                 val f6 = 1F - (prevProgOff + (progOff - prevProgOff) * partialTicks)
                 render.renderItemInFirstPerson(abstractclientplayer, partialTicks, f1, EnumHand.OFF_HAND, f4, if (overlay) IOverlayable.overlayStackOf(stackOff!!) else stackOff, f6)
-            }
-            if (overlay) {
-                ShaderHandler.releaseShader()
-                GlStateManager.enableLighting()
+
+                if (overlay && stackOff?.item is IOverlayable) {
+                    val item = stackOff?.item as IOverlayable
+                    if (item.useShader(stackOff!!)) ShaderHandler.releaseShader()
+                    if (item.disableLighting(stackOff))GlStateManager.enableLighting()
+                }
             }
 
             GlStateManager.disableRescaleNormal()
@@ -178,12 +199,30 @@ class GlowingItemHandler {
                     GlStateManager.scale(0.5F, 0.5F, 0.5F)
                 }
 
-                GlStateManager.disableLighting()
-                ShaderHandler.useShader(ShaderHandler.rawColor)
+                if (itemstack1?.item is IOverlayable) {
+                    val item = itemstack1?.item as IOverlayable
+                    if (item.disableLighting(itemstack1!!)) GlStateManager.disableLighting()
+                    if (item.useShader(itemstack1)) ShaderHandler.useShader(ShaderHandler.rawColor)
+                }
                 this.renderHeldItem(entitylivingbaseIn, itemstack1, TransformType.THIRD_PERSON_RIGHT_HAND, EnumHandSide.RIGHT)
+                if (itemstack1?.item is IOverlayable) {
+                    val item = itemstack1?.item as IOverlayable
+                    if (item.useShader(itemstack1!!)) ShaderHandler.releaseShader()
+                    if (item.disableLighting(itemstack1)) GlStateManager.enableLighting()
+                }
+
+                if (itemstack?.item is IOverlayable) {
+                    val item = itemstack?.item as IOverlayable
+                    if (item.disableLighting(itemstack!!)) GlStateManager.disableLighting()
+                    if (item.useShader(itemstack)) ShaderHandler.useShader(ShaderHandler.rawColor)
+                }
                 this.renderHeldItem(entitylivingbaseIn, itemstack, TransformType.THIRD_PERSON_LEFT_HAND, EnumHandSide.LEFT)
-                ShaderHandler.releaseShader()
-                GlStateManager.enableLighting()
+                if (itemstack?.item is IOverlayable) {
+                    val item = itemstack?.item as IOverlayable
+                    if (item.useShader(itemstack!!)) ShaderHandler.releaseShader()
+                    if (item.disableLighting(itemstack)) GlStateManager.enableLighting()
+                }
+
                 GlStateManager.popMatrix()
             }
         }

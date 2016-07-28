@@ -3,10 +3,7 @@ package wiresegal.psionup.common.items
 import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
-import net.minecraft.util.ActionResult
-import net.minecraft.util.EnumActionResult
-import net.minecraft.util.EnumHand
-import net.minecraft.util.SoundCategory
+import net.minecraft.util.*
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
@@ -14,18 +11,28 @@ import vazkii.psi.api.cad.ICADColorizer
 import vazkii.psi.client.core.handler.ClientTickHandler
 import vazkii.psi.common.core.handler.PlayerDataHandler
 import vazkii.psi.common.core.handler.PsiSoundHandler
+import vazkii.psi.common.core.helper.ItemNBTHelper
 import wiresegal.psionup.client.core.handler.ModelHandler
+import wiresegal.psionup.client.render.entity.GlowingItemHandler
 import wiresegal.psionup.common.entity.EntityGaussPulse
 import wiresegal.psionup.common.items.base.ItemMod
+import wiresegal.psionup.common.lib.LibMisc
 
 /**
  * @author WireSegal
  * Created at 10:10 PM on 7/13/16.
  */
-class ItemGaussRifle(name: String) : ItemMod(name), ModelHandler.IItemColorProvider {
+class ItemGaussRifle(name: String) : ItemMod(name), ModelHandler.IItemColorProvider, GlowingItemHandler.IOverlayable {
 
     init {
         setMaxStackSize(1)
+        addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, "overlay")) {
+            itemStack, world, entityLivingBase -> if (ItemNBTHelper.getBoolean(itemStack.copy(), GlowingItemHandler.IOverlayable.TAG_OVERLAY, false)) 1f else 0f
+        }
+    }
+
+    override fun disableLighting(stack: ItemStack): Boolean {
+        return false
     }
 
     override fun onItemRightClick(itemStackIn: ItemStack, worldIn: World, playerIn: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {

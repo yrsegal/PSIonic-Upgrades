@@ -18,15 +18,7 @@ class RecipeSocketTransferShapeless(val result: ItemStack, vararg recipe: Any) :
         for (i in 0..var1.sizeInventory - 1) {
             val stack = var1.getStackInSlot(i)
             if (stack != null && stack.item is ISocketable && output.item is ISocketable) {
-                val outputItem = output.item as ISocketable
-                val stackItem = stack.item as ISocketable
-                for (slot in IteratorSocketable(stack)) if (outputItem.isSocketSlotAvailable(output, slot.first)) {
-                    outputItem.setBulletInSocket(output, slot.first, slot.second)
-                }
-                val selectedSlot = stackItem.getSelectedSlot(stack)
-                if (outputItem.showSlotInRadialMenu(output, selectedSlot))
-                    outputItem.setSelectedSlot(output, selectedSlot)
-                EnchantmentHelper.setEnchantments(EnchantmentHelper.getEnchantments(stack), output)
+                output.tagCompound = stack.tagCompound
                 break
             }
         }
