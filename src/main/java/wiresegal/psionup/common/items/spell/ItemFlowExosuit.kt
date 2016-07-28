@@ -7,8 +7,10 @@ import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.EntityEquipmentSlot
+import net.minecraft.item.IItemPropertyGetter
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.util.ResourceLocation
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
@@ -28,6 +30,7 @@ import vazkii.psi.common.item.base.ModItems
 import vazkii.psi.common.item.tool.IPsimetalTool
 import vazkii.psi.common.item.tool.ItemPsimetalTool
 import wiresegal.psionup.client.core.handler.ModelHandler
+import wiresegal.psionup.client.render.entity.GlowingItemHandler
 import wiresegal.psionup.common.core.helper.FlowColors
 import wiresegal.psionup.common.items.base.ItemModArmor
 import wiresegal.psionup.common.lib.LibMisc
@@ -36,12 +39,18 @@ import wiresegal.psionup.common.lib.LibMisc
  * @author WireSegal
  * Created at 4:42 PM on 7/9/16.
  */
-open class ItemFlowExosuit(name: String, type: Int, slot: EntityEquipmentSlot, val ebony: Boolean) : ItemModArmor(name, PsiAPI.PSIMETAL_ARMOR_MATERIAL, type, slot), IPsimetalTool, IPsiEventArmor, ModelHandler.IItemColorProvider, FlowColors.IAcceptor {
+open class ItemFlowExosuit(name: String, type: Int, slot: EntityEquipmentSlot, val ebony: Boolean) : ItemModArmor(name, PsiAPI.PSIMETAL_ARMOR_MATERIAL, type, slot), IPsimetalTool, IPsiEventArmor, ModelHandler.IItemColorProvider, FlowColors.IAcceptor, GlowingItemHandler.IOverlayable {
     companion object {
         val models by lazy {
             Array(4) {
                 ModelPsimetalExosuit(it)
             }
+        }
+    }
+
+    init {
+        addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, "overlay")) {
+            itemStack, world, entityLivingBase -> if (ItemNBTHelper.getBoolean(itemStack.copy(), GlowingItemHandler.IOverlayable.TAG_OVERLAY, false)) 1f else 0f
         }
     }
 

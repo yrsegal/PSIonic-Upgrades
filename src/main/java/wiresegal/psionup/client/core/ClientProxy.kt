@@ -10,6 +10,7 @@ import vazkii.psi.common.Psi
 import wiresegal.psionup.client.core.handler.HUDHandler
 import wiresegal.psionup.client.core.handler.ModelHandler
 import wiresegal.psionup.client.render.entity.ExosuitGlowLayer
+import wiresegal.psionup.client.render.entity.GlowingItemHandler
 import wiresegal.psionup.client.render.tile.RenderTileCADCase
 import wiresegal.psionup.common.PsionicUpgrades
 import wiresegal.psionup.common.block.tile.TileCADCase
@@ -25,6 +26,8 @@ class ClientProxy : CommonProxy() {
         super.pre(e)
         HUDHandler
         ModelHandler.preInit(LibMisc.MOD_ID, PsionicUpgrades.DEV_ENVIRONMENT, PsionicUpgrades.LOGGER)
+
+        GlowingItemHandler.EventHandler()
     }
 
     override fun init(e: FMLInitializationEvent) {
@@ -35,8 +38,10 @@ class ClientProxy : CommonProxy() {
         val skinMap = Minecraft.getMinecraft().renderManager.skinMap
         var render = skinMap["default"]
         render?.addLayer(ExosuitGlowLayer(render))
+        render?.addLayer(GlowingItemHandler.GlowingItemLayer(render))
 
         render = skinMap["slim"]
         render?.addLayer(ExosuitGlowLayer(render))
+        render?.addLayer(GlowingItemHandler.GlowingItemLayer(render))
     }
 }

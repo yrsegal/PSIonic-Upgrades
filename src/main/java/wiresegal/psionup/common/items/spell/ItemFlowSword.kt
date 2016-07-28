@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
+import net.minecraft.util.ResourceLocation
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
@@ -13,19 +14,28 @@ import vazkii.psi.api.PsiAPI
 import vazkii.psi.api.cad.ISocketable
 import vazkii.psi.common.Psi
 import vazkii.psi.common.core.handler.PlayerDataHandler
+import vazkii.psi.common.core.helper.ItemNBTHelper
 import vazkii.psi.common.item.ItemCAD
 import vazkii.psi.common.item.base.ModItems
 import vazkii.psi.common.item.tool.IPsimetalTool
 import vazkii.psi.common.item.tool.ItemPsimetalTool
 import wiresegal.psionup.client.core.handler.ModelHandler
+import wiresegal.psionup.client.render.entity.GlowingItemHandler
 import wiresegal.psionup.common.core.helper.FlowColors
 import wiresegal.psionup.common.items.base.ItemModSword
+import wiresegal.psionup.common.lib.LibMisc
 
 /**
  * @author WireSegal
  * *         Created at 10:42 PM on 7/11/16.
  */
-class ItemFlowSword(name: String, val ebony: Boolean) : ItemModSword(name, PsiAPI.PSIMETAL_TOOL_MATERIAL), IPsimetalTool, ModelHandler.IItemColorProvider, FlowColors.IAcceptor {
+class ItemFlowSword(name: String, val ebony: Boolean) : ItemModSword(name, PsiAPI.PSIMETAL_TOOL_MATERIAL), IPsimetalTool, ModelHandler.IItemColorProvider, FlowColors.IAcceptor, GlowingItemHandler.IOverlayable {
+
+    init {
+        addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, "overlay")) {
+            itemStack, world, entityLivingBase -> if (ItemNBTHelper.getBoolean(itemStack.copy(), GlowingItemHandler.IOverlayable.TAG_OVERLAY, false)) 1f else 0f
+        }
+    }
 
     override fun hitEntity(itemstack: ItemStack, target: EntityLivingBase?, attacker: EntityLivingBase): Boolean {
         super.hitEntity(itemstack, target, attacker)

@@ -3,5 +3,9 @@
   "textures": {
     "layer0": "psionup:items/ivorySword",
     "layer1": "psionup:items/swordOverlay"
-  }
+  },
+  "overrides": [{
+    "predicate": { "psionup:overlay": 1 },
+    "model": "psionup:item/swordOverlay"
+  }]
 }

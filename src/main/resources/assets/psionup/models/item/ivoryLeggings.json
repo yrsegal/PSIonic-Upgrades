@@ -3,5 +3,9 @@
   "textures": {
     "layer0": "psionup:items/ivoryLeggings",
     "layer1": "psionup:items/leggingsOverlay"
-  }
+  },
+  "overrides": [{
+    "predicate": { "psionup:overlay": 1 },
+    "model": "psionup:item/leggingsOverlay"
+  }]
 }

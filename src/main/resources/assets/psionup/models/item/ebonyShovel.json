@@ -3,5 +3,9 @@
   "textures": {
     "layer0": "psionup:items/ebonyShovel",
     "layer1": "psionup:items/shovelOverlay"
-  }
+  },
+  "overrides": [{
+    "predicate": { "psionup:overlay": 1 },
+    "model": "psionup:item/shovelOverlay"
+  }]
 }

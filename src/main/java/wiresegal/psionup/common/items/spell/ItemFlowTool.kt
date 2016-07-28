@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
+import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
@@ -22,19 +23,28 @@ import vazkii.psi.api.cad.ISocketable
 import vazkii.psi.api.spell.SpellContext
 import vazkii.psi.common.Psi
 import vazkii.psi.common.core.handler.PlayerDataHandler
+import vazkii.psi.common.core.helper.ItemNBTHelper
 import vazkii.psi.common.item.ItemCAD
 import vazkii.psi.common.item.base.ModItems
 import vazkii.psi.common.item.tool.IPsimetalTool
 import vazkii.psi.common.item.tool.ItemPsimetalTool
 import wiresegal.psionup.client.core.handler.ModelHandler
+import wiresegal.psionup.client.render.entity.GlowingItemHandler
 import wiresegal.psionup.common.core.helper.FlowColors
 import wiresegal.psionup.common.items.base.ItemModTool
+import wiresegal.psionup.common.lib.LibMisc
 
 /**
  * @author WireSegal
  * Created at 10:23 PM on 7/11/16.
  */
-open class ItemFlowTool(name: String, attackDamage: Float, speed: Float, effectiveBlocks: Set<Block>, type: String, val ebony: Boolean) : ItemModTool(name, PsiAPI.PSIMETAL_TOOL_MATERIAL, attackDamage, speed, type, effectiveBlocks), IPsimetalTool, ModelHandler.IItemColorProvider, FlowColors.IAcceptor {
+open class ItemFlowTool(name: String, attackDamage: Float, speed: Float, effectiveBlocks: Set<Block>, type: String, val ebony: Boolean) : ItemModTool(name, PsiAPI.PSIMETAL_TOOL_MATERIAL, attackDamage, speed, type, effectiveBlocks), IPsimetalTool, ModelHandler.IItemColorProvider, FlowColors.IAcceptor, GlowingItemHandler.IOverlayable {
+
+    init {
+        addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, "overlay")) {
+            itemStack, world, entityLivingBase -> if (ItemNBTHelper.getBoolean(itemStack.copy(), GlowingItemHandler.IOverlayable.TAG_OVERLAY, false)) 1f else 0f
+        }
+    }
 
     override fun onBlockStartBreak(itemstack: ItemStack?, pos: BlockPos?, player: EntityPlayer?): Boolean {
         super.onBlockStartBreak(itemstack, pos, player)

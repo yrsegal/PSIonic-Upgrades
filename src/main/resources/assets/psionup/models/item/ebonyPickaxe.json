@@ -3,5 +3,9 @@
   "textures": {
     "layer0": "psionup:items/ebonyPickaxe",
     "layer1": "psionup:items/pickaxeOverlay"
-  }
+  },
+  "overrides": [{
+    "predicate": { "psionup:overlay": 1 },
+    "model": "psionup:item/pickaxeOverlay"
+  }]
 }

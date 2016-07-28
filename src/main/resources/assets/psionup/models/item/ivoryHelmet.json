@@ -4,5 +4,9 @@
     "layer0": "psionup:items/ivoryHelmet",
     "layer1": "psionup:items/helmetOverlay",
     "layer2": "psi:items/psimetalExosuitHelmetSensor"
-  }
+  },
+  "overrides": [{
+    "predicate": { "psionup:overlay": 1 },
+    "model": "psionup:item/helmetOverlay"
+  }]
 }

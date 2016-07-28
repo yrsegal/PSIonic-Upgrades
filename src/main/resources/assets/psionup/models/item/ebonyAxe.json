@@ -3,5 +3,9 @@
   "textures": {
     "layer0": "psionup:items/ebonyAxe",
     "layer1": "psionup:items/axeOverlay"
-  }
+  },
+  "overrides": [{
+    "predicate": { "psionup:overlay": 1 },
+    "model": "psionup:item/axeOverlay"
+  }]
 }
