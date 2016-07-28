@@ -13,4 +13,6 @@ public class LibObfuscation {
     public static final String[] ITEMRENDERER_PREVEQUIPPEDPROGRESSOFFHAND = new String[] {"i", "field_187472_i", "prevEquippedProgressOffHand"};
     public static final String[] ITEMRENDERER_EQUIPPEDPROGRESSOFFHAND = new String[] {"h", "field_187471_h", "equippedProgressOffHand"};
     public static final String[] ITEMRENDERER_ITEMSTACKOFFHAND = new String[] {"e", "field_187468_e", "itemStackOffHand"};
+    
+    public static final String[] RENDERLIVINGBASE_LAYERRENDERERS = new String[] {"i", "field_177097_h", "layerRenderers"};
 }

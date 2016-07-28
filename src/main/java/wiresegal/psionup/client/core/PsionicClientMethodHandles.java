@@ -3,6 +3,9 @@ package wiresegal.psionup.client.core;
 import com.google.common.base.Throwables;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.entity.RenderLivingBase;
+import net.minecraft.client.renderer.entity.layers.LayerRenderer;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import org.apache.logging.log4j.Level;
@@ -15,6 +18,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.lang.invoke.MethodHandle;
 import java.lang.reflect.Field;
+import java.util.List;
 
 import static java.lang.invoke.MethodHandles.publicLookup;
 
@@ -22,13 +26,15 @@ import static java.lang.invoke.MethodHandles.publicLookup;
  * @author WireSegal
  *         Created at 10:26 PM on 7/9/16.
  */
+@SuppressWarnings("unchecked")
 public class PsionicClientMethodHandles {
 
     @Nonnull
     private static final MethodHandle spellNameFieldGetter, compilerGetter, compilerSetter,
             prevEquippedProgressMainGetter, prevEquippedProgressOffGetter,
             equippedProgressMainGetter, equippedProgressOffGetter,
-            stackMainGetter, stackOffGetter;
+            stackMainGetter, stackOffGetter,
+            layersGetter;
 
     static {
         try {
@@ -56,6 +62,9 @@ public class PsionicClientMethodHandles {
 
             f = ReflectionHelper.findField(ItemRenderer.class, LibObfuscation.ITEMRENDERER_ITEMSTACKOFFHAND);
             stackOffGetter = publicLookup().unreflectGetter(f);
+
+            f = ReflectionHelper.findField(RenderLivingBase.class, LibObfuscation.RENDERLIVINGBASE_LAYERRENDERERS);
+            layersGetter = publicLookup().unreflectGetter(f);
 
         } catch (Throwable t) {
             PsionicUpgrades.Companion.getLOGGER().log(Level.ERROR, "Couldn't initialize methodhandles! Things will be broken!");
@@ -132,6 +141,14 @@ public class PsionicClientMethodHandles {
         }
     }
 
+    @Nonnull
+    public static <T extends EntityLivingBase> List<LayerRenderer<T>> getRenderLayers(@Nonnull RenderLivingBase<T> render) {
+        try {
+            return (List<LayerRenderer<T>>) layersGetter.invokeExact(render);
+        } catch (Throwable t) {
+            throw propagate(t);
+        }
+    }
 
     public static void setSpellCompiler(@Nonnull GuiProgrammer programmer, @Nonnull SpellCompiler compiler) {
         try {
