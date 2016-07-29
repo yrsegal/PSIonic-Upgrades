@@ -12,6 +12,7 @@ import net.minecraft.inventory.EntityEquipmentSlot
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import org.lwjgl.opengl.GL11
 import vazkii.psi.api.PsiAPI
 import vazkii.psi.client.core.handler.ShaderHandler
 import vazkii.psi.common.Psi
@@ -42,6 +43,7 @@ class LayerGlowingElytra(val renderPlayer: RenderPlayer) : LayerRenderer<Abstrac
         if (itemstack != null && itemstack.item == Items.ELYTRA) {
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f)
             GlStateManager.enableBlend()
+            GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA)
 
             this.renderPlayer.bindTexture(getTexture(player))
 
@@ -56,18 +58,22 @@ class LayerGlowingElytra(val renderPlayer: RenderPlayer) : LayerRenderer<Abstrac
             this.renderPlayer.bindTexture(TEXTURE_OVERLAY)
 
             val cad = PsiAPI.getPlayerCAD(player)
-            val i = if (cad == null) 0 else Psi.proxy.getCADColor(cad).rgb
-            val r = (i shr 16 and 255).toFloat() / 255.0f
-            val g = (i shr 8 and 255).toFloat() / 255.0f
-            val b = (i and 255).toFloat() / 255.0f
+            if (cad != null) {
+                val i = Psi.proxy.getCADColor(cad).rgb
+                val r = (i shr 16 and 255).toFloat() / 255.0f
+                val g = (i shr 8 and 255).toFloat() / 255.0f
+                val b = (i and 255).toFloat() / 255.0f
 
-            GlStateManager.disableLighting()
-            ShaderHandler.useShader(ShaderHandler.rawColor)
-            GlStateManager.color(r, g, b)
-            this.modelElytra.render(player, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale)
-            GlStateManager.color(1f, 1f, 1f)
-            GlStateManager.enableLighting()
-            ShaderHandler.releaseShader()
+                GlStateManager.disableLighting()
+                ShaderHandler.useShader(ShaderHandler.rawColor)
+                GlStateManager.color(r, g, b)
+                this.modelElytra.render(player, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale)
+                GlStateManager.color(1f, 1f, 1f)
+                GlStateManager.enableLighting()
+                ShaderHandler.releaseShader()
+            }
+
+            GlStateManager.disableBlend()
 
             GlStateManager.popMatrix()
         }

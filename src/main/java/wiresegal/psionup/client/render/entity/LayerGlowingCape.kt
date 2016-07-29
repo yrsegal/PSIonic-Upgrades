@@ -74,18 +74,20 @@ class LayerGlowingCape(val playerRenderer: RenderPlayer) : LayerRenderer<Abstrac
                 this.playerRenderer.bindTexture(TEXTURE_OVERLAY)
 
                 val cad = PsiAPI.getPlayerCAD(player)
-                val i = if (cad == null) 0 else Psi.proxy.getCADColor(cad).rgb
-                val r = (i shr 16 and 255).toFloat() / 255.0f
-                val g = (i shr 8 and 255).toFloat() / 255.0f
-                val b = (i and 255).toFloat() / 255.0f
+                if (cad != null) {
+                    val i = Psi.proxy.getCADColor(cad).rgb
+                    val r = (i shr 16 and 255).toFloat() / 255.0f
+                    val g = (i shr 8 and 255).toFloat() / 255.0f
+                    val b = (i and 255).toFloat() / 255.0f
 
-                GlStateManager.disableLighting()
-                ShaderHandler.useShader(ShaderHandler.rawColor)
-                GlStateManager.color(r, g, b)
-                this.playerRenderer.mainModel.renderCape(0.0625f)
-                GlStateManager.color(1f, 1f, 1f)
-                GlStateManager.enableLighting()
-                ShaderHandler.releaseShader()
+                    GlStateManager.disableLighting()
+                    ShaderHandler.useShader(ShaderHandler.rawColor)
+                    GlStateManager.color(r, g, b)
+                    this.playerRenderer.mainModel.renderCape(0.0625f)
+                    GlStateManager.color(1f, 1f, 1f)
+                    GlStateManager.enableLighting()
+                    ShaderHandler.releaseShader()
+                }
 
                 GlStateManager.popMatrix()
             }
