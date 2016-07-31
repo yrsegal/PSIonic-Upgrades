@@ -30,6 +30,10 @@ Magic?? Tech?? Addons??
     A CAD assembly with the stats of Psimetal. A CAD made with it can take Lenses and cast Mana Tricks at the base level. It can take a Lens Clip, and with it can cast Mana Tricks at the Alfheim level.
 
 ## Spell Pieces
+### Entities 101
+- Operator: List Size
+    Gets the size of an Entity List.
+
 ### Flow Control
 - Trick: Break Loop
     Acts like Trick: Die, except also breaks loopcasts and spell circles.

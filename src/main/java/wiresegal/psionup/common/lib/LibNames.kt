@@ -73,6 +73,8 @@ object LibNames {
 
         const val BREAK_LOOP = "loopcastBreak"
 
+        const val LIST_SIZE = "listSize"
+
 
         const val MAKE_BURST = "makeManaBurst"
         const val WILD_DRUM = "drumOfTheWild"

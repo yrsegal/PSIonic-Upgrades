@@ -156,6 +156,9 @@ psi.spellpiece.psionup.conjureCrackle.desc=Conjures a light that emits particles
 psi.spellpiece.psionup.loopcastBreak=Trick: Break Loop
 psi.spellpiece.psionup.loopcastBreak.desc=Stops loop if target is within ]-1, 1[
 
+psi.spellpiece.psionup.listSize=Operator: List Size
+psi.spellpiece.psionup.listSize.desc=Gets the number of entities in a list
+
 psi.spellpiece.psionup.makeManaBurst=Trick: Form Burst
 psi.spellpiece.psionup.makeManaBurst.desc=Makes a mana burst from a position along a ray
 

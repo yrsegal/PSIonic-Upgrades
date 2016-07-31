@@ -34,6 +34,8 @@ object ModPieces {
 
     val loopcastBreak: ModSpellPieces.PieceContainer
 
+    val listSize: ModSpellPieces.PieceContainer
+
     init {
 
         PsiAPI.setGroupRequirements(LibNames.PieceGroups.ALTERNATE_CONJURATION, 21, LibPieceGroups.BLOCK_CONJURATION)
@@ -80,6 +82,10 @@ object ModPieces {
         loopcastBreak = register(PieceTrickBreakLoop::class.java,
                 LibNames.Spell.BREAK_LOOP,
                 LibPieceGroups.FLOW_CONTROL)
+
+        listSize = register(PieceOperatorListSize::class.java,
+                LibNames.Spell.LIST_SIZE,
+                LibPieceGroups.ENTITIES_INTRO)
 
         if (Loader.isModLoaded("Botania"))
             CompatTricks.init()
