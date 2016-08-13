@@ -1,6 +1,7 @@
 package wiresegal.psionup.common.items.spell
 
 import net.minecraft.client.renderer.color.IItemColor
+import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
@@ -17,12 +18,14 @@ import vazkii.psi.api.cad.ISocketable
 import vazkii.psi.api.spell.ISpellSettable
 import vazkii.psi.api.spell.Spell
 import vazkii.psi.client.core.handler.ClientTickHandler
+import vazkii.psi.common.Psi
 import vazkii.psi.common.core.handler.PlayerDataHandler
 import vazkii.psi.common.core.handler.PsiSoundHandler
 import vazkii.psi.common.core.helper.ItemNBTHelper
 import vazkii.psi.common.item.ItemCAD
 import vazkii.psi.common.item.base.ModItems
 import wiresegal.psionup.client.core.handler.ModelHandler
+import wiresegal.psionup.common.core.helper.FlowColors
 import wiresegal.psionup.common.items.base.ItemMod
 import java.awt.Color
 import vazkii.psi.common.item.base.ItemMod as PsiItem
@@ -31,7 +34,7 @@ import vazkii.psi.common.item.base.ItemMod as PsiItem
  * @author WireSegal
  * Created at 8:46 AM on 3/20/16.
  */
-class ItemFakeCAD(name: String) : ItemMod(name), ISocketable, ISpellSettable, ModelHandler.IItemColorProvider {
+class ItemFakeCAD(name: String) : ItemMod(name), ISocketable, ISpellSettable, ModelHandler.IItemColorProvider, FlowColors.IAcceptor {
 
     init {
         setMaxStackSize(1)
@@ -40,16 +43,10 @@ class ItemFakeCAD(name: String) : ItemMod(name), ISocketable, ISpellSettable, Mo
     @SideOnly(Side.CLIENT)
     override fun getItemColor() = IItemColor {
         stack, tintIndex ->
-        colorCalc()
-    }
-
-    fun colorCalc(): Int {
-        val time = ClientTickHandler.total
-        val w = (Math.sin(time.toDouble() * 0.4) * 0.5 + 0.5).toFloat() * 0.1f
-        val r = (Math.sin(time.toDouble() * 0.1) * 0.5 + 0.5).toFloat() * 0.5f + 0.25f + w
-        val g = 0.5f + w
-        val b = 1.0f
-        return Color((r * 255.0f).toInt(), (g * 255.0f).toInt(), (b * 255.0f).toInt()).rgb
+        if (tintIndex == 1) {
+            val colorizer = FlowColors.getColor(stack)
+            if (colorizer == null) 0 else Psi.proxy.getColorizerColor(colorizer).rgb
+        } else 0xFFFFFF
     }
 
     override fun onItemRightClick(itemstack: ItemStack, worldIn: World, player: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack>? {
@@ -127,5 +124,10 @@ class ItemFakeCAD(name: String) : ItemMod(name), ISocketable, ISpellSettable, Mo
             this.setBulletInSocket(stack, slot, bullet)
         }
 
+    }
+
+    override fun onEntityItemUpdate(entityItem: EntityItem): Boolean {
+        FlowColors.purgeColor(entityItem.entityItem)
+        return super.onEntityItemUpdate(entityItem)
     }
 }

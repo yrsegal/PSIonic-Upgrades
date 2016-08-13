@@ -11,7 +11,7 @@ import vazkii.psi.common.item.base.ModItems
 import wiresegal.psionup.common.crafting.recipe.cad.RecipeCadComponentShapeless
 import java.util.*
 
-class ShapelessCadRecipeJEI(private val recipe: RecipeCadComponentShapeless) : ICraftingRecipeWrapper {
+class ShapelessCadRecipeJEI(recipe: RecipeCadComponentShapeless) : ICraftingRecipeWrapper {
 
     private val inputs: List<Any?>
     private val output: ItemStack?
@@ -24,16 +24,14 @@ class ShapelessCadRecipeJEI(private val recipe: RecipeCadComponentShapeless) : I
                 Pair(EnumCADComponent.DYE, stackArray(ModItems.cadColorizer)),
                 Pair(EnumCADComponent.SOCKET, stackArray(ModItems.cadSocket)))
 
-        fun stackArray(item: Item, meta: IntRange): ArrayList<ItemStack> {
-            val out = ArrayList<ItemStack>()
-            for (i in meta) {
-                out.add(ItemStack(item, 1, i))
+        fun stackArray(item: Item, meta: IntRange): Array<ItemStack> {
+            return Array(meta.count()) {
+                ItemStack(item, 1, it)
             }
-            return out
         }
 
-        fun stackArray(item: ItemMod): ArrayList<ItemStack> {
-            return stackArray(item, 0..item.variants.size - 1)
+        fun stackArray(item: ItemMod): Array<ItemStack> {
+            return stackArray(item, item.variants.indices)
         }
     }
 
@@ -55,7 +53,7 @@ class ShapelessCadRecipeJEI(private val recipe: RecipeCadComponentShapeless) : I
         for (obj in safeList) {
             if (obj is EnumCADComponent) {
                 val replaceIndex = inputList.indexOf(obj)
-                inputList[replaceIndex] = itemMap[obj]
+                inputList[replaceIndex] = itemMap[obj]?.toMutableList()
             }
         }
 

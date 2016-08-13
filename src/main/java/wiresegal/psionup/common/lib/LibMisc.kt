@@ -11,7 +11,7 @@ object LibMisc {
     const val BUILD = "GRADLE:BUILD"
     const val VERSIONID = "GRADLE:VERSION"
     const val VERSION = "$VERSIONID.$BUILD"
-    const val DEPENDENCIES = "required-after:Forge@[12.17.0.1909,);required-after:Psi;after:Botania[r1.8-301,);"
+    const val DEPENDENCIES = "required-after:Forge@[12.17.0.1909,);required-after:Psi;after:Botania@[r1.8-301,);"
 
     const val VERSIONS = "[1.10,1.10.2]"
 

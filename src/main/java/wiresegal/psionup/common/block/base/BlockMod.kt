@@ -20,11 +20,10 @@ import wiresegal.psionup.common.lib.LibMisc
  * @author WireSegal
  * Created at 5:45 PM on 3/20/16.
  */
-open class BlockMod(name: String, materialIn: Material, color: MapColor, vararg variants: String) : Block(materialIn, color), ModelHandler.IModBlock {
+open class BlockMod(name: String, materialIn: Material, color: MapColor, vararg override var variants: String) : Block(materialIn, color), ModelHandler.IModBlock {
 
     constructor(name: String, materialIn: Material, vararg variants: String) : this(name, materialIn, materialIn.materialMapColor, *variants)
 
-    override var variants: Array<out String> = variants
     override val bareName: String = name
 
     companion object {
