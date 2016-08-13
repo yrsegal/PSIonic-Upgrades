@@ -15,4 +15,6 @@ public class LibObfuscation {
     public static final String[] ITEMRENDERER_ITEMSTACKOFFHAND = new String[] {"e", "field_187468_e", "itemStackOffHand"};
     
     public static final String[] RENDERLIVINGBASE_LAYERRENDERERS = new String[] {"i", "field_177097_h", "layerRenderers"};
+
+    public static final String[] RENDERPLAYER_SETMODELVISIBILITIES = new String[] {"d", "func_177137_d", "setModelVisibilities"};
 }

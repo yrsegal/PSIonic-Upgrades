@@ -47,8 +47,7 @@ class ClientProxy : CommonProxy() {
             val renders = PsionicClientMethodHandles.getRenderLayers(it)
             it.addLayer(ExosuitGlowLayer(it))
             it.addLayer(GlowingItemHandler.GlowingItemLayer(it))
-            it.addLayer(LayerGlowingElytra(it))
-            it.addLayer(LayerGlowingCape(it))
+            it.addLayer(LayerGlowingWire(it))
             for ((index, layer) in renders.withIndex())
                 if (layer is LayerElytra)
                     renders[index] = object : LayerElytra(it) {
@@ -66,8 +65,7 @@ class ClientProxy : CommonProxy() {
             val renders = PsionicClientMethodHandles.getRenderLayers(it)
             it.addLayer(ExosuitGlowLayer(it))
             it.addLayer(GlowingItemHandler.GlowingItemLayer(it))
-            it.addLayer(LayerGlowingElytra(it))
-            it.addLayer(LayerGlowingCape(it))
+            it.addLayer(LayerGlowingWire(it))
             for ((index, layer) in renders.withIndex())
                 if (layer is LayerElytra)
                     renders[index] = object : LayerElytra(it) {

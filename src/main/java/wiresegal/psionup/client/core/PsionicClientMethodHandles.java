@@ -1,9 +1,11 @@
 package wiresegal.psionup.client.core;
 
 import com.google.common.base.Throwables;
+import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
+import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
@@ -18,6 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.lang.invoke.MethodHandle;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.List;
 
 import static java.lang.invoke.MethodHandles.publicLookup;
@@ -34,7 +37,8 @@ public class PsionicClientMethodHandles {
             prevEquippedProgressMainGetter, prevEquippedProgressOffGetter,
             equippedProgressMainGetter, equippedProgressOffGetter,
             stackMainGetter, stackOffGetter,
-            layersGetter;
+            layersGetter,
+            setModelVisibilities;
 
     static {
         try {
@@ -65,6 +69,9 @@ public class PsionicClientMethodHandles {
 
             f = ReflectionHelper.findField(RenderLivingBase.class, LibObfuscation.RENDERLIVINGBASE_LAYERRENDERERS);
             layersGetter = publicLookup().unreflectGetter(f);
+
+            Method m = ReflectionHelper.findMethod(RenderPlayer.class, null, LibObfuscation.RENDERPLAYER_SETMODELVISIBILITIES, AbstractClientPlayer.class);
+            setModelVisibilities = publicLookup().unreflect(m);
 
         } catch (Throwable t) {
             PsionicUpgrades.Companion.getLOGGER().log(Level.ERROR, "Couldn't initialize methodhandles! Things will be broken!");
@@ -145,6 +152,14 @@ public class PsionicClientMethodHandles {
     public static <T extends EntityLivingBase> List<LayerRenderer<T>> getRenderLayers(@Nonnull RenderLivingBase<T> render) {
         try {
             return (List<LayerRenderer<T>>) layersGetter.invokeExact(render);
+        } catch (Throwable t) {
+            throw propagate(t);
+        }
+    }
+
+    public static void setModelVisibilities(@Nonnull RenderPlayer render, @Nonnull AbstractClientPlayer player) {
+        try {
+            setModelVisibilities.invokeExact(render, player);
         } catch (Throwable t) {
             throw propagate(t);
         }
