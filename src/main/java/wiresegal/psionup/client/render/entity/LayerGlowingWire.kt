@@ -151,13 +151,14 @@ class LayerGlowingWire(val renderPlayer: RenderPlayer) : LayerRenderer<AbstractC
             GlStateManager.disableLighting()
             ShaderHandler.useShader(ShaderHandler.rawColor)
             GlStateManager.color(r, g, b)
+            GlStateManager.enableBlendProfile(GlStateManager.Profile.PLAYER_SKIN)
 
             this.renderPlayer.bindTexture(TEXTURE_SKIN_OVERLAY)
             PsionicClientMethodHandles.setModelVisibilities(renderPlayer, player)
-            GlStateManager.enableBlendProfile(GlStateManager.Profile.PLAYER_SKIN)
 
             renderPlayer.mainModel.render(player, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale)
 
+            GlStateManager.disableBlendProfile(GlStateManager.Profile.PLAYER_SKIN)
             GlStateManager.color(1F, 1F, 1F)
             ShaderHandler.releaseShader()
             GlStateManager.enableLighting()
