@@ -6,10 +6,10 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.living.LivingEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import vazkii.arl.util.ItemNBTHelper
 import vazkii.psi.api.PsiAPI
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.ICAD
-import vazkii.psi.common.core.helper.ItemNBTHelper
 import wiresegal.psionup.common.items.ModItems
 
 /**

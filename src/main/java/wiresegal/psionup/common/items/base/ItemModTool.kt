@@ -14,7 +14,7 @@ import vazkii.psi.api.internal.TooltipHelper
 import wiresegal.psionup.client.core.handler.ModelHandler
 import wiresegal.psionup.common.core.CreativeTab
 import wiresegal.psionup.common.lib.LibMisc
-import vazkii.psi.common.item.base.ItemMod as PsiItem
+import vazkii.arl.item.ItemMod as PsiItem
 
 /**
  * @author WireSegal

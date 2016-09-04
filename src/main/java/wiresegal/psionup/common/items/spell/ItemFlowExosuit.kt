@@ -7,13 +7,13 @@ import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.EntityEquipmentSlot
-import net.minecraft.item.IItemPropertyGetter
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.ResourceLocation
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import vazkii.arl.util.ItemNBTHelper
 import vazkii.psi.api.PsiAPI
 import vazkii.psi.api.cad.ICADColorizer
 import vazkii.psi.api.cad.ISocketable
@@ -21,13 +21,13 @@ import vazkii.psi.api.exosuit.IExosuitSensor
 import vazkii.psi.api.exosuit.IPsiEventArmor
 import vazkii.psi.api.exosuit.ISensorHoldable
 import vazkii.psi.api.exosuit.PsiArmorEvent
+import vazkii.psi.api.spell.ISpellSettable
+import vazkii.psi.api.spell.Spell
 import vazkii.psi.client.model.ModelPsimetalExosuit
 import vazkii.psi.common.Psi
 import vazkii.psi.common.core.handler.PlayerDataHandler
-import vazkii.psi.common.core.helper.ItemNBTHelper
 import vazkii.psi.common.item.ItemCAD
 import vazkii.psi.common.item.base.ModItems
-import vazkii.psi.common.item.tool.IPsimetalTool
 import vazkii.psi.common.item.tool.ItemPsimetalTool
 import wiresegal.psionup.client.core.handler.ModelHandler
 import wiresegal.psionup.client.render.entity.GlowingItemHandler
@@ -39,13 +39,53 @@ import wiresegal.psionup.common.lib.LibMisc
  * @author WireSegal
  * Created at 4:42 PM on 7/9/16.
  */
-open class ItemFlowExosuit(name: String, type: Int, slot: EntityEquipmentSlot, val ebony: Boolean) : ItemModArmor(name, PsiAPI.PSIMETAL_ARMOR_MATERIAL, type, slot), IPsimetalTool, IPsiEventArmor, ModelHandler.IItemColorProvider, FlowColors.IAcceptor, GlowingItemHandler.IOverlayable {
+open class ItemFlowExosuit(name: String, type: Int, slot: EntityEquipmentSlot, val ebony: Boolean) : ItemModArmor(name, PsiAPI.PSIMETAL_ARMOR_MATERIAL, type, slot), ISocketable, ISpellSettable, IPsiEventArmor, ModelHandler.IItemColorProvider, FlowColors.IAcceptor, GlowingItemHandler.IOverlayable {
     companion object {
         val models by lazy {
             Array(4) {
                 ModelPsimetalExosuit(it)
             }
         }
+    }
+
+    override fun isSocketSlotAvailable(stack: ItemStack, slot: Int): Boolean {
+        return slot < 3
+    }
+
+    override fun showSlotInRadialMenu(stack: ItemStack, slot: Int): Boolean {
+        return this.isSocketSlotAvailable(stack, slot - 1)
+    }
+
+    override fun getBulletInSocket(stack: ItemStack, slot: Int): ItemStack? {
+        val name = "bullet" + slot
+        val cmp = ItemNBTHelper.getCompound(stack, name, true)
+        return if (cmp == null) null else ItemStack.loadItemStackFromNBT(cmp)
+    }
+
+    override fun setBulletInSocket(stack: ItemStack, slot: Int, bullet: ItemStack?) {
+        val name = "bullet" + slot
+        val cmp = NBTTagCompound()
+        bullet?.writeToNBT(cmp)
+
+        ItemNBTHelper.setCompound(stack, name, cmp)
+    }
+
+    override fun getSelectedSlot(stack: ItemStack): Int {
+        return ItemNBTHelper.getInt(stack, "selectedSlot", 0)
+    }
+
+    override fun setSelectedSlot(stack: ItemStack, slot: Int) {
+        ItemNBTHelper.setInt(stack, "selectedSlot", slot)
+    }
+
+    override fun setSpell(player: EntityPlayer, stack: ItemStack, spell: Spell) {
+        val slot = this.getSelectedSlot(stack)
+        val bullet = this.getBulletInSocket(stack, slot)
+        if (bullet != null && bullet.item is ISpellSettable) {
+            (bullet.item as ISpellSettable).setSpell(player, bullet, spell)
+            this.setBulletInSocket(stack, slot, bullet)
+        }
+
     }
 
     init {

@@ -1,17 +1,12 @@
 package wiresegal.psionup.common.entity
 
-import com.google.common.base.Optional
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.monster.EntityEnderman
-import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.projectile.EntityThrowable
-import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
-import net.minecraft.network.PacketBuffer
 import net.minecraft.network.datasync.DataParameter
-import net.minecraft.network.datasync.DataSerializer
 import net.minecraft.network.datasync.DataSerializers
 import net.minecraft.network.datasync.EntityDataManager
 import net.minecraft.potion.PotionEffect
@@ -23,7 +18,6 @@ import vazkii.psi.api.cad.ICADColorizer
 import vazkii.psi.api.internal.Vector3
 import vazkii.psi.common.Psi
 import vazkii.psi.common.core.handler.PsiSoundHandler
-import vazkii.psi.common.entity.EntitySpellProjectile
 import wiresegal.psionup.common.effect.ModPotions
 import wiresegal.psionup.common.items.ModItems
 import java.awt.Color
@@ -33,8 +27,8 @@ open class EntityGaussPulse : EntityThrowable {
     var timeAlive: Int = 0
     var uuid: UUID? = null
     var ammo: AmmoStatus
-        get() = dataManager[AMMO_STATUS]
-        set(value) = dataManager.set(AMMO_STATUS, value)
+        get() = AmmoStatus.values()[dataManager[AMMO_STATUS] % AmmoStatus.values().size]
+        set(value) = dataManager.set(AMMO_STATUS, value.ordinal.toByte())
 
     constructor(worldIn: World) : super(worldIn) {
         this.setSize(0.0f, 0.0f)
@@ -51,7 +45,7 @@ open class EntityGaussPulse : EntityThrowable {
     }
 
     override fun entityInit() {
-        this.dataManager.register(AMMO_STATUS, AmmoStatus.NOTAMMO)
+        this.dataManager.register(AMMO_STATUS, AmmoStatus.NOTAMMO.ordinal.toByte())
     }
 
     override fun writeEntityToNBT(tagCompound: NBTTagCompound) {
@@ -171,24 +165,8 @@ open class EntityGaussPulse : EntityThrowable {
         private val TAG_LAST_MOTION_Z = "lastMotionZ"
         private val TAG_AMMO = "ammo"
 
-        val AMMO_SERIALIZER = object : DataSerializer<AmmoStatus> {
-            override fun write(buf: PacketBuffer, value: AmmoStatus) {
-                buf.writeVarIntToBuffer(value.ordinal)
-            }
+        val AMMO_STATUS: DataParameter<Byte> = EntityDataManager.createKey(EntityGaussPulse::class.java, DataSerializers.BYTE)
 
-            override fun read(buf: PacketBuffer): AmmoStatus {
-                return AmmoStatus.values()[buf.readVarIntFromBuffer() % AmmoStatus.values().size]
-            }
-
-            override fun createKey(id: Int): DataParameter<AmmoStatus> {
-                return DataParameter(id, this)
-            }
-        }
-        val AMMO_STATUS: DataParameter<AmmoStatus> = EntityDataManager.createKey(EntityGaussPulse::class.java, AMMO_SERIALIZER)
-
-        init {
-            DataSerializers.registerSerializer(AMMO_SERIALIZER)
-        }
     }
 
     enum class AmmoStatus {

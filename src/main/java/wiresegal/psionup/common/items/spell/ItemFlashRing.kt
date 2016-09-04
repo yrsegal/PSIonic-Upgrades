@@ -18,7 +18,7 @@ import wiresegal.psionup.client.core.handler.GuiHandler
 import wiresegal.psionup.common.PsionicUpgrades
 import wiresegal.psionup.common.items.base.ItemMod
 import wiresegal.psionup.common.lib.LibMisc
-import vazkii.psi.common.item.base.ItemMod as PsiItem
+import vazkii.arl.item.ItemMod as PsiItem
 import vazkii.psi.common.item.base.ModItems as PsiItems
 
 /**

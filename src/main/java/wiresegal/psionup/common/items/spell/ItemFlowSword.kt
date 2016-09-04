@@ -6,15 +6,18 @@ import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
+import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.ResourceLocation
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import vazkii.arl.util.ItemNBTHelper
 import vazkii.psi.api.PsiAPI
 import vazkii.psi.api.cad.ISocketable
+import vazkii.psi.api.spell.ISpellSettable
+import vazkii.psi.api.spell.Spell
 import vazkii.psi.common.Psi
 import vazkii.psi.common.core.handler.PlayerDataHandler
-import vazkii.psi.common.core.helper.ItemNBTHelper
 import vazkii.psi.common.item.ItemCAD
 import vazkii.psi.common.item.base.ModItems
 import vazkii.psi.common.item.tool.IPsimetalTool
@@ -29,12 +32,53 @@ import wiresegal.psionup.common.lib.LibMisc
  * @author WireSegal
  * *         Created at 10:42 PM on 7/11/16.
  */
-class ItemFlowSword(name: String, val ebony: Boolean) : ItemModSword(name, PsiAPI.PSIMETAL_TOOL_MATERIAL), IPsimetalTool, ModelHandler.IItemColorProvider, FlowColors.IAcceptor, GlowingItemHandler.IOverlayable {
+class ItemFlowSword(name: String, val ebony: Boolean) : ItemModSword(name, PsiAPI.PSIMETAL_TOOL_MATERIAL), ISocketable, ISpellSettable, ModelHandler.IItemColorProvider, FlowColors.IAcceptor, GlowingItemHandler.IOverlayable {
 
     init {
         addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, "overlay")) {
             itemStack, world, entityLivingBase -> if (ItemNBTHelper.getBoolean(itemStack.copy(), GlowingItemHandler.IOverlayable.TAG_OVERLAY, false)) 1f else 0f
         }
+    }
+
+
+    override fun isSocketSlotAvailable(stack: ItemStack, slot: Int): Boolean {
+        return slot < 3
+    }
+
+    override fun showSlotInRadialMenu(stack: ItemStack, slot: Int): Boolean {
+        return this.isSocketSlotAvailable(stack, slot - 1)
+    }
+
+    override fun getBulletInSocket(stack: ItemStack, slot: Int): ItemStack? {
+        val name = "bullet" + slot
+        val cmp = ItemNBTHelper.getCompound(stack, name, true)
+        return if (cmp == null) null else ItemStack.loadItemStackFromNBT(cmp)
+    }
+
+    override fun setBulletInSocket(stack: ItemStack, slot: Int, bullet: ItemStack?) {
+        val name = "bullet" + slot
+        val cmp = NBTTagCompound()
+        bullet?.writeToNBT(cmp)
+
+        ItemNBTHelper.setCompound(stack, name, cmp)
+    }
+
+    override fun getSelectedSlot(stack: ItemStack): Int {
+        return ItemNBTHelper.getInt(stack, "selectedSlot", 0)
+    }
+
+    override fun setSelectedSlot(stack: ItemStack, slot: Int) {
+        ItemNBTHelper.setInt(stack, "selectedSlot", slot)
+    }
+
+    override fun setSpell(player: EntityPlayer, stack: ItemStack, spell: Spell) {
+        val slot = this.getSelectedSlot(stack)
+        val bullet = this.getBulletInSocket(stack, slot)
+        if (bullet != null && bullet.item is ISpellSettable) {
+            (bullet.item as ISpellSettable).setSpell(player, bullet, spell)
+            this.setBulletInSocket(stack, slot, bullet)
+        }
+
     }
 
     override fun hitEntity(itemstack: ItemStack, target: EntityLivingBase?, attacker: EntityLivingBase): Boolean {

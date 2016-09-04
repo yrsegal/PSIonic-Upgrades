@@ -15,9 +15,9 @@ import net.minecraft.util.text.TextComponentString
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.util.text.event.HoverEvent
+import vazkii.arl.network.NetworkHandler
 import vazkii.psi.api.PsiAPI
 import vazkii.psi.common.core.handler.PlayerDataHandler
-import vazkii.psi.common.network.NetworkHandler
 import vazkii.psi.common.network.message.MessageDataSync
 import wiresegal.psionup.common.lib.LibMisc
 import java.util.*

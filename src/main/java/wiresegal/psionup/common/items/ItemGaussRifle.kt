@@ -7,11 +7,11 @@ import net.minecraft.util.*
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import vazkii.arl.util.ItemNBTHelper
 import vazkii.psi.api.cad.ICADColorizer
 import vazkii.psi.client.core.handler.ClientTickHandler
 import vazkii.psi.common.core.handler.PlayerDataHandler
 import vazkii.psi.common.core.handler.PsiSoundHandler
-import vazkii.psi.common.core.helper.ItemNBTHelper
 import wiresegal.psionup.client.core.handler.ModelHandler
 import wiresegal.psionup.client.render.entity.GlowingItemHandler
 import wiresegal.psionup.common.entity.EntityGaussPulse

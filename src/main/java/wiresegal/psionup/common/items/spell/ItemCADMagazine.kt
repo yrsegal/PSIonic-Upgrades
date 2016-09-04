@@ -11,6 +11,7 @@ import net.minecraft.util.text.Style
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
+import vazkii.arl.util.ItemNBTHelper
 import vazkii.psi.api.PsiAPI
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.EnumCADStat
@@ -22,7 +23,6 @@ import vazkii.psi.api.spell.ISpellSettable
 import vazkii.psi.api.spell.Spell
 import vazkii.psi.common.block.tile.TileProgrammer
 import vazkii.psi.common.core.handler.PsiSoundHandler
-import vazkii.psi.common.core.helper.ItemNBTHelper
 import vazkii.psi.common.item.ItemSpellDrive
 import vazkii.psi.common.spell.SpellCompiler
 import wiresegal.psionup.client.core.handler.GuiHandler
@@ -31,7 +31,7 @@ import wiresegal.psionup.common.crafting.ModRecipes
 import wiresegal.psionup.common.items.base.ICadComponentAcceptor
 import wiresegal.psionup.common.items.base.ItemMod
 import wiresegal.psionup.common.lib.LibMisc
-import vazkii.psi.common.item.base.ItemMod as PsiItem
+import vazkii.arl.item.ItemMod as PsiItem
 import vazkii.psi.common.item.base.ModItems as PsiItems
 
 /**
@@ -43,7 +43,7 @@ class ItemCADMagazine(name: String) : ItemMod(name), ISocketable, ICadComponentA
     companion object {
         fun getSocket(stack: ItemStack): ItemStack {
             val nbt = ItemNBTHelper.getCompound(stack, "socket", true)
-            return ItemStack.loadItemStackFromNBT(nbt ?: return ItemStack(vazkii.psi.common.item.base.ModItems.cadSocket))
+            return ItemStack.loadItemStackFromNBT(nbt ?: return ItemStack(PsiItems.cadSocket))
         }
 
         fun setSocket(stack: ItemStack, socket: ItemStack?): ItemStack {

@@ -7,7 +7,7 @@ import org.apache.commons.lang3.tuple.Pair
 import vazkii.psi.api.cad.EnumCADStat
 import vazkii.psi.api.cad.ICADComponent
 import java.util.*
-import vazkii.psi.common.item.base.ItemMod as PsiItem
+import vazkii.arl.item.ItemMod as PsiItem
 
 /**
  * @author WireSegal
@@ -26,10 +26,10 @@ abstract class ItemComponent(name: String, vararg variants: String) : ItemMod(na
     }
 
     override fun addInformation(stack: ItemStack, playerIn: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
-        vazkii.psi.common.item.base.ItemMod.tooltipIfShift(tooltip) {
+        PsiItem.tooltipIfShift(tooltip) {
             val componentType = this.getComponentType(stack)
-            val componentName = vazkii.psi.common.item.base.ItemMod.local(componentType.getName())
-            vazkii.psi.common.item.base.ItemMod.addToTooltip(tooltip, "psimisc.componentType", *arrayOf<Any>(componentName))
+            val componentName = PsiItem.local(componentType.getName())
+            PsiItem.addToTooltip(tooltip, "psimisc.componentType", componentName)
             val var6 = EnumCADStat.values().size
 
             for (var7 in 0..var6 - 1) {

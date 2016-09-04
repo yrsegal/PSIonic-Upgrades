@@ -7,10 +7,10 @@ import net.minecraft.nbt.NBTTagList
 import net.minecraft.util.ITickable
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import vazkii.arl.block.tile.TileMod
 import vazkii.psi.api.cad.ICADColorizer
 import vazkii.psi.api.internal.Vector3
 import vazkii.psi.common.Psi
-import vazkii.psi.common.block.tile.base.TileMod
 import java.awt.Color
 
 /**

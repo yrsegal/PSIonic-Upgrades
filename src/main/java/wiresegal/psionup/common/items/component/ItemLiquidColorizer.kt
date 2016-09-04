@@ -11,9 +11,9 @@ import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import vazkii.arl.util.ItemNBTHelper
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.ICADColorizer
-import vazkii.psi.common.core.helper.ItemNBTHelper
 import wiresegal.psionup.client.core.handler.ModelHandler
 import wiresegal.psionup.common.items.ModItems
 import wiresegal.psionup.common.items.base.ICadComponentAcceptor

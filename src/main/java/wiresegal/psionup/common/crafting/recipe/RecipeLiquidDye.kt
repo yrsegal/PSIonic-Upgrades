@@ -7,7 +7,7 @@ import net.minecraft.item.crafting.IRecipe
 import net.minecraft.world.World
 import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.oredict.OreDictionary
-import vazkii.psi.common.core.helper.ItemNBTHelper
+import vazkii.arl.util.ItemNBTHelper
 import wiresegal.psionup.common.items.component.ItemLiquidColorizer
 import java.awt.Color
 

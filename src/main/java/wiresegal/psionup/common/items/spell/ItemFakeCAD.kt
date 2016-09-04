@@ -13,22 +13,20 @@ import net.minecraft.util.SoundCategory
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import vazkii.arl.util.ItemNBTHelper
 import vazkii.psi.api.PsiAPI
 import vazkii.psi.api.cad.ISocketable
 import vazkii.psi.api.spell.ISpellSettable
 import vazkii.psi.api.spell.Spell
-import vazkii.psi.client.core.handler.ClientTickHandler
 import vazkii.psi.common.Psi
 import vazkii.psi.common.core.handler.PlayerDataHandler
 import vazkii.psi.common.core.handler.PsiSoundHandler
-import vazkii.psi.common.core.helper.ItemNBTHelper
 import vazkii.psi.common.item.ItemCAD
 import vazkii.psi.common.item.base.ModItems
 import wiresegal.psionup.client.core.handler.ModelHandler
 import wiresegal.psionup.common.core.helper.FlowColors
 import wiresegal.psionup.common.items.base.ItemMod
-import java.awt.Color
-import vazkii.psi.common.item.base.ItemMod as PsiItem
+import vazkii.arl.item.ItemMod as PsiItem
 
 /**
  * @author WireSegal

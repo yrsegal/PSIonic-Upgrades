@@ -6,28 +6,23 @@ import net.minecraft.client.model.ModelBiped
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.OpenGlHelper
 import net.minecraft.client.renderer.RenderHelper
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType
 import net.minecraft.client.renderer.entity.RenderLivingBase
-import net.minecraft.client.renderer.entity.layers.LayerHeldItem
 import net.minecraft.client.renderer.entity.layers.LayerRenderer
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.EntityLivingBase
-import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumHand
 import net.minecraft.util.EnumHandSide
 import net.minecraft.util.math.BlockPos
-import net.minecraft.util.math.MathHelper
 import net.minecraftforge.client.event.RenderHandEvent
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import vazkii.psi.client.core.handler.ClientTickHandler
+import vazkii.arl.util.ItemNBTHelper
 import vazkii.psi.client.core.handler.ShaderHandler
-import vazkii.psi.common.core.helper.ItemNBTHelper
 import wiresegal.psionup.client.core.PsionicClientMethodHandles
 
 /**
