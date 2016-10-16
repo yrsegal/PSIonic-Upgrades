@@ -7,49 +7,29 @@ import net.minecraftforge.fluids.FluidStack
 import vazkii.psi.api.cad.EnumCADComponent
 import wiresegal.psionup.common.crafting.recipe.cad.RecipeCadComponent
 import wiresegal.psionup.common.items.base.ICadComponentAcceptor
-import java.util.*
 
-class ShapedCadRecipeJEI(private val recipe: RecipeCadComponent) : IShapedCraftingRecipeWrapper {
+class ShapedCadRecipeJEI(recipe: RecipeCadComponent) : IShapedCraftingRecipeWrapper {
 
-    private val inputs: MutableList<Any?>
-    private val outputs: ArrayList<ItemStack>
+    private val inputs: List<Any?>
+    private val outputs: List<ItemStack>
     private val width: Int
     private val height: Int
 
     init {
-        for (input in this.recipe.input) {
-            if (input is ItemStack) {
-                if (input.stackSize != 1) {
-                    input.stackSize = 1
-                }
-            }
+        width = recipe.width
+        height = recipe.height
+        inputs = recipe.input.map {
+            if (it is EnumCADComponent) ShapelessCadRecipeJEI.itemMap[it] else if (it is ItemStack) {
+                it.stackSize = 1
+                it
+            } else it
         }
-        this.width = recipe.width
-        this.height = recipe.height
-
-        val out = recipe.output
-        val input = recipe.input
-
-        val inputList = arrayListOf(*input)
-        val safeList = arrayListOf(*input)
-
-        val outputlist = ArrayList<ItemStack>()
-
-        for (obj in safeList) {
-            if (obj is EnumCADComponent) {
-                val replaceIndex = inputList.indexOf(obj)
-                inputList[replaceIndex] = ShapelessCadRecipeJEI.itemMap[obj]
-                if (out.item is ICadComponentAcceptor) {
-                    val map = ShapelessCadRecipeJEI.itemMap[obj]!!
-                    for (item in map)
-                        outputlist.add((out.item as ICadComponentAcceptor).setPiece(out.copy(), obj, item))
-                }
-            }
-        }
-
-        this.outputs = outputlist
-
-        this.inputs = inputList
+        outputs = if (recipe.output.item is ICadComponentAcceptor)
+                recipe.input.filter { it is EnumCADComponent }.flatMap { Array(ShapelessCadRecipeJEI.itemMap[it]?.size ?: 0, { i ->
+                        (recipe.output.item as ICadComponentAcceptor).setPiece(recipe.output.copy(), it as EnumCADComponent, ShapelessCadRecipeJEI.itemMap[it]!![i])
+                }).toList()}
+            else
+                listOf(recipe.output)
     }
 
     override fun getWidth(): Int {

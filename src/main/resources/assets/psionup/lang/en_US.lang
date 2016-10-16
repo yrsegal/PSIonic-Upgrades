@@ -173,6 +173,8 @@ psi.spellpiece.psionup.drumOfTheGathering.desc=Pulses with the sound of the Drum
 
 itemGroup.psionup=PSIonic Upgrades
 
+psionup.subtitle.thwack=Metal thwacks
+
 psionup.learn.usage=/psi-learn <group> [player]
 psionup.learn.success=Successfully taught %s %s
 psionup.learn.success.all=Successfully taught %s all of Psi

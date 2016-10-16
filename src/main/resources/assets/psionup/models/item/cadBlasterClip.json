@@ -3,7 +3,8 @@
   "textures": {
     "texture": "psionup:items/blasterCAD",
     "tint": "psi:items/cadColor",
-    "glass": "botania:blocks/manaGlass"
+    "glass": "botania:blocks/manaGlass",
+	"clip": "botania:items/manaBlasterLensClip"
   },
   "elements": [
     {
@@ -145,7 +146,21 @@
         "up": { "texture": "#glass", "uv": [ 10.0, 0.01, 11.0, 1.0 ] },
         "down": { "texture": "#glass", "uv": [ 10.0, 0.01, 11.0, 1.0 ] }
       }
+    },
+	{
+      "name": "Clip",
+      "from": [ -4.5, 2.0, 5.0 ],
+      "to": [ 8.5, 8.0, 11.0 ],
+      "faces": {
+        "north": { "texture": "#clip", "uv": [ 0.01, 6.51, 6.5, 9.49 ] },
+        "east": { "texture": "#clip", "uv": [ 6.01, 0.0, 9.0, 3.0 ] },
+        "south": { "texture": "#clip", "uv": [ 6.5, 6.5, 0.01, 9.5 ] },
+        "west": { "texture": "#clip", "uv": [ 6.0, 3.0, 9.0, 6.0 ] },
+        "up": { "texture": "#clip", "uv": [ 0.0, 0.01, 3.0, 6.5 ], "rotation": 90 },
+        "down": { "texture": "#clip", "uv": [ 3.0, 0.01, 6.0, 6.5 ], "rotation": 90 }
+      }
     }
+	
   ],
   "display": {
     "gui": {
@@ -183,9 +198,5 @@
       "translation": [ -1.8, 2.5, 0 ],
       "scale": [ 0.45, 0.45, 0.45 ]
     }
-  },
-  "overrides": [{
-    "predicate": { "psionup:clip": 1 },
-    "model": "psionup:item/cadBlasterClip"
-  }]
+  }
 }

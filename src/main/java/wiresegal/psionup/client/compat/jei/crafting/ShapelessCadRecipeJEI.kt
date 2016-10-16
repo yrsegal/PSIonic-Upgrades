@@ -18,20 +18,20 @@ class ShapelessCadRecipeJEI(recipe: RecipeCadComponentShapeless) : ICraftingReci
 
     companion object {
         val itemMap = mapOf(
-                Pair(EnumCADComponent.ASSEMBLY, stackArray(ModItems.cadAssembly)),
-                Pair(EnumCADComponent.BATTERY, stackArray(ModItems.cadBattery)),
-                Pair(EnumCADComponent.CORE, stackArray(ModItems.cadCore)),
-                Pair(EnumCADComponent.DYE, stackArray(ModItems.cadColorizer)),
-                Pair(EnumCADComponent.SOCKET, stackArray(ModItems.cadSocket)))
+                Pair(EnumCADComponent.ASSEMBLY, stackList(ModItems.cadAssembly)),
+                Pair(EnumCADComponent.BATTERY, stackList(ModItems.cadBattery)),
+                Pair(EnumCADComponent.CORE, stackList(ModItems.cadCore)),
+                Pair(EnumCADComponent.DYE, stackList(ModItems.cadColorizer)),
+                Pair(EnumCADComponent.SOCKET, stackList(ModItems.cadSocket)))
 
-        fun stackArray(item: Item, meta: IntRange): Array<ItemStack> {
+        fun stackList(item: Item, meta: IntRange): List<ItemStack> {
             return Array(meta.count()) {
                 ItemStack(item, 1, it)
-            }
+            }.toList()
         }
 
-        fun stackArray(item: ItemMod): Array<ItemStack> {
-            return stackArray(item, item.variants.indices)
+        fun stackList(item: ItemMod): List<ItemStack> {
+            return stackList(item, item.variants.indices)
         }
     }
 

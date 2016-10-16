@@ -2,12 +2,14 @@ package wiresegal.psionup.common.items
 
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.ItemMeshDefinition
+import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.SoundEvents
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.*
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.MathHelper
 import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.capabilities.ICapabilityProvider
@@ -21,6 +23,7 @@ import wiresegal.psionup.client.core.handler.ModelHandler
 import wiresegal.psionup.common.PsionicUpgrades
 import wiresegal.psionup.common.block.BlockCADCase
 import wiresegal.psionup.common.block.base.ItemModBlock
+import wiresegal.psionup.common.core.PsionicSoundEvents
 
 /**
  * @author WireSegal
@@ -44,6 +47,12 @@ class ItemCADCase(block: Block) : ItemModBlock(block), ModelHandler.IExtraVarian
         if (facing != EnumFacing.UP)
             return EnumActionResult.FAIL
         return super.onItemUse(stack, playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ)
+    }
+
+    override fun hitEntity(stack: ItemStack, target: EntityLivingBase, attacker: EntityLivingBase): Boolean {
+        target.knockBack(attacker, 1f, MathHelper.sin(attacker.rotationYaw * Math.PI.toFloat() / 180).toDouble(), (-MathHelper.cos(attacker.rotationYaw * Math.PI.toFloat() / 180)).toDouble())
+        attacker.worldObj.playSound(null, attacker.posX, attacker.posY, attacker.posZ, PsionicSoundEvents.THWACK, SoundCategory.PLAYERS, 1.0f, 1.0f)
+        return false;
     }
 
     override fun initCapabilities(stack: ItemStack, nbt: NBTTagCompound?): ICapabilityProvider? {
