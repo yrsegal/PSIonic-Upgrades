@@ -8,8 +8,8 @@ object LibMisc {
     const val MOD_NAME = "PSIonic Upgrades"
     const val MOD_ID = "psionup"
 
-    const val BUILD = "GRADLE:BUILD"
-    const val VERSIONID = "GRADLE:VERSION"
+    const val BUILD = "1"
+    const val VERSIONID = "15"
     const val VERSION = "$VERSIONID.$BUILD"
     const val DEPENDENCIES = "required-after:Forge@[12.17.0.1909,);required-after:Psi;after:Botania@[r1.8-301,);"
 
