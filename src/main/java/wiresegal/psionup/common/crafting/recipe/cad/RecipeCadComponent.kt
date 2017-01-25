@@ -6,6 +6,7 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.IRecipe
 import net.minecraft.item.crafting.ShapedRecipes
+import net.minecraft.util.NonNullList
 import net.minecraft.world.World
 import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.oredict.OreDictionary
@@ -201,7 +202,7 @@ open class RecipeCadComponent : IRecipe {
                     } else
                         return false
                 } else if (target is ItemStack) {
-                    if (!OreDictionary.itemMatches(target as ItemStack?, slot, false)) {
+                    if (!OreDictionary.itemMatches(target, slot, false)) {
                         return false
                     }
                 } else if (target is List<*>) {
@@ -226,7 +227,7 @@ open class RecipeCadComponent : IRecipe {
         return true
     }
 
-    override fun getRemainingItems(inv: InventoryCrafting): Array<ItemStack?> {
+    override fun getRemainingItems(inv: InventoryCrafting): NonNullList<ItemStack> {
         return ForgeHooks.defaultRecipeGetRemainingItems(inv)
     }
 

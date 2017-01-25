@@ -44,7 +44,7 @@ class PieceOperatorVectorStrongRaycast(spell: Spell) : PieceOperator(spell) {
             }
 
             maxLen = Math.min(32.0, maxLen)
-            val pos = raycast(context.caster.worldObj, originVal, rayVal, maxLen)
+            val pos = raycast(context.caster.world, originVal, rayVal, maxLen)
             if (pos != null && pos.blockPos != null) {
                 return Vector3(pos.blockPos.x.toDouble(), pos.blockPos.y.toDouble(), pos.blockPos.z.toDouble())
             } else {
@@ -71,7 +71,7 @@ class PieceOperatorVectorStrongRaycast(spell: Spell) : PieceOperator(spell) {
             if (look == null) {
                 throw SpellRuntimeException(SpellRuntimeException.NULL_VECTOR)
             } else {
-                return raycast(e.worldObj, vec, Vector3(look), len)
+                return raycast(e.world, vec, Vector3(look), len)
             }
         }
 

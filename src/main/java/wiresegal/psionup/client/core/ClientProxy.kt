@@ -8,12 +8,11 @@ import net.minecraft.entity.player.EnumPlayerModelParts
 import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
-import vazkii.psi.api.PsiAPI
-import vazkii.psi.api.cad.ICADColorizer
-import vazkii.psi.common.Psi
 import wiresegal.psionup.client.core.handler.HUDHandler
 import wiresegal.psionup.client.core.handler.ModelHandler
-import wiresegal.psionup.client.render.entity.*
+import wiresegal.psionup.client.render.entity.ExosuitGlowLayer
+import wiresegal.psionup.client.render.entity.GlowingItemHandler
+import wiresegal.psionup.client.render.entity.LayerGlowingWire
 import wiresegal.psionup.client.render.tile.RenderTileCADCase
 import wiresegal.psionup.common.PsionicUpgrades
 import wiresegal.psionup.common.block.tile.TileCADCase
@@ -39,8 +38,6 @@ class ClientProxy : CommonProxy() {
         ModelHandler.init()
         ClientRegistry.bindTileEntitySpecialRenderer(TileCADCase::class.java, RenderTileCADCase())
 
-        val WIRE_UUID = UUID.fromString("458391f5-6303-4649-b416-e4c0d18f837a")
-
         val skinMap = Minecraft.getMinecraft().renderManager.skinMap
         var render = skinMap["default"]
         render?.let {
@@ -50,13 +47,7 @@ class ClientProxy : CommonProxy() {
             it.addLayer(LayerGlowingWire(it))
             for ((index, layer) in renders.withIndex())
                 if (layer is LayerElytra)
-                    renders[index] = object : LayerElytra(it) {
-                        override fun shouldCombineTextures() = false
-                        override fun doRenderLayer(player: AbstractClientPlayer, limbSwing: Float, limbSwingAmount: Float, partialTicks: Float, ageInTicks: Float, netHeadYaw: Float, headPitch: Float, scale: Float) {
-                            if (player.uniqueID != WIRE_UUID || !player.isWearing(EnumPlayerModelParts.CAPE))
-                                layer.doRenderLayer(player, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale)
-                        }
-                    }
+                    renders[index] = LayerWireOccludeElytra(layer)
 
         }
 
@@ -68,14 +59,19 @@ class ClientProxy : CommonProxy() {
             it.addLayer(LayerGlowingWire(it))
             for ((index, layer) in renders.withIndex())
                 if (layer is LayerElytra)
-                    renders[index] = object : LayerElytra(it) {
-                        override fun shouldCombineTextures() = false
-                        override fun doRenderLayer(player: AbstractClientPlayer, limbSwing: Float, limbSwingAmount: Float, partialTicks: Float, ageInTicks: Float, netHeadYaw: Float, headPitch: Float, scale: Float) {
-                            if (player.uniqueID != WIRE_UUID || !player.isWearing(EnumPlayerModelParts.CAPE))
-                                layer.doRenderLayer(player, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale)
-                        }
-                    }
+                    renders[index] = LayerWireOccludeElytra(layer)
 
+        }
+    }
+
+    class LayerWireOccludeElytra(val elytra: LayerElytra) : LayerRenderer<AbstractClientPlayer> {
+
+        val WIRE_UUID: UUID = UUID.fromString("458391f5-6303-4649-b416-e4c0d18f837a")
+
+        override fun shouldCombineTextures() = false
+        override fun doRenderLayer(player: AbstractClientPlayer, limbSwing: Float, limbSwingAmount: Float, partialTicks: Float, ageInTicks: Float, netHeadYaw: Float, headPitch: Float, scale: Float) {
+            if (player.uniqueID != WIRE_UUID || !player.isWearing(EnumPlayerModelParts.CAPE))
+                elytra.doRenderLayer(player, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale)
         }
     }
 }

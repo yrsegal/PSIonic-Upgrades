@@ -25,7 +25,7 @@ open class PotionModColorized(name: String, badEffect: Boolean, color: Int, icon
     @SideOnly(Side.CLIENT)
     override fun renderHUDEffect(x: Int, y: Int, effect: PotionEffect?, mc: Minecraft, alpha: Float) {
         var color = ICADColorizer.DEFAULT_SPELL_COLOR
-        val cad = PsiAPI.getPlayerCAD(Minecraft.getMinecraft().thePlayer)
+        val cad = PsiAPI.getPlayerCAD(Minecraft.getMinecraft().player)
         if (cad != null) color = Psi.proxy.getCADColor(cad).rgb
         val pulse = pulseColor(color)
         GlStateManager.color(pulse.first / 255f, pulse.second / 255f, pulse.third / 255f, alpha)
@@ -36,7 +36,7 @@ open class PotionModColorized(name: String, badEffect: Boolean, color: Int, icon
     @SideOnly(Side.CLIENT)
     override fun renderInventoryEffect(x: Int, y: Int, effect: PotionEffect, mc: Minecraft) {
         var color = ICADColorizer.DEFAULT_SPELL_COLOR
-        val cad = PsiAPI.getPlayerCAD(Minecraft.getMinecraft().thePlayer)
+        val cad = PsiAPI.getPlayerCAD(Minecraft.getMinecraft().player)
         if (cad != null) color = Psi.proxy.getCADColor(cad).rgb
         val pulse = pulseColor(color)
         GlStateManager.color(pulse.first / 255f, pulse.second / 255f, pulse.third / 255f)

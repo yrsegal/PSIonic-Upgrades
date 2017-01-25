@@ -44,7 +44,7 @@ class BlockConjuredStar(name: String) : BlockModContainer(name, Material.GLASS, 
     override fun isFullCube(state: IBlockState?) = false
     override fun isPassable(worldIn: IBlockAccess?, pos: BlockPos?) = true
     override fun getBoundingBox(state: IBlockState?, source: IBlockAccess?, pos: BlockPos?) = AABB
-    override fun getCollisionBoundingBox(blockState: IBlockState?, worldIn: World?, pos: BlockPos?) = NULL_AABB
+    override fun getCollisionBoundingBox(blockState: IBlockState?, worldIn: IBlockAccess?, pos: BlockPos?) = NULL_AABB
     override fun canSpawnInBlock(): Boolean = true
     override fun isReplaceable(worldIn: IBlockAccess?, pos: BlockPos?) = false
 }

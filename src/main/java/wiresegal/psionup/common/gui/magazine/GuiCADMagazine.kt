@@ -38,8 +38,10 @@ class GuiCADMagazine(player: EntityPlayer, var stack: ItemStack) : GuiContainer(
         val y = (height - ySize) / 2
         drawTexturedModalRect(x, y, 0, 0, xSize, ySize)
 
-        for (i in inventorySlots.inventorySlots) if (i is ContainerCADMagazine.SlotBullet && !i.isSlotEnabled())
-            drawTexturedModalRect(i.xDisplayPosition + x, i.yDisplayPosition + y, 16, 224 + if (i.dark) 16 else 0, 16, 16)
+        inventorySlots.inventorySlots
+                .filterIsInstance<ContainerCADMagazine.SlotBullet>()
+                .filterNot { it.isSlotEnabled() }
+                .forEach { drawTexturedModalRect(it.xPos + x, it.yPos + y, 16, 224 + if (it.dark) 16 else 0, 16, 16) }
     }
 
 

@@ -33,7 +33,6 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.items.CapabilityItemHandler
-import net.minecraftforge.items.ItemHandlerHelper
 import net.minecraftforge.items.ItemStackHandler
 import vazkii.psi.api.cad.ICAD
 import vazkii.psi.api.cad.ISocketable
@@ -151,7 +150,7 @@ class BlockCADCase(name: String) : BlockModContainer(name, Material.CLOTH, *make
             tile.name = stack.displayName
     }
 
-    override fun neighborChanged(state: IBlockState, worldIn: World, pos: BlockPos, blockIn: Block) {
+    override fun neighborChanged(state: IBlockState, worldIn: World, pos: BlockPos, blockIn: Block, fromPos: BlockPos) {
         if (!worldIn.isRemote) {
             if (this.canPlaceBlockAt(worldIn, pos)) {
                 val redstone = worldIn.isBlockPowered(pos)
@@ -199,7 +198,7 @@ class BlockCADCase(name: String) : BlockModContainer(name, Material.CLOTH, *make
         return ItemStack(this, 1, getActualState(state, world, pos).getValue(COLOR).metadata)
     }
 
-    override fun onBlockActivated(worldIn: World, pos: BlockPos, state: IBlockState, playerIn: EntityPlayer, hand: EnumHand, heldItem: ItemStack?, side: EnumFacing?, hitX: Float, hitY: Float, hitZ: Float): Boolean {
+    override fun onBlockActivated(worldIn: World, pos: BlockPos, state: IBlockState, playerIn: EntityPlayer, hand: EnumHand, side: EnumFacing?, hitX: Float, hitY: Float, hitZ: Float): Boolean {
         if (playerIn.isSneaking) {
             if (!worldIn.isRemote) {
                 worldIn.setBlockState(pos, state.cycleProperty(OPEN), 2)
@@ -212,7 +211,7 @@ class BlockCADCase(name: String) : BlockModContainer(name, Material.CLOTH, *make
         if (!state.getValue(OPEN)) return false
 
         val tile = (worldIn.getTileEntity(pos) ?: return false) as TileCADCase
-        return tile.onClick(state, playerIn, hand, heldItem, hitX, hitZ)
+        return tile.onClick(state, playerIn, hand, playerIn.getHeldItem(hand), hitX, hitZ)
     }
 
     override fun createBlockState(): BlockStateContainer? {
@@ -249,8 +248,8 @@ class BlockCADCase(name: String) : BlockModContainer(name, Material.CLOTH, *make
     override val ignoredProperties: Array<IProperty<*>>?
         get() = arrayOf(COLOR)
 
-    override fun onBlockPlaced(worldIn: World?, pos: BlockPos, facing: EnumFacing?, hitX: Float, hitY: Float, hitZ: Float, meta: Int, placer: EntityLivingBase): IBlockState? {
-        return defaultState.withProperty(FACING, placer.horizontalFacing.opposite).withProperty(OPEN, false)
+    override fun getStateForPlacement(world: World?, pos: BlockPos?, facing: EnumFacing?, hitX: Float, hitY: Float, hitZ: Float, meta: Int, placer: EntityLivingBase?, hand: EnumHand?): IBlockState {
+        return defaultState.withProperty(FACING, placer?.horizontalFacing?.opposite).withProperty(OPEN, false)
     }
 
     @SideOnly(Side.CLIENT)
@@ -274,42 +273,6 @@ class BlockCADCase(name: String) : BlockModContainer(name, Material.CLOTH, *make
     }
 
     open class CaseStackHandler() : ItemStackHandler(2) {
-        override fun insertItem(slot: Int, stack: ItemStack?, simulate: Boolean): ItemStack? {
-            if (stack == null || stack.stackSize == 0)
-                return null
-
-            validateSlotIndex(slot)
-
-            val existing = this.stacks[slot]
-
-            var limit = getStackLimit(slot, stack)
-            val canInsert = canInsertIntoSlot(slot, stack)
-
-            if (!canInsert) return stack
-
-            if (existing != null) {
-                if (!ItemHandlerHelper.canItemStacksStack(stack, existing))
-                    return stack
-
-                limit -= existing.stackSize
-            }
-
-            if (limit <= 0)
-                return stack
-
-            val reachedLimit = stack.stackSize > limit
-
-            if (!simulate) {
-                if (existing == null) {
-                    this.stacks[slot] = if (reachedLimit) ItemHandlerHelper.copyStackWithSize(stack, limit) else stack
-                } else {
-                    existing.stackSize += if (reachedLimit) limit else stack.stackSize
-                }
-                onContentsChanged(slot)
-            }
-
-            return if (reachedLimit) ItemHandlerHelper.copyStackWithSize(stack, stack.stackSize - limit) else null
-        }
 
         fun canInsertIntoSlot(slot: Int, stack: ItemStack): Boolean {
             if (slot == 0) return stack.item is ICAD || stack.item == ModItems.gaussRifle
@@ -317,9 +280,7 @@ class BlockCADCase(name: String) : BlockModContainer(name, Material.CLOTH, *make
             return false
         }
 
-        override fun getStackLimit(slot: Int, stack: ItemStack?): Int {
-            return 1
-        }
+        override fun getStackLimit(slot: Int, stack: ItemStack) = if (!canInsertIntoSlot(slot, stack)) 0 else 1
     }
 
 }

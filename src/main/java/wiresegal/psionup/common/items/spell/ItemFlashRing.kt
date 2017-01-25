@@ -35,7 +35,8 @@ class ItemFlashRing(name: String) : ItemMod(name), ISpellContainer {
         setMaxStackSize(1)
     }
 
-    override fun onItemRightClick(itemStackIn: ItemStack, worldIn: World, playerIn: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack> {
+    override fun onItemRightClick(worldIn: World, playerIn: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack> {
+        val itemStackIn = playerIn.getHeldItem(hand)
         if (!playerIn.isSneaking && containsSpell(itemStackIn)) {
             val playerCAD = PsiAPI.getPlayerCAD(playerIn)
             var did = false

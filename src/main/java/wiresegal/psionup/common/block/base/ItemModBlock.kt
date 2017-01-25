@@ -6,6 +6,7 @@ import net.minecraft.item.EnumRarity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
+import net.minecraft.util.NonNullList
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
@@ -36,7 +37,7 @@ open class ItemModBlock(block: Block) : ItemBlock(block), ModelHandler.IVariantH
     override fun setUnlocalizedName(par1Str: String): ItemBlock {
         val rl = ResourceLocation(LibMisc.MOD_ID, par1Str)
         GameRegistry.register(this, rl)
-        return super.setUnlocalizedName(par1Str)
+        return super.setUnlocalizedName(par1Str) as ItemBlock
     }
 
     override fun getUnlocalizedName(stack: ItemStack?): String {
@@ -52,7 +53,7 @@ open class ItemModBlock(block: Block) : ItemBlock(block), ModelHandler.IVariantH
         return "tile.${LibMisc.MOD_ID}:" + name
     }
 
-    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: MutableList<ItemStack>) {
+    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
         val variants = this.variants
 
         for (i in variants.indices) {

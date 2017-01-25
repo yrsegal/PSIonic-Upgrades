@@ -1,7 +1,9 @@
 package wiresegal.psionup.common.entity
 
+import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.EntityRegistry
 import wiresegal.psionup.common.PsionicUpgrades
+import wiresegal.psionup.common.lib.LibMisc
 import wiresegal.psionup.common.lib.LibNames
 
 /**
@@ -12,6 +14,6 @@ object ModEntities {
     private var id = 0
 
     init {
-        EntityRegistry.registerModEntity(EntityGaussPulse::class.java, LibNames.Entities.GAUSS_PULSE, id++, PsionicUpgrades.INSTANCE, 256, 10, true)
+        EntityRegistry.registerModEntity(ResourceLocation(LibMisc.MOD_ID, "gauss"), EntityGaussPulse::class.java, LibNames.Entities.GAUSS_PULSE, id++, PsionicUpgrades.INSTANCE, 256, 10, true)
     }
 }

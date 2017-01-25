@@ -52,7 +52,7 @@ class ItemFlowSword(name: String, val ebony: Boolean) : ItemModSword(name, PsiAP
     override fun getBulletInSocket(stack: ItemStack, slot: Int): ItemStack? {
         val name = "bullet" + slot
         val cmp = ItemNBTHelper.getCompound(stack, name, true)
-        return if (cmp == null) null else ItemStack.loadItemStackFromNBT(cmp)
+        return if (cmp == null) null else ItemStack(cmp)
     }
 
     override fun setBulletInSocket(stack: ItemStack, slot: Int, bullet: ItemStack?) {
@@ -91,7 +91,7 @@ class ItemFlowSword(name: String, val ebony: Boolean) : ItemModSword(name, PsiAP
 
             if (playerCad != null) {
                 val bullet = getBulletInSocket(itemstack, getSelectedSlot(itemstack))
-                ItemCAD.cast(attacker.worldObj, attacker, data, bullet, playerCad, 5, 10, 0.05f) {
+                ItemCAD.cast(attacker.world, attacker, data, bullet, playerCad, 5, 10, 0.05f) {
                     context ->
                     context.attackedEntity = target
                 }

@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.ActionResult
+import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumHand
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
@@ -32,7 +33,7 @@ class ItemLiquidColorizer(name: String) : ItemComponent(name), ICADColorizer, Mo
 
         fun getInheriting(stack: ItemStack): ItemStack? {
             val nbt = ItemNBTHelper.getCompound(stack, "inheriting", true)
-            return ItemStack.loadItemStackFromNBT(nbt ?: return null)
+            return ItemStack(nbt ?: return null)
         }
 
         fun setInheriting(stack: ItemStack, inheriting: ItemStack?): ItemStack {
@@ -104,12 +105,12 @@ class ItemLiquidColorizer(name: String) : ItemComponent(name), ICADColorizer, Mo
         }
     }
 
-    override fun onItemRightClick(itemStackIn: ItemStack?, worldIn: World?, playerIn: EntityPlayer?, hand: EnumHand?): ActionResult<ItemStack>? {
-        var outStack = itemStackIn
+    override fun onItemRightClick(worldIn: World?, playerIn: EntityPlayer, hand: EnumHand): ActionResult<ItemStack>? {
+        var outStack = playerIn.getHeldItem(hand)
 
-        if (playerIn != null && playerIn.isSneaking)
+        if (playerIn.isSneaking)
             outStack = ItemStack(ModItems.emptyColorizer)
 
-        return super.onItemRightClick(outStack, worldIn, playerIn, hand)
+        return ActionResult(EnumActionResult.SUCCESS, outStack)
     }
 }

@@ -113,15 +113,15 @@ class ContainerCADCase(player: EntityPlayer, val stack: ItemStack) : Container()
             } else if (!mergeItemStack(itemstack1, invStart, invEnd, true))
                 return null // Assembler -> Inv+hotbar
 
-            if (itemstack1.stackSize == 0)
+            if (itemstack1.count == 0)
                 slot.putStack(null)
             else
                 slot.onSlotChanged()
 
-            if (itemstack1.stackSize == itemstack!!.stackSize)
+            if (itemstack1.count == itemstack!!.count)
                 return null
 
-            slot.onPickupFromSlot(playerIn, itemstack1)
+            slot.onTake(playerIn, itemstack1)
         }
 
         return itemstack

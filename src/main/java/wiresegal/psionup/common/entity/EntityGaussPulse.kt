@@ -99,7 +99,7 @@ open class EntityGaussPulse : EntityThrowable {
             look.y += (Math.random() - 0.5) * spread
             look.z += (Math.random() - 0.5) * spread
             look.normalize().multiply(dist)
-            Psi.proxy.sparkleFX(this.worldObj, x, y, z, r, g, b, look.x.toFloat(), look.y.toFloat(), look.z.toFloat(), 1.2f, 12)
+            Psi.proxy.sparkleFX(this.world, x, y, z, r, g, b, look.x.toFloat(), look.y.toFloat(), look.z.toFloat(), 1.2f, 12)
         }
 
     }
@@ -114,7 +114,7 @@ open class EntityGaussPulse : EntityThrowable {
         val entity = pos.entityHit
         if (entity != null && entity is EntityLivingBase) {
             if (entity == thrower) return
-            if (!worldObj.isRemote) entity.addPotionEffect(PotionEffect(ModPotions.psishock, if (ammo == AmmoStatus.NOTAMMO) 100 else 25))
+            if (!world.isRemote) entity.addPotionEffect(PotionEffect(ModPotions.psishock, if (ammo == AmmoStatus.NOTAMMO) 100 else 25))
             entity.attackEntityFrom(EntityDamageSourceIndirect("arrow", this, thrower).setProjectile(), if (ammo == AmmoStatus.NOTAMMO) 2f else 8f)
             if (entity is EntityEnderman) return
             if (ammo == AmmoStatus.AMMO)
@@ -128,13 +128,13 @@ open class EntityGaussPulse : EntityThrowable {
 
         playSound(PsiSoundHandler.compileError, 1f, 1f)
 
-        if (!worldObj.isRemote && ammo == AmmoStatus.AMMO) {
-            val item = EntityItem(worldObj, posX, posY, posZ, ItemStack(ModItems.gaussBullet))
+        if (!world.isRemote && ammo == AmmoStatus.AMMO) {
+            val item = EntityItem(world, posX, posY, posZ, ItemStack(ModItems.gaussBullet))
             item.motionX = 0.0
             item.motionY = 0.0
             item.motionZ = 0.0
             item.setPickupDelay(40)
-            worldObj.spawnEntityInWorld(item)
+            world.spawnEntity(item)
         }
     }
 
@@ -148,7 +148,7 @@ open class EntityGaussPulse : EntityThrowable {
             return superThrower
         } else {
             if (uuid == null) return null
-            val player = this.worldObj.getPlayerEntityByUUID(uuid)
+            val player = this.world.getPlayerEntityByUUID(uuid)
             return player
         }
     }

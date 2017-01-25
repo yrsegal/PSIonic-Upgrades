@@ -35,7 +35,7 @@ class PieceOperatorVectorStrongRaycastAxis(spell: Spell) : PieceOperator(spell) 
             }
 
             maxLen = Math.min(32.0, maxLen)
-            val pos = PieceOperatorVectorStrongRaycast.raycast(context.caster.worldObj, originVal, rayVal, maxLen)
+            val pos = PieceOperatorVectorStrongRaycast.raycast(context.caster.world, originVal, rayVal, maxLen)
             if (pos != null && pos.blockPos != null) {
                 val facing = pos.sideHit
                 return Vector3(facing.frontOffsetX.toDouble(), facing.frontOffsetY.toDouble(), facing.frontOffsetZ.toDouble())

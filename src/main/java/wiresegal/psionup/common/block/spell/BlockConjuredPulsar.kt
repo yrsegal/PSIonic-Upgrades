@@ -81,10 +81,6 @@ class BlockConjuredPulsar(name: String) : BlockModContainer(name, Material.GLASS
         return 1.0f
     }
 
-    override fun isVisuallyOpaque(): Boolean {
-        return false
-    }
-
     override fun quantityDropped(random: Random?): Int {
         return 0
     }
@@ -125,7 +121,8 @@ class BlockConjuredPulsar(name: String) : BlockModContainer(name, Material.GLASS
         return if (state.getValue(LIGHT)) 15 else 0
     }
 
-    override fun addCollisionBoxToList(state: IBlockState, worldIn: World, pos: BlockPos, aabb: AxisAlignedBB, list: List<AxisAlignedBB>, entity: Entity?) {
+
+    override fun addCollisionBoxToList(state: IBlockState, worldIn: World, pos: BlockPos, aabb: AxisAlignedBB, list: List<AxisAlignedBB>, entity: Entity?, something: Boolean) {
         if (state.getValue(SOLID)) {
             addCollisionBoxToList(pos, aabb, list, AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 1.0, 1.0))
         }

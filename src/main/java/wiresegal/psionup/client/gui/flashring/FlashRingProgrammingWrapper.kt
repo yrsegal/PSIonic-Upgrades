@@ -29,7 +29,7 @@ class FlashRingProgrammingWrapper(val player: EntityPlayer, val stack: ItemStack
     }
 
     override fun getWorld(): World {
-        return object : World(null, null, player.worldObj.provider, null, true) {
+        return object : World(null, null, player.world.provider, null, true) {
             override fun createChunkProvider(): IChunkProvider? {
                 return null
             }

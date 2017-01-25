@@ -68,7 +68,7 @@ class PieceTrickConjurePulsarSequence(spell: Spell) : PieceTrick(spell) {
                 }
 
                 val pos = BlockPos(blockVec.x, blockVec.y, blockVec.z)
-                val world = context.caster.worldObj
+                val world = context.caster.world
                 var state = world.getBlockState(pos)
                 if (state.block !== ModBlocks.conjured) {
                     PieceTrickConjurePulsar.placeBlock(world, pos, false)

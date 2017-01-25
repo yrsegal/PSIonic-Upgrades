@@ -4,6 +4,7 @@ import net.minecraft.block.Block
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import net.minecraft.util.NonNullList
 import wiresegal.psionup.common.items.ModItems
 import wiresegal.psionup.common.lib.LibMisc
 import java.util.*
@@ -24,24 +25,24 @@ class CreativeTab : CreativeTabs(LibMisc.MOD_ID) {
         return ItemStack(ModItems.liquidColorizer)
     }
 
-    override fun getTabIconItem(): Item {
-        return this.iconItemStack.item
+    override fun getTabIconItem(): ItemStack {
+        return this.iconItemStack
     }
 
     override fun hasSearchBar(): Boolean {
         return true
     }
 
-    override fun displayAllRelevantItems(initialList: MutableList<ItemStack>) {
+    override fun displayAllRelevantItems(initialList: NonNullList<ItemStack>) {
         this.list = initialList
         for (item in items)
             addItem(item)
     }
 
     private fun addItem(item: Item) {
-        val tempList = mutableListOf<ItemStack>()
+        val tempList = NonNullList.create<ItemStack>()
         item.getSubItems(item, this, tempList)
-        if (item == tabIconItem)
+        if (item == tabIconItem.item)
             this.list.addAll(0, tempList)
         else
             this.list.addAll(tempList)

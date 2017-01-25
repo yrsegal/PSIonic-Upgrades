@@ -6,6 +6,7 @@ import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.ItemTool
+import net.minecraft.util.NonNullList
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
@@ -81,7 +82,7 @@ open class ItemModTool(name: String, material: ToolMaterial, attackDamage: Float
         return "item.${LibMisc.MOD_ID}:" + name
     }
 
-    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: MutableList<ItemStack>) {
+    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
         for (i in 0..this.variants.size - 1) {
             subItems.add(ItemStack(itemIn, 1, i))
         }

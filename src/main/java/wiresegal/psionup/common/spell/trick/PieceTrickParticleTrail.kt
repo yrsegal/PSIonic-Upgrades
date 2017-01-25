@@ -64,8 +64,8 @@ class PieceTrickParticleTrail(spell: Spell) : PieceTrick(spell) {
         if (!context.isInRadius(pos) || !context.isInRadius(pos.copy().add(dir.copy().multiply(len))))
             throw SpellRuntimeException(SpellRuntimeException.OUTSIDE_RADIUS)
 
-        if (!context.caster.worldObj.isRemote)
-            NetworkHandler.INSTANCE.sendToDimension(MessageParticleTrail(pos, dir, len, time.toInt(), PsiAPI.getPlayerCAD(context.caster)), context.caster.worldObj.provider.dimension)
+        if (!context.caster.world.isRemote)
+            NetworkHandler.INSTANCE.sendToDimension(MessageParticleTrail(pos, dir, len, time.toInt(), PsiAPI.getPlayerCAD(context.caster)), context.caster.world.provider.dimension)
 
         return null
     }

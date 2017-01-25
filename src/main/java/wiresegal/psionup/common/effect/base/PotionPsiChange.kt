@@ -48,7 +48,7 @@ abstract class PotionPsiChange(name: String, badEffect: Boolean, color: Int, ico
             if (icad && data.availablePsi < data.totalPsi) {
                 data.availablePsi = Math.min(data.totalPsi, data.availablePsi + psi)
                 data.save()
-                if (player.worldObj.isRemote && player is EntityPlayerMP)
+                if (player.world.isRemote && player is EntityPlayerMP)
                     NetworkHandler.INSTANCE.sendTo(MessageDataSync(), player)
             }
         }

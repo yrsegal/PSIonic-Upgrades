@@ -43,7 +43,7 @@ class ItemCADMagazine(name: String) : ItemMod(name), ISocketable, ICadComponentA
     companion object {
         fun getSocket(stack: ItemStack): ItemStack {
             val nbt = ItemNBTHelper.getCompound(stack, "socket", true)
-            return ItemStack.loadItemStackFromNBT(nbt ?: return ItemStack(PsiItems.cadSocket))
+            return ItemStack(nbt ?: return ItemStack(PsiItems.cadSocket))
         }
 
         fun setSocket(stack: ItemStack, socket: ItemStack?): ItemStack {
@@ -82,7 +82,7 @@ class ItemCADMagazine(name: String) : ItemMod(name), ISocketable, ICadComponentA
         setMaxStackSize(1)
     }
 
-    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: MutableList<ItemStack>) {
+    override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
         for (i in ModRecipes.examplesockets) {
             subItems.add(setSocket(ItemStack(itemIn), i))
         }
@@ -104,26 +104,27 @@ class ItemCADMagazine(name: String) : ItemMod(name), ISocketable, ICadComponentA
         return type == EnumCADComponent.SOCKET
     }
 
-    override fun onItemRightClick(itemStackIn: ItemStack, worldIn: World, playerIn: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack>? {
+    override fun onItemRightClick(worldIn: World, playerIn: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack>? {
         if (!worldIn.isRemote && PsiAPI.getPlayerCAD(playerIn) != null) {
             playerIn.openGui(PsionicUpgrades.INSTANCE, GuiHandler.GUI_MAGAZINE, worldIn, 0, 0, 0)
         }
-        return ActionResult(EnumActionResult.SUCCESS, itemStackIn)
+        return ActionResult(EnumActionResult.SUCCESS, playerIn.getHeldItem(hand))
     }
 
-    override fun onItemUse(stack: ItemStack, playerIn: EntityPlayer?, worldIn: World?, pos: BlockPos?, hand: EnumHand?, side: EnumFacing?, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult {
+    override fun onItemUse(playerIn: EntityPlayer, worldIn: World?, pos: BlockPos?, hand: EnumHand?, side: EnumFacing?, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult {
         val tile = worldIn!!.getTileEntity(pos)
-        if (tile is TileProgrammer && playerIn != null) {
+        val stack = playerIn.getHeldItem(hand)
+        if (tile is TileProgrammer) {
             val spell = getSpell(stack)
             if (spell != null) {
                 val enabled = tile.isEnabled
                 val compiled = SpellCompiler(spell)
                 if ((compiled.compiledSpell.metadata.stats[EnumSpellStat.BANDWIDTH] ?: Integer.MAX_VALUE) > getBandwidth(stack) && !worldIn.isRemote)
-                    playerIn.addChatComponentMessage(TextComponentTranslation("${LibMisc.MOD_ID}.misc.tooComplexBullet").setStyle(Style().setColor(TextFormatting.RED)))
+                    playerIn.sendStatusMessage(TextComponentTranslation("${LibMisc.MOD_ID}.misc.tooComplexBullet").setStyle(Style().setColor(TextFormatting.RED)), false)
                 else if (!worldIn.isRemote) {
                     if (enabled && !tile.playerLock.isEmpty()) {
                         if (tile.playerLock != playerIn.name) {
-                            playerIn.addChatComponentMessage(TextComponentTranslation("psimisc.notYourProgrammer").setStyle(Style().setColor(TextFormatting.RED)))
+                            playerIn.sendStatusMessage(TextComponentTranslation("psimisc.notYourProgrammer").setStyle(Style().setColor(TextFormatting.RED)), false)
                             return EnumActionResult.SUCCESS
                         }
                     } else {
@@ -208,7 +209,7 @@ class ItemCADMagazine(name: String) : ItemMod(name), ISocketable, ICadComponentA
     override fun getBulletInSocket(stack: ItemStack, slot: Int): ItemStack? {
         val name = "bullet" + slot
         val cmp = ItemNBTHelper.getCompound(stack, name, true)
-        return if (cmp == null) null else ItemStack.loadItemStackFromNBT(cmp)
+        return if (cmp == null) null else ItemStack(cmp)
     }
 
     override fun setBulletInSocket(stack: ItemStack, slot: Int, bullet: ItemStack?) {
@@ -232,8 +233,8 @@ class ItemCADMagazine(name: String) : ItemMod(name), ISocketable, ICadComponentA
         val bullet = this.getBulletInSocket(stack, slot)
         val compiled = SpellCompiler(spell)
         if ((compiled.compiledSpell.metadata.stats[EnumSpellStat.BANDWIDTH] ?: Integer.MAX_VALUE) > getBandwidth(stack)) {
-            if (!player.worldObj.isRemote)
-                player.addChatComponentMessage(TextComponentTranslation("${LibMisc.MOD_ID}.misc.tooComplex").setStyle(Style().setColor(TextFormatting.RED)))
+            if (!player.world.isRemote)
+                player.sendStatusMessage(TextComponentTranslation("${LibMisc.MOD_ID}.misc.tooComplex").setStyle(Style().setColor(TextFormatting.RED)), false)
         } else if (bullet != null && bullet.item is ISpellSettable) {
             (bullet.item as ISpellSettable).setSpell(player, bullet, spell)
             this.setBulletInSocket(stack, slot, bullet)

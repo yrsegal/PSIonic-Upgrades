@@ -35,24 +35,24 @@ class ItemCADCase(block: Block) : ItemModBlock(block), ModelHandler.IExtraVarian
         setMaxStackSize(1)
     }
 
-    override fun onItemRightClick(itemStackIn: ItemStack, worldIn: World, playerIn: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack>? {
+    override fun onItemRightClick(worldIn: World, playerIn: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack>? {
         if (!worldIn.isRemote) {
             playerIn.openGui(PsionicUpgrades.INSTANCE, GuiHandler.GUI_CASE, worldIn, 0, 0, 0)
-            playerIn.worldObj.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.BLOCK_WOODEN_TRAPDOOR_OPEN, SoundCategory.PLAYERS, 1f, 1f)
+            playerIn.world.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.BLOCK_WOODEN_TRAPDOOR_OPEN, SoundCategory.PLAYERS, 1f, 1f)
         }
-        return ActionResult(EnumActionResult.SUCCESS, itemStackIn)
+        return ActionResult(EnumActionResult.SUCCESS, playerIn.getHeldItem(hand))
     }
 
-    override fun onItemUse(stack: ItemStack?, playerIn: EntityPlayer, worldIn: World, pos: BlockPos?, hand: EnumHand?, facing: EnumFacing?, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult? {
+    override fun onItemUse(playerIn: EntityPlayer, worldIn: World, pos: BlockPos?, hand: EnumHand?, facing: EnumFacing?, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult? {
         if (facing != EnumFacing.UP)
             return EnumActionResult.FAIL
-        return super.onItemUse(stack, playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ)
+        return super.onItemUse(playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ)
     }
 
     override fun hitEntity(stack: ItemStack, target: EntityLivingBase, attacker: EntityLivingBase): Boolean {
         target.knockBack(attacker, 1f, MathHelper.sin(attacker.rotationYaw * Math.PI.toFloat() / 180).toDouble(), (-MathHelper.cos(attacker.rotationYaw * Math.PI.toFloat() / 180)).toDouble())
-        attacker.worldObj.playSound(null, attacker.posX, attacker.posY, attacker.posZ, PsionicSoundEvents.THWACK, SoundCategory.PLAYERS, 1.0f, 1.0f)
-        return false;
+        attacker.world.playSound(null, attacker.posX, attacker.posY, attacker.posZ, PsionicSoundEvents.THWACK, SoundCategory.PLAYERS, 1.0f, 1.0f)
+        return false
     }
 
     override fun initCapabilities(stack: ItemStack, nbt: NBTTagCompound?): ICapabilityProvider? {
@@ -70,12 +70,12 @@ class ItemCADCase(block: Block) : ItemModBlock(block), ModelHandler.IExtraVarian
         get() = arrayOf(psiBlock.bareName)
 
     class CaseCapabilityProvider : ICapabilitySerializable<NBTTagCompound> {
-        override fun hasCapability(capability: Capability<*>?, facing: EnumFacing?): Boolean {
+        override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean {
             return (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
         }
 
         @Suppress("UNCHECKED_CAST")
-        override fun <T : Any> getCapability(capability: Capability<T>?, facing: EnumFacing?): T? {
+        override fun <T : Any> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
             if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
                 return itemHandler as T
             return null

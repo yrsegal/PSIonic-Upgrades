@@ -20,7 +20,7 @@ class ShapedCadRecipeJEI(recipe: RecipeCadComponent) : IShapedCraftingRecipeWrap
         height = recipe.height
         inputs = recipe.input.map {
             if (it is EnumCADComponent) ShapelessCadRecipeJEI.itemMap[it] else if (it is ItemStack) {
-                it.stackSize = 1
+                it.count = 1
                 it
             } else it
         }

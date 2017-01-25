@@ -29,7 +29,7 @@ object AssemblerGUIHijacker {
         if (container is ContainerCADAssembler) for (i in container.inventorySlots.indices) {
             val slot = container.inventorySlots[i]
             if (slot is SlotBullet) {
-                container.inventorySlots[i] = SlotBulletReplacement(slot.inventory as TileCADAssembler, slot.slotIndex, slot.xDisplayPosition, slot.yDisplayPosition, PsionicMethodHandles.getSocketSlot(slot))
+                container.inventorySlots[i] = SlotBulletReplacement(slot.inventory as TileCADAssembler, slot.slotIndex, slot.xPos, slot.yPos, PsionicMethodHandles.getSocketSlot(slot))
             }
         }
     }

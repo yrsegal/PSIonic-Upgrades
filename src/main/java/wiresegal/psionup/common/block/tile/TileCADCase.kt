@@ -83,12 +83,12 @@ class TileCADCase : TileMod() {
         return if (x < 0.5) return 1 else 0
     }
 
-    override fun hasCapability(capability: Capability<*>?, facing: EnumFacing?): Boolean {
+    override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean {
         return (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && facing == null) || super.hasCapability(capability, facing)
     }
 
     @Suppress("UNCHECKED_CAST")
-    override fun <T : Any?> getCapability(capability: Capability<T>?, facing: EnumFacing?): T? {
+    override fun <T : Any?> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && facing == null)
             return itemHandler as T
         return super.getCapability(capability, facing)

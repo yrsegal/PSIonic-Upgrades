@@ -58,3 +58,4 @@ class PsionicUpgrades {
         e.registerServerCommand(CommandPsiUnlearn())
     }
 }
+

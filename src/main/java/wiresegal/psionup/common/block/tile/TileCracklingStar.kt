@@ -35,7 +35,7 @@ class TileCracklingStar : TileMod(), ITickable {
             Psi.proxy.wispFX(world, pos.x + 0.5, pos.y + 0.5, pos.z + 0.5, color.red / 255f, color.green / 255f, color.blue / 255f, 0.25f)
         } else {
             if (time > 0) time--
-            else if (time == 0) worldObj.setBlockToAir(pos)
+            else if (time == 0) world.setBlockToAir(pos)
         }
     }
 
@@ -90,6 +90,6 @@ class TileCracklingStar : TileMod(), ITickable {
             rays.add(vec)
         }
         if (cmp.hasKey(TAG_COLORIZER))
-            colorizer = ItemStack.loadItemStackFromNBT(cmp.getCompoundTag(TAG_COLORIZER))
+            colorizer = ItemStack(cmp.getCompoundTag(TAG_COLORIZER))
     }
 }

@@ -53,18 +53,18 @@ object HUDHandler {
     fun drawPsiBar(res: ScaledResolution, pticks: Float) {
         var resoultion = res
         val mc = Minecraft.getMinecraft()
-        val cadStack = PsiAPI.getPlayerCAD(mc.thePlayer) ?: return
+        val cadStack = PsiAPI.getPlayerCAD(mc.player) ?: return
 
         val cad = cadStack.item as ICAD
-        val data = PlayerDataHandler.get(mc.thePlayer)
-        if (data.level === 0 && !mc.thePlayer.capabilities.isCreativeMode)
+        val data = PlayerDataHandler.get(mc.player)
+        if (data.level === 0 && !mc.player.capabilities.isCreativeMode)
             return
 
         val totalPsi = data.totalPsi
         val currPsi = data.getAvailablePsi()
 
-        val mainHand = mc.thePlayer.heldItemMainhand
-        val offHand = mc.thePlayer.heldItemOffhand
+        val mainHand = mc.player.heldItemMainhand
+        val offHand = mc.player.heldItemOffhand
 
         if (ConfigHandler.contextSensitiveBar ||
                 (currPsi == totalPsi &&

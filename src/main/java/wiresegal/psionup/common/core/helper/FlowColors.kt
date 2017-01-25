@@ -28,7 +28,7 @@ object FlowColors {
         @SubscribeEvent
         fun onPlayerUpdate(e: LivingEvent.LivingUpdateEvent) {
             val player = e.entityLiving
-            if (player is EntityPlayer && !player.worldObj.isRemote) {
+            if (player is EntityPlayer && !player.world.isRemote) {
                 val cad = PsiAPI.getPlayerCAD(player)
                 if (cad != null) {
                     val colorizer = (cad.item as ICAD).getComponentInSlot(cad, EnumCADComponent.DYE) ?: ItemStack(ModItems.liquidColorizer)
@@ -71,6 +71,6 @@ object FlowColors {
     }
 
     fun getColor(stack: ItemStack): ItemStack? {
-        return ItemStack.loadItemStackFromNBT(ItemNBTHelper.getCompound(stack.copy(), TAG_FLOW_COLOR, true) ?: return null)
+        return ItemStack(ItemNBTHelper.getCompound(stack.copy(), TAG_FLOW_COLOR, true) ?: return null)
     }
 }

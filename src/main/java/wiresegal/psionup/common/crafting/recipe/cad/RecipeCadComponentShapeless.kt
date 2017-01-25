@@ -6,6 +6,7 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.IRecipe
 import net.minecraft.item.crafting.ShapelessRecipes
+import net.minecraft.util.NonNullList
 import net.minecraft.world.World
 import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.oredict.OreDictionary
@@ -141,7 +142,7 @@ open class RecipeCadComponentShapeless : IRecipe {
         return required.isEmpty()
     }
 
-    override fun getRemainingItems(inv: InventoryCrafting): Array<ItemStack?> {
+    override fun getRemainingItems(inv: InventoryCrafting): NonNullList<ItemStack> {
         return ForgeHooks.defaultRecipeGetRemainingItems(inv)
     }
 }

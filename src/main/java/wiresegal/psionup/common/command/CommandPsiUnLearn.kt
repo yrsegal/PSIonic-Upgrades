@@ -13,7 +13,7 @@ import wiresegal.psionup.common.lib.LibMisc
  */
 open class CommandPsiUnlearn : CommandPsiLearn() {
 
-    override fun getCommandName(): String {
+    override fun getName(): String {
         return "psi-unlearn"
     }
 

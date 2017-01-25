@@ -4,6 +4,7 @@ import net.minecraft.inventory.InventoryCrafting
 import net.minecraft.item.ItemDye
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.IRecipe
+import net.minecraft.util.NonNullList
 import net.minecraft.world.World
 import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.oredict.OreDictionary
@@ -61,7 +62,7 @@ class RecipeLiquidDye : IRecipe {
                     ink = stack
 
                     val newstack = stack.copy()
-                    newstack.stackSize = 1
+                    newstack.count = 1
 
                     if (ItemLiquidColorizer.getColorFromStack(stack) != Int.MAX_VALUE) {
                         val color = Color(ItemLiquidColorizer.Companion.getColorFromStack(stack))
@@ -134,7 +135,7 @@ class RecipeLiquidDye : IRecipe {
         return null
     }
 
-    override fun getRemainingItems(inv: InventoryCrafting?): Array<out ItemStack>? {
+    override fun getRemainingItems(inv: InventoryCrafting?): NonNullList<ItemStack> {
         return ForgeHooks.defaultRecipeGetRemainingItems(inv)
     }
 }

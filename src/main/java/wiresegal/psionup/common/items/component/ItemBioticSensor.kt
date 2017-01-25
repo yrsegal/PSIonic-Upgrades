@@ -41,7 +41,7 @@ class ItemBioticSensor(name: String) : ItemMod(name), IExosuitSensor, ModelHandl
 
             val player = e.entityLiving
             if (player is EntityPlayer) {
-                val triggeredBiotics = biotics(player.worldObj.isRemote)
+                val triggeredBiotics = biotics(player.world.isRemote)
                 var triggered = triggeredBiotics[player]
                 if (triggered == null) {
                     triggered = mutableListOf()
@@ -49,7 +49,7 @@ class ItemBioticSensor(name: String) : ItemMod(name), IExosuitSensor, ModelHandl
                 }
 
                 val found = mutableListOf<EntityLivingBase>()
-                val entities = player.worldObj.getEntitiesWithinAABB(EntityLivingBase::class.java, AxisAlignedBB(-range, -range, -range, range, range, range).offset(player.posX, player.posY, player.posZ))
+                val entities = player.world.getEntitiesWithinAABB(EntityLivingBase::class.java, AxisAlignedBB(-range, -range, -range, range, range, range).offset(player.posX, player.posY, player.posZ))
                 for (entity in entities) if (entity != player && MathHelper.pointDistanceSpace(player.posX, player.posY, player.posZ, entity.posX, entity.posY, entity.posZ) <= range) {
                     if (!triggered.contains(entity))
                         PsiArmorEvent.post(PsiArmorEvent(player, EVENT_BIOTIC, 0.0, entity))

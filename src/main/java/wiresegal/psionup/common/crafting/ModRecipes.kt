@@ -1,18 +1,12 @@
 package wiresegal.psionup.common.crafting
 
 import com.google.common.base.Predicate
-import javafx.scene.paint.Material
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraft.init.PotionTypes
-import net.minecraft.item.Item
-import net.minecraft.item.ItemPotion
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.CraftingManager
 import net.minecraft.potion.PotionType
-import net.minecraft.potion.PotionUtils
-import net.minecraftforge.common.brewing.BrewingRecipe
-import net.minecraftforge.common.brewing.BrewingRecipeRegistry
 import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.oredict.OreDictionary
@@ -223,20 +217,12 @@ object ModRecipes {
     }
 
     fun potionPredicate(stack: ItemStack): Predicate<ItemStack> {
-        return Predicate { OreDictionary.itemMatches(stack, it, false) }
+        return Predicate { OreDictionary.itemMatches(stack, it!!, false) }
     }
 
     fun potionPredicate(input: String): Predicate<ItemStack> {
         val ores = OreDictionary.getOres(input)
-        return Predicate {
-            var flag = false
-            for (ore in ores)
-                if (OreDictionary.itemMatches(ore, it, false)) {
-                    flag = true
-                    break
-                }
-            flag
-        }
+        return Predicate { ores.any { ore -> OreDictionary.itemMatches(ore, it!!, false) } }
     }
 
     fun addCompletePotionRecipes(predicate: Predicate<ItemStack>, fromType: PotionType, normalType: PotionType, longType: PotionType?, strongType: PotionType?) {

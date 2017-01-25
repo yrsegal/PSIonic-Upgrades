@@ -36,13 +36,10 @@ class ShapelessCadRecipeJEI(recipe: RecipeCadComponentShapeless) : ICraftingReci
     }
 
     init {
-        for (input in recipe.input) {
-            if (input is ItemStack) {
-                if (input.stackSize != 1) {
-                    input.stackSize = 1
-                }
-            }
-        }
+        recipe.input
+                .filterIsInstance<ItemStack>()
+                .filter { it.count != 1 }
+                .forEach { it.count = 1 }
 
         output = recipe.recipeOutput
         val input = recipe.input

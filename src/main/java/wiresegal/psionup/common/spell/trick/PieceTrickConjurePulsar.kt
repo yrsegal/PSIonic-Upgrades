@@ -53,7 +53,7 @@ open class PieceTrickConjurePulsar(spell: Spell) : PieceTrick(spell) {
             throw SpellRuntimeException("psi.spellerror.outsideradius")
         } else {
             val pos = BlockPos(positionVal.x, positionVal.y, positionVal.z)
-            val world = context.caster.worldObj
+            val world = context.caster.world
             var state = world.getBlockState(pos)
             if (state.block !== ModBlocks.conjured) {
                 placeBlock(world, pos, false)

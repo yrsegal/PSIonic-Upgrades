@@ -45,7 +45,7 @@ class MessageParticleTrail(var position: Vector3? = null, var ray: Vector3? = nu
                     val y = pos.y + extended.y
                     val z = pos.z + extended.z
 
-                    makeParticle(Minecraft.getMinecraft().theWorld, r, g, b, x, y, z, 0.0, 0.0, 0.0, time)
+                    makeParticle(Minecraft.getMinecraft().world, r, g, b, x, y, z, 0.0, 0.0, 0.0, time)
                 }
             }
             return null

@@ -59,7 +59,7 @@ open class ItemFlowExosuit(name: String, type: Int, slot: EntityEquipmentSlot, v
     override fun getBulletInSocket(stack: ItemStack, slot: Int): ItemStack? {
         val name = "bullet" + slot
         val cmp = ItemNBTHelper.getCompound(stack, name, true)
-        return if (cmp == null) null else ItemStack.loadItemStackFromNBT(cmp)
+        return if (cmp == null) null else ItemStack(cmp)
     }
 
     override fun setBulletInSocket(stack: ItemStack, slot: Int, bullet: ItemStack?) {
@@ -103,7 +103,7 @@ open class ItemFlowExosuit(name: String, type: Int, slot: EntityEquipmentSlot, v
         val playerCad = PsiAPI.getPlayerCAD(event.entityPlayer)
         if (playerCad != null) {
             val bullet = this.getBulletInSocket(stack, this.getSelectedSlot(stack))
-            ItemCAD.cast(event.entityPlayer.worldObj, event.entityPlayer, data, bullet, playerCad, this.getCastCooldown(stack), 0, this.castVolume) { context ->
+            ItemCAD.cast(event.entityPlayer.world, event.entityPlayer, data, bullet, playerCad, this.getCastCooldown(stack), 0, this.castVolume) { context ->
                 context.tool = stack
                 context.attackingEntity = event.attacker
                 context.damageTaken = event.damage
@@ -212,7 +212,7 @@ open class ItemFlowExosuit(name: String, type: Int, slot: EntityEquipmentSlot, v
 
         override fun getAttachedSensor(stack: ItemStack): ItemStack? {
             val cmp = ItemNBTHelper.getCompound(stack, TAG_SENSOR, false)
-            val sensor = ItemStack.loadItemStackFromNBT(cmp)
+            val sensor = ItemStack(cmp)
             return sensor
         }
 

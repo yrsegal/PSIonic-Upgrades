@@ -88,15 +88,21 @@ class InventorySocketable(val stack: ItemStack, val maxBandwidth: Int = -1) : II
     }
 
     override fun isItemValidForSlot(index: Int, stack: ItemStack?): Boolean {
-        val item = stack?.item ?: return false
-        if (item !is ISpellContainer) return false
+        val item = (stack?.item ?: return false) as? ISpellContainer ?: return false
         if (maxBandwidth == -1) return true
         val spell = item.getSpell(stack)
         val compiled = SpellCompiler(spell)
         return (compiled.compiledSpell.metadata.stats[EnumSpellStat.BANDWIDTH] ?: Integer.MAX_VALUE) <= maxBandwidth
     }
 
-    override fun isUseableByPlayer(player: EntityPlayer?): Boolean {
+    override fun isEmpty(): Boolean {
+        for (i in slots) {
+            if (!(i.second?.isEmpty ?: true)) return true
+        }
+        return false
+    }
+
+    override fun isUsableByPlayer(player: EntityPlayer?): Boolean {
         return true
     }
 

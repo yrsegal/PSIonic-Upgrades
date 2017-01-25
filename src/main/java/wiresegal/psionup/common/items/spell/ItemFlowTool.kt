@@ -54,7 +54,7 @@ open class ItemFlowTool(name: String, attackDamage: Float, speed: Float, effecti
     override fun getBulletInSocket(stack: ItemStack, slot: Int): ItemStack? {
         val name = "bullet" + slot
         val cmp = ItemNBTHelper.getCompound(stack, name, true)
-        return if (cmp == null) null else ItemStack.loadItemStackFromNBT(cmp)
+        return if (cmp == null) null else ItemStack(cmp)
     }
 
     override fun setBulletInSocket(stack: ItemStack, slot: Int, bullet: ItemStack?) {
@@ -97,9 +97,9 @@ open class ItemFlowTool(name: String, attackDamage: Float, speed: Float, effecti
 
         if (playerCad != null) {
             val bullet = getBulletInSocket(itemstack, getSelectedSlot(itemstack))
-            ItemCAD.cast(player.worldObj, player, data, bullet, playerCad, 5, 10, 0.05f) { context: SpellContext ->
+            ItemCAD.cast(player.world, player, data, bullet, playerCad, 5, 10, 0.05f) { context: SpellContext ->
                 context.tool = itemstack
-                context.positionBroken = ItemPsimetalTool.raytraceFromEntity(player.worldObj, player, false, 5.0)
+                context.positionBroken = ItemPsimetalTool.raytraceFromEntity(player.world, player, false, 5.0)
             }
         }
 
@@ -177,8 +177,8 @@ open class ItemFlowTool(name: String, attackDamage: Float, speed: Float, effecti
             return if (blockIn === Blocks.SNOW_LAYER) true else blockIn === Blocks.SNOW
         }
 
-        override fun onItemUse(stack: ItemStack?, playerIn: EntityPlayer?, worldIn: World?, pos: BlockPos?, hand: EnumHand?, facing: EnumFacing?, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult {
-            return Items.IRON_SHOVEL.onItemUse(stack, playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ)
+        override fun onItemUse(playerIn: EntityPlayer?, worldIn: World?, pos: BlockPos?, hand: EnumHand?, facing: EnumFacing?, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult {
+            return Items.IRON_SHOVEL.onItemUse(playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ)
         }
     }
 }

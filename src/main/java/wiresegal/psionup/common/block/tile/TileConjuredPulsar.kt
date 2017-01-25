@@ -22,7 +22,7 @@ class TileConjuredPulsar : TileMod(), ITickable {
     var particleCounter = 0
 
     override fun update() {
-        if (this.worldObj.isRemote) {
+        if (this.world.isRemote) {
             var color = Color(ICADColorizer.DEFAULT_SPELL_COLOR)
             if (this.colorizer != null) {
                 color = Psi.proxy.getColorizerColor(this.colorizer)
@@ -31,8 +31,8 @@ class TileConjuredPulsar : TileMod(), ITickable {
             val r = color.red.toFloat() / 255.0f
             val g = color.green.toFloat() / 255.0f
             val b = color.blue.toFloat() / 255.0f
-            var state = this.worldObj.getBlockState(this.getPos())
-            state = state.block.getActualState(state, this.worldObj, this.getPos())
+            var state = this.world.getBlockState(this.getPos())
+            state = state.block.getActualState(state, this.world, this.getPos())
             if (state.block === ModBlocks.conjured && state.getValue(BlockConjured.SOLID)) {
                 val var16 = BooleanArray(12)
                 Arrays.fill(var16, true)
@@ -83,7 +83,7 @@ class TileConjuredPulsar : TileMod(), ITickable {
                 val z1 = this.getPos().z.toDouble() + 0.5 + (Math.random() - 0.5) * w.toDouble()
                 val s = 0.2f + Math.random().toFloat() * 0.1f
                 val m = 0.01f + Math.random().toFloat() * 0.015f
-                Psi.proxy.wispFX(this.worldObj, x, y1, z1, r, g, b, s, -m)
+                Psi.proxy.wispFX(this.world, x, y1, z1, r, g, b, s, -m)
             }
             if (particleCounter == 0) {
                 val w = 0.15f
@@ -93,14 +93,14 @@ class TileConjuredPulsar : TileMod(), ITickable {
                 val z1 = this.getPos().z.toDouble() + 0.5 + (Math.random() - 0.5) * w.toDouble()
                 val s = 0.2f + Math.random().toFloat() * 0.1f
                 val m = 0.01f + Math.random().toFloat() * 0.015f
-                Psi.proxy.wispFX(this.worldObj, x, y1, z1, 1f, 0f, 0f, s, -m)
+                Psi.proxy.wispFX(this.world, x, y1, z1, 1f, 0f, 0f, s, -m)
             }
             particleCounter = (particleCounter + 1) % 10
         }
 
         if (this.time >= 0) {
             if (this.time == 0) {
-                this.worldObj.setBlockToAir(this.getPos())
+                this.world.setBlockToAir(this.getPos())
             } else {
                 --this.time
             }
@@ -117,7 +117,7 @@ class TileConjuredPulsar : TileMod(), ITickable {
             xvn *= m.toDouble()
             yvn *= m.toDouble()
             zvn *= m.toDouble()
-            Psi.proxy.sparkleFX(this.worldObj, xp, yp, zp, r, g, b, xvn.toFloat(), yvn.toFloat(), zvn.toFloat(), 1.25f, 20)
+            Psi.proxy.sparkleFX(this.world, xp, yp, zp, r, g, b, xvn.toFloat(), yvn.toFloat(), zvn.toFloat(), 1.25f, 20)
         }
 
     }
@@ -126,10 +126,9 @@ class TileConjuredPulsar : TileMod(), ITickable {
         val var3 = posArray
         val var4 = posArray.size
 
-        for (var5 in 0..var4 - 1) {
-            val i = var3[var5]
-            edges[i] = false
-        }
+        (0..var4 - 1)
+                .map { var3[it] }
+                .forEach { edges[it] = false }
 
     }
 
@@ -146,6 +145,6 @@ class TileConjuredPulsar : TileMod(), ITickable {
     override fun readSharedNBT(cmp: NBTTagCompound?) {
         this.time = cmp!!.getInteger("time")
         val stackCmp = cmp.getCompoundTag("colorizer")
-        this.colorizer = ItemStack.loadItemStackFromNBT(stackCmp)
+        this.colorizer = ItemStack(stackCmp)
     }
 }

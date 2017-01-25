@@ -35,7 +35,7 @@ class ItemGaussRifle(name: String) : ItemMod(name), ModelHandler.IItemColorProvi
         return false
     }
 
-    override fun onItemRightClick(itemStackIn: ItemStack, worldIn: World, playerIn: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
+    override fun onItemRightClick(worldIn: World, playerIn: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
         val data = PlayerDataHandler.get(playerIn)
         val ammo = findAmmo(playerIn)
         if (playerIn.capabilities.isCreativeMode || data.availablePsi > 0 || (ammo != null && data.availablePsi > 0)) {
@@ -44,8 +44,8 @@ class ItemGaussRifle(name: String) : ItemMod(name), ModelHandler.IItemColorProvi
                     data.deductPsi(1000, 100, true)
                 else {
                     data.deductPsi(250, 10, true)
-                    ammo.stackSize--
-                    if (ammo.stackSize == 0)
+                    ammo.count--
+                    if (ammo.count == 0)
                         playerIn.inventory.deleteStack(ammo)
                 }
             }
@@ -61,7 +61,7 @@ class ItemGaussRifle(name: String) : ItemMod(name), ModelHandler.IItemColorProvi
                 EntityGaussPulse.AmmoStatus.NOTAMMO
 
             val proj = EntityGaussPulse(worldIn, playerIn, status)
-            if (!worldIn.isRemote) worldIn.spawnEntityInWorld(proj)
+            if (!worldIn.isRemote) worldIn.spawnEntity(proj)
             val look = playerIn.lookVec
             if (look.xCoord != 0.0 && look.zCoord != 0.0)
                 playerIn.knockBack(playerIn, 0.5f, look.xCoord, look.zCoord)
@@ -72,7 +72,7 @@ class ItemGaussRifle(name: String) : ItemMod(name), ModelHandler.IItemColorProvi
             if (ammo != null && !playerIn.capabilities.isCreativeMode)
                 playerIn.cooldownTracker.setCooldown(this, 30)
         }
-        return ActionResult(EnumActionResult.SUCCESS, itemStackIn)
+        return ActionResult(EnumActionResult.SUCCESS, playerIn.getHeldItem(hand))
     }
 
     private fun findAmmo(player: EntityPlayer): ItemStack? {

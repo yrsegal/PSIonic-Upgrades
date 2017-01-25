@@ -47,7 +47,8 @@ class ItemFakeCAD(name: String) : ItemMod(name), ISocketable, ISpellSettable, Mo
         } else 0xFFFFFF
     }
 
-    override fun onItemRightClick(itemstack: ItemStack, worldIn: World, player: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack>? {
+    override fun onItemRightClick(worldIn: World, player: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack>? {
+        val itemstack = player.getHeldItem(hand)
         val data = PlayerDataHandler.get(player)
         val playerCad = PsiAPI.getPlayerCAD(player)
         if (playerCad != null) {
@@ -66,11 +67,11 @@ class ItemFakeCAD(name: String) : ItemMod(name), ISocketable, ISpellSettable, Mo
                     return ActionResult(EnumActionResult.SUCCESS, itemstack)
                 }
             } else {
-                ItemCAD.cast(player.worldObj, player, data, bullet, playerCad, 40, 25, 0.5f, null)
+                ItemCAD.cast(player.world, player, data, bullet, playerCad, 40, 25, 0.5f, null)
                 return ActionResult(EnumActionResult.SUCCESS, itemstack)
             }
         }
-        return super.onItemRightClick(itemstack, worldIn, player, hand)
+        return super.onItemRightClick(worldIn, player, hand)
     }
 
     override fun requiresSneakForSpellSet(p0: ItemStack?): Boolean {
@@ -95,7 +96,7 @@ class ItemFakeCAD(name: String) : ItemMod(name), ISocketable, ISpellSettable, Mo
     override fun getBulletInSocket(stack: ItemStack, slot: Int): ItemStack? {
         val name = "bullet" + slot
         val cmp = ItemNBTHelper.getCompound(stack, name, true)
-        return if (cmp == null) null else ItemStack.loadItemStackFromNBT(cmp)
+        return if (cmp == null) null else ItemStack(cmp)
     }
 
     override fun setBulletInSocket(stack: ItemStack, slot: Int, bullet: ItemStack?) {

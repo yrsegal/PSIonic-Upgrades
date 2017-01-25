@@ -70,9 +70,9 @@ open class CommandPsiLearn : CommandBase() {
         }
 
         fun PlayerDataHandler.PlayerData.unlockAll() {
-            for (group in groups)
-                if (!hasGroup(group))
-                    unlockPieceGroupFree(group)
+            groups
+                    .filterNot { hasGroup(it) }
+                    .forEach { unlockPieceGroupFree(it) }
             lastSpellGroup = ""
             save()
         }
@@ -118,11 +118,11 @@ open class CommandPsiLearn : CommandBase() {
         }
     }
 
-    override fun getCommandName(): String {
+    override fun getName(): String {
         return "psi-learn"
     }
 
-    override fun getCommandUsage(var1: ICommandSender): String {
+    override fun getUsage(sender: ICommandSender?): String {
         return "$localizationkey.usage"
     }
 
@@ -163,7 +163,7 @@ open class CommandPsiLearn : CommandBase() {
 
     @Throws(CommandException::class)
     override fun execute(server: MinecraftServer, sender: ICommandSender, args: Array<String>) {
-        if (args.size < 1 || args.size > 3) {
+        if (args.isEmpty() || args.size > 3) {
             throw WrongUsageException("$localizationkey.usage")
         } else {
             val player: Entity?
@@ -198,10 +198,10 @@ open class CommandPsiLearn : CommandBase() {
         }
     }
 
-    override fun getTabCompletionOptions(server: MinecraftServer, sender: ICommandSender, args: Array<String>, pos: BlockPos?): List<String> {
+    override fun getTabCompletions(server: MinecraftServer, sender: ICommandSender, args: Array<String>, pos: BlockPos?): List<String> {
         return when (args.size) {
             1 -> CommandBase.getListOfStringsMatchingLastWord(args, groups)
-            2 -> CommandBase.getListOfStringsMatchingLastWord(args, *server.allUsernames)
+            2 -> CommandBase.getListOfStringsMatchingLastWord(args, *server.onlinePlayerNames)
             else -> emptyList()
         }
     }

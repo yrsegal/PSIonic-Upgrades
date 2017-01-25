@@ -82,7 +82,7 @@ class GlowingItemHandler {
         fun renderOverlayItemsInFirstPerson(partialTicks: Float, overlay: Boolean, renderNonOverlays: Boolean) {
             val render = Minecraft.getMinecraft().itemRenderer
 
-            val abstractclientplayer = Minecraft.getMinecraft().thePlayer
+            val abstractclientplayer = Minecraft.getMinecraft().player
             val f = abstractclientplayer.getSwingProgress(partialTicks)
             val f1 = abstractclientplayer.prevRotationPitch + (abstractclientplayer.rotationPitch - abstractclientplayer.prevRotationPitch) * partialTicks
             val f2 = abstractclientplayer.prevRotationYaw + (abstractclientplayer.rotationYaw - abstractclientplayer.prevRotationYaw) * partialTicks
@@ -161,15 +161,15 @@ class GlowingItemHandler {
         }
 
         private fun setLightmap() {
-            val abstractclientplayer = Minecraft.getMinecraft().thePlayer
-            val i = Minecraft.getMinecraft().theWorld.getCombinedLight(BlockPos(abstractclientplayer.posX, abstractclientplayer.posY + abstractclientplayer.getEyeHeight().toDouble(), abstractclientplayer.posZ), 0)
+            val abstractclientplayer = Minecraft.getMinecraft().player
+            val i = Minecraft.getMinecraft().world.getCombinedLight(BlockPos(abstractclientplayer.posX, abstractclientplayer.posY + abstractclientplayer.getEyeHeight().toDouble(), abstractclientplayer.posZ), 0)
             val f = (i and 65535).toFloat()
             val f1 = (i shr 16).toFloat()
             OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, f, f1)
         }
 
         private fun rotateArm(partTicks: Float) {
-            val entityplayersp = Minecraft.getMinecraft().thePlayer
+            val entityplayersp = Minecraft.getMinecraft().player
             val f = entityplayersp.prevRenderArmPitch + (entityplayersp.renderArmPitch - entityplayersp.prevRenderArmPitch) * partTicks
             val f1 = entityplayersp.prevRenderArmYaw + (entityplayersp.renderArmYaw - entityplayersp.prevRenderArmYaw) * partTicks
             GlStateManager.rotate((entityplayersp.rotationPitch - f) * 0.1F, 1F, 0F, 0F)

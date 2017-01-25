@@ -74,7 +74,7 @@ class ContainerCADMagazine(val player: EntityPlayer, val stack: ItemStack) : Con
                 val container = stack.item as ISpellContainer
                 if (container.containsSpell(stack) && isSlotEnabled()) {
                     val ret = socketable.isItemValidForSlot(socketSlot, stack)
-                    if (!ret && (!dontNotify || notifyOnce) && player.worldObj.isRemote) {
+                    if (!ret && (!dontNotify || notifyOnce) && player.world.isRemote) {
                         tooltipTime = 80
                         tooltipText = "${LibMisc.MOD_ID}.misc.tooComplex"
                         if (notifyOnce) notifyOnce = false
@@ -89,7 +89,7 @@ class ContainerCADMagazine(val player: EntityPlayer, val stack: ItemStack) : Con
 
         override fun canTakeStack(playerIn: EntityPlayer?): Boolean {
             val ret = socketable.isItemValidForSlot(socketSlot, stack)
-            if (!ret && (!dontNotify || notifyOnce) && player.worldObj.isRemote) {
+            if (!ret && (!dontNotify || notifyOnce) && player.world.isRemote) {
                 tooltipTime = 80
                 tooltipText = "${LibMisc.MOD_ID}.misc.tooComplexBullet"
                 if (notifyOnce) notifyOnce = false
@@ -106,7 +106,7 @@ class ContainerCADMagazine(val player: EntityPlayer, val stack: ItemStack) : Con
     }
 
     override fun canInteractWith(playerIn: EntityPlayer): Boolean {
-        return inventory.isUseableByPlayer(playerIn)
+        return inventory.isUsableByPlayer(playerIn)
     }
 
     override fun transferStackInSlot(playerIn: EntityPlayer?, index: Int): ItemStack? {
@@ -133,15 +133,15 @@ class ContainerCADMagazine(val player: EntityPlayer, val stack: ItemStack) : Con
             dontNotify = false
             notifyOnce = false
 
-            if (itemstack1.stackSize == 0)
+            if (itemstack1.count == 0)
                 slot.putStack(null)
             else
                 slot.onSlotChanged()
 
-            if (itemstack1.stackSize == itemstack!!.stackSize)
+            if (itemstack1.count == itemstack!!.count)
                 return null
 
-            slot.onPickupFromSlot(playerIn, itemstack1)
+            slot.onTake(playerIn, itemstack1)
         }
 
         return itemstack

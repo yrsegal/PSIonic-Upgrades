@@ -51,7 +51,7 @@ open class PieceTrickConjureStar(spell: Spell) : PieceTrick(spell) {
             throw SpellRuntimeException(SpellRuntimeException.OUTSIDE_RADIUS)
         } else {
             val pos = BlockPos(positionVal.x, positionVal.y, positionVal.z)
-            val world = context.caster.worldObj
+            val world = context.caster.world
             var state = world.getBlockState(pos)
 
             if (state.block !== ModBlocks.crackle) placeBlock(world, pos, false)
