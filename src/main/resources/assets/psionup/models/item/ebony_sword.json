@@ -1,0 +1,11 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "psionup:items/ebony_sword",
+    "layer1": "psionup:items/sword_overlay"
+  },
+  "overrides": [{
+    "predicate": { "psionup:overlay": 1 },
+    "model": "psionup:item/sword_overlay"
+  }]
+}

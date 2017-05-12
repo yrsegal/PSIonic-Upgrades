@@ -1,0 +1,12 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "psionup:items/ivory_helmet",
+    "layer1": "psionup:items/helmet_overlay",
+    "layer2": "psi:items/psimetal_exosuit_helmet_sensor"
+  },
+  "overrides": [{
+    "predicate": { "psionup:overlay": 1 },
+    "model": "psionup:item/helmet_overlay"
+  }]
+}

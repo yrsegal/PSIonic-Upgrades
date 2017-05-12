@@ -45,7 +45,7 @@ class LayerGlowingWire(val renderPlayer: RenderPlayer) : LayerRenderer<AbstractC
         var g = 0f
         var b = 0f
         var hasCad = false
-        if (cad != null) {
+        if (!cad.isEmpty) {
             val i = Psi.proxy.getCADColor(cad).rgb
             r = (i shr 16 and 255).toFloat() / 255.0f
             g = (i shr 8 and 255).toFloat() / 255.0f
@@ -62,7 +62,7 @@ class LayerGlowingWire(val renderPlayer: RenderPlayer) : LayerRenderer<AbstractC
         if (player.hasPlayerInfo() && !player.isInvisible && player.isWearing(EnumPlayerModelParts.CAPE) && player.locationCape != null) {
             val itemstack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST)
 
-            if (itemstack == null || itemstack.item !== Items.ELYTRA) {
+            if (itemstack.isEmpty || itemstack.item !== Items.ELYTRA) {
                 GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f)
                 this.renderPlayer.bindTexture(getTexture(player))
                 GlStateManager.pushMatrix()
@@ -113,7 +113,7 @@ class LayerGlowingWire(val renderPlayer: RenderPlayer) : LayerRenderer<AbstractC
 
     fun doElytraRender(player: AbstractClientPlayer, limbSwing: Float, limbSwingAmount: Float, partialTicks: Float, ageInTicks: Float, netHeadYaw: Float, headPitch: Float, scale: Float, r: Float, g: Float, b: Float, hasCad: Boolean) {
         val itemstack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST)
-        if (player.isWearing(EnumPlayerModelParts.CAPE) && itemstack != null && itemstack.item == Items.ELYTRA) {
+        if (player.isWearing(EnumPlayerModelParts.CAPE) && !itemstack.isEmpty && itemstack.item == Items.ELYTRA) {
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f)
             GlStateManager.enableBlend()
             GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA)
@@ -173,9 +173,9 @@ class LayerGlowingWire(val renderPlayer: RenderPlayer) : LayerRenderer<AbstractC
     companion object {
         private val WIRE_UUID = UUID.fromString("458391f5-6303-4649-b416-e4c0d18f837a")
 
-        private val TEXTURE_EBONY = ResourceLocation(LibMisc.MOD_ID, "textures/model/wire/ebonyCape2015.png")
-        private val TEXTURE_IVORY = ResourceLocation(LibMisc.MOD_ID, "textures/model/wire/ivoryCape2015.png")
-        private val TEXTURE_OVERLAY = ResourceLocation(LibMisc.MOD_ID, "textures/model/wire/cape2015Overlay.png")
-        private val TEXTURE_SKIN_OVERLAY = ResourceLocation(LibMisc.MOD_ID, "textures/model/wire/skinOverlay.png")
+        private val TEXTURE_EBONY = ResourceLocation(LibMisc.MOD_ID, "textures/model/wire/ebony_cape2015.png")
+        private val TEXTURE_IVORY = ResourceLocation(LibMisc.MOD_ID, "textures/model/wire/ivory_cape2015.png")
+        private val TEXTURE_OVERLAY = ResourceLocation(LibMisc.MOD_ID, "textures/model/wire/cape2015_overlay.png")
+        private val TEXTURE_SKIN_OVERLAY = ResourceLocation(LibMisc.MOD_ID, "textures/model/wire/skin_overlay.png")
     }
 }

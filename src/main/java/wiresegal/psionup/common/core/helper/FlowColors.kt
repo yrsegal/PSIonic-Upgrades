@@ -30,8 +30,9 @@ object FlowColors {
             val player = e.entityLiving
             if (player is EntityPlayer && !player.world.isRemote) {
                 val cad = PsiAPI.getPlayerCAD(player)
-                if (cad != null) {
-                    val colorizer = (cad.item as ICAD).getComponentInSlot(cad, EnumCADComponent.DYE) ?: ItemStack(ModItems.liquidColorizer)
+                if (!cad.isEmpty) {
+                    var colorizer = (cad.item as ICAD).getComponentInSlot(cad, EnumCADComponent.DYE)
+                    if (colorizer.isEmpty) colorizer = ItemStack(ModItems.liquidColorizer)
                     applyColor(player, colorizer)
                 } else {
                     purgeColor(player)

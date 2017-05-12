@@ -1,0 +1,11 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "psionup:items/ivory_chestplate",
+    "layer1": "psionup:items/chestplate_overlay"
+  },
+  "overrides": [{
+    "predicate": { "psionup:overlay": 1 },
+    "model": "psionup:item/chestplate_overlay"
+  }]
+}

@@ -23,12 +23,12 @@ class ExosuitGlowLayer(val renderer: RenderLivingBase<*>) : LayerBipedArmor(rend
         this.renderArmorLayer(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale, EntityEquipmentSlot.HEAD)
     }
 
-    val RESOURCE = ResourceLocation(LibMisc.MOD_ID, "textures/model/exosuitOverlay.png")
+    val RESOURCE = ResourceLocation(LibMisc.MOD_ID, "textures/model/exosuit_overlay.png")
 
     fun renderArmorLayer(entityLivingBaseIn: EntityLivingBase, limbSwing: Float, limbSwingAmount: Float, partialTicks: Float, ageInTicks: Float, netHeadYaw: Float, headPitch: Float, scale: Float, slotIn: EntityEquipmentSlot) {
         val itemstack = entityLivingBaseIn.getItemStackFromSlot(slotIn)
 
-        if (itemstack != null && itemstack.item is ItemFlowExosuit) {
+        if (!itemstack.isEmpty && itemstack.item is ItemFlowExosuit) {
             val itemarmor = itemstack.item as ItemFlowExosuit
 
             if (itemarmor.equipmentSlot == slotIn) {

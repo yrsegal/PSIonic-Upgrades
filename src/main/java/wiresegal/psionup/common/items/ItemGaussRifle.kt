@@ -29,11 +29,10 @@ class ItemGaussRifle(name: String) : ItemMod(name), IItemColorProvider, IGlowing
         setMaxStackSize(1)
     }
 
+    @SideOnly(Side.CLIENT)
     override fun transformToGlow(itemStack: ItemStack, model: IBakedModel): IBakedModel? {
-        return IGlowingItem.Helper.wrapperBake(model, false, 1)
+        return IGlowingItem.Helper.wrapperBake(model, false, 0)
     }
-
-    override fun shouldDisableLightingForGlow(itemStack: ItemStack, model: IBakedModel): Boolean = false
 
     override val itemColorFunction: ((stack: ItemStack, tintIndex: Int) -> Int)?
         get() = {

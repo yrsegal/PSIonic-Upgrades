@@ -49,15 +49,15 @@ class ContainerCADMagazine(val player: EntityPlayer, val stack: ItemStack) : Con
 
         var i = 0
 
-        for (slot in innerSlots) {
-            addSlotToContainer(SlotBullet(cadInventory, i, slot.first, slot.second, i, true))
+        for ((first, second) in innerSlots) {
+            addSlotToContainer(SlotBullet(cadInventory, i, first, second, i, true))
             i++
         }
 
         i = 0
 
-        for (slot in outerSlots) {
-            addSlotToContainer(SlotBullet(inventory, i, slot.first, slot.second, i, false))
+        for ((first, second) in outerSlots) {
+            addSlotToContainer(SlotBullet(inventory, i, first, second, i, false))
             i++
         }
     }

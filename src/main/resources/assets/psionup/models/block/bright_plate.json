@@ -1,0 +1,8 @@
+{
+  "parent": "psionup:block/plate_base",
+  "textures": {
+    "top": "psi:blocks/psimetal_plate_cyan",
+    "side": "psi:blocks/psimetal_plate_cyan_light",
+    "overlay": "psionup:blocks/psimetal_plate_cyan_light"
+  }
+}

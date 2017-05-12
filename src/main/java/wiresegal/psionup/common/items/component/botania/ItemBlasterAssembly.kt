@@ -62,7 +62,7 @@ class ItemBlasterAssembly(name: String) : ItemComponent(name), IExtraVariantHold
 
     override fun addInformation(stack: ItemStack, playerIn: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
         if (GuiScreen.isShiftKeyDown())
-            addToTooltip(tooltip, "${LibMisc.MOD_ID}.requirement.manaCAD")
+            addToTooltip(tooltip, "${LibMisc.MOD_ID}.requirement.mana_cad")
         super.addInformation(stack, playerIn, tooltip, advanced)
     }
 

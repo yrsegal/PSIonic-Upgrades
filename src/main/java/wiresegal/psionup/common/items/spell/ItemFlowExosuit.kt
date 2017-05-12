@@ -53,8 +53,14 @@ open class ItemFlowExosuit(name: String, slot: EntityEquipmentSlot, val ebony: B
         }
     }
 
+    @SideOnly(Side.CLIENT)
     override fun transformToGlow(itemStack: ItemStack, model: IBakedModel): IBakedModel? {
         return IGlowingItem.Helper.wrapperBake(model, false, 1)
+    }
+
+    @SideOnly(Side.CLIENT)
+    override fun shouldDisableLightingForGlow(itemStack: ItemStack, model: IBakedModel): Boolean {
+        return true
     }
 
     override fun isSocketSlotAvailable(stack: ItemStack, slot: Int): Boolean {
@@ -104,7 +110,7 @@ open class ItemFlowExosuit(name: String, slot: EntityEquipmentSlot, val ebony: B
     fun cast(stack: ItemStack, event: PsiArmorEvent) {
         val data = PlayerDataHandler.get(event.entityPlayer)
         val playerCad = PsiAPI.getPlayerCAD(event.entityPlayer)
-        if (playerCad != null) {
+        if (!playerCad.isEmpty) {
             val bullet = this.getBulletInSocket(stack, this.getSelectedSlot(stack))
             ItemCAD.cast(event.entityPlayer.world, event.entityPlayer, data, bullet, playerCad, this.getCastCooldown(stack), 0, this.castVolume) { context ->
                 context.tool = stack
@@ -148,9 +154,9 @@ open class ItemFlowExosuit(name: String, slot: EntityEquipmentSlot, val ebony: B
     override fun getArmorTexture(stack: ItemStack, entity: Entity?, slot: EntityEquipmentSlot?, type: String?): String {
         val overlay = type != null && type == "overlay"
         if (overlay)
-            return "${LibMisc.MOD_ID}:textures/model/${if (ebony) "ebony" else "ivory"}Exosuit.png"
+            return "${LibMisc.MOD_ID}:textures/model/${if (ebony) "ebony" else "ivory"}_exosuit.png"
         else
-            return "psi:textures/model/psimetalExosuitSensor.png"
+            return "psi:textures/model/psimetal_exosuit_sensor.png"
     }
 
     fun getColorFromPlayer(player: EntityPlayer): Int {
@@ -212,7 +218,7 @@ open class ItemFlowExosuit(name: String, slot: EntityEquipmentSlot, val ebony: B
         }
 
         override fun getAttachedSensor(stack: ItemStack): ItemStack {
-            val cmp = ItemNBTHelper.getCompound(stack, TAG_SENSOR)
+            val cmp = ItemNBTHelper.getCompound(stack, TAG_SENSOR) ?: NBTTagCompound()
             val sensor = ItemStack(cmp)
             return sensor
         }

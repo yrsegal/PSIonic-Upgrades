@@ -86,7 +86,7 @@ object ModItems {
 
         gaussBullet = ItemMod(LibNames.Items.GAUSS_BULLET)
 
-        if (Loader.isModLoaded("Botania"))
+        if (Loader.isModLoaded("botania"))
             CompatItems.init()
     }
 }

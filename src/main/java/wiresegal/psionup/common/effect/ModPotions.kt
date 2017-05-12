@@ -1,9 +1,9 @@
 package wiresegal.psionup.common.effect
 
+import com.teamwizardry.librarianlib.features.base.PotionMod
 import net.minecraft.potion.PotionEffect
 import net.minecraft.potion.PotionType
 import wiresegal.psionup.common.core.ConfigHandler
-import wiresegal.psionup.common.effect.base.PotionMod
 import wiresegal.psionup.common.effect.base.PotionTypeMod
 import wiresegal.psionup.common.lib.LibNames
 
@@ -12,8 +12,6 @@ import wiresegal.psionup.common.lib.LibNames
  * Created at 10:06 PM on 7/13/16.
  */
 object ModPotions {
-    private var index = 0
-
     val psishock: PotionMod
     val psipulse: PotionMod
 
@@ -26,8 +24,8 @@ object ModPotions {
     lateinit var longPsipulseType: PotionType
 
     init {
-        psishock = PotionPsishock(index++)
-        psipulse = PotionPsipulse(index++)
+        psishock = PotionPsishock()
+        psipulse = PotionPsipulse()
 
         psishockType = PotionTypeMod(LibNames.Potions.PSISHOCK, PotionEffect(psishock, 160))
         strongPsishockType = PotionTypeMod(LibNames.Potions.PSISHOCK_STRONG, PotionEffect(psishock, 125, 1))

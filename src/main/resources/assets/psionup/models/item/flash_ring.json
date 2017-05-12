@@ -1,0 +1,14 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "psionup:items/flash_ring_inactive"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "psionup:active": 1
+      },
+      "model": "psionup:item/flash_ring_active"
+    }
+  ]
+}

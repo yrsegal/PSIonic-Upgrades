@@ -1,5 +1,6 @@
 package wiresegal.psionup.common.items.spell
 
+import com.teamwizardry.librarianlib.features.base.item.IGlowingItem
 import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
 import com.teamwizardry.librarianlib.features.base.item.ItemMod
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
@@ -19,6 +20,7 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import net.minecraft.client.renderer.block.model.IBakedModel
 import vazkii.psi.api.PsiAPI
 import vazkii.psi.api.cad.ISocketable
 import vazkii.psi.api.spell.ISpellSettable
@@ -35,11 +37,19 @@ import vazkii.arl.item.ItemMod as PsiItem
  * @author WireSegal
  * Created at 8:46 AM on 3/20/16.
  */
-class ItemFakeCAD(name: String) : ItemMod(name), ISocketable, ISpellSettable, IItemColorProvider, FlowColors.IAcceptor {
+class ItemFakeCAD(name: String) : ItemMod(name), ISocketable, ISpellSettable, IItemColorProvider, FlowColors.IAcceptor, IGlowingItem {
 
     init {
         setMaxStackSize(1)
     }
+
+    @SideOnly(Side.CLIENT)
+    override fun transformToGlow(itemStack: ItemStack, model: IBakedModel): IBakedModel? {
+        return IGlowingItem.Helper.wrapperBake(model, false, 1)
+    }
+
+    @SideOnly(Side.CLIENT)
+    override fun shouldDisableLightingForGlow(itemStack: ItemStack, model: IBakedModel) = true
 
     override val itemColorFunction: ((stack: ItemStack, tintIndex: Int) -> Int)?
         get() = {

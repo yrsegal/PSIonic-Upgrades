@@ -1,0 +1,11 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "psionup:items/ivory_axe",
+    "layer1": "psionup:items/axe_overlay"
+  },
+  "overrides": [{
+    "predicate": { "psionup:overlay": 1 },
+    "model": "psionup:item/axe_overlay"
+  }]
+}

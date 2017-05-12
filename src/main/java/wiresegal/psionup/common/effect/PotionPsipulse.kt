@@ -10,7 +10,7 @@ import wiresegal.psionup.common.lib.LibNames
  * @author WireSegal
  * Created at 10:01 PM on 7/13/16.
  */
-class PotionPsipulse(iconIndex: Int) : PotionPsiChange(LibNames.Potions.PSIPULSE, false, ICADColorizer.DEFAULT_SPELL_COLOR, iconIndex) {
+class PotionPsipulse : PotionPsiChange(LibNames.Potions.PSIPULSE, false, ICADColorizer.DEFAULT_SPELL_COLOR) {
     override val ampAmount: Int
         get() = 10
     override val baseAmount: Int

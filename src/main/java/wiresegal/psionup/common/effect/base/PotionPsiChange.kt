@@ -14,7 +14,7 @@ import vazkii.psi.common.network.message.MessageDataSync
  * @author WireSegal
  * Created at 10:01 PM on 7/13/16.
  */
-abstract class PotionPsiChange(name: String, badEffect: Boolean, color: Int, iconIndex: Int) : PotionModColorized(name, badEffect, color, iconIndex) {
+abstract class PotionPsiChange(name: String, badEffect: Boolean, color: Int) : PotionModColorized(name, badEffect, color) {
     override fun isReady(duration: Int, amplifier: Int): Boolean {
         return true
     }
@@ -34,7 +34,8 @@ abstract class PotionPsiChange(name: String, badEffect: Boolean, color: Int, ico
         if (psi < 0)
             data.deductPsi(-psi, 40, true, true)
         else {
-            val cad = PsiAPI.getPlayerCAD(player) ?: return
+            val cad = PsiAPI.getPlayerCAD(player)
+            if (cad.isEmpty) return
             val cadItem = cad.item as ICAD
             var icad = true
 

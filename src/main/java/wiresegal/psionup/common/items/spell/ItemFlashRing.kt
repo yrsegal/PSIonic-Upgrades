@@ -41,7 +41,7 @@ class ItemFlashRing(name: String) : ItemMod(name), ISpellContainer {
         if (!playerIn.isSneaking && containsSpell(itemStackIn)) {
             val playerCAD = PsiAPI.getPlayerCAD(playerIn)
             var did = false
-            if (playerCAD != null)
+            if (!playerCAD.isEmpty)
                 did = ItemCAD.cast(worldIn, playerIn, PlayerDataHandler.get(playerIn), itemStackIn, playerCAD, (15 * getCostModifier(itemStackIn)).toInt(), 25, 0.5f, null)
             return ActionResult(if (did) EnumActionResult.SUCCESS else EnumActionResult.PASS, itemStackIn)
         } else if (playerIn.isSneaking) {

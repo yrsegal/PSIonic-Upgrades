@@ -2,6 +2,7 @@ package wiresegal.psionup.common.block
 
 import com.teamwizardry.librarianlib.features.base.block.BlockMod
 import com.teamwizardry.librarianlib.features.base.block.IBlockColorProvider
+import com.teamwizardry.librarianlib.features.base.block.ItemModBlock
 import com.teamwizardry.librarianlib.features.base.item.IGlowingItem
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.MapColor
@@ -13,6 +14,7 @@ import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.color.IBlockColor
 import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.item.EnumDyeColor
+import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 import net.minecraft.util.BlockRenderLayer
 import net.minecraft.util.math.BlockPos
@@ -25,7 +27,7 @@ import wiresegal.psionup.common.lib.LibNames
  * @author WireSegal
  * Created at 9:56 PM on 7/4/16.
  */
-class BlockPlate(name: String) : BlockMod(name, Material.IRON, *makeVariants(name)), IBlockColorProvider, IGlowingItem {
+class BlockPlate(name: String) : BlockMod(name, Material.IRON, *makeVariants(name)), IBlockColorProvider {
     companion object {
         fun makeVariants(name: String): Array<String> {
             return Array(16) {
@@ -36,12 +38,18 @@ class BlockPlate(name: String) : BlockMod(name, Material.IRON, *makeVariants(nam
         val COLOR: PropertyEnum<EnumDyeColor> = PropertyEnum.create("color", EnumDyeColor::class.java)
     }
 
-    override fun transformToGlow(itemStack: ItemStack, model: IBakedModel): IBakedModel? {
-        return IGlowingItem.Helper.wrapperBake(model, false, 1)
+    override fun createItemForm(): ItemBlock? {
+        return object : ItemModBlock(this), IGlowingItem {
+            @SideOnly(Side.CLIENT)
+            override fun transformToGlow(itemStack: ItemStack, model: IBakedModel): IBakedModel? {
+                return IGlowingItem.Helper.wrapperBake(model, false, 1)
+            }
+        }
     }
 
+    @SideOnly(Side.CLIENT)
     override fun getBlockLayer(): BlockRenderLayer? {
-        return BlockRenderLayer.CUTOUT_MIPPED
+        return BlockRenderLayer.CUTOUT
     }
 
     init {

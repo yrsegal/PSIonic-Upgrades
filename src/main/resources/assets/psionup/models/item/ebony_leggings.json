@@ -1,0 +1,11 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "psionup:items/ebony_leggings",
+    "layer1": "psionup:items/leggings_overlay"
+  },
+  "overrides": [{
+    "predicate": { "psionup:overlay": 1 },
+    "model": "psionup:item/leggings_overlay"
+  }]
+}

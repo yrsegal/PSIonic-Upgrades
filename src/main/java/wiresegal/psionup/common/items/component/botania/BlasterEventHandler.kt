@@ -42,7 +42,7 @@ class BlasterEventHandler {
 
             val component = item.getComponentInSlot(e.itemStack, EnumCADComponent.ASSEMBLY)
 
-            if (component != null && component.item is IBlasterComponent) {
+            if (!component.isEmpty && component.item is IBlasterComponent) {
                 val lens = ItemManaGun.getLens(e.itemStack)
                 if (lens != null) {
                     var joined = ""
@@ -51,7 +51,7 @@ class BlasterEventHandler {
                         match = advancedMatcher.split(name)
                         if (match.size > 1) {
                             joined = match.slice(1..match.size - 1).joinToString(" ")
-                            if (joined.length > 0) joined = " $joined"
+                            if (joined.isNotEmpty()) joined = " $joined"
                         }
                     }
                     name = match[0].trimEnd() + " ${TextFormatting.RESET}(${TextFormatting.GREEN}${lens.displayName}${TextFormatting.RESET})" + joined

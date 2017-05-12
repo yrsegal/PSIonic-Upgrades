@@ -67,7 +67,7 @@ open class PieceTrickConjurePulsar(spell: Spell) : PieceTrick(spell) {
                     }
 
                     val cad1 = PsiAPI.getPlayerCAD(context.caster)
-                    if (cad1 != null) {
+                    if (!cad1.isEmpty) {
                         tile.colorizer = (cad1.item as ICAD).getComponentInSlot(cad1, EnumCADComponent.DYE)
                     }
                 }

@@ -46,7 +46,7 @@ public interface IComponentPiece {
         IComponentPiece componentPiece = (IComponentPiece) piece;
 
         ItemStack cad = PsiAPI.getPlayerCAD(context.caster);
-        if (cad == null || !(cad.getItem() instanceof ICAD))
+        if (cad.isEmpty() || !(cad.getItem() instanceof ICAD))
             throw new SpellRuntimeException(SpellRuntimeException.NO_CAD);
         ICAD item = (ICAD) cad.getItem();
 

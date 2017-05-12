@@ -1,32 +1,28 @@
 package wiresegal.psionup.common.effect.base
 
+import com.teamwizardry.librarianlib.features.base.PotionMod
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
-import net.minecraft.entity.EntityLivingBase
-import net.minecraft.potion.Potion
 import net.minecraft.potion.PotionEffect
-import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.MathHelper
-import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import vazkii.psi.api.PsiAPI
 import vazkii.psi.api.cad.ICADColorizer
 import vazkii.psi.client.core.handler.ClientTickHandler
 import vazkii.psi.common.Psi
-import wiresegal.psionup.common.lib.LibMisc
 
 /**
  * @author WireSegal
  * Created at 9:27 AM on 4/15/16.
  */
-open class PotionModColorized(name: String, badEffect: Boolean, color: Int, iconIndex: Int) : PotionMod(name, badEffect, color, iconIndex) {
+open class PotionModColorized(name: String, badEffect: Boolean, color: Int) : PotionMod(name, badEffect, color) {
 
     @SideOnly(Side.CLIENT)
     override fun renderHUDEffect(x: Int, y: Int, effect: PotionEffect?, mc: Minecraft, alpha: Float) {
         var color = ICADColorizer.DEFAULT_SPELL_COLOR
         val cad = PsiAPI.getPlayerCAD(Minecraft.getMinecraft().player)
-        if (cad != null) color = Psi.proxy.getCADColor(cad).rgb
+        if (!cad.isEmpty) color = Psi.proxy.getCADColor(cad).rgb
         val pulse = pulseColor(color)
         GlStateManager.color(pulse.first / 255f, pulse.second / 255f, pulse.third / 255f, alpha)
         super.renderHUDEffect(x, y, effect, mc, alpha)
@@ -37,7 +33,7 @@ open class PotionModColorized(name: String, badEffect: Boolean, color: Int, icon
     override fun renderInventoryEffect(x: Int, y: Int, effect: PotionEffect, mc: Minecraft) {
         var color = ICADColorizer.DEFAULT_SPELL_COLOR
         val cad = PsiAPI.getPlayerCAD(Minecraft.getMinecraft().player)
-        if (cad != null) color = Psi.proxy.getCADColor(cad).rgb
+        if (!cad.isEmpty) color = Psi.proxy.getCADColor(cad).rgb
         val pulse = pulseColor(color)
         GlStateManager.color(pulse.first / 255f, pulse.second / 255f, pulse.third / 255f)
         super.renderInventoryEffect(x, y, effect, mc)

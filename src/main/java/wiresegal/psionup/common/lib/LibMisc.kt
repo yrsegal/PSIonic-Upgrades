@@ -11,9 +11,9 @@ object LibMisc {
     const val BUILD = "1"
     const val VERSIONID = "15"
     const val VERSION = "$VERSIONID.$BUILD"
-    const val DEPENDENCIES = "required-after:Forge@[12.17.0.1909,);required-after:Psi;after:Botania@[r1.8-301,);"
+    const val DEPENDENCIES = "required-after:forge@[13.20.0.2259,);required-after:psi;after:botania@[r1.9-342,);"
 
-    const val VERSIONS = "[1.10,1.10.2]"
+    const val VERSIONS = "1.11.2"
 
     const val PROXY_COMMON = "wiresegal.psionup.common.core.CommonProxy"
     const val PROXY_CLIENT = "wiresegal.psionup.client.core.ClientProxy"

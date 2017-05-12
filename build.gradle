@@ -37,6 +37,7 @@ ext.config = parseConfig(configFile)
 version = "${config.version}.${config.build_number}"
 group = "wiresegal.psionup"
 archivesBaseName = config.mod_name
+ext.corePlugin = config.core_plugin
 
 minecraft {
     useDepAts = true
@@ -48,6 +49,9 @@ minecraft {
     replace 'GRADLE:VERSION', config.version
 
     replaceIn 'LibMisc.kt'
+
+    clientJvmArgs = ["-Dfml.coreMods.load=$corePlugin"]
+    serverJvmArgs = ["-Dfml.coreMods.load=$corePlugin"]
 }
 
 repositories {

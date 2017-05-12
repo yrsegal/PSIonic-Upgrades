@@ -36,8 +36,14 @@ import wiresegal.psionup.common.lib.LibMisc
  */
 class ItemFlowSword(name: String, val ebony: Boolean) : ItemModSword(name, PsiAPI.PSIMETAL_TOOL_MATERIAL), ISocketable, ISpellSettable, IItemColorProvider, FlowColors.IAcceptor, IGlowingItem {
 
+    @SideOnly(Side.CLIENT)
     override fun transformToGlow(itemStack: ItemStack, model: IBakedModel): IBakedModel? {
         return IGlowingItem.Helper.wrapperBake(model, false, 1)
+    }
+
+    @SideOnly(Side.CLIENT)
+    override fun shouldDisableLightingForGlow(itemStack: ItemStack, model: IBakedModel): Boolean {
+        return true
     }
 
     override fun isSocketSlotAvailable(stack: ItemStack, slot: Int): Boolean {
@@ -88,7 +94,7 @@ class ItemFlowSword(name: String, val ebony: Boolean) : ItemModSword(name, PsiAP
             val data = PlayerDataHandler.get(attacker)
             val playerCad = PsiAPI.getPlayerCAD(attacker)
 
-            if (playerCad != null) {
+            if (!playerCad.isEmpty) {
                 val bullet = getBulletInSocket(itemstack, getSelectedSlot(itemstack))
                 ItemCAD.cast(attacker.world, attacker, data, bullet, playerCad, 5, 10, 0.05f) {
                     context ->

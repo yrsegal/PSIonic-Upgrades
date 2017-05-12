@@ -1,5 +1,7 @@
 package wiresegal.psionup.client.core
 
+import com.teamwizardry.librarianlib.core.client.GlowingHandler
+import com.teamwizardry.librarianlib.features.base.item.IGlowingItem
 import net.minecraft.client.Minecraft
 import net.minecraft.client.entity.AbstractClientPlayer
 import net.minecraft.client.renderer.entity.layers.LayerElytra
@@ -8,6 +10,7 @@ import net.minecraft.entity.player.EnumPlayerModelParts
 import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+import vazkii.psi.common.item.base.ModItems as PsiItems
 import wiresegal.psionup.client.core.handler.HUDHandler
 import wiresegal.psionup.client.render.entity.ExosuitGlowLayer
 import wiresegal.psionup.client.render.entity.LayerGlowingWire
@@ -26,6 +29,10 @@ class ClientProxy : CommonProxy() {
     override fun pre(e: FMLPreInitializationEvent) {
         super.pre(e)
         HUDHandler
+
+        GlowingHandler.registerCustomGlowHandler(PsiItems.cad, {
+            _, model -> IGlowingItem.Helper.wrapperBake(model, false, 1)
+        }) { _, _ -> true }
     }
 
     override fun init(e: FMLInitializationEvent) {

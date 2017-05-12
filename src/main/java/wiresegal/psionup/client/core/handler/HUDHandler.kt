@@ -53,7 +53,8 @@ object HUDHandler {
     fun drawPsiBar(res: ScaledResolution, pticks: Float) {
         var resoultion = res
         val mc = Minecraft.getMinecraft()
-        val cadStack = PsiAPI.getPlayerCAD(mc.player) ?: return
+        val cadStack = PsiAPI.getPlayerCAD(mc.player)
+        if (cadStack.isEmpty) return
 
         val cad = cadStack.item as ICAD
         val data = PlayerDataHandler.get(mc.player)
