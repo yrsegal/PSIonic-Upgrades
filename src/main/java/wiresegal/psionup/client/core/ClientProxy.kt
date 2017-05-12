@@ -31,7 +31,7 @@ class ClientProxy : CommonProxy() {
         HUDHandler
 
         GlowingHandler.registerCustomGlowHandler(PsiItems.cad, {
-            _, model -> IGlowingItem.Helper.wrapperBake(model, false, 1)
+            _, model -> IGlowingItem.Helper.wrapperBake(model, false, 1, 2)
         }) { _, _ -> true }
     }
 

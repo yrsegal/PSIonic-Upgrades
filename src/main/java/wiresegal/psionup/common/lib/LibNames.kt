@@ -83,10 +83,10 @@ object LibNames {
     }
 
     object PieceGroups {
-        const val ALTERNATE_CONJURATION = "${LibMisc.MOD_ID}.redstoneConjuration"
-        const val SECONDARY_VECTOR_OPERATORS = "${LibMisc.MOD_ID}.secondaryVectors"
+        const val ALTERNATE_CONJURATION = "${LibMisc.MOD_ID}.redstone_conjuration"
+        const val SECONDARY_VECTOR_OPERATORS = "${LibMisc.MOD_ID}.secondary_vectors"
 
-        const val MANA_PSIONICS = "${LibMisc.MOD_ID}.manaPsionics"
+        const val MANA_PSIONICS = "${LibMisc.MOD_ID}.mana_psionics"
     }
 
     object Entities {

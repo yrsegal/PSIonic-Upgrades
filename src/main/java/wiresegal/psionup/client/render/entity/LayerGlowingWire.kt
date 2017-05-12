@@ -173,9 +173,9 @@ class LayerGlowingWire(val renderPlayer: RenderPlayer) : LayerRenderer<AbstractC
     companion object {
         private val WIRE_UUID = UUID.fromString("458391f5-6303-4649-b416-e4c0d18f837a")
 
-        private val TEXTURE_EBONY = ResourceLocation(LibMisc.MOD_ID, "textures/model/wire/ebony_cape2015.png")
-        private val TEXTURE_IVORY = ResourceLocation(LibMisc.MOD_ID, "textures/model/wire/ivory_cape2015.png")
-        private val TEXTURE_OVERLAY = ResourceLocation(LibMisc.MOD_ID, "textures/model/wire/cape2015_overlay.png")
+        private val TEXTURE_EBONY = ResourceLocation(LibMisc.MOD_ID, "textures/model/wire/ebony_cape2016.png")
+        private val TEXTURE_IVORY = ResourceLocation(LibMisc.MOD_ID, "textures/model/wire/ivory_cape2016.png")
+        private val TEXTURE_OVERLAY = ResourceLocation(LibMisc.MOD_ID, "textures/model/wire/cape2016_overlay.png")
         private val TEXTURE_SKIN_OVERLAY = ResourceLocation(LibMisc.MOD_ID, "textures/model/wire/skin_overlay.png")
     }
 }

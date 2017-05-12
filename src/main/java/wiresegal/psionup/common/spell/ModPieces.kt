@@ -1,5 +1,6 @@
 package wiresegal.psionup.common.spell
 
+import com.teamwizardry.librarianlib.features.helpers.VariantHelper
 import com.teamwizardry.librarianlib.features.helpers.currentModId
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.Loader
@@ -88,7 +89,7 @@ object ModPieces {
                 LibNames.Spell.LIST_SIZE,
                 LibPieceGroups.ENTITIES_INTRO)
 
-        if (Loader.isModLoaded("Botania"))
+        if (Loader.isModLoaded("botania"))
             CompatTricks.init()
     }
 
@@ -107,7 +108,8 @@ object ModPieces {
     }
 
     fun register(clazz: Class<out SpellPiece>, name: String, group: String, main: Boolean): ModSpellPieces.PieceContainer {
-        registerSpellPieceAndTexture(name, clazz)
+        val newName = VariantHelper.toSnakeCase(name)
+        registerSpellPieceAndTexture(newName, clazz)
         PsiAPI.addPieceToGroup(clazz, group, main)
         return ModSpellPieces.PieceContainer { s -> SpellPiece.create(clazz, s) }
     }
