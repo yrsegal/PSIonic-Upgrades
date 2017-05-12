@@ -31,7 +31,7 @@ class BlasterEventHandler {
         }
     }
 
-    val advancedMatcher = Pattern.compile("\\s+(?=\\(#\\d+\\))")
+    val advancedMatcher: Pattern = Pattern.compile("\\s+(?=\\(#\\d+\\))")
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     fun applyTooltip(e: ItemTooltipEvent) {
@@ -44,7 +44,7 @@ class BlasterEventHandler {
 
             if (!component.isEmpty && component.item is IBlasterComponent) {
                 val lens = ItemManaGun.getLens(e.itemStack)
-                if (lens != null) {
+                if (!lens.isEmpty) {
                     var joined = ""
                     var match = arrayOf(name)
                     if (e.isShowAdvancedItemTooltips) {

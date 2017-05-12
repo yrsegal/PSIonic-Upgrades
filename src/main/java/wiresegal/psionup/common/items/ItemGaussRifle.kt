@@ -31,7 +31,7 @@ class ItemGaussRifle(name: String) : ItemMod(name), IItemColorProvider, IGlowing
 
     @SideOnly(Side.CLIENT)
     override fun transformToGlow(itemStack: ItemStack, model: IBakedModel): IBakedModel? {
-        return IGlowingItem.Helper.wrapperBake(model, false, 0)
+        return IGlowingItem.Helper.wrapperBake(model, false, 0, 1)
     }
 
     override val itemColorFunction: ((stack: ItemStack, tintIndex: Int) -> Int)?
@@ -54,8 +54,6 @@ class ItemGaussRifle(name: String) : ItemMod(name), IItemColorProvider, IGlowing
                 else {
                     data.deductPsi(250, 10, true)
                     ammo.count--
-                    if (ammo.count == 0)
-                        playerIn.inventory.deleteStack(ammo)
                 }
             }
 

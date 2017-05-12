@@ -121,7 +121,7 @@ class ItemCADMagazine(name: String) : ItemMod(name), ISocketable, ICadComponentA
                 val enabled = tile.isEnabled
                 val compiled = SpellCompiler(spell)
                 if ((compiled.compiledSpell.metadata.stats[EnumSpellStat.BANDWIDTH] ?: Integer.MAX_VALUE) > getBandwidth(stack) && !worldIn.isRemote)
-                    playerIn.sendStatusMessage(TextComponentTranslation("${LibMisc.MOD_ID}.misc.tooComplexBullet").setStyle(Style().setColor(TextFormatting.RED)), false)
+                    playerIn.sendStatusMessage(TextComponentTranslation("${LibMisc.MOD_ID}.misc.too_complex_bullet").setStyle(Style().setColor(TextFormatting.RED)), false)
                 else if (!worldIn.isRemote) {
                     if (enabled && !tile.playerLock.isEmpty()) {
                         if (tile.playerLock != playerIn.name) {

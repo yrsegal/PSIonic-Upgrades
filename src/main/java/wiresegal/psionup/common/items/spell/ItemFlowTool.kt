@@ -24,6 +24,8 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper
+import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.local
 import net.minecraft.client.renderer.block.model.IBakedModel
 import vazkii.psi.api.PsiAPI
 import vazkii.psi.api.cad.ISocketable
@@ -116,7 +118,7 @@ open class ItemFlowTool(name: String, type: String, val ebony: Boolean) : ItemMo
     }
 
     override fun addInformation(stack: ItemStack, playerIn: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
-        addToTooltip(tooltip, "psimisc.spellSelected", ISocketable.getSocketedItemName(stack, "psimisc.none"))
+        addToTooltip(tooltip, "psimisc.spellSelected", local(ISocketable.getSocketedItemName(stack, "psimisc.none")))
     }
 
     override fun getIsRepairable(par1ItemStack: ItemStack, par2ItemStack: ItemStack): Boolean {
