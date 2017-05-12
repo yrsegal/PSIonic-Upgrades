@@ -1,26 +1,31 @@
 package wiresegal.psionup.common.block
 
+import com.teamwizardry.librarianlib.features.base.block.BlockMod
+import com.teamwizardry.librarianlib.features.base.block.IBlockColorProvider
+import com.teamwizardry.librarianlib.features.base.item.IGlowingItem
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.MapColor
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
+import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.color.IBlockColor
 import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.item.EnumDyeColor
+import net.minecraft.item.ItemStack
 import net.minecraft.util.BlockRenderLayer
+import net.minecraft.util.math.BlockPos
+import net.minecraft.world.IBlockAccess
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import wiresegal.psionup.client.core.handler.ModelHandler
-import wiresegal.psionup.common.block.base.BlockMod
 import wiresegal.psionup.common.lib.LibNames
 
 /**
  * @author WireSegal
  * Created at 9:56 PM on 7/4/16.
  */
-class BlockPlate(name: String) : BlockMod(name, Material.IRON, *makeVariants(name)), ModelHandler.IBlockColorProvider {
+class BlockPlate(name: String) : BlockMod(name, Material.IRON, *makeVariants(name)), IBlockColorProvider, IGlowingItem {
     companion object {
         fun makeVariants(name: String): Array<String> {
             return Array(16) {
@@ -28,7 +33,11 @@ class BlockPlate(name: String) : BlockMod(name, Material.IRON, *makeVariants(nam
             }
         }
 
-        val COLOR = PropertyEnum.create("color", EnumDyeColor::class.java)
+        val COLOR: PropertyEnum<EnumDyeColor> = PropertyEnum.create("color", EnumDyeColor::class.java)
+    }
+
+    override fun transformToGlow(itemStack: ItemStack, model: IBakedModel): IBakedModel? {
+        return IGlowingItem.Helper.wrapperBake(model, false, 1)
     }
 
     override fun getBlockLayer(): BlockRenderLayer? {
@@ -62,14 +71,10 @@ class BlockPlate(name: String) : BlockMod(name, Material.IRON, *makeVariants(nam
         return state.getValue(COLOR).mapColor
     }
 
-    @SideOnly(Side.CLIENT)
-    override fun getBlockColor(): IBlockColor? {
-        return IBlockColor { iBlockState, iBlockAccess, blockPos, i -> if (i == 1) iBlockState.getValue(COLOR).mapColor.colorValue else 0xFFFFFF }
-    }
+    override val blockColorFunction: ((state: IBlockState, world: IBlockAccess?, pos: BlockPos?, tintIndex: Int) -> Int)?
+        get() = { iBlockState, _, _, i -> if (i == 1) iBlockState.getValue(COLOR).mapColor.colorValue else 0xFFFFFF }
 
-    @SideOnly(Side.CLIENT)
-    override fun getItemColor(): IItemColor? {
-        return IItemColor { itemStack, i -> EnumDyeColor.byMetadata(itemStack.itemDamage).mapColor.colorValue }
-    }
+    override val itemColorFunction: ((ItemStack, Int) -> Int)?
+        get() = { itemStack, _ -> EnumDyeColor.byMetadata(itemStack.itemDamage).mapColor.colorValue }
 
 }

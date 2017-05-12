@@ -1,5 +1,9 @@
 package wiresegal.psionup.common.items.spell
 
+import com.teamwizardry.librarianlib.features.base.item.IGlowingItem
+import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
+import com.teamwizardry.librarianlib.features.base.item.ItemModTool
+import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
@@ -19,7 +23,8 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import vazkii.arl.util.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import net.minecraft.client.renderer.block.model.IBakedModel
 import vazkii.psi.api.PsiAPI
 import vazkii.psi.api.cad.ISocketable
 import vazkii.psi.api.spell.ISpellSettable
@@ -30,18 +35,19 @@ import vazkii.psi.common.core.handler.PlayerDataHandler
 import vazkii.psi.common.item.ItemCAD
 import vazkii.psi.common.item.base.ModItems
 import vazkii.psi.common.item.tool.ItemPsimetalTool
-import wiresegal.psionup.client.core.handler.ModelHandler
-import wiresegal.psionup.client.render.entity.GlowingItemHandler
 import wiresegal.psionup.common.core.helper.FlowColors
-import wiresegal.psionup.common.items.base.ItemModTool
 import wiresegal.psionup.common.lib.LibMisc
 
 /**
  * @author WireSegal
  * Created at 10:23 PM on 7/11/16.
  */
-open class ItemFlowTool(name: String, attackDamage: Float, speed: Float, effectiveBlocks: Set<Block>, type: String, val ebony: Boolean) : ItemModTool(name, PsiAPI.PSIMETAL_TOOL_MATERIAL, attackDamage, speed, type, effectiveBlocks), ISpellSettable, ISocketable, ModelHandler.IItemColorProvider, FlowColors.IAcceptor, GlowingItemHandler.IOverlayable {
+open class ItemFlowTool(name: String, type: String, val ebony: Boolean) : ItemModTool(name, PsiAPI.PSIMETAL_TOOL_MATERIAL, type), ISpellSettable, ISocketable, IItemColorProvider, FlowColors.IAcceptor, IGlowingItem {
 
+
+    override fun transformToGlow(itemStack: ItemStack, model: IBakedModel): IBakedModel? {
+        return IGlowingItem.Helper.wrapperBake(model, false, 1)
+    }
 
     override fun isSocketSlotAvailable(stack: ItemStack, slot: Int): Boolean {
         return slot < 3
@@ -51,16 +57,16 @@ open class ItemFlowTool(name: String, attackDamage: Float, speed: Float, effecti
         return this.isSocketSlotAvailable(stack, slot - 1)
     }
 
-    override fun getBulletInSocket(stack: ItemStack, slot: Int): ItemStack? {
+    override fun getBulletInSocket(stack: ItemStack, slot: Int): ItemStack {
         val name = "bullet" + slot
-        val cmp = ItemNBTHelper.getCompound(stack, name, true)
-        return if (cmp == null) null else ItemStack(cmp)
+        val cmp = ItemNBTHelper.getCompound(stack, name)
+        return if (cmp == null) ItemStack.EMPTY else ItemStack(cmp)
     }
 
-    override fun setBulletInSocket(stack: ItemStack, slot: Int, bullet: ItemStack?) {
+    override fun setBulletInSocket(stack: ItemStack, slot: Int, bullet: ItemStack) {
         val name = "bullet" + slot
         val cmp = NBTTagCompound()
-        bullet?.writeToNBT(cmp)
+        bullet.writeToNBT(cmp)
 
         ItemNBTHelper.setCompound(stack, name, cmp)
     }
@@ -76,17 +82,11 @@ open class ItemFlowTool(name: String, attackDamage: Float, speed: Float, effecti
     override fun setSpell(player: EntityPlayer, stack: ItemStack, spell: Spell) {
         val slot = this.getSelectedSlot(stack)
         val bullet = this.getBulletInSocket(stack, slot)
-        if (bullet != null && bullet.item is ISpellSettable) {
+        if (!bullet.isEmpty && bullet.item is ISpellSettable) {
             (bullet.item as ISpellSettable).setSpell(player, bullet, spell)
             this.setBulletInSocket(stack, slot, bullet)
         }
 
-    }
-
-    init {
-        addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, "overlay")) {
-            itemStack, world, entityLivingBase -> if (ItemNBTHelper.getBoolean(itemStack.copy(), GlowingItemHandler.IOverlayable.TAG_OVERLAY, false)) 1f else 0f
-        }
     }
 
     override fun onBlockStartBreak(itemstack: ItemStack, pos: BlockPos?, player: EntityPlayer?): Boolean {
@@ -110,11 +110,11 @@ open class ItemFlowTool(name: String, attackDamage: Float, speed: Float, effecti
         ItemPsimetalTool.regen(stack, entityIn, isSelected)
     }
 
-    override fun addInformation(stack: ItemStack?, playerIn: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
+    override fun addInformation(stack: ItemStack, playerIn: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
         addToTooltip(tooltip, "psimisc.spellSelected", ISocketable.getSocketedItemName(stack, "psimisc.none"))
     }
 
-    override fun getIsRepairable(par1ItemStack: ItemStack?, par2ItemStack: ItemStack): Boolean {
+    override fun getIsRepairable(par1ItemStack: ItemStack, par2ItemStack: ItemStack): Boolean {
         return par2ItemStack.item === ModItems.material && par2ItemStack.itemDamage == (if (ebony) 4 else 5) || super.getIsRepairable(par1ItemStack, par2ItemStack)
     }
 
@@ -122,39 +122,29 @@ open class ItemFlowTool(name: String, attackDamage: Float, speed: Float, effecti
         return false
     }
 
-    @SideOnly(Side.CLIENT)
-    override fun getItemColor(): IItemColor {
-        return IItemColor {
+    override val itemColorFunction: ((stack: ItemStack, tintIndex: Int) -> Int)?
+        get() = {
             stack, tintIndex ->
             if (tintIndex == 1) {
                 val colorizer = FlowColors.getColor(stack)
-                if (colorizer == null) 0 else Psi.proxy.getColorizerColor(colorizer).rgb
+                if (colorizer.isEmpty) 0 else Psi.proxy.getColorizerColor(colorizer).rgb
             } else
-                16777215
+                0xFFFFFF
         }
-    }
 
     override fun onEntityItemUpdate(entityItem: EntityItem): Boolean {
         FlowColors.purgeColor(entityItem.entityItem)
         return super.onEntityItemUpdate(entityItem)
     }
 
-    class Axe(name: String, ebony: Boolean) : ItemFlowTool(name, 6F, -3.1F, EFFECTIVE_ON, "axe", ebony) {
-
-        companion object {
-            private val EFFECTIVE_ON = setOf(Blocks.PLANKS, Blocks.BOOKSHELF, Blocks.LOG, Blocks.LOG2, Blocks.CHEST, Blocks.PUMPKIN, Blocks.LIT_PUMPKIN, Blocks.MELON_BLOCK, Blocks.LADDER)
-        }
+    class Axe(name: String, ebony: Boolean) : ItemFlowTool(name, "axe", ebony) {
 
         override fun getStrVsBlock(stack: ItemStack, state: IBlockState): Float {
             return if (state.material !== Material.WOOD && state.material !== Material.PLANTS && state.material !== Material.VINE) super.getStrVsBlock(stack, state) else efficiencyOnProperMaterial
         }
     }
 
-    class Pickaxe(name: String, ebony: Boolean) : ItemFlowTool(name, 1.0f, -2.8f, EFFECTIVE_ON, "pickaxe", ebony) {
-
-        companion object {
-            private val EFFECTIVE_ON = setOf(Blocks.ACTIVATOR_RAIL, Blocks.COAL_ORE, Blocks.COBBLESTONE, Blocks.DETECTOR_RAIL, Blocks.DIAMOND_BLOCK, Blocks.DIAMOND_ORE, Blocks.DOUBLE_STONE_SLAB, Blocks.GOLDEN_RAIL, Blocks.GOLD_BLOCK, Blocks.GOLD_ORE, Blocks.ICE, Blocks.IRON_BLOCK, Blocks.IRON_ORE, Blocks.LAPIS_BLOCK, Blocks.LAPIS_ORE, Blocks.LIT_REDSTONE_ORE, Blocks.MOSSY_COBBLESTONE, Blocks.NETHERRACK, Blocks.PACKED_ICE, Blocks.RAIL, Blocks.REDSTONE_ORE, Blocks.SANDSTONE, Blocks.RED_SANDSTONE, Blocks.STONE, Blocks.STONE_SLAB)
-        }
+    class Pickaxe(name: String, ebony: Boolean) : ItemFlowTool(name, "pickaxe", ebony) {
 
         override fun canHarvestBlock(state: IBlockState?): Boolean {
             val blockIn = state!!.block
@@ -166,11 +156,7 @@ open class ItemFlowTool(name: String, attackDamage: Float, speed: Float, effecti
         }
     }
 
-    class Shovel(name: String, ebony: Boolean) : ItemFlowTool(name, 1.5f, -3.0f, EFFECTIVE_ON, "shovel", ebony) {
-
-        companion object {
-            private val EFFECTIVE_ON = setOf(Blocks.CLAY, Blocks.DIRT, Blocks.FARMLAND, Blocks.GRASS, Blocks.GRAVEL, Blocks.MYCELIUM, Blocks.SAND, Blocks.SNOW, Blocks.SNOW_LAYER, Blocks.SOUL_SAND)
-        }
+    class Shovel(name: String, ebony: Boolean) : ItemFlowTool(name, "shovel", ebony) {
 
         override fun canHarvestBlock(state: IBlockState?): Boolean {
             val blockIn = state!!.block

@@ -7,7 +7,7 @@ import vazkii.psi.api.cad.ISocketable
  * @author WireSegal
  * Created at 7:40 PM on 7/9/16.
  */
-class IteratorSocketable(val stack: ItemStack) : Iterator<Pair<Int, ItemStack?>> {
+class IteratorSocketable(val stack: ItemStack) : Iterator<Pair<Int, ItemStack>> {
 
     val item = stack.item as ISocketable
 
@@ -17,7 +17,7 @@ class IteratorSocketable(val stack: ItemStack) : Iterator<Pair<Int, ItemStack?>>
         return item.isSocketSlotAvailable(stack, current + 1)
     }
 
-    override fun next(): Pair<Int, ItemStack?> {
+    override fun next(): Pair<Int, ItemStack> {
         current++
         return current to item.getBulletInSocket(stack, current)
     }

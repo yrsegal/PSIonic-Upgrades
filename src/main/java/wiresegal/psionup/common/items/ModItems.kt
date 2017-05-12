@@ -1,10 +1,10 @@
 package wiresegal.psionup.common.items
 
+import com.teamwizardry.librarianlib.features.base.item.ItemMod
+import com.teamwizardry.librarianlib.features.base.item.ItemModArmor
+import com.teamwizardry.librarianlib.features.base.item.ItemModSword
+import com.teamwizardry.librarianlib.features.base.item.ItemModTool
 import net.minecraftforge.fml.common.Loader
-import wiresegal.psionup.common.items.base.ItemMod
-import wiresegal.psionup.common.items.base.ItemModArmor
-import wiresegal.psionup.common.items.base.ItemModSword
-import wiresegal.psionup.common.items.base.ItemModTool
 import wiresegal.psionup.common.items.component.ItemBioticSensor
 import wiresegal.psionup.common.items.component.ItemEmptyColorizer
 import wiresegal.psionup.common.items.component.ItemLiquidColorizer

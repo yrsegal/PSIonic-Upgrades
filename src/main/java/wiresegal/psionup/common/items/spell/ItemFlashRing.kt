@@ -1,5 +1,7 @@
 package wiresegal.psionup.common.items.spell
 
+import com.teamwizardry.librarianlib.features.base.item.ItemMod
+import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ActionResult
@@ -16,7 +18,6 @@ import vazkii.psi.common.item.ItemCAD
 import vazkii.psi.common.item.ItemSpellDrive
 import wiresegal.psionup.client.core.handler.GuiHandler
 import wiresegal.psionup.common.PsionicUpgrades
-import wiresegal.psionup.common.items.base.ItemMod
 import wiresegal.psionup.common.lib.LibMisc
 import vazkii.arl.item.ItemMod as PsiItem
 import vazkii.psi.common.item.base.ModItems as PsiItems
@@ -29,7 +30,7 @@ class ItemFlashRing(name: String) : ItemMod(name), ISpellContainer {
 
     init {
         addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, "active")) {
-            stack, world, entity ->
+            stack, _, _ ->
             if (containsSpell(stack)) 1f else 0f
         }
         setMaxStackSize(1)
@@ -93,7 +94,7 @@ class ItemFlashRing(name: String) : ItemMod(name), ISpellContainer {
         return true // Because the Flash Ring has shift-click behavior, this will never fire.
     }
 
-    override fun hasContainerItem(stack: ItemStack?): Boolean {
+    override fun hasContainerItem(stack: ItemStack): Boolean {
         return true
     }
 

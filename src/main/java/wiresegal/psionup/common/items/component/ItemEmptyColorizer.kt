@@ -10,5 +10,5 @@ import wiresegal.psionup.common.items.base.ItemComponent
  */
 class ItemEmptyColorizer(name: String) : ItemComponent(name), ICADColorizer {
 
-    override fun getColor(p0: ItemStack?): Int = 0x080808
+    override fun getColor(p0: ItemStack): Int = 0x080808
 }

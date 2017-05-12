@@ -1,5 +1,6 @@
 package wiresegal.psionup.common.block.spell
 
+import com.teamwizardry.librarianlib.features.base.block.BlockModContainer
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
@@ -11,7 +12,6 @@ import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
-import wiresegal.psionup.common.block.base.BlockModContainer
 import wiresegal.psionup.common.block.tile.TileCracklingStar
 
 /**
@@ -20,8 +20,7 @@ import wiresegal.psionup.common.block.tile.TileCracklingStar
  */
 class BlockConjuredStar(name: String) : BlockModContainer(name, Material.GLASS, name) {
 
-    override val item: ItemBlock?
-        get() = null
+    override fun createItemForm() = null
 
     private val AABB = AxisAlignedBB(0.25, 0.25, 0.25, 0.75, 0.75, 0.75)
 
@@ -34,7 +33,7 @@ class BlockConjuredStar(name: String) : BlockModContainer(name, Material.GLASS, 
         return EnumBlockRenderType.INVISIBLE
     }
 
-    override fun createNewTileEntity(worldIn: World, meta: Int): TileEntity {
+    override fun createTileEntity(world: World, state: IBlockState): TileEntity? {
         return TileCracklingStar()
     }
 

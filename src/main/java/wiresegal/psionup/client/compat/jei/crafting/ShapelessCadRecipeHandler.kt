@@ -10,7 +10,7 @@ class ShapelessCadRecipeHandler : IRecipeHandler<RecipeCadComponentShapeless> {
         return RecipeCadComponentShapeless::class.java
     }
 
-    override fun getRecipeCategoryUid(): String {
+    override fun getRecipeCategoryUid(recipe: RecipeCadComponentShapeless?): String {
         return VanillaRecipeCategoryUid.CRAFTING
     }
 

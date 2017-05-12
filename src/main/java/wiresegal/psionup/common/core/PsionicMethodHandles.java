@@ -24,15 +24,12 @@ import static java.lang.invoke.MethodHandles.publicLookup;
  */
 public class PsionicMethodHandles {
     @Nonnull
-    private static final MethodHandle socketSlotGetter, registerPotionTypeConversion;
+    private static final MethodHandle socketSlotGetter;
 
     static {
         try {
             Field f = ReflectionHelper.findField(SlotBullet.class, "socketSlot");
             socketSlotGetter = publicLookup().unreflectGetter(f);
-            Method m = ReflectionHelper.findMethod(PotionHelper.class, null, LibObfuscation.POTIONHELPER_REGISTERPOTIONTYPECONVERSION,
-                    PotionType.class, Predicate.class, PotionType.class);
-            registerPotionTypeConversion = publicLookup().unreflect(m);
         } catch (Throwable t) {
             PsionicUpgrades.Companion.getLOGGER().log(Level.ERROR, "Couldn't initialize methodhandles! Things will be broken!");
             t.printStackTrace();
@@ -43,14 +40,6 @@ public class PsionicMethodHandles {
     public static int getSocketSlot(@Nonnull SlotBullet bullet) {
         try {
             return (int) socketSlotGetter.invokeExact(bullet);
-        } catch (Throwable t) {
-            throw propagate(t);
-        }
-    }
-
-    public static void registerPotionTypeConversion(@Nonnull PotionType input, @Nonnull Predicate<ItemStack> reagentPredicate, @Nonnull PotionType output) {
-        try {
-            registerPotionTypeConversion.invokeExact(input, reagentPredicate, output);
         } catch (Throwable t) {
             throw propagate(t);
         }

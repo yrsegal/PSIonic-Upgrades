@@ -57,7 +57,7 @@ object HUDHandler {
 
         val cad = cadStack.item as ICAD
         val data = PlayerDataHandler.get(mc.player)
-        if (data.level === 0 && !mc.player.capabilities.isCreativeMode)
+        if (data.level == 0 && !mc.player.capabilities.isCreativeMode)
             return
 
         val totalPsi = data.totalPsi
@@ -154,7 +154,7 @@ object HUDHandler {
             v = origHeight - height
             y = origY + v
 
-            if (data.availablePsi !== data.lastAvailablePsi) {
+            if (data.availablePsi != data.lastAvailablePsi) {
                 val textHeight = (origHeight * (data.availablePsi * pticks + data.lastAvailablePsi * (1.0 - pticks)) / max).toFloat()
                 textY = origY + (origHeight - textHeight)
             } else
@@ -184,8 +184,8 @@ object HUDHandler {
         val s2 = "" + cad.getStoredPsi(cadStack)
 
         var offBar = 22
-        var offStr1 = 7 + mc.fontRendererObj.getStringWidth(s1)
-        var offStr2 = 7 + mc.fontRendererObj.getStringWidth(s2)
+        var offStr1 = 7 + mc.fontRenderer.getStringWidth(s1)
+        var offStr2 = 7 + mc.fontRenderer.getStringWidth(s2)
 
         if (!right) {
             offBar = 6
@@ -197,12 +197,12 @@ object HUDHandler {
         GlStateManager.color(color.red / 255f, color.green / 255f, color.blue / 255f)
 
         Gui.drawModalRectWithCustomSizedTexture(x - offBar, -2, 0f, 140f, width, height, 64f, 256f)
-        mc.fontRendererObj.drawStringWithShadow(s1, x - offStr1.toFloat(), -11f, 0xFFFFFF)
+        mc.fontRenderer.drawStringWithShadow(s1, x - offStr1.toFloat(), -11f, 0xFFFFFF)
         GlStateManager.popMatrix()
 
         GlStateManager.pushMatrix()
         GlStateManager.translate(0f, Math.max(textY + 3, (origY + 100).toFloat()), 0f)
-        mc.fontRendererObj.drawStringWithShadow(s2, x - offStr2.toFloat(), 0f, 0xFFFFFF)
+        mc.fontRenderer.drawStringWithShadow(s2, x - offStr2.toFloat(), 0f, 0xFFFFFF)
         GlStateManager.popMatrix()
         GlStateManager.popMatrix()
     }

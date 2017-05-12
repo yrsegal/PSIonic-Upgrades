@@ -52,8 +52,8 @@ class ContainerCADCase(player: EntityPlayer, val stack: ItemStack) : Container()
                     return 1
                 }
 
-                override fun isItemValid(stack: ItemStack?): Boolean {
-                    return stack != null && stack.item.isValidArmor(stack, slot, player)
+                override fun isItemValid(stack: ItemStack): Boolean {
+                    return !stack.isEmpty && stack.item.isValidArmor(stack, slot, player)
                 }
 
                 @SideOnly(Side.CLIENT)
@@ -84,8 +84,8 @@ class ContainerCADCase(player: EntityPlayer, val stack: ItemStack) : Container()
         return true
     }
 
-    override fun transferStackInSlot(playerIn: EntityPlayer?, index: Int): ItemStack? {
-        var itemstack: ItemStack? = null
+    override fun transferStackInSlot(playerIn: EntityPlayer?, index: Int): ItemStack {
+        var itemstack: ItemStack = ItemStack.EMPTY
         val slot = inventorySlots[index]
 
         if (slot != null && slot.hasStack) {
@@ -99,27 +99,24 @@ class ContainerCADCase(player: EntityPlayer, val stack: ItemStack) : Container()
             if (index > invStart) {
                 if (itemstack1.item is ICAD) {
                     if (!this.mergeItemStack(itemstack1, 0, 1, false))
-                        return null // Inventory -> CAD slot
+                        return ItemStack.EMPTY // Inventory -> CAD slot
                 } else if (itemstack1.item is ISocketable) {
                     if (!this.mergeItemStack(itemstack1, 1, 2, false))
-                        return null // Inventory -> Socket Slot
+                        return ItemStack.EMPTY // Inventory -> Socket Slot
                 }
             } else if (itemstack1.item is ItemArmor) {
                 val armor = itemstack1.item as ItemArmor
                 val armorSlot = 3 - armor.armorType.index
                 if (!mergeItemStack(itemstack1, invEnd + armorSlot, invEnd + armorSlot + 1, true) && !mergeItemStack(itemstack1, invStart, invEnd, true))
-                    return null // Assembler -> Armor+Inv+Hotbar
+                    return ItemStack.EMPTY // Assembler -> Armor+Inv+Hotbar
 
             } else if (!mergeItemStack(itemstack1, invStart, invEnd, true))
-                return null // Assembler -> Inv+hotbar
+                return ItemStack.EMPTY // Assembler -> Inv+hotbar
 
-            if (itemstack1.count == 0)
-                slot.putStack(null)
-            else
-                slot.onSlotChanged()
+            slot.onSlotChanged()
 
-            if (itemstack1.count == itemstack!!.count)
-                return null
+            if (itemstack1.count == itemstack.count)
+                return ItemStack.EMPTY
 
             slot.onTake(playerIn, itemstack1)
         }

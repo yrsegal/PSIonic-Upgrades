@@ -1,5 +1,6 @@
 package wiresegal.psionup.common.items.base
 
+import com.teamwizardry.librarianlib.features.base.item.ItemMod
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.text.TextFormatting
@@ -23,6 +24,7 @@ abstract class ItemComponent(name: String, vararg variants: String) : ItemMod(na
     }
 
     open fun registerStats() {
+        // NO-OP
     }
 
     override fun addInformation(stack: ItemStack, playerIn: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {

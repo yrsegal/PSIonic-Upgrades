@@ -1,5 +1,8 @@
 package wiresegal.psionup.common.items.spell
 
+import com.teamwizardry.librarianlib.features.base.item.IGlowingItem
+import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
+import com.teamwizardry.librarianlib.features.base.item.ItemModSword
 import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
@@ -11,7 +14,9 @@ import net.minecraft.util.ResourceLocation
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import vazkii.arl.util.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
+import net.minecraft.client.renderer.block.model.IBakedModel
 import vazkii.psi.api.PsiAPI
 import vazkii.psi.api.cad.ISocketable
 import vazkii.psi.api.spell.ISpellSettable
@@ -22,24 +27,18 @@ import vazkii.psi.common.item.ItemCAD
 import vazkii.psi.common.item.base.ModItems
 import vazkii.psi.common.item.tool.IPsimetalTool
 import vazkii.psi.common.item.tool.ItemPsimetalTool
-import wiresegal.psionup.client.core.handler.ModelHandler
-import wiresegal.psionup.client.render.entity.GlowingItemHandler
 import wiresegal.psionup.common.core.helper.FlowColors
-import wiresegal.psionup.common.items.base.ItemModSword
 import wiresegal.psionup.common.lib.LibMisc
 
 /**
  * @author WireSegal
  * *         Created at 10:42 PM on 7/11/16.
  */
-class ItemFlowSword(name: String, val ebony: Boolean) : ItemModSword(name, PsiAPI.PSIMETAL_TOOL_MATERIAL), ISocketable, ISpellSettable, ModelHandler.IItemColorProvider, FlowColors.IAcceptor, GlowingItemHandler.IOverlayable {
+class ItemFlowSword(name: String, val ebony: Boolean) : ItemModSword(name, PsiAPI.PSIMETAL_TOOL_MATERIAL), ISocketable, ISpellSettable, IItemColorProvider, FlowColors.IAcceptor, IGlowingItem {
 
-    init {
-        addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, "overlay")) {
-            itemStack, world, entityLivingBase -> if (ItemNBTHelper.getBoolean(itemStack.copy(), GlowingItemHandler.IOverlayable.TAG_OVERLAY, false)) 1f else 0f
-        }
+    override fun transformToGlow(itemStack: ItemStack, model: IBakedModel): IBakedModel? {
+        return IGlowingItem.Helper.wrapperBake(model, false, 1)
     }
-
 
     override fun isSocketSlotAvailable(stack: ItemStack, slot: Int): Boolean {
         return slot < 3
@@ -49,16 +48,16 @@ class ItemFlowSword(name: String, val ebony: Boolean) : ItemModSword(name, PsiAP
         return this.isSocketSlotAvailable(stack, slot - 1)
     }
 
-    override fun getBulletInSocket(stack: ItemStack, slot: Int): ItemStack? {
+    override fun getBulletInSocket(stack: ItemStack, slot: Int): ItemStack {
         val name = "bullet" + slot
-        val cmp = ItemNBTHelper.getCompound(stack, name, true)
-        return if (cmp == null) null else ItemStack(cmp)
+        val cmp = ItemNBTHelper.getCompound(stack, name)
+        return if (cmp == null) ItemStack.EMPTY else ItemStack(cmp)
     }
 
-    override fun setBulletInSocket(stack: ItemStack, slot: Int, bullet: ItemStack?) {
+    override fun setBulletInSocket(stack: ItemStack, slot: Int, bullet: ItemStack) {
         val name = "bullet" + slot
         val cmp = NBTTagCompound()
-        bullet?.writeToNBT(cmp)
+        bullet.writeToNBT(cmp)
 
         ItemNBTHelper.setCompound(stack, name, cmp)
     }
@@ -74,7 +73,7 @@ class ItemFlowSword(name: String, val ebony: Boolean) : ItemModSword(name, PsiAP
     override fun setSpell(player: EntityPlayer, stack: ItemStack, spell: Spell) {
         val slot = this.getSelectedSlot(stack)
         val bullet = this.getBulletInSocket(stack, slot)
-        if (bullet != null && bullet.item is ISpellSettable) {
+        if (!bullet.isEmpty && bullet.item is ISpellSettable) {
             (bullet.item as ISpellSettable).setSpell(player, bullet, spell)
             this.setBulletInSocket(stack, slot, bullet)
         }
@@ -101,15 +100,15 @@ class ItemFlowSword(name: String, val ebony: Boolean) : ItemModSword(name, PsiAP
         return true
     }
 
-    override fun onUpdate(stack: ItemStack?, worldIn: World?, entityIn: Entity?, itemSlot: Int, isSelected: Boolean) {
+    override fun onUpdate(stack: ItemStack, worldIn: World?, entityIn: Entity?, itemSlot: Int, isSelected: Boolean) {
         ItemPsimetalTool.regen(stack, entityIn, isSelected)
     }
 
-    override fun addInformation(stack: ItemStack?, playerIn: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
+    override fun addInformation(stack: ItemStack, playerIn: EntityPlayer?, tooltip: MutableList<String>, advanced: Boolean) {
         addToTooltip(tooltip, "psimisc.spellSelected", ISocketable.getSocketedItemName(stack, "psimisc.none"))
     }
 
-    override fun getIsRepairable(par1ItemStack: ItemStack?, par2ItemStack: ItemStack): Boolean {
+    override fun getIsRepairable(par1ItemStack: ItemStack, par2ItemStack: ItemStack): Boolean {
         return par2ItemStack.item === ModItems.material && par2ItemStack.itemDamage == (if (ebony) 4 else 5) || super.getIsRepairable(par1ItemStack, par2ItemStack)
     }
 
@@ -117,17 +116,15 @@ class ItemFlowSword(name: String, val ebony: Boolean) : ItemModSword(name, PsiAP
         return false
     }
 
-    @SideOnly(Side.CLIENT)
-    override fun getItemColor(): IItemColor {
-        return IItemColor {
+    override val itemColorFunction: ((stack: ItemStack, tintIndex: Int) -> Int)?
+        get() = {
             stack, tintIndex ->
             if (tintIndex == 1) {
                 val colorizer = FlowColors.getColor(stack)
-                if (colorizer == null) 0 else Psi.proxy.getColorizerColor(colorizer).rgb
+                if (colorizer.isEmpty) 0 else Psi.proxy.getColorizerColor(colorizer).rgb
             } else
-                16777215
+                -1
         }
-    }
 
     override fun onEntityItemUpdate(entityItem: EntityItem): Boolean {
         FlowColors.purgeColor(entityItem.entityItem)

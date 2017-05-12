@@ -64,9 +64,9 @@ open class PieceTrickConjureStar(spell: Spell) : PieceTrick(spell) {
                     tile.time = cad
                 }
 
-                tile.rays.add(rayVal)
+                tile.rays.add(rayVal.toVec3D())
 
-                if (tile.colorizer == null) {
+                if (tile.colorizer.isEmpty) {
                     val cad1 = PsiAPI.getPlayerCAD(context.caster)
                     if (cad1 != null) {
                         tile.colorizer = (cad1.item as ICAD).getComponentInSlot(cad1, EnumCADComponent.DYE)

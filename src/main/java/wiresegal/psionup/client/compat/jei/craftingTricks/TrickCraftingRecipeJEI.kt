@@ -1,9 +1,12 @@
 package wiresegal.psionup.client.compat.jei.craftingTricks
 
 import mezz.jei.api.gui.IDrawable
+import mezz.jei.api.gui.IDrawableStatic
+import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.recipe.BlankRecipeWrapper
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
+import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import vazkii.psi.api.PsiAPI
 import vazkii.psi.api.spell.SpellPiece
@@ -11,12 +14,11 @@ import wiresegal.psionup.api.TrickRecipe
 import wiresegal.psionup.client.compat.jei.JEICompat
 import java.util.*
 
-class TrickCraftingRecipeJEI
-@SuppressWarnings("unchecked")
-constructor(private val recipe: TrickRecipe) : BlankRecipeWrapper() {
+class TrickCraftingRecipeJEI(private val recipe: TrickRecipe) : BlankRecipeWrapper() {
 
     companion object {
-        val programmerHover = JEICompat.helper.guiHelper.createDrawable(ResourceLocation("psi", "textures/gui/programmer.png"), 16, 184, 16, 16)
+        val programmerHover: IDrawableStatic
+                = JEICompat.helper.guiHelper.createDrawable(ResourceLocation("psi", "textures/gui/programmer.png"), 16, 184, 16, 16)
         val trickCoordX: Int
             get() = 57
         val trickCoordY: Int
@@ -35,12 +37,9 @@ constructor(private val recipe: TrickRecipe) : BlankRecipeWrapper() {
         piece = if (clazz != null) SpellPiece.create(clazz, null) else null
     }
 
-    override fun getInputs(): List<Any> {
-        return listOf(recipe.input, recipe.cad)
-    }
-
-    override fun getOutputs(): List<Any> {
-        return listOf(recipe.output)
+    override fun getIngredients(ingredients: IIngredients) {
+        ingredients.setInputs(ItemStack::class.java, listOf(recipe.input, recipe.cad))
+        ingredients.setOutput(ItemStack::class.java, recipe.output)
     }
 
     override fun drawInfo(minecraft: Minecraft, recipeWidth: Int, recipeHeight: Int, mouseX: Int, mouseY: Int) {

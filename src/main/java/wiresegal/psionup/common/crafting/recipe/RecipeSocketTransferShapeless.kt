@@ -17,7 +17,7 @@ class RecipeSocketTransferShapeless(val result: ItemStack, vararg recipe: Any) :
         val output = result.copy()
         for (i in 0..var1.sizeInventory - 1) {
             val stack = var1.getStackInSlot(i)
-            if (stack != null && stack.item is ISocketable && output.item is ISocketable) {
+            if (!stack.isEmpty && stack.item is ISocketable && output.item is ISocketable) {
                 output.tagCompound = stack.tagCompound
                 break
             }

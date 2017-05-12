@@ -70,7 +70,7 @@ public class PsionicClientMethodHandles {
             f = ReflectionHelper.findField(RenderLivingBase.class, LibObfuscation.RENDERLIVINGBASE_LAYERRENDERERS);
             layersGetter = publicLookup().unreflectGetter(f);
 
-            Method m = ReflectionHelper.findMethod(RenderPlayer.class, null, LibObfuscation.RENDERPLAYER_SETMODELVISIBILITIES, AbstractClientPlayer.class);
+            Method m = ReflectionHelper.findMethod(RenderPlayer.class, LibObfuscation.RENDERPLAYER_SETMODELVISIBILITIES, LibObfuscation.RENDERPLAYER_SETMODELVISIBILITIES_OBF, AbstractClientPlayer.class);
             setModelVisibilities = publicLookup().unreflect(m);
 
         } catch (Throwable t) {

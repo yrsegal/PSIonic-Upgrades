@@ -27,11 +27,9 @@ open class RecipeCadComponent : IRecipe {
     var height = 0
     private var mirrored = true
 
-    constructor(result: Block, vararg recipe: Any) : this(ItemStack(result), *recipe) {
-    }
+    constructor(result: Block, vararg recipe: Any) : this(ItemStack(result), *recipe)
 
-    constructor(result: Item, vararg recipe: Any) : this(ItemStack(result), *recipe) {
-    }
+    constructor(result: Item, vararg recipe: Any) : this(ItemStack(result), *recipe)
 
     constructor(result: ItemStack, vararg recipeIn: Any) {
         var recipe: MutableList<*> = arrayListOf(*recipeIn)
@@ -125,16 +123,16 @@ open class RecipeCadComponent : IRecipe {
 
             input[i] = recipe.recipeItems[i]
 
-            for (replace in replacements.entries) {
-                if (OreDictionary.itemMatches(replace.key, ingred, true)) {
-                    input[i] = OreDictionary.getOres(replace.value)
+            for ((key, value) in replacements) {
+                if (OreDictionary.itemMatches(key, ingred, true)) {
+                    input[i] = OreDictionary.getOres(value)
                     break
                 }
             }
         }
     }
 
-    override fun getCraftingResult(var1: InventoryCrafting): ItemStack? {
+    override fun getCraftingResult(var1: InventoryCrafting): ItemStack {
         val out = output.copy()
         val outitem = out.item
         if (outitem is ICadComponentAcceptor) {
@@ -192,7 +190,7 @@ open class RecipeCadComponent : IRecipe {
 
                 val slot = inv.getStackInRowAndColumn(x, y)
                 if (target is EnumCADComponent) {
-                    if (slot != null && slot.item is ICADComponent) {
+                    if (slot.isEmpty && slot.item is ICADComponent) {
                         val component = slot.item as ICADComponent
                         if (component.getComponentType(slot) != target) {
                             return false
@@ -218,7 +216,7 @@ open class RecipeCadComponent : IRecipe {
                     if (!matched) {
                         return false
                     }
-                } else if (target == null && slot != null) {
+                } else if (target == null && !slot.isEmpty) {
                     return false
                 }
             }

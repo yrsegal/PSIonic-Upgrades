@@ -1,5 +1,6 @@
 package wiresegal.psionup.common.items.component
 
+import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.entity.player.EntityPlayer
@@ -12,10 +13,10 @@ import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import vazkii.arl.util.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.local
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.ICADColorizer
-import wiresegal.psionup.client.core.handler.ModelHandler
 import wiresegal.psionup.common.items.ModItems
 import wiresegal.psionup.common.items.base.ICadComponentAcceptor
 import wiresegal.psionup.common.items.base.ItemComponent
@@ -26,19 +27,19 @@ import java.awt.Color
  * @author WireSegal
  * Created at 8:44 AM on 3/20/16.
  */
-class ItemLiquidColorizer(name: String) : ItemComponent(name), ICADColorizer, ModelHandler.IItemColorProvider, ICadComponentAcceptor {
+class ItemLiquidColorizer(name: String) : ItemComponent(name), ICADColorizer, IItemColorProvider, ICadComponentAcceptor {
 
     companion object {
         fun getColorFromStack(p0: ItemStack): Int = ItemNBTHelper.getInt(p0, "color", Int.MAX_VALUE)
 
-        fun getInheriting(stack: ItemStack): ItemStack? {
-            val nbt = ItemNBTHelper.getCompound(stack, "inheriting", true)
-            return ItemStack(nbt ?: return null)
+        fun getInheriting(stack: ItemStack): ItemStack {
+            val nbt = ItemNBTHelper.getCompound(stack, "inheriting")
+            return ItemStack(nbt ?: return ItemStack.EMPTY)
         }
 
-        fun setInheriting(stack: ItemStack, inheriting: ItemStack?): ItemStack {
-            if (inheriting == null) {
-                ItemNBTHelper.setCompound(stack, "inheriting", null)
+        fun setInheriting(stack: ItemStack, inheriting: ItemStack): ItemStack {
+            if (inheriting.isEmpty) {
+                ItemNBTHelper.removeEntry(stack, "inheriting")
             } else {
                 val nbt = NBTTagCompound()
                 inheriting.writeToNBT(nbt)
@@ -50,29 +51,29 @@ class ItemLiquidColorizer(name: String) : ItemComponent(name), ICADColorizer, Mo
 
     override fun acceptsPiece(stack: ItemStack, type: EnumCADComponent): Boolean = type == EnumCADComponent.DYE
 
-    override fun setPiece(stack: ItemStack, type: EnumCADComponent, piece: ItemStack?): ItemStack {
+    override fun setPiece(stack: ItemStack, type: EnumCADComponent, piece: ItemStack): ItemStack {
         if (type != EnumCADComponent.DYE)
             return stack
         return setInheriting(stack, piece)
     }
 
-    override fun getPiece(stack: ItemStack, type: EnumCADComponent): ItemStack? {
+    override fun getPiece(stack: ItemStack, type: EnumCADComponent): ItemStack {
         if (type != EnumCADComponent.DYE)
-            return null
+            return ItemStack.EMPTY
         return getInheriting(stack)
     }
 
-    @SideOnly(Side.CLIENT)
-    override fun getItemColor() = IItemColor {
-        stack, tintIndex ->
-        if (tintIndex == 1) getColor(stack) else 0xFFFFFF
-    }
+    override val itemColorFunction: ((stack: ItemStack, tintIndex: Int) -> Int)?
+        get() = {
+            stack, tintIndex ->
+            if (tintIndex == 1) getColor(stack) else 0xFFFFFF
+        }
 
-    override fun getColor(p0: ItemStack?): Int {
+    override fun getColor(p0: ItemStack): Int {
         var itemcolor = ItemNBTHelper.getInt(p0, "color", Int.MAX_VALUE)
-        if (p0 != null) {
+        if (!p0.isEmpty) {
             val inheriting = getInheriting(p0)
-            if (inheriting != null && inheriting.item is ICADColorizer) {
+            if (!inheriting.isEmpty && inheriting.item is ICADColorizer) {
                 val inheritcolor = (inheriting.item as ICADColorizer).getColor(inheriting)
                 if (itemcolor == Int.MAX_VALUE)
                     itemcolor = inheritcolor
@@ -91,7 +92,7 @@ class ItemLiquidColorizer(name: String) : ItemComponent(name), ICADColorizer, Mo
 
         if (GuiScreen.isShiftKeyDown()) {
             val inheriting = getInheriting(stack)
-            if (inheriting != null) {
+            if (!inheriting.isEmpty) {
                 tooltip.add("${TextFormatting.GREEN}${local("${LibMisc.MOD_ID}.misc.colorInheritance")}${TextFormatting.GRAY}: ${inheriting.displayName}")
             }
 

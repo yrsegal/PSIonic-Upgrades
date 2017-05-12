@@ -19,20 +19,20 @@ class InventorySocketable(val stack: ItemStack, val maxBandwidth: Int = -1) : II
 
     val item = stack.item as ISocketable
 
-    val slots: Iterator<Pair<Int, ItemStack?>>
+    val slots: Iterator<Pair<Int, ItemStack>>
         get() = IteratorSocketable(stack)
 
     val totalSlots: Int
         get() {
             var ret = 0
-            for ((i) in slots) ret++
+            for (i in slots) ret++
             return ret - 1
         }
 
 
     override fun clear() {
-        for (i in slots) {
-            item.setBulletInSocket(stack, i.first, null)
+        for ((first) in slots) {
+            item.setBulletInSocket(stack, first, ItemStack.EMPTY)
         }
     }
 
@@ -40,9 +40,9 @@ class InventorySocketable(val stack: ItemStack, val maxBandwidth: Int = -1) : II
         //NO-OP
     }
 
-    override fun decrStackSize(index: Int, count: Int): ItemStack? {
+    override fun decrStackSize(index: Int, count: Int): ItemStack {
         val bullet = item.getBulletInSocket(stack, index)
-        if (bullet != null) item.setBulletInSocket(stack, index, null)
+        if (!bullet.isEmpty) item.setBulletInSocket(stack, index, ItemStack.EMPTY)
         return bullet
     }
 
@@ -62,7 +62,7 @@ class InventorySocketable(val stack: ItemStack, val maxBandwidth: Int = -1) : II
         return 1
     }
 
-    override fun getStackInSlot(index: Int): ItemStack? {
+    override fun getStackInSlot(index: Int): ItemStack {
         val stack = item.getBulletInSocket(stack, index)
         return stack
     }
@@ -75,7 +75,7 @@ class InventorySocketable(val stack: ItemStack, val maxBandwidth: Int = -1) : II
         //NO-OP
     }
 
-    override fun removeStackFromSlot(index: Int): ItemStack? {
+    override fun removeStackFromSlot(index: Int): ItemStack {
         return decrStackSize(index, 1)
     }
 
@@ -87,8 +87,8 @@ class InventorySocketable(val stack: ItemStack, val maxBandwidth: Int = -1) : II
         return totalSlots
     }
 
-    override fun isItemValidForSlot(index: Int, stack: ItemStack?): Boolean {
-        val item = (stack?.item ?: return false) as? ISpellContainer ?: return false
+    override fun isItemValidForSlot(index: Int, stack: ItemStack): Boolean {
+        val item = (stack.item) as? ISpellContainer ?: return false
         if (maxBandwidth == -1) return true
         val spell = item.getSpell(stack)
         val compiled = SpellCompiler(spell)
@@ -97,7 +97,7 @@ class InventorySocketable(val stack: ItemStack, val maxBandwidth: Int = -1) : II
 
     override fun isEmpty(): Boolean {
         for (i in slots) {
-            if (!(i.second?.isEmpty ?: true)) return true
+            if (!i.second.isEmpty) return true
         }
         return false
     }
@@ -106,7 +106,7 @@ class InventorySocketable(val stack: ItemStack, val maxBandwidth: Int = -1) : II
         return true
     }
 
-    override fun setInventorySlotContents(index: Int, bullet: ItemStack?) {
+    override fun setInventorySlotContents(index: Int, bullet: ItemStack) {
         item.setBulletInSocket(stack, index, bullet)
     }
 

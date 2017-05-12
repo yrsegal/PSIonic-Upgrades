@@ -32,10 +32,10 @@ object GuiHandler : IGuiHandler {
     override fun getServerGuiElement(ID: Int, player: EntityPlayer, world: World?, x: Int, y: Int, z: Int): Any? {
         if (ID == GUI_CASE) {
             val stack = getStack(player, BlockCADCase::class.java)
-            if (stack != null) return ContainerCADCase(player, stack)
+            if (!stack.isEmpty) return ContainerCADCase(player, stack)
         } else if (ID == GUI_MAGAZINE) {
             val stack = getStack(player, ItemCADMagazine::class.java)
-            if (stack != null) return ContainerCADMagazine(player, stack)
+            if (!stack.isEmpty) return ContainerCADMagazine(player, stack)
         }
         return null
     }
@@ -43,18 +43,18 @@ object GuiHandler : IGuiHandler {
     override fun getClientGuiElement(ID: Int, player: EntityPlayer, world: World?, x: Int, y: Int, z: Int): Any? {
         if (ID == GUI_CASE) {
             val stack = getStack(player, BlockCADCase::class.java)
-            if (stack != null) return GuiCADCase(player, stack)
+            if (!stack.isEmpty) return GuiCADCase(player, stack)
         } else if (ID == GUI_MAGAZINE) {
             val stack = getStack(player, ItemCADMagazine::class.java)
-            if (stack != null) return GuiCADMagazine(player, stack)
+            if (!stack.isEmpty) return GuiCADMagazine(player, stack)
         } else if (ID == GUI_FLASHRING) {
             val stack = getStack(player, ItemFlashRing::class.java)
-            if (stack != null) return GuiFlashRing(player, stack)
+            if (!stack.isEmpty) return GuiFlashRing(player, stack)
         }
         return null
     }
 
-    private fun getStack(p: EntityPlayer, itemClass: Class<*>): ItemStack? {
+    private fun getStack(p: EntityPlayer, itemClass: Class<*>): ItemStack {
         var item = p.heldItemMainhand?.item
         if (item != null && itemClass.isInstance(item) || (item is ItemBlock && itemClass.isInstance(item.block)))
             return p.heldItemMainhand
@@ -63,6 +63,6 @@ object GuiHandler : IGuiHandler {
         if (item != null && itemClass.isInstance(item) || (item is ItemBlock && itemClass.isInstance(item.block)))
             return p.heldItemOffhand
 
-        return null
+        return ItemStack.EMPTY
     }
 }

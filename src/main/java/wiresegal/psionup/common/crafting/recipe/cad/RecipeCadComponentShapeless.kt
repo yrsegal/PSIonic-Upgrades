@@ -23,11 +23,9 @@ open class RecipeCadComponentShapeless : IRecipe {
     private var output: ItemStack
     val input = ArrayList<Any>()
 
-    constructor(result: Block, vararg recipe: Any) : this(ItemStack(result), *recipe) {
-    }
+    constructor(result: Block, vararg recipe: Any) : this(ItemStack(result), *recipe)
 
-    constructor(result: Item, vararg recipe: Any) : this(ItemStack(result), *recipe) {
-    }
+    constructor(result: Item, vararg recipe: Any) : this(ItemStack(result), *recipe)
 
     constructor(result: ItemStack, vararg recipe: Any) {
         output = result.copy()
@@ -73,7 +71,7 @@ open class RecipeCadComponentShapeless : IRecipe {
         return input.size
     }
 
-    override fun getRecipeOutput(): ItemStack? {
+    override fun getRecipeOutput(): ItemStack {
         return output
     }
 
@@ -83,7 +81,7 @@ open class RecipeCadComponentShapeless : IRecipe {
         if (outitem is ICadComponentAcceptor) {
             for (i in 0..var1.sizeInventory - 1) {
                 val stack = var1.getStackInSlot(i)
-                if (stack != null) {
+                if (!stack.isEmpty) {
                     val slotitem = stack.item
                     if (slotitem is ICADComponent && outitem.acceptsPiece(out, slotitem.getComponentType(stack)))
                         outitem.setPiece(out, slotitem.getComponentType(stack), stack)
@@ -99,7 +97,7 @@ open class RecipeCadComponentShapeless : IRecipe {
         for (x in 0..var1.sizeInventory - 1) {
             val slot = var1.getStackInSlot(x)
 
-            if (slot != null) {
+            if (!slot.isEmpty) {
                 var inRecipe = false
                 val req = required.iterator()
 

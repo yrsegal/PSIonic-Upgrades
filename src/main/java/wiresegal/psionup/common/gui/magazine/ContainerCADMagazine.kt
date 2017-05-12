@@ -69,8 +69,8 @@ class ContainerCADMagazine(val player: EntityPlayer, val stack: ItemStack) : Con
 
     inner class SlotBullet(val socketable: InventorySocketable, index: Int, xPosition: Int, yPosition: Int, var socketSlot: Int, val dark: Boolean) : Slot(socketable, index, xPosition, yPosition) {
 
-        override fun isItemValid(stack: ItemStack?): Boolean {
-            if (stack!!.item is ISpellContainer) {
+        override fun isItemValid(stack: ItemStack): Boolean {
+            if (stack.item is ISpellContainer) {
                 val container = stack.item as ISpellContainer
                 if (container.containsSpell(stack) && isSlotEnabled()) {
                     val ret = socketable.isItemValidForSlot(socketSlot, stack)
@@ -109,8 +109,8 @@ class ContainerCADMagazine(val player: EntityPlayer, val stack: ItemStack) : Con
         return inventory.isUsableByPlayer(playerIn)
     }
 
-    override fun transferStackInSlot(playerIn: EntityPlayer?, index: Int): ItemStack? {
-        var itemstack: ItemStack? = null
+    override fun transferStackInSlot(playerIn: EntityPlayer?, index: Int): ItemStack {
+        var itemstack: ItemStack = ItemStack.EMPTY
         val slot = inventorySlots[index]
 
         if (slot != null && slot.hasStack) {
@@ -127,19 +127,16 @@ class ContainerCADMagazine(val player: EntityPlayer, val stack: ItemStack) : Con
             notifyOnce = true
             if (index > magazineEnd) {
                 if (!this.mergeItemStack(itemstack1, magazineStart, magazineEnd, false))
-                    return null // CAD -> Magazine
+                    return ItemStack.EMPTY // CAD -> Magazine
             } else if (!this.mergeItemStack(itemstack1, cadStart, cadEnd, false))
-                return null // Magazine -> CAD
+                return ItemStack.EMPTY // Magazine -> CAD
             dontNotify = false
             notifyOnce = false
 
-            if (itemstack1.count == 0)
-                slot.putStack(null)
-            else
-                slot.onSlotChanged()
+            slot.onSlotChanged()
 
-            if (itemstack1.count == itemstack!!.count)
-                return null
+            if (itemstack1.count == itemstack.count)
+                return ItemStack.EMPTY
 
             slot.onTake(playerIn, itemstack1)
         }

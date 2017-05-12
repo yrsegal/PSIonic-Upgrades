@@ -36,8 +36,8 @@ object AssemblerGUIHijacker {
 
     class SlotBulletReplacement(var assembler: TileCADAssembler, index: Int, xPosition: Int, yPosition: Int, var socketSlot: Int) : Slot(assembler, index, xPosition, yPosition) {
 
-        override fun isItemValid(stack: ItemStack?): Boolean {
-            if (stack!!.item is ISpellContainer) {
+        override fun isItemValid(stack: ItemStack): Boolean {
+            if (stack.item is ISpellContainer) {
                 val container = stack.item as ISpellContainer
                 if (container.containsSpell(stack) && this.assembler.isBulletSlotEnabled(this.socketSlot)) {
                     val socketableStack = this.assembler.getStackInSlot(6)

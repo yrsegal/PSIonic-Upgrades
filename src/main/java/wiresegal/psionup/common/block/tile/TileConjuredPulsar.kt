@@ -1,9 +1,10 @@
 package wiresegal.psionup.common.block.tile
 
+import com.teamwizardry.librarianlib.features.base.block.TileMod
+import com.teamwizardry.librarianlib.features.saving.Save
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.ITickable
-import vazkii.arl.block.tile.TileMod
 import vazkii.psi.api.cad.ICADColorizer
 import vazkii.psi.common.Psi
 import vazkii.psi.common.block.BlockConjured
@@ -17,14 +18,16 @@ import java.util.*
  */
 
 class TileConjuredPulsar : TileMod(), ITickable {
+    @Save
     var time = -1
-    var colorizer: ItemStack? = null
+    @Save
+    var colorizer: ItemStack = ItemStack.EMPTY
     var particleCounter = 0
 
     override fun update() {
         if (this.world.isRemote) {
             var color = Color(ICADColorizer.DEFAULT_SPELL_COLOR)
-            if (this.colorizer != null) {
+            if (!this.colorizer.isEmpty) {
                 color = Psi.proxy.getColorizerColor(this.colorizer)
             }
 
@@ -130,21 +133,5 @@ class TileConjuredPulsar : TileMod(), ITickable {
                 .map { var3[it] }
                 .forEach { edges[it] = false }
 
-    }
-
-    override fun writeSharedNBT(cmp: NBTTagCompound?) {
-        cmp!!.setInteger("time", this.time)
-        val stackCmp = NBTTagCompound()
-        if (this.colorizer != null) {
-            this.colorizer!!.writeToNBT(stackCmp)
-        }
-
-        cmp.setTag("colorizer", stackCmp)
-    }
-
-    override fun readSharedNBT(cmp: NBTTagCompound?) {
-        this.time = cmp!!.getInteger("time")
-        val stackCmp = cmp.getCompoundTag("colorizer")
-        this.colorizer = ItemStack(stackCmp)
     }
 }

@@ -9,9 +9,7 @@ import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import wiresegal.psionup.client.core.handler.HUDHandler
-import wiresegal.psionup.client.core.handler.ModelHandler
 import wiresegal.psionup.client.render.entity.ExosuitGlowLayer
-import wiresegal.psionup.client.render.entity.GlowingItemHandler
 import wiresegal.psionup.client.render.entity.LayerGlowingWire
 import wiresegal.psionup.client.render.tile.RenderTileCADCase
 import wiresegal.psionup.common.PsionicUpgrades
@@ -28,14 +26,10 @@ class ClientProxy : CommonProxy() {
     override fun pre(e: FMLPreInitializationEvent) {
         super.pre(e)
         HUDHandler
-        ModelHandler.preInit(LibMisc.MOD_ID, PsionicUpgrades.DEV_ENVIRONMENT, PsionicUpgrades.LOGGER)
-
-        GlowingItemHandler.EventHandler()
     }
 
     override fun init(e: FMLInitializationEvent) {
         super.init(e)
-        ModelHandler.init()
         ClientRegistry.bindTileEntitySpecialRenderer(TileCADCase::class.java, RenderTileCADCase())
 
         val skinMap = Minecraft.getMinecraft().renderManager.skinMap
@@ -43,7 +37,6 @@ class ClientProxy : CommonProxy() {
         render?.let {
             val renders = PsionicClientMethodHandles.getRenderLayers(it)
             it.addLayer(ExosuitGlowLayer(it))
-            it.addLayer(GlowingItemHandler.GlowingItemLayer(it))
             it.addLayer(LayerGlowingWire(it))
             for ((index, layer) in renders.withIndex())
                 if (layer is LayerElytra)
@@ -55,7 +48,6 @@ class ClientProxy : CommonProxy() {
         render?.let {
             val renders = PsionicClientMethodHandles.getRenderLayers(it)
             it.addLayer(ExosuitGlowLayer(it))
-            it.addLayer(GlowingItemHandler.GlowingItemLayer(it))
             it.addLayer(LayerGlowingWire(it))
             for ((index, layer) in renders.withIndex())
                 if (layer is LayerElytra)

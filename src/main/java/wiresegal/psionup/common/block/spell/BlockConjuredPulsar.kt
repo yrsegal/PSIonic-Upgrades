@@ -1,5 +1,6 @@
 package wiresegal.psionup.common.block.spell
 
+import com.teamwizardry.librarianlib.features.base.block.BlockModContainer
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.IProperty
 import net.minecraft.block.state.BlockStateContainer
@@ -18,7 +19,6 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import vazkii.psi.common.block.BlockConjured.*
-import wiresegal.psionup.common.block.base.BlockModContainer
 import wiresegal.psionup.common.block.tile.TileConjuredPulsar
 import java.util.*
 
@@ -28,11 +28,10 @@ import java.util.*
  */
 class BlockConjuredPulsar(name: String) : BlockModContainer(name, Material.GLASS, name) {
 
-    override val item: ItemBlock?
-        get() = null
+
+    override fun createItemForm() = null
 
     init {
-        this.defaultState = this.makeDefaultState()
         this.setLightOpacity(0)
         this.disableStats()
         this.translucent = true
@@ -44,10 +43,6 @@ class BlockConjuredPulsar(name: String) : BlockModContainer(name, Material.GLASS
 
     override fun getWeakPower(blockState: IBlockState?, blockAccess: IBlockAccess?, pos: BlockPos?, side: EnumFacing?): Int {
         return 15
-    }
-
-    fun makeDefaultState(): IBlockState {
-        return this.getStateFromMeta(0)
     }
 
     override fun createBlockState(): BlockStateContainer {

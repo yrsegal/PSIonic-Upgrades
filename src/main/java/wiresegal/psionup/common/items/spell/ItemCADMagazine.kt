@@ -1,5 +1,10 @@
 package wiresegal.psionup.common.items.spell
 
+import com.teamwizardry.librarianlib.features.base.item.ItemMod
+import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
+import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.local
+import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.tooltipIfShift
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.Item
@@ -11,7 +16,6 @@ import net.minecraft.util.text.Style
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
-import vazkii.arl.util.ItemNBTHelper
 import vazkii.psi.api.PsiAPI
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.EnumCADStat
@@ -29,7 +33,6 @@ import wiresegal.psionup.client.core.handler.GuiHandler
 import wiresegal.psionup.common.PsionicUpgrades
 import wiresegal.psionup.common.crafting.ModRecipes
 import wiresegal.psionup.common.items.base.ICadComponentAcceptor
-import wiresegal.psionup.common.items.base.ItemMod
 import wiresegal.psionup.common.lib.LibMisc
 import vazkii.arl.item.ItemMod as PsiItem
 import vazkii.psi.common.item.base.ModItems as PsiItems
@@ -42,13 +45,13 @@ class ItemCADMagazine(name: String) : ItemMod(name), ISocketable, ICadComponentA
 
     companion object {
         fun getSocket(stack: ItemStack): ItemStack {
-            val nbt = ItemNBTHelper.getCompound(stack, "socket", true)
+            val nbt = ItemNBTHelper.getCompound(stack, "socket")
             return ItemStack(nbt ?: return ItemStack(PsiItems.cadSocket))
         }
 
-        fun setSocket(stack: ItemStack, socket: ItemStack?): ItemStack {
-            if (socket == null) {
-                ItemNBTHelper.setCompound(stack, "socket", null)
+        fun setSocket(stack: ItemStack, socket: ItemStack): ItemStack {
+            if (socket.isEmpty) {
+                ItemNBTHelper.removeEntry(stack, "socket")
             } else {
                 val nbt = NBTTagCompound()
                 socket.writeToNBT(nbt)
@@ -76,25 +79,23 @@ class ItemCADMagazine(name: String) : ItemMod(name), ISocketable, ICadComponentA
         }
     }
 
-    override fun requiresSneakForSpellSet(p0: ItemStack?) = false
+    override fun requiresSneakForSpellSet(p0: ItemStack) = false
 
     init {
         setMaxStackSize(1)
     }
 
     override fun getSubItems(itemIn: Item, tab: CreativeTabs?, subItems: NonNullList<ItemStack>) {
-        for (i in ModRecipes.examplesockets) {
-            subItems.add(setSocket(ItemStack(itemIn), i))
-        }
+        ModRecipes.examplesockets.mapTo(subItems) { setSocket(ItemStack(itemIn), it) }
     }
 
-    override fun getPiece(stack: ItemStack, type: EnumCADComponent): ItemStack? {
+    override fun getPiece(stack: ItemStack, type: EnumCADComponent): ItemStack {
         if (type != EnumCADComponent.SOCKET)
-            return null
+            return ItemStack.EMPTY
         return getSocket(stack)
     }
 
-    override fun setPiece(stack: ItemStack, type: EnumCADComponent, piece: ItemStack?): ItemStack {
+    override fun setPiece(stack: ItemStack, type: EnumCADComponent, piece: ItemStack): ItemStack {
         if (type != EnumCADComponent.SOCKET)
             return stack
         return setSocket(stack, piece)
@@ -105,7 +106,7 @@ class ItemCADMagazine(name: String) : ItemMod(name), ISocketable, ICadComponentA
     }
 
     override fun onItemRightClick(worldIn: World, playerIn: EntityPlayer, hand: EnumHand?): ActionResult<ItemStack>? {
-        if (!worldIn.isRemote && PsiAPI.getPlayerCAD(playerIn) != null) {
+        if (!worldIn.isRemote && !PsiAPI.getPlayerCAD(playerIn).isEmpty) {
             playerIn.openGui(PsionicUpgrades.INSTANCE, GuiHandler.GUI_MAGAZINE, worldIn, 0, 0, 0)
         }
         return ActionResult(EnumActionResult.SUCCESS, playerIn.getHeldItem(hand))
@@ -192,8 +193,8 @@ class ItemCADMagazine(name: String) : ItemMod(name), ISocketable, ICadComponentA
         })
     }
 
-    fun getSocketedItemName(stack: ItemStack?, slot: Int, fallback: String?): String? {
-        if (stack != null && stack.item is ISocketable) {
+    fun getSocketedItemName(stack: ItemStack, slot: Int, fallback: String?): String? {
+        if (!stack.isEmpty && stack.item is ISocketable) {
             val socketable = stack.item as ISocketable
             val item = socketable.getBulletInSocket(stack, slot)
             return if (item == null) fallback else item.displayName
@@ -206,16 +207,16 @@ class ItemCADMagazine(name: String) : ItemMod(name), ISocketable, ICadComponentA
         return slot < getSocketSlots(stack)
     }
 
-    override fun getBulletInSocket(stack: ItemStack, slot: Int): ItemStack? {
+    override fun getBulletInSocket(stack: ItemStack, slot: Int): ItemStack {
         val name = "bullet" + slot
-        val cmp = ItemNBTHelper.getCompound(stack, name, true)
-        return if (cmp == null) null else ItemStack(cmp)
+        val cmp = ItemNBTHelper.getCompound(stack, name)
+        return if (cmp == null) ItemStack.EMPTY else ItemStack(cmp)
     }
 
-    override fun setBulletInSocket(stack: ItemStack, slot: Int, bullet: ItemStack?) {
+    override fun setBulletInSocket(stack: ItemStack, slot: Int, bullet: ItemStack) {
         val name = "bullet" + slot
         val cmp = NBTTagCompound()
-        bullet?.writeToNBT(cmp)
+        bullet.writeToNBT(cmp)
 
         ItemNBTHelper.setCompound(stack, name, cmp)
     }
@@ -235,7 +236,7 @@ class ItemCADMagazine(name: String) : ItemMod(name), ISocketable, ICadComponentA
         if ((compiled.compiledSpell.metadata.stats[EnumSpellStat.BANDWIDTH] ?: Integer.MAX_VALUE) > getBandwidth(stack)) {
             if (!player.world.isRemote)
                 player.sendStatusMessage(TextComponentTranslation("${LibMisc.MOD_ID}.misc.tooComplex").setStyle(Style().setColor(TextFormatting.RED)), false)
-        } else if (bullet != null && bullet.item is ISpellSettable) {
+        } else if (!bullet.isEmpty && bullet.item is ISpellSettable) {
             (bullet.item as ISpellSettable).setSpell(player, bullet, spell)
             this.setBulletInSocket(stack, slot, bullet)
         }

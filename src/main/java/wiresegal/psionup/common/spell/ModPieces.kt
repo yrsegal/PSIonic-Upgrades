@@ -1,5 +1,6 @@
 package wiresegal.psionup.common.spell
 
+import com.teamwizardry.librarianlib.features.helpers.currentModId
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.Loader
 import vazkii.psi.api.PsiAPI
@@ -92,7 +93,7 @@ object ModPieces {
     }
 
     fun registerSpellPieceAndTexture(key: String, clazz: Class<out SpellPiece>) {
-        val currMod = Loader.instance().activeModContainer().modId.toLowerCase()
+        val currMod = currentModId.toLowerCase()
         registerSpellPieceAndTexture(key, currMod, clazz)
     }
 

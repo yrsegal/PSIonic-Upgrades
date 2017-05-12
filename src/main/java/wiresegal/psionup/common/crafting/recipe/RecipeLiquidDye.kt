@@ -8,7 +8,7 @@ import net.minecraft.util.NonNullList
 import net.minecraft.world.World
 import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.oredict.OreDictionary
-import vazkii.arl.util.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import wiresegal.psionup.common.items.component.ItemLiquidColorizer
 import java.awt.Color
 
@@ -22,71 +22,67 @@ class RecipeLiquidDye : IRecipe {
     val dyes = Array(dyeNames.size, { i -> "dye${dyeNames[i]}" })
 
     override fun matches(inv: InventoryCrafting, worldIn: World?): Boolean {
-        var ink: ItemStack? = null
+        var ink: ItemStack = ItemStack.EMPTY
         var foundDye = false
 
-        for (i in 0..inv.sizeInventory - 1) {
-            val stack = inv.getStackInSlot(i)
+        (0..inv.sizeInventory - 1)
+                .mapNotNull { inv.getStackInSlot(it) }
+                .forEach {
+                    if (it.item is ItemLiquidColorizer) {
+                        ink = it
+                    } else {
+                        if (!checkStack(it, dyes)) {
+                            return false
+                        }
 
-            if (stack != null) {
-                if (stack.item is ItemLiquidColorizer) {
-                    ink = stack
-                } else {
-                    if (!checkStack(stack, dyes)) {
-                        return false
+                        foundDye = true
                     }
-
-                    foundDye = true
                 }
-            }
-        }
 
-        return ink != null && foundDye
+        return !ink.isEmpty && foundDye
     }
 
     /**
      * Returns an Item that is the result of this recipe
      */
-    override fun getCraftingResult(inv: InventoryCrafting): ItemStack? {
-        var ink: ItemStack? = null
+    override fun getCraftingResult(inv: InventoryCrafting): ItemStack {
+        var ink: ItemStack = ItemStack.EMPTY
         var colors = 0
         var r = 0
         var g = 0
         var b = 0
 
-        for (k in 0..inv.sizeInventory - 1) {
-            val stack = inv.getStackInSlot(k)
+        (0..inv.sizeInventory - 1)
+                .mapNotNull { inv.getStackInSlot(it) }
+                .forEach {
+                    if (it.item is ItemLiquidColorizer) {
+                        ink = it
 
-            if (stack != null) {
-                if (stack.item is ItemLiquidColorizer) {
-                    ink = stack
+                        val newstack = it.copy()
+                        newstack.count = 1
 
-                    val newstack = stack.copy()
-                    newstack.count = 1
+                        if (ItemLiquidColorizer.getColorFromStack(it) != Int.MAX_VALUE) {
+                            val color = Color(ItemLiquidColorizer.Companion.getColorFromStack(it))
+                            r += color.red
+                            g += color.green
+                            b += color.blue
+                            colors++
+                        }
+                    } else {
+                        if (!checkStack(it, dyes)) {
+                            return ItemStack.EMPTY
+                        }
 
-                    if (ItemLiquidColorizer.getColorFromStack(stack) != Int.MAX_VALUE) {
-                        val color = Color(ItemLiquidColorizer.Companion.getColorFromStack(stack))
+                        val color = Color(getColorFromDye(it))
                         r += color.red
                         g += color.green
                         b += color.blue
                         colors++
                     }
-                } else {
-                    if (!checkStack(stack, dyes)) {
-                        return null
-                    }
-
-                    val color = Color(getColorFromDye(stack))
-                    r += color.red
-                    g += color.green
-                    b += color.blue
-                    colors++
                 }
-            }
-        }
 
-        if (ink == null || colors == 0) {
-            return null
+        if (ink.isEmpty || colors == 0) {
+            return ItemStack.EMPTY
         }
 
         r /= colors
@@ -99,29 +95,16 @@ class RecipeLiquidDye : IRecipe {
     }
 
     fun checkStack(stack: ItemStack, keys: Array<String>): Boolean {
-        for (key in keys) {
-            if (checkStack(stack, key))
-                return true
-        }
-        return false
+        return keys.any { checkStack(stack, it) }
     }
 
     fun checkStack(stack: ItemStack, key: String): Boolean {
         val ores = OreDictionary.getOres(key, false)
-        for (ore in ores) {
-            if (OreDictionary.itemMatches(stack, ore, false))
-                return true
-        }
-        return false
+        return ores.any { OreDictionary.itemMatches(stack, it, false) }
     }
 
     fun getColorFromDye(stack: ItemStack): Int {
-        for (i in dyes.indices) {
-            if (checkStack(stack, dyes[i])) {
-                return ItemDye.DYE_COLORS[15 - stack.metadata]
-            }
-        }
-        return 0xFFFFFF
+        return if (dyes.indices.any { checkStack(stack, dyes[it]) }) ItemDye.DYE_COLORS[15 - stack.metadata] else 0xFFFFFF
     }
 
     /**
@@ -131,8 +114,8 @@ class RecipeLiquidDye : IRecipe {
         return 10
     }
 
-    override fun getRecipeOutput(): ItemStack? {
-        return null
+    override fun getRecipeOutput(): ItemStack {
+        return ItemStack.EMPTY
     }
 
     override fun getRemainingItems(inv: InventoryCrafting?): NonNullList<ItemStack> {

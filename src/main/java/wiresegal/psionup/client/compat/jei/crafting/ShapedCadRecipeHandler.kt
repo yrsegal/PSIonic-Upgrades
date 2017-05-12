@@ -11,7 +11,7 @@ class ShapedCadRecipeHandler : IRecipeHandler<RecipeCadComponent> {
         return RecipeCadComponent::class.java
     }
 
-    override fun getRecipeCategoryUid(): String {
+    override fun getRecipeCategoryUid(recipe: RecipeCadComponent): String {
         return VanillaRecipeCategoryUid.CRAFTING
     }
 
@@ -20,6 +20,6 @@ class ShapedCadRecipeHandler : IRecipeHandler<RecipeCadComponent> {
     }
 
     override fun isRecipeValid(recipe: RecipeCadComponent): Boolean {
-        return recipe.input.size > 0
+        return recipe.input.isNotEmpty()
     }
 }

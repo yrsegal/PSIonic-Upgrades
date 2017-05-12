@@ -1,5 +1,6 @@
 package wiresegal.psionup.common.core
 
+import com.teamwizardry.librarianlib.features.config.ConfigPropertyBoolean
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.common.config.Configuration
 import net.minecraftforge.fml.client.event.ConfigChangedEvent
@@ -12,58 +13,25 @@ import java.io.File
  * Created at 1:09 AM on 7/10/16.
  */
 object ConfigHandler {
-    object ChangeListener {
-        @SubscribeEvent
-        fun onConfigChanged(eventArgs: ConfigChangedEvent.OnConfigChangedEvent) {
-            if (eventArgs.modID == LibMisc.MOD_ID)
-                load()
-        }
-    }
 
+    @ConfigPropertyBoolean(LibMisc.MOD_ID, "general", "inline.enabled",
+            "Set this to false to prevent the Inline Caster from being crafted.", true)
     var enableInline = true
+
+    @ConfigPropertyBoolean(LibMisc.MOD_ID, "general", "magazine.enabled",
+            "Set this to false to prevent the Spell Magazine from being crafted.", true)
     var enableMagazine = true
+
+    @ConfigPropertyBoolean(LibMisc.MOD_ID, "general", "case.enabled",
+            "Set this to false to prevent the CAD Case from being crafted.", true)
     var enableCase = true
+
+    @ConfigPropertyBoolean(LibMisc.MOD_ID, "general", "ring.enabled",
+            "Set this to false to prevent the Flash Ring from being crafted.", true)
     var enableRing = true
+
+    @ConfigPropertyBoolean(LibMisc.MOD_ID, "general", "psiRegenPotion.enabled",
+            "Set this to false to remove the Psionic Pulse potion. The effect will still remain for /effect.", true)
     var enablePsionicPulse = true
-
-    lateinit var config: Configuration
-
-    fun loadConfig(configFile: File) {
-        config = Configuration(configFile)
-
-        config.load()
-        load()
-
-        MinecraftForge.EVENT_BUS.register(ChangeListener)
-    }
-
-    var desc: String = ""
-
-    fun load() {
-        desc = "Set this to false to prevent the Inline Caster from being crafted."
-        enableInline = loadPropBool("inline.enabled", enableInline)
-
-        desc = "Set this to false to prevent the Spell Magazine from being crafted."
-        enableMagazine = loadPropBool("magazine.enabled", enableMagazine)
-
-        desc = "Set this to false to prevent the CAD Case from being crafted."
-        enableCase = loadPropBool("case.enabled", enableCase)
-
-        desc = "Set this to false to prevent the Flash Ring from being crafted."
-        enableRing = loadPropBool("ring.enabled", enableRing)
-
-        desc = "Set this to false to remove the Psionic Pulse potion. The effect will still remain for /effect."
-        enablePsionicPulse = loadPropBool("psiRegenPotion.enabled", enablePsionicPulse)
-
-        if (config.hasChanged())
-            config.save()
-    }
-
-    fun loadPropBool(propName: String, default: Boolean): Boolean {
-        val prop = config.get(Configuration.CATEGORY_GENERAL, propName, default)
-        prop.comment = desc
-
-        return prop.getBoolean(default)
-    }
 
 }

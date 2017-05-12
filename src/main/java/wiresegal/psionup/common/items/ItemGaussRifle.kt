@@ -1,5 +1,8 @@
 package wiresegal.psionup.common.items
 
+import com.teamwizardry.librarianlib.features.base.item.IGlowingItem
+import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
+import com.teamwizardry.librarianlib.features.base.item.ItemMod
 import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
@@ -7,40 +10,47 @@ import net.minecraft.util.*
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import vazkii.arl.util.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
+import net.minecraft.client.renderer.block.model.IBakedModel
 import vazkii.psi.api.cad.ICADColorizer
 import vazkii.psi.client.core.handler.ClientTickHandler
 import vazkii.psi.common.core.handler.PlayerDataHandler
 import vazkii.psi.common.core.handler.PsiSoundHandler
-import wiresegal.psionup.client.core.handler.ModelHandler
-import wiresegal.psionup.client.render.entity.GlowingItemHandler
 import wiresegal.psionup.common.entity.EntityGaussPulse
-import wiresegal.psionup.common.items.base.ItemMod
 import wiresegal.psionup.common.lib.LibMisc
 
 /**
  * @author WireSegal
  * Created at 10:10 PM on 7/13/16.
  */
-class ItemGaussRifle(name: String) : ItemMod(name), ModelHandler.IItemColorProvider, GlowingItemHandler.IOverlayable {
+class ItemGaussRifle(name: String) : ItemMod(name), IItemColorProvider, IGlowingItem {
 
     init {
         setMaxStackSize(1)
-        addPropertyOverride(ResourceLocation(LibMisc.MOD_ID, "overlay")) {
-            itemStack, world, entityLivingBase -> if (ItemNBTHelper.getBoolean(itemStack.copy(), GlowingItemHandler.IOverlayable.TAG_OVERLAY, false)) 1f else 0f
-        }
     }
 
-    override fun disableLighting(stack: ItemStack): Boolean {
-        return false
+    override fun transformToGlow(itemStack: ItemStack, model: IBakedModel): IBakedModel? {
+        return IGlowingItem.Helper.wrapperBake(model, false, 1)
     }
+
+    override fun shouldDisableLightingForGlow(itemStack: ItemStack, model: IBakedModel): Boolean = false
+
+    override val itemColorFunction: ((stack: ItemStack, tintIndex: Int) -> Int)?
+        get() = {
+            _, i ->
+            if (i == 0)
+                pulseColor(0xB87333)
+            else if (i == 1)
+                ICADColorizer.DEFAULT_SPELL_COLOR
+            else 0xFFFFFF
+        }
 
     override fun onItemRightClick(worldIn: World, playerIn: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
         val data = PlayerDataHandler.get(playerIn)
         val ammo = findAmmo(playerIn)
-        if (playerIn.capabilities.isCreativeMode || data.availablePsi > 0 || (ammo != null && data.availablePsi > 0)) {
+        if (playerIn.capabilities.isCreativeMode || data.availablePsi > 0 || (!ammo.isEmpty && data.availablePsi > 0)) {
             if (!playerIn.capabilities.isCreativeMode) {
-                if (ammo == null)
+                if (ammo.isEmpty)
                     data.deductPsi(1000, 100, true)
                 else {
                     data.deductPsi(250, 10, true)
@@ -52,7 +62,7 @@ class ItemGaussRifle(name: String) : ItemMod(name), ModelHandler.IItemColorProvi
 
             playerIn.swingArm(hand)
 
-            val status = if (ammo != null) {
+            val status = if (!ammo.isEmpty) {
                 if (playerIn.capabilities.isCreativeMode)
                     EntityGaussPulse.AmmoStatus.DEPLETED
                 else
@@ -69,13 +79,13 @@ class ItemGaussRifle(name: String) : ItemMod(name), ModelHandler.IItemColorProvi
                 playerIn.motionY += 0.5
             worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, PsiSoundHandler.cadShoot, SoundCategory.PLAYERS, 1f, 1f)
 
-            if (ammo != null && !playerIn.capabilities.isCreativeMode)
+            if (!ammo.isEmpty && !playerIn.capabilities.isCreativeMode)
                 playerIn.cooldownTracker.setCooldown(this, 30)
         }
         return ActionResult(EnumActionResult.SUCCESS, playerIn.getHeldItem(hand))
     }
 
-    private fun findAmmo(player: EntityPlayer): ItemStack? {
+    private fun findAmmo(player: EntityPlayer): ItemStack {
         if (player.heldItemOffhand?.item == ModItems.gaussBullet) {
             return player.getHeldItem(EnumHand.OFF_HAND)
         } else if (player.heldItemMainhand?.item == ModItems.gaussBullet) {
@@ -89,19 +99,7 @@ class ItemGaussRifle(name: String) : ItemMod(name), ModelHandler.IItemColorProvi
                 }
             }
 
-            return null
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
-    override fun getItemColor(): IItemColor {
-        return IItemColor {
-            itemStack, i ->
-            if (i == 0)
-                pulseColor(0xB87333)
-            else if (i == 1)
-                ICADColorizer.DEFAULT_SPELL_COLOR
-            else 0xFFFFFF
+            return ItemStack.EMPTY
         }
     }
 

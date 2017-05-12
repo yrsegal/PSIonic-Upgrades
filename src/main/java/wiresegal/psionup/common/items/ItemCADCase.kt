@@ -1,7 +1,12 @@
 package wiresegal.psionup.common.items
 
+import com.teamwizardry.librarianlib.core.client.ModelHandler
+import com.teamwizardry.librarianlib.features.base.IExtraVariantHolder
+import com.teamwizardry.librarianlib.features.base.block.IModBlock
+import com.teamwizardry.librarianlib.features.base.block.ItemModBlock
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.ItemMeshDefinition
+import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.SoundEvents
@@ -19,17 +24,16 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.ItemStackHandler
 import wiresegal.psionup.client.core.handler.GuiHandler
-import wiresegal.psionup.client.core.handler.ModelHandler
 import wiresegal.psionup.common.PsionicUpgrades
 import wiresegal.psionup.common.block.BlockCADCase
-import wiresegal.psionup.common.block.base.ItemModBlock
 import wiresegal.psionup.common.core.PsionicSoundEvents
+import wiresegal.psionup.common.lib.LibMisc
 
 /**
  * @author WireSegal
  * Created at 9:09 PM on 7/5/16.
  */
-class ItemCADCase(block: Block) : ItemModBlock(block), ModelHandler.IExtraVariantHolder {
+class ItemCADCase(block: Block) : ItemModBlock(block), IExtraVariantHolder {
 
     init {
         setMaxStackSize(1)
@@ -59,15 +63,13 @@ class ItemCADCase(block: Block) : ItemModBlock(block), ModelHandler.IExtraVarian
         return CaseCapabilityProvider()
     }
 
-    @SideOnly(Side.CLIENT)
-    override fun getCustomMeshDefinition(): ItemMeshDefinition? {
-        return ItemMeshDefinition {
-            ModelHandler.resourceLocations[psiBlock.bareName]
+    override val meshDefinition: ((ItemStack) -> ModelResourceLocation)?
+        get() = {
+            ModelHandler.resourceLocations[LibMisc.MOD_ID]?.get((block as IModBlock).bareName) as ModelResourceLocation
         }
-    }
 
     override val extraVariants: Array<out String>
-        get() = arrayOf(psiBlock.bareName)
+        get() = arrayOf((block as IModBlock).bareName)
 
     class CaseCapabilityProvider : ICapabilitySerializable<NBTTagCompound> {
         override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean {

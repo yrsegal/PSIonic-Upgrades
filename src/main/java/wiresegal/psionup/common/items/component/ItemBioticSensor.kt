@@ -1,5 +1,7 @@
 package wiresegal.psionup.common.items.component
 
+import com.teamwizardry.librarianlib.features.base.item.IItemColorProvider
+import com.teamwizardry.librarianlib.features.base.item.ItemMod
 import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
@@ -12,15 +14,13 @@ import vazkii.psi.api.exosuit.IExosuitSensor
 import vazkii.psi.api.exosuit.PsiArmorEvent
 import vazkii.psi.api.internal.MathHelper
 import vazkii.psi.client.core.handler.ClientTickHandler
-import wiresegal.psionup.client.core.handler.ModelHandler
-import wiresegal.psionup.common.items.base.ItemMod
 import wiresegal.psionup.common.lib.LibMisc
 
 /**
  * @author WireSegal
  * Created at 5:44 PM on 7/13/16.
  */
-class ItemBioticSensor(name: String) : ItemMod(name), IExosuitSensor, ModelHandler.IItemColorProvider {
+class ItemBioticSensor(name: String) : ItemMod(name), IExosuitSensor, IItemColorProvider {
 
     companion object {
 
@@ -67,7 +67,7 @@ class ItemBioticSensor(name: String) : ItemMod(name), IExosuitSensor, ModelHandl
         setMaxStackSize(1)
     }
 
-    override fun getColor(p0: ItemStack?): Int {
+    override fun getColor(p0: ItemStack): Int {
         val add = Math.max((Math.sin(ClientTickHandler.ticksInGame * 0.1) * 96).toInt(), 0)
         val newColor =
                 (add shl 16) or
@@ -76,11 +76,10 @@ class ItemBioticSensor(name: String) : ItemMod(name), IExosuitSensor, ModelHandl
         return newColor
     }
 
-    override fun getItemColor(): IItemColor {
-        return IItemColor { itemStack, i -> if (i == 1) getColor(itemStack) else 0xFFFFFF }
-    }
+    override val itemColorFunction: ((stack: ItemStack, tintIndex: Int) -> Int)?
+        get() = { itemStack, i -> if (i == 1) getColor(itemStack) else 0xFFFFFF }
 
-    override fun getEventType(p0: ItemStack?): String {
+    override fun getEventType(p0: ItemStack): String {
         return EVENT_BIOTIC
     }
 }

@@ -1,20 +1,20 @@
 package wiresegal.psionup.client.compat.jei.crafting
 
-import mezz.jei.api.recipe.wrapper.ICraftingRecipeWrapper
+import mezz.jei.api.ingredients.IIngredients
+import mezz.jei.api.recipe.IRecipeWrapper
 import net.minecraft.client.Minecraft
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
-import net.minecraftforge.fluids.FluidStack
 import vazkii.arl.item.ItemMod
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.common.item.base.ModItems
 import wiresegal.psionup.common.crafting.recipe.cad.RecipeCadComponentShapeless
 import java.util.*
 
-class ShapelessCadRecipeJEI(recipe: RecipeCadComponentShapeless) : ICraftingRecipeWrapper {
+class ShapelessCadRecipeJEI(recipe: RecipeCadComponentShapeless) : IRecipeWrapper {
 
-    private val inputs: List<Any?>
-    private val output: ItemStack?
+    private val inputs: List<ItemStack>
+    private val output: ItemStack = recipe.recipeOutput
 
     companion object {
         val itemMap = mapOf(
@@ -36,12 +36,8 @@ class ShapelessCadRecipeJEI(recipe: RecipeCadComponentShapeless) : ICraftingReci
     }
 
     init {
-        recipe.input
-                .filterIsInstance<ItemStack>()
-                .filter { it.count != 1 }
-                .forEach { it.count = 1 }
 
-        output = recipe.recipeOutput
+
         val input = recipe.input
 
         val inputList = ArrayList(input)
@@ -54,30 +50,17 @@ class ShapelessCadRecipeJEI(recipe: RecipeCadComponentShapeless) : ICraftingReci
             }
         }
 
-        this.inputs = inputList
+        this.inputs = recipe.input
+                .filterIsInstance<ItemStack>()
+                .map { it.count = 1; it }
     }
 
-    override fun getInputs(): List<Any?> {
-        return inputs
-    }
-
-    override fun getOutputs(): List<ItemStack?> {
-        return listOf(output)
-    }
-
-    override fun getFluidInputs(): List<FluidStack>? {
-        return null
+    override fun getIngredients(ingredients: IIngredients) {
+        ingredients.setInputs(ItemStack::class.java, inputs)
+        ingredients.setOutput(ItemStack::class.java, output)
     }
 
     override fun drawInfo(minecraft: Minecraft, recipeWidth: Int, recipeHeight: Int, mouseX: Int, mouseY: Int) {
-
-    }
-
-    override fun getFluidOutputs(): List<FluidStack>? {
-        return null
-    }
-
-    override fun drawAnimations(minecraft: Minecraft, recipeWidth: Int, recipeHeight: Int) {
 
     }
 

@@ -6,6 +6,7 @@ import net.minecraft.init.Items
 import net.minecraft.init.PotionTypes
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.CraftingManager
+import net.minecraft.potion.PotionHelper
 import net.minecraft.potion.PotionType
 import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.registry.GameRegistry
@@ -227,17 +228,17 @@ object ModRecipes {
 
     fun addCompletePotionRecipes(predicate: Predicate<ItemStack>, fromType: PotionType, normalType: PotionType, longType: PotionType?, strongType: PotionType?) {
         if (fromType == PotionTypes.AWKWARD)
-            PsionicMethodHandles.registerPotionTypeConversion(PotionTypes.WATER, predicate, PotionTypes.MUNDANE)
-        PsionicMethodHandles.registerPotionTypeConversion(fromType, predicate, normalType)
-        if (longType != null) PsionicMethodHandles.registerPotionTypeConversion(normalType, predicateRedstone, longType)
-        if (strongType != null) PsionicMethodHandles.registerPotionTypeConversion(normalType, predicateGlowstone, strongType)
+            PotionHelper.registerPotionTypeConversion(PotionTypes.WATER, predicate, PotionTypes.MUNDANE)
+        PotionHelper.registerPotionTypeConversion(fromType, predicate, normalType)
+        if (longType != null) PotionHelper.registerPotionTypeConversion(normalType, predicateRedstone, longType)
+        if (strongType != null) PotionHelper.registerPotionTypeConversion(normalType, predicateGlowstone, strongType)
     }
 
     fun addPotionConversionRecipes(predicate: Predicate<ItemStack>, fromTypeNormal: PotionType, fromTypeLong: PotionType?, fromTypeStrong: PotionType?, normalType: PotionType, longType: PotionType?, strongType: PotionType?) {
         addCompletePotionRecipes(predicate, fromTypeNormal, normalType, longType, strongType)
         if (longType != null && fromTypeLong != null)
-            PsionicMethodHandles.registerPotionTypeConversion(fromTypeLong, predicate, longType)
+            PotionHelper.registerPotionTypeConversion(fromTypeLong, predicate, longType)
         if (strongType != null && fromTypeStrong != null)
-            PsionicMethodHandles.registerPotionTypeConversion(fromTypeStrong, predicate, strongType)
+            PotionHelper.registerPotionTypeConversion(fromTypeStrong, predicate, strongType)
     }
 }

@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.0.0'
+    ext.kotlin_version = '1.1.2'
     repositories {
         jcenter()
         maven {
@@ -21,6 +21,13 @@ allprojects {
     tasks.withType(JavaCompile) {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
+    }
+}
+
+compileKotlin {
+    kotlinOptions {
+        javaParameters = true
+        jvmTarget = 1.8
     }
 }
 
@@ -47,32 +54,22 @@ repositories {
     maven {
         url "http://dvs1.progwml6.com/files/maven"
     }
-}
-
-configurations {
-
-    required
-    compile.extendsFrom(required)
+    maven {
+        url "http://mvn.rx14.co.uk/shadowfacts/"
+    }
 }
 
 dependencies {
-    deobfCompile "mezz.jei:jei_1.9.4:3.4.0.202"
+    compile "net.shadowfacts:Forgelin:1.4.1"
+
+    deobfCompile "mezz.jei:jei_${config.jei_version}"
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    required "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 
 jar {
 
-    // We need to make sure we package kotlin runtimes.
-
     archiveName "${archivesBaseName}-r${version}.jar"
-    dependsOn configurations.compile
-    from {
-        configurations.required.collect {
-            it.isDirectory() ? it : zipTree(it)
-        }
-    }
 }
 
 def parseConfig(File config) {

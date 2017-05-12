@@ -1,5 +1,9 @@
 package wiresegal.psionup.common.block
 
+import com.teamwizardry.librarianlib.features.base.block.BlockModContainer
+import com.teamwizardry.librarianlib.features.base.block.IBlockColorProvider
+import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
+import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.local
 import net.minecraft.block.Block
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
@@ -10,8 +14,6 @@ import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.gui.GuiScreen
-import net.minecraft.client.renderer.color.IBlockColor
-import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.passive.EntitySheep
 import net.minecraft.entity.player.EntityPlayer
@@ -30,15 +32,11 @@ import net.minecraft.util.math.RayTraceResult
 import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.ItemStackHandler
 import vazkii.psi.api.cad.ICAD
 import vazkii.psi.api.cad.ISocketable
 import vazkii.psi.api.spell.ISpellContainer
-import wiresegal.psionup.client.core.handler.ModelHandler
-import wiresegal.psionup.common.block.base.BlockModContainer
 import wiresegal.psionup.common.block.tile.TileCADCase
 import wiresegal.psionup.common.items.ItemCADCase
 import wiresegal.psionup.common.items.ModItems
@@ -49,7 +47,7 @@ import java.awt.Color
  * @author WireSegal
  * Created at 2:52 PM on 7/5/16.
  */
-class BlockCADCase(name: String) : BlockModContainer(name, Material.CLOTH, *makeVariants(name)), ModelHandler.IBlockColorProvider {
+class BlockCADCase(name: String) : BlockModContainer(name, Material.CLOTH, *makeVariants(name)), IBlockColorProvider {
     companion object {
         fun makeVariants(name: String): Array<String> {
             return Array(16) {
@@ -62,9 +60,9 @@ class BlockCADCase(name: String) : BlockModContainer(name, Material.CLOTH, *make
         val EAST_AABB = AxisAlignedBB(3.5 / 16.0, 0.0, 0.5 / 16.0, 12.5 / 16.0, 4.5 / 16.0, 15.5 / 16.0)
         val SOUTH_AABB = AxisAlignedBB(0.5 / 16.0, 0.0, 3.5 / 16.0, 15.5 / 16.0, 4.5 / 16.0, 12.5 / 16.0)
 
-        val OPEN = PropertyBool.create("open")
-        val FACING = PropertyDirection.create("facing", EnumFacing.HORIZONTALS.toList())
-        val COLOR = PropertyEnum.create("color", EnumDyeColor::class.java)
+        val OPEN: PropertyBool = PropertyBool.create("open")
+        val FACING: PropertyDirection = PropertyDirection.create("facing", EnumFacing.HORIZONTALS.toList())
+        val COLOR: PropertyEnum<EnumDyeColor> = PropertyEnum.create("color", EnumDyeColor::class.java)
     }
 
     init {
@@ -81,7 +79,7 @@ class BlockCADCase(name: String) : BlockModContainer(name, Material.CLOTH, *make
         }
     }
 
-    override fun harvestBlock(worldIn: World, player: EntityPlayer?, pos: BlockPos, state: IBlockState?, te: TileEntity?, stack: ItemStack?) {
+    override fun harvestBlock(worldIn: World, player: EntityPlayer?, pos: BlockPos, state: IBlockState?, te: TileEntity?, stack: ItemStack) {
         super.harvestBlock(worldIn, player, pos, state, te, stack)
         worldIn.setBlockToAir(pos)
     }
@@ -91,10 +89,11 @@ class BlockCADCase(name: String) : BlockModContainer(name, Material.CLOTH, *make
     override fun isOpaqueCube(state: IBlockState?) = false
     override fun isFullCube(state: IBlockState?) = false
 
-    override val item: ItemBlock?
-        get() = ItemCADCase(this)
+    override fun createItemForm(): ItemBlock? {
+        return ItemCADCase(this)
+    }
 
-    override fun createTileEntity(world: World?, state: IBlockState?): TileEntity? {
+    override fun createTileEntity(world: World, state: IBlockState): TileEntity? {
         return TileCADCase()
     }
 
@@ -122,7 +121,7 @@ class BlockCADCase(name: String) : BlockModContainer(name, Material.CLOTH, *make
         if (handler != null) {
             for (slot in 0..handler.slots - 1) {
                 val inSlot = handler.extractItem(slot, 1, true)
-                if (inSlot != null) {
+                if (inSlot.isEmpty) {
                     if (flag)
                         tooltip.add("")
                     addToTooltip(tooltip, "| ${TextFormatting.WHITE}${inSlot.displayName}")
@@ -145,7 +144,7 @@ class BlockCADCase(name: String) : BlockModContainer(name, Material.CLOTH, *make
         tile.woolColor = stack.itemDamage
         val handler = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null) ?: return
         for (slot in 0..handler.slots - 1)
-            tile.itemHandler.insertItem(slot, handler.getStackInSlot(slot)?.copy(), false)
+            tile.itemHandler.insertItem(slot, handler.getStackInSlot(slot).copy(), false)
         if (stack.hasDisplayName())
             tile.name = stack.displayName
     }
@@ -177,13 +176,9 @@ class BlockCADCase(name: String) : BlockModContainer(name, Material.CLOTH, *make
     override fun getComparatorInputOverride(blockState: IBlockState?, worldIn: World?, pos: BlockPos?): Int {
         val tile = (worldIn?.getTileEntity(pos) ?: return 0) as TileCADCase
         val handler = tile.itemHandler
-        var i = 0
-
-        for (j in 0..handler.slots - 1) {
-            val itemstack = handler.getStackInSlot(j)
-
-            if (itemstack != null) ++i
-        }
+        val i = (0..handler.slots - 1)
+                .map { handler.getStackInSlot(it) }
+                .count { !it.isEmpty }
 
         return Math.ceil(15.0 / handler.slots * i).toInt()
     }
@@ -194,7 +189,7 @@ class BlockCADCase(name: String) : BlockModContainer(name, Material.CLOTH, *make
                 SoundCategory.BLOCKS, 1f, 1f)
     }
 
-    override fun getPickBlock(state: IBlockState, target: RayTraceResult?, world: World, pos: BlockPos, player: EntityPlayer?): ItemStack? {
+    override fun getPickBlock(state: IBlockState, target: RayTraceResult?, world: World, pos: BlockPos, player: EntityPlayer?): ItemStack {
         return ItemStack(this, 1, getActualState(state, world, pos).getValue(COLOR).metadata)
     }
 
@@ -252,27 +247,23 @@ class BlockCADCase(name: String) : BlockModContainer(name, Material.CLOTH, *make
         return defaultState.withProperty(FACING, placer?.horizontalFacing?.opposite).withProperty(OPEN, false)
     }
 
-    @SideOnly(Side.CLIENT)
-    override fun getBlockColor(): IBlockColor? {
-        return IBlockColor { iBlockState, iBlockAccess, blockPos, i ->
+    override val blockColorFunction: ((state: IBlockState, world: IBlockAccess?, pos: BlockPos?, tintIndex: Int) -> Int)?
+        get() = { iBlockState, iBlockAccess, blockPos, i ->
             if (i == 1 && blockPos != null) {
                 val colorArr = EntitySheep.getDyeRgb(getActualState(iBlockState, iBlockAccess!!, blockPos).getValue(COLOR))
                 Color(colorArr[0], colorArr[1], colorArr[2]).rgb
             } else 0xFFFFFF
         }
-    }
 
-    @SideOnly(Side.CLIENT)
-    override fun getItemColor(): IItemColor? {
-        return IItemColor { itemStack, i ->
+    override val itemColorFunction: ((ItemStack, Int) -> Int)?
+        get() = { itemStack, i ->
             if (i == 1) {
                 val colorArr = EntitySheep.getDyeRgb(EnumDyeColor.byMetadata(itemStack.itemDamage))
                 Color(colorArr[0], colorArr[1], colorArr[2]).rgb
             } else 0xFFFFFF
         }
-    }
 
-    open class CaseStackHandler() : ItemStackHandler(2) {
+    open class CaseStackHandler : ItemStackHandler(2) {
 
         fun canInsertIntoSlot(slot: Int, stack: ItemStack): Boolean {
             if (slot == 0) return stack.item is ICAD || stack.item == ModItems.gaussRifle

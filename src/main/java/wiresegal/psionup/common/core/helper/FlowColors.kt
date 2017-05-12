@@ -6,7 +6,7 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.living.LivingEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import vazkii.arl.util.ItemNBTHelper
+import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import vazkii.psi.api.PsiAPI
 import vazkii.psi.api.cad.EnumCADComponent
 import vazkii.psi.api.cad.ICAD
@@ -51,26 +51,24 @@ object FlowColors {
     }
 
     fun purgeColor(player: EntityPlayer) {
-        for (i in 0..player.inventory.sizeInventory - 1) {
-            val stack = player.inventory.getStackInSlot(i)
-            if (stack != null && stack.item is IAcceptor)
-                purgeColor(stack)
-        }
+        (0..player.inventory.sizeInventory - 1)
+                .map { player.inventory.getStackInSlot(it) }
+                .filter { it != null && it.item is IAcceptor }
+                .forEach { purgeColor(it) }
     }
 
     fun applyColor(player: EntityPlayer, color: ItemStack) {
-        for (i in 0..player.inventory.sizeInventory - 1) {
-            val stack = player.inventory.getStackInSlot(i)
-            if (stack != null && stack.item is IAcceptor)
-                setColor(stack, color)
-        }
+        (0..player.inventory.sizeInventory - 1)
+                .map { player.inventory.getStackInSlot(it) }
+                .filter { it != null && it.item is IAcceptor }
+                .forEach { setColor(it, color) }
     }
 
     fun setColor(stack: ItemStack, colorizer: ItemStack) {
         ItemNBTHelper.setCompound(stack, TAG_FLOW_COLOR, colorizer.writeToNBT(NBTTagCompound()))
     }
 
-    fun getColor(stack: ItemStack): ItemStack? {
-        return ItemStack(ItemNBTHelper.getCompound(stack.copy(), TAG_FLOW_COLOR, true) ?: return null)
+    fun getColor(stack: ItemStack): ItemStack {
+        return ItemStack(ItemNBTHelper.getCompound(stack.copy(), TAG_FLOW_COLOR) ?: return ItemStack.EMPTY)
     }
 }

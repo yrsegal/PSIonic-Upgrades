@@ -1,8 +1,8 @@
 package wiresegal.psionup.common.items
 
+import com.teamwizardry.librarianlib.features.base.item.ItemMod
 import wiresegal.psionup.common.crafting.CompatRecipes
 import wiresegal.psionup.common.effect.botania.brew.ModBrews
-import wiresegal.psionup.common.items.base.ItemMod
 import wiresegal.psionup.common.items.component.botania.ItemBlasterAssembly
 import wiresegal.psionup.common.lib.LibNames
 

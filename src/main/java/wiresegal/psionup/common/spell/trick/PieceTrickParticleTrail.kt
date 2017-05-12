@@ -1,5 +1,6 @@
 package wiresegal.psionup.common.spell.trick
 
+import com.teamwizardry.librarianlib.features.network.PacketHandler
 import net.minecraft.world.World
 import vazkii.psi.api.PsiAPI
 import vazkii.psi.api.cad.ICADColorizer
@@ -10,7 +11,6 @@ import vazkii.psi.api.spell.param.ParamVector
 import vazkii.psi.api.spell.piece.PieceTrick
 import vazkii.psi.common.Psi
 import wiresegal.psionup.common.network.MessageParticleTrail
-import wiresegal.psionup.common.network.NetworkHandler
 import java.awt.Color
 
 /**
@@ -65,7 +65,7 @@ class PieceTrickParticleTrail(spell: Spell) : PieceTrick(spell) {
             throw SpellRuntimeException(SpellRuntimeException.OUTSIDE_RADIUS)
 
         if (!context.caster.world.isRemote)
-            NetworkHandler.INSTANCE.sendToDimension(MessageParticleTrail(pos, dir, len, time.toInt(), PsiAPI.getPlayerCAD(context.caster)), context.caster.world.provider.dimension)
+            PacketHandler.NETWORK.sendToDimension(MessageParticleTrail(pos.toVec3D(), dir.toVec3D(), len, time.toInt(), PsiAPI.getPlayerCAD(context.caster)), context.caster.world.provider.dimension)
 
         return null
     }

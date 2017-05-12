@@ -47,7 +47,7 @@ class GuiCADMagazine(player: EntityPlayer, var stack: ItemStack) : GuiContainer(
 
     override fun drawGuiContainerForegroundLayer(mouseX: Int, mouseY: Int) {
         if (tooltipTime != 0) {
-            GuiUtils.drawHoveringText(listOf(TextFormatting.RED.toString() + I18n.format(tooltipText)), -10, ySize / 2, width, height, xSize, Minecraft.getMinecraft().fontRendererObj)
+            GuiUtils.drawHoveringText(listOf(TextFormatting.RED.toString() + I18n.format(tooltipText)), -10, ySize / 2, width, height, xSize, Minecraft.getMinecraft().fontRenderer)
             tooltipTime -= ClientTickHandler.ticksInGame - lastTick
         }
         lastTick = ClientTickHandler.ticksInGame

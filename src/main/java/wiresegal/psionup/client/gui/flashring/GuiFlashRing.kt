@@ -1,14 +1,15 @@
 package wiresegal.psionup.client.gui.flashring
 
+import com.teamwizardry.librarianlib.features.network.PacketHandler
 import net.minecraft.client.gui.GuiTextField
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
+import vazkii.botania.common.network.PacketHandler.sendToServer
 import vazkii.psi.api.spell.SpellCompilationException
 import vazkii.psi.client.gui.GuiProgrammer
 import vazkii.psi.common.spell.SpellCompiler
 import wiresegal.psionup.client.core.PsionicClientMethodHandles
 import wiresegal.psionup.common.network.MessageFlashSync
-import wiresegal.psionup.common.network.NetworkHandler
 import java.util.*
 
 /**
@@ -27,7 +28,7 @@ class GuiFlashRing(val player: EntityPlayer, stack: ItemStack) : GuiProgrammer(F
     override fun onSpellChanged(nameOnly: Boolean) {
         programmer.spell.uuid = UUID.randomUUID()
         val message = MessageFlashSync(programmer.spell)
-        NetworkHandler.INSTANCE.sendToServer(message)
+        PacketHandler.NETWORK.sendToServer(message)
 
         onSelectedChanged()
         spellNameField.isFocused = nameOnly

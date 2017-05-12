@@ -9,7 +9,7 @@ class TrickCraftingRecipeHandler : IRecipeHandler<TrickCraftingRecipeJEI> {
         return TrickCraftingRecipeJEI::class.java
     }
 
-    override fun getRecipeCategoryUid(): String {
+    override fun getRecipeCategoryUid(recipe: TrickCraftingRecipeJEI?): String {
         return "${LibMisc.MOD_ID}:trickCrafting"
     }
 
@@ -17,7 +17,7 @@ class TrickCraftingRecipeHandler : IRecipeHandler<TrickCraftingRecipeJEI> {
         return recipe
     }
 
-    override fun isRecipeValid(recipe: TrickCraftingRecipeJEI): Boolean {
-        return recipe.inputs.size > 1 && recipe.outputs.size > 0
+    override fun isRecipeValid(recipe: TrickCraftingRecipeJEI?): Boolean {
+        return true
     }
 }
