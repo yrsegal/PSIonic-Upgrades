@@ -3,7 +3,7 @@
   "textures": {
     "texture": "psionup:items/blaster_cad",
     "tint": "psi:items/cad_color",
-    "glass": "botania:blocks/mana_glass"
+    "glass": "botania:blocks/managlass"
   },
   "elements": [
     {
