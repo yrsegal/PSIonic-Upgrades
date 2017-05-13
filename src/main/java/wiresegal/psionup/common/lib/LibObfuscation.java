@@ -16,4 +16,7 @@ public class LibObfuscation {
 
     public static final String RENDERPLAYER_SETMODELVISIBILITIES_OBF = "func_177137_d";
     public static final String RENDERPLAYER_SETMODELVISIBILITIES = "setModelVisibilities";
+
+    public static final String BLOCKREDSTONECOMPARATOR_CALCULATE_INPUT_STRENGTH_OBF = "func_176397_f";
+    public static final String BLOCKREDSTONECOMPARATOR_CALCULATE_INPUT_STRENGTH = "calculateInputStrength";
 }

@@ -7,9 +7,12 @@ import net.minecraft.client.entity.AbstractClientPlayer
 import net.minecraft.client.renderer.entity.layers.LayerElytra
 import net.minecraft.client.renderer.entity.layers.LayerRenderer
 import net.minecraft.entity.player.EnumPlayerModelParts
+import net.minecraft.init.Items
+import net.minecraft.item.Item
 import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+import vazkii.psi.api.cad.ICADColorizer
 import vazkii.psi.common.item.base.ModItems as PsiItems
 import wiresegal.psionup.client.core.handler.HUDHandler
 import wiresegal.psionup.client.render.entity.ExosuitGlowLayer
@@ -37,6 +40,17 @@ class ClientProxy : CommonProxy() {
 
     override fun init(e: FMLInitializationEvent) {
         super.init(e)
+
+        Item.REGISTRY.keys
+                .mapNotNull { Item.REGISTRY.getObject(it) }
+                .filterIsInstance<ICADColorizer>()
+                .filterIsInstance<Item>()
+                .forEach {
+                    GlowingHandler.registerCustomGlowHandler(it, {
+                        _, model -> IGlowingItem.Helper.wrapperBake(model, false, 1)
+                    }) { _, _ -> true }
+                }
+
         ClientRegistry.bindTileEntitySpecialRenderer(TileCADCase::class.java, RenderTileCADCase())
 
         val skinMap = Minecraft.getMinecraft().renderManager.skinMap

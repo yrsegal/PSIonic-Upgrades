@@ -1,10 +1,12 @@
 package wiresegal.psionup.common.core
 
 import com.teamwizardry.librarianlib.features.config.EasyConfigHandler
+import com.teamwizardry.librarianlib.features.structure.InWorldRender.pos
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import vazkii.psi.api.cad.ICADColorizer
+import wiresegal.psionup.api.PsionicAPI
 import wiresegal.psionup.common.block.ModBlocks
 import wiresegal.psionup.common.core.helper.FlowColors
 import wiresegal.psionup.common.crafting.ModRecipes
@@ -29,6 +31,10 @@ open class CommonProxy {
         ModEntities
 
         FlowColors.EventHandler
+
+        PsionicAPI.setInternalPropertyComparator { (it, side) ->
+            PsionicMethodHandles.calculateInputStrength(it.world, it.pos.offset(side.opposite), side)
+        }
     }
 
     open fun init(e: FMLInitializationEvent) {

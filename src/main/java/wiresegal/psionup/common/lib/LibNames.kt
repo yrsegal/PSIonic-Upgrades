@@ -1,5 +1,7 @@
 package wiresegal.psionup.common.lib
 
+import vazkii.psi.common.spell.base.ModSpellPieces
+
 /**
  * @author WireSegal
  * Created at 3:33 PM on 3/26/16.
@@ -76,6 +78,15 @@ object LibNames {
         const val LIST_SIZE = "listSize"
 
 
+        const val GET_PROPERTIES = "getProperties"
+        const val GET_HARDNESS = "getHardness"
+        const val GET_LIGHT = "getLight"
+        const val GET_SOLIDITY = "getSolidity"
+        const val GET_COMPARATOR = "getComparator"
+        const val EQUALITY = "operatorEquality"
+        const val BREAK_BOX = "breakBox"
+        const val CLONE_BOX = "cloneBox"
+
         const val MAKE_BURST = "makeManaBurst"
         const val WILD_DRUM = "drumOfTheWild"
         const val CANOPY_DRUM = "drumOfTheCanopy"
@@ -85,6 +96,7 @@ object LibNames {
     object PieceGroups {
         const val ALTERNATE_CONJURATION = "${LibMisc.MOD_ID}.redstone_conjuration"
         const val SECONDARY_VECTOR_OPERATORS = "${LibMisc.MOD_ID}.secondary_vectors"
+        const val BLOCK_PROPERTIES = "${LibMisc.MOD_ID}.block_properties"
 
         const val MANA_PSIONICS = "${LibMisc.MOD_ID}.mana_psionics"
     }

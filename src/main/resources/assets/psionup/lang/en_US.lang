@@ -171,6 +171,32 @@ psi.spellpiece.psionup.drum_of_the_canopy.desc=Pulses with the sound of the Drum
 psi.spellpiece.psionup.drum_of_the_gathering=Trick: Gathering Pulse
 psi.spellpiece.psionup.drum_of_the_gathering.desc=Pulses with the sound of the Drum of the Gathering
 
+psi.spellpiece.psionup.get_properties=Operator: Block Properties
+psi.spellpiece.psionup.get_properties.desc=Gets a data holder for a block
+
+psi.spellpiece.psionup.get_light=Operator: Block Light
+psi.spellpiece.psionup.get_light.desc=Gets the light value of a block
+
+psi.spellpiece.psionup.get_hardness=Operator: Block Hardness
+psi.spellpiece.psionup.get_hardness.desc=Gets the hardness value of a block
+
+psi.spellpiece.psionup.get_solidity=Operator: Block Side Solidity
+psi.spellpiece.psionup.get_solidity.desc=Gets whether the side of a block is solid
+
+psi.spellpiece.psionup.get_comparator=Operator: Block Comparator
+psi.spellpiece.psionup.get_comparator.desc=Gets the comparator strength a block has
+
+psi.spellpiece.psionup.operator_equality=Operator: Raw Equality
+psi.spellpiece.psionup.operator_equality.desc=If its two inputs are equal, 1, else 0
+
+psi.spellpiece.psionup.break_box=Trick: Break Masked Box
+psi.spellpiece.psionup.break_box.desc=Break a box from A to B, checking if the states are equal to the mask first
+
+psi.spellpiece.psionup.clone_box=Trick: Clone Masked Box
+psi.spellpiece.psionup.clone_box.desc=Place a box the size of A-B at the position, checking if the states are equal to the mask first
+
+
+
 item_group.psionup=PSIonic Upgrades
 
 psionup.subtitle.thwack=Metal thwacks
@@ -211,6 +237,9 @@ psionup.spelldesc.requires=&7Requires: &5%s
 psionup.spellparam.axis=Axis
 psionup.spellparam.angle=Radians
 psionup.spellparam.fallback=Fallback
+psionup.spellparam.target_1=Target A
+psionup.spellparam.target_2=Target B
+psionup.spellparam.mask=Mask
 
 jei.psionup.recipe.trick_crafting=Spell Infusion
 jei.psionup.drained.desc=Sneak-using the Liquid-Ink Colorizer will drain the fluid out, resulting in a Drained Colorizer.
@@ -218,9 +247,13 @@ jei.psionup.drained.desc=Sneak-using the Liquid-Ink Colorizer will drain the flu
 psi.piecegroup.psionup.secondary_vectors=Vector Operators II
 psi.piecegroup.psionup.secondary_vectors.desc=As the name implies, this group includes nonessential vector operators. The pieces can be separated into three sets.<br><br>The first set is rotation. The red piece, Planar Norm, will get a perpendicular vector to any axial vector, without needing Operator: Vector Cross Product. Vector Rotate will rotate a vector around another, by an angle (in radians).<br><br>The second set is strong raycasts. These act exactly like their regular counterparts, except they ignore nonsolid blocks such as tall grass.<br><br>The final piece is Trick: Particle Trail, which displays a ray in particles for up to twenty seconds, based on the Time parameter.<br>The last set is safety. The single safety piece is Operator: Vector Fallback. If a nonexistent or 0-length vector is given to it as a target, it will pass its fallback along. Otherwise, it will pass the target along.
 
+psi.piecegroup.psionup.block_properties=Block Properties
+psi.piecegroup.psionup.block_properties.desc=The tricks in this group allow you to test various properties of a block in the world. By getting a block property object, you can then test for its light value, its redstone strength via the comparator function, as well as a few others.<br><br>You can use Operator: Raw Equality to check if two block properties are carrying the same state of a block.<br><br>The final pieces in this category work similarly to Trick: Place Sequence and Trick: Break Sequence. By using Block Properties to mask, you can only break specific blocks, or place specific blocks.
+
 psi.piecegroup.psionup.redstone_conjuration=Alternate Conjuration
 psi.piecegroup.psionup.redstone_conjuration.desc=These pieces are quite similar to those of the previous group, Block Conjuration. The first type of alternate conjuration is Pulsar. The singular difference between these and the previous group is that conjured Pulsars have a red flare at their center, and emit redstone. The second type is Trick: Conjure Star. It creates a small ball of light that emits a ray of particles. Subsequent casts on the same position will add more rays, but not change the color.
 
 psi.piecegroup.psionup.mana_psionics=Mana Manipulation
 psi.piecegroup.psionup.mana_psionics.desc=What is elemental magic worth without its most base counterpart?<br><br>This group allows the caster to manipulate the power of Mana. Specifically, making a burst of Mana from your inventory, similar to a Mana Blaster. This requires a special CAD assembly to function, as Psionic materials cannot carry Mana naturally. A CAD made with a Blaster CAD Assembly can store a lens, just like a regular Blaster. Anything a blaster can accept, the Blaster CAD can too. This CAD can enable Mana Flow, allowing any mana trick to fire.<br><br>The other tricks in the category mimic various drums, with a Pulse instead of a drum. The only strange trick is the Gathering Pulse, which requires an Alfen Flow Enabler. This can be achieved by slotting a Lens Clip onto your Blaster CAD.
 
+psi.datatype.BlockProperties=Block Properties

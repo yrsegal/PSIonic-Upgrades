@@ -10,6 +10,7 @@ import vazkii.psi.common.lib.LibPieceGroups
 import vazkii.psi.common.spell.base.ModSpellPieces
 import wiresegal.psionup.common.lib.LibNames
 import wiresegal.psionup.common.spell.operator.*
+import wiresegal.psionup.common.spell.operator.block.*
 import wiresegal.psionup.common.spell.trick.*
 
 /**
@@ -25,6 +26,12 @@ object ModPieces {
     val planarNorm: ModSpellPieces.PieceContainer
     val vectorRotate: ModSpellPieces.PieceContainer
 
+    val getProperties: ModSpellPieces.PieceContainer
+    val getHardness: ModSpellPieces.PieceContainer
+    val getLight: ModSpellPieces.PieceContainer
+    val getSolidity: ModSpellPieces.PieceContainer
+    val getComparator: ModSpellPieces.PieceContainer
+
     val strongCast: ModSpellPieces.PieceContainer
     val strongCastAxis: ModSpellPieces.PieceContainer
 
@@ -38,10 +45,17 @@ object ModPieces {
 
     val listSize: ModSpellPieces.PieceContainer
 
+    val equality: ModSpellPieces.PieceContainer
+
+    val breakBox: ModSpellPieces.PieceContainer
+    val cloneBox: ModSpellPieces.PieceContainer
+
     init {
 
         PsiAPI.setGroupRequirements(LibNames.PieceGroups.ALTERNATE_CONJURATION, 21, LibPieceGroups.BLOCK_CONJURATION)
         PsiAPI.setGroupRequirements(LibNames.PieceGroups.SECONDARY_VECTOR_OPERATORS, 21, LibPieceGroups.TRIGNOMETRY)
+        PsiAPI.setGroupRequirements(LibNames.PieceGroups.SECONDARY_VECTOR_OPERATORS, 21, LibPieceGroups.TRIGNOMETRY)
+        PsiAPI.setGroupRequirements(LibNames.PieceGroups.BLOCK_PROPERTIES, 21, LibPieceGroups.BLOCK_CONJURATION)
 
         conjurePulsar = register(PieceTrickConjurePulsar::class.java,
                 LibNames.Spell.CONJURE_PULSAR,
@@ -88,6 +102,40 @@ object ModPieces {
         listSize = register(PieceOperatorListSize::class.java,
                 LibNames.Spell.LIST_SIZE,
                 LibPieceGroups.ENTITIES_INTRO)
+
+        getProperties = register(PieceOperatorGetBlockProperties::class.java,
+                LibNames.Spell.GET_PROPERTIES,
+                LibNames.PieceGroups.BLOCK_PROPERTIES,
+                true)
+
+        getHardness = register(PieceOperatorGetBlockHardness::class.java,
+                LibNames.Spell.GET_HARDNESS,
+                LibNames.PieceGroups.BLOCK_PROPERTIES)
+
+        getLight = register(PieceOperatorGetBlockLight::class.java,
+                LibNames.Spell.GET_LIGHT,
+                LibNames.PieceGroups.BLOCK_PROPERTIES)
+
+        getSolidity = register(PieceOperatorGetBlockSolidity::class.java,
+                LibNames.Spell.GET_SOLIDITY,
+                LibNames.PieceGroups.BLOCK_PROPERTIES)
+
+        getComparator = register(PieceOperatorGetComparatorStrength::class.java,
+                LibNames.Spell.GET_COMPARATOR,
+                LibNames.PieceGroups.BLOCK_PROPERTIES)
+
+        equality = register(PieceOperatorEquality::class.java,
+                LibNames.Spell.EQUALITY,
+                LibNames.PieceGroups.BLOCK_PROPERTIES)
+
+
+        breakBox = register(PieceTrickBreakBox::class.java,
+                LibNames.Spell.BREAK_BOX,
+                LibNames.PieceGroups.BLOCK_PROPERTIES)
+
+        cloneBox = register(PieceTrickCloneBox::class.java,
+                LibNames.Spell.CLONE_BOX,
+                LibNames.PieceGroups.BLOCK_PROPERTIES)
 
         if (Loader.isModLoaded("botania"))
             CompatTricks.init()
