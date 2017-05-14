@@ -69,7 +69,7 @@ class ItemFakeCAD(name: String) : ItemMod(name), ISocketable, ISpellSettable, II
             if (bullet.isEmpty) {
                 if (ItemCAD.craft(player, ItemStack(Items.REDSTONE), ItemStack(ModItems.material))) {
                     if (!worldIn.isRemote) {
-                        worldIn.playSound(player, player.posX, player.posY, player.posZ, PsiSoundHandler.cadShoot, SoundCategory.PLAYERS, 0.5f, (0.5 + Math.random() * 0.5).toFloat())
+                        worldIn.playSound(null, player.posX, player.posY, player.posZ, PsiSoundHandler.cadShoot, SoundCategory.PLAYERS, 0.5f, (0.5 + Math.random() * 0.5).toFloat())
                     }
 
                     data.deductPsi(100, 60, true)
