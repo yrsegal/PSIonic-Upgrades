@@ -146,7 +146,7 @@ class LayerGlowingWire(val renderPlayer: RenderPlayer) : LayerRenderer<AbstractC
     }
 
     fun doSkinOverlayRender(player: AbstractClientPlayer, limbSwing: Float, limbSwingAmount: Float, ageInTicks: Float, netHeadYaw: Float, headPitch: Float, scale: Float, r: Float, b: Float, g: Float, hasCad: Boolean) {
-        if (hasCad) {
+        if (hasCad && !player.isInvisibleToPlayer(player)) {
             GlStateManager.pushMatrix()
             GlStateManager.disableLighting()
             ShaderHandler.useShader(ShaderHandler.rawColor)
