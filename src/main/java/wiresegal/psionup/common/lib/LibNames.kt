@@ -102,17 +102,17 @@ object LibNames {
     }
 
     object Entities {
-        const val GAUSS_PULSE = "gaussPulse"
+        const val GAUSS_PULSE = "gauss_pulse"
     }
 
     object Potions {
         const val PSISHOCK = "psishock"
-        const val PSISHOCK_STRONG = "psishockStrong"
-        const val PSISHOCK_LONG = "psishockLong"
+        const val PSISHOCK_STRONG = "psishock_strong"
+        const val PSISHOCK_LONG = "psishock_long"
 
         const val PSIPULSE = "psipulse"
-        const val PSIPULSE_STRONG = "psipulseStrong"
-        const val PSIPULSE_LONG = "psipulseLong"
+        const val PSIPULSE_STRONG = "psipulse_strong"
+        const val PSIPULSE_LONG = "psipulse_long"
     }
 
     val Colors = arrayOf("White", "Orange", "Magenta", "LightBlue",

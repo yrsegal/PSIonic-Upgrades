@@ -24,7 +24,7 @@ class ItemBioticSensor(name: String) : ItemMod(name), IExosuitSensor, IItemColor
 
     companion object {
 
-        val EVENT_BIOTIC = "${LibMisc.MOD_ID}.event.nearbyEntities"
+        val EVENT_BIOTIC = "${LibMisc.MOD_ID}.event.nearby_entities"
 
         val triggeredBioticsNonremote = hashMapOf<EntityPlayer, MutableList<EntityLivingBase>>()
         val triggeredBioticsRemote = hashMapOf<EntityPlayer, MutableList<EntityLivingBase>>()
