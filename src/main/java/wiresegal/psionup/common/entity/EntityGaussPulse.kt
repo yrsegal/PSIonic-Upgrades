@@ -37,7 +37,7 @@ open class EntityGaussPulse : EntityThrowable {
     }
 
     constructor(worldIn: World, throwerIn: EntityLivingBase, ammo: AmmoStatus) : super(worldIn, throwerIn) {
-        this.setHeadingFromThrower(throwerIn, throwerIn.rotationPitch, throwerIn.rotationYaw, 0.0f, 1.5f, 1.0f)
+        this.setHeadingFromThrower(throwerIn, throwerIn.rotationPitch, throwerIn.rotationYaw, 0.0f, 1.5f, 0.0f)
         val speed = 3
         uuid = throwerIn.uniqueID
         this.ammo = ammo
