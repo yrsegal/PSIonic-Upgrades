@@ -2,6 +2,7 @@ package wiresegal.psionup.common.block
 
 import com.teamwizardry.librarianlib.features.base.block.BlockModContainer
 import com.teamwizardry.librarianlib.features.base.block.IBlockColorProvider
+import com.teamwizardry.librarianlib.features.kotlin.getTileEntitySafely
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.local
 import net.minecraft.block.Block
@@ -14,6 +15,7 @@ import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.gui.GuiScreen
+import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.passive.EntitySheep
 import net.minecraft.entity.player.EntityPlayer
@@ -226,7 +228,7 @@ class BlockCADCase(name: String) : BlockModContainer(name, Material.CLOTH, *make
     }
 
     override fun getActualState(state: IBlockState, worldIn: IBlockAccess, pos: BlockPos): IBlockState {
-        val tile = (worldIn.getTileEntity(pos) ?: return state) as TileCADCase
+        val tile = (worldIn.getTileEntitySafely(pos) ?: return state) as TileCADCase
         return state.withProperty(COLOR, EnumDyeColor.byMetadata(tile.woolColor))
     }
 

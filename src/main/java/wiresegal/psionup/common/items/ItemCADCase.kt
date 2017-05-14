@@ -5,6 +5,7 @@ import com.teamwizardry.librarianlib.features.base.IExtraVariantHolder
 import com.teamwizardry.librarianlib.features.base.block.IModBlock
 import com.teamwizardry.librarianlib.features.base.block.ItemModBlock
 import net.minecraft.block.Block
+import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.ItemMeshDefinition
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.entity.EntityLivingBase
@@ -16,6 +17,7 @@ import net.minecraft.util.*
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
 import net.minecraft.world.World
+import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.capabilities.ICapabilityProvider
 import net.minecraftforge.common.capabilities.ICapabilitySerializable
@@ -64,8 +66,11 @@ class ItemCADCase(block: Block) : ItemModBlock(block), IExtraVariantHolder {
     }
 
     override val meshDefinition: ((ItemStack) -> ModelResourceLocation)?
-        get() = {
-            ModelHandler.resourceLocations[LibMisc.MOD_ID]?.get((block as IModBlock).bareName) as ModelResourceLocation
+        get() {
+            ModelLoader.setCustomStateMapper(block, stateMapper) // todo remove when liblib updates
+            return {
+                ModelHandler.resourceLocations[LibMisc.MOD_ID]?.get((block as IModBlock).bareName) as ModelResourceLocation
+            }
         }
 
     override val extraVariants: Array<out String>

@@ -77,7 +77,7 @@ class ItemGaussRifle(name: String) : ItemMod(name), IItemColorProvider, IGlowing
             worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, PsiSoundHandler.cadShoot, SoundCategory.PLAYERS, 1f, 1f)
 
             if (!ammo.isEmpty && !playerIn.capabilities.isCreativeMode)
-                playerIn.cooldownTracker.setCooldown(this, 30)
+                playerIn.cooldownTracker.setCooldown(this, 15)
         }
         return ActionResult(EnumActionResult.SUCCESS, playerIn.getHeldItem(hand))
     }
@@ -88,13 +88,10 @@ class ItemGaussRifle(name: String) : ItemMod(name), IItemColorProvider, IGlowing
         } else if (player.heldItemMainhand?.item == ModItems.gaussBullet) {
             return player.getHeldItem(EnumHand.MAIN_HAND)
         } else {
-            for (i in 0..player.inventory.sizeInventory - 1) {
-                val itemstack = player.inventory.getStackInSlot(i)
-
-                if (itemstack?.item == ModItems.gaussBullet) {
-                    return itemstack
-                }
-            }
+            (0..player.inventory.sizeInventory - 1)
+                    .map { player.inventory.getStackInSlot(it) }
+                    .filter { !it.isEmpty && it.item == ModItems.gaussBullet }
+                    .forEach { return it }
 
             return ItemStack.EMPTY
         }

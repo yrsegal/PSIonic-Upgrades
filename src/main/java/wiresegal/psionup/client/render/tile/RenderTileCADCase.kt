@@ -37,13 +37,13 @@ class RenderTileCADCase : TileEntitySpecialRenderer<TileCADCase>() {
         GlStateManager.rotate(-90F, 1F, 0F, 0F)
         GlStateManager.scale(0.35, 0.35, 0.35)
         GlStateManager.translate(2.0F, -1.45F, 0.3F)
-        Minecraft.getMinecraft().renderItem.renderItem(te.itemHandler.getStackInSlot(0), ItemCameraTransforms.TransformType.GUI)
+        Minecraft.getMinecraft().renderItem.renderItem(te.itemHandler.getStackInSlot(0), ItemCameraTransforms.TransformType.FIXED)
         GlStateManager.popMatrix()
 
         GlStateManager.rotate(-90F, 1F, 0F, 0F)
         GlStateManager.scale(0.35, 0.35, 0.35)
         GlStateManager.translate(0.75F, -1.45F, 0.3F)
-        Minecraft.getMinecraft().renderItem.renderItem(te.itemHandler.getStackInSlot(1), ItemCameraTransforms.TransformType.GUI)
+        Minecraft.getMinecraft().renderItem.renderItem(te.itemHandler.getStackInSlot(1), ItemCameraTransforms.TransformType.FIXED)
 
         GlStateManager.color(1f, 1f, 1f)
         GlStateManager.disableBlend()

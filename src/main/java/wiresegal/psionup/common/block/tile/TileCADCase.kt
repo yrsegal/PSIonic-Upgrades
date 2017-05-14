@@ -45,14 +45,14 @@ class TileCADCase : TileMod() {
 
     fun onClick(state: IBlockState, playerIn: EntityPlayer, hand: EnumHand, heldItem: ItemStack, hitX: Float, hitZ: Float): Boolean {
         val slot = getSlot(state.getValue(BlockCADCase.FACING), hitX, hitZ)
-        if (!heldItem.isEmpty) {
+        if (heldItem.isEmpty) {
             if (!itemHandler.getStackInSlot(slot).isEmpty) {
                 if (!world.isRemote)
                     playerIn.setHeldItem(hand, itemHandler.extractItem(slot, 1, false))
                 return true
             }
         } else {
-            if (!itemHandler.getStackInSlot(slot).isEmpty && itemHandler.canInsertIntoSlot(slot, heldItem)) {
+            if (itemHandler.getStackInSlot(slot).isEmpty && itemHandler.canInsertIntoSlot(slot, heldItem)) {
                 if (!world.isRemote) {
                     val heldCopy = heldItem.copy()
                     playerIn.setHeldItem(hand, itemHandler.insertItem(slot, heldCopy, false))

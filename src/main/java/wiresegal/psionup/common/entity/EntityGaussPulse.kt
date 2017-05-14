@@ -3,6 +3,7 @@ package wiresegal.psionup.common.entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.monster.EntityEnderman
+import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.projectile.EntityThrowable
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
@@ -12,6 +13,7 @@ import net.minecraft.network.datasync.EntityDataManager
 import net.minecraft.potion.PotionEffect
 import net.minecraft.util.EntityDamageSourceIndirect
 import net.minecraft.util.SoundCategory
+import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.World
 import vazkii.psi.api.cad.ICADColorizer
@@ -111,11 +113,11 @@ open class EntityGaussPulse : EntityThrowable {
         get() = 5
 
     override fun onImpact(pos: RayTraceResult) {
+        if (world.isRemote) return
+
         val entity = pos.entityHit
         if (entity != null && entity is EntityLivingBase) {
-            if (entity == thrower) return
-            if (!world.isRemote) entity.addPotionEffect(PotionEffect(ModPotions.psishock, if (ammo == AmmoStatus.NOTAMMO) 100 else 25))
-            entity.attackEntityFrom(EntityDamageSourceIndirect("arrow", this, thrower).setProjectile(), if (ammo == AmmoStatus.NOTAMMO) 2f else 8f)
+            if (entity.cachedUniqueIdString == thrower?.cachedUniqueIdString) return
             if (entity is EntityEnderman) return
             if (ammo == AmmoStatus.AMMO)
                 ammo = AmmoStatus.DEPLETED
@@ -128,13 +130,29 @@ open class EntityGaussPulse : EntityThrowable {
 
         playSound(PsiSoundHandler.compileError, 1f, 1f)
 
-        if (!world.isRemote && ammo == AmmoStatus.AMMO) {
-            val item = EntityItem(world, posX, posY, posZ, ItemStack(ModItems.gaussBullet))
-            item.motionX = 0.0
-            item.motionY = 0.0
-            item.motionZ = 0.0
-            item.setPickupDelay(40)
-            world.spawnEntity(item)
+        if (!world.isRemote) {
+
+            val regularEntities = world.getEntitiesWithinAABB(EntityLivingBase::class.java, AxisAlignedBB(posX - 5, posY - 5, posZ - 5, posX + 5, posY + 5, posZ + 5)) {
+                (it?.positionVector?.squareDistanceTo(positionVector) ?: 50.0) <= 25 && it != thrower
+            }
+
+            val players = regularEntities.filter {
+                 it is EntityPlayer && !it.isPotionActive(ModPotions.psishock)
+            }
+
+            if (regularEntities.isNotEmpty()) {
+                for (entity in players)
+                    entity.addPotionEffect(PotionEffect(ModPotions.psishock, if (ammo == AmmoStatus.NOTAMMO) 100 else 25))
+                for (entity in regularEntities)
+                    entity.attackEntityFrom(EntityDamageSourceIndirect("arrow", this, thrower).setProjectile(), if (ammo == AmmoStatus.NOTAMMO) 2f else 8f)
+            } else if (ammo == AmmoStatus.AMMO) {
+                val item = EntityItem(world, posX, posY, posZ, ItemStack(ModItems.gaussBullet))
+                item.motionX = 0.0
+                item.motionY = 0.0
+                item.motionZ = 0.0
+                item.setPickupDelay(40)
+                world.spawnEntity(item)
+            }
         }
     }
 
