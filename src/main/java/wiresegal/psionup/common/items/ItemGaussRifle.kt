@@ -70,14 +70,13 @@ class ItemGaussRifle(name: String) : ItemMod(name), IItemColorProvider, IGlowing
             val proj = EntityGaussPulse(worldIn, playerIn, status)
             if (!worldIn.isRemote) worldIn.spawnEntity(proj)
             val look = playerIn.lookVec
-            if (look.xCoord != 0.0 && look.zCoord != 0.0)
-                playerIn.knockBack(playerIn, 0.5f, look.xCoord, look.zCoord)
-            else
-                playerIn.motionY += 0.5
+            playerIn.motionX -= 0.5 * look.xCoord
+            playerIn.motionY -= 0.5 * look.yCoord
+            playerIn.motionZ -= 0.5 * look.zCoord
             worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, PsiSoundHandler.cadShoot, SoundCategory.PLAYERS, 1f, 1f)
 
             if (!ammo.isEmpty && !playerIn.capabilities.isCreativeMode)
-                playerIn.cooldownTracker.setCooldown(this, 15)
+                playerIn.cooldownTracker.setCooldown(this, (3 * playerIn.cooldownPeriod).toInt())
         }
         return ActionResult(EnumActionResult.SUCCESS, playerIn.getHeldItem(hand))
     }
