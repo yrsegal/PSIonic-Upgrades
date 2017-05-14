@@ -47,6 +47,13 @@ open class EntityGaussPulse : EntityThrowable {
         val speed = 3
         uuid = throwerIn.uniqueID
         this.ammo = ammo
+
+        this.motionX -= throwerIn.motionX
+        this.motionZ -= throwerIn.motionZ
+
+        if (!throwerIn.onGround)
+            this.motionY -= throwerIn.motionY
+
         this.motionX *= speed
         this.motionY *= speed
         this.motionZ *= speed
@@ -145,11 +152,12 @@ open class EntityGaussPulse : EntityThrowable {
                  it is EntityPlayer && !it.isPotionActive(ModPotions.psishock)
             }
 
-            if (regularEntities.isNotEmpty()) {
+            if (regularEntities.isNotEmpty() || ammo != AmmoStatus.AMMO) {
                 for (entity in players)
                     entity.addPotionEffect(PotionEffect(ModPotions.psishock, if (ammo == AmmoStatus.NOTAMMO) 100 else 25))
                 for (entity in regularEntities)
                     entity.attackEntityFrom(EntityDamageSourceIndirect("arrow", this, thrower).setProjectile(), if (ammo == AmmoStatus.NOTAMMO) 2f else 8f)
+                PacketHandler.NETWORK.sendToAllAround(MessageSparkleSphere(positionVector, ammo), world, positionVector, 128.0)
             } else if (ammo == AmmoStatus.AMMO) {
                 val item = EntityItem(world, posX, posY, posZ, ItemStack(ModItems.gaussBullet))
                 item.motionX = 0.0
@@ -158,8 +166,6 @@ open class EntityGaussPulse : EntityThrowable {
                 item.setPickupDelay(40)
                 world.spawnEntity(item)
             }
-
-            PacketHandler.NETWORK.sendToAllAround(MessageSparkleSphere(positionVector, ammo), world, positionVector, 128.0)
         }
     }
 
