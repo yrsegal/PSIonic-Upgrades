@@ -16,13 +16,16 @@ import vazkii.psi.api.cad.ISocketable
 class ContainerCADCase(player: EntityPlayer, val stack: ItemStack) : Container() {
     val inventory = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
 
+    private val slot0: Slot
+    private val slot1: Slot
+
     init {
         val playerInventory = player.inventory
 
-        addSlotToContainer(SlotItemHandler(inventory, 0, 132, 7))
+        slot0 = addSlotToContainer(SlotItemHandler(inventory, 0, 132, 7))
 
 
-        addSlotToContainer(SlotItemHandler(inventory, 1, 79, 7))
+        slot1 = addSlotToContainer(SlotItemHandler(inventory, 1, 79, 7))
 
         val xs = 34
         val ys = 48
@@ -89,10 +92,10 @@ class ContainerCADCase(player: EntityPlayer, val stack: ItemStack) : Container()
             val invEnd = hotbarStart + 9
 
             if (index > invStart) {
-                if (itemstack1.item is ICAD) {
+                if (slot0.isItemValid(itemstack1)) {
                     if (!this.mergeItemStack(itemstack1, 0, 1, false))
                         return ItemStack.EMPTY // Inventory -> CAD slot
-                } else if (itemstack1.item is ISocketable) {
+                } else if (slot1.isItemValid(itemstack1)) {
                     if (!this.mergeItemStack(itemstack1, 1, 2, false))
                         return ItemStack.EMPTY // Inventory -> Socket Slot
                 }
