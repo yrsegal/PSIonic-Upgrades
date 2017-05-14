@@ -196,7 +196,10 @@ psi.spellpiece.psionup.break_box.desc=Break a box from A to B, checking if the s
 psi.spellpiece.psionup.clone_box=Trick: Clone Masked Box
 psi.spellpiece.psionup.clone_box.desc=Place a box the size of A-B at the position, checking if the states are equal to the mask first
 
+psi.spellpiece.psionup.spamless_debug=Trick: Channeled Debug
+psi.spellpiece.psionup.spamless_debug.desc=Prints out the target, replacing any previous prints with the same number
 
+psionup.channelid=Channel %d
 
 item_group.psionup=PSIonic Upgrades
 

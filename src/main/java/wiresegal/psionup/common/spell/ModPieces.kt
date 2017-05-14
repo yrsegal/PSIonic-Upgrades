@@ -8,6 +8,7 @@ import vazkii.psi.api.PsiAPI
 import vazkii.psi.api.spell.SpellPiece
 import vazkii.psi.common.lib.LibPieceGroups
 import vazkii.psi.common.spell.base.ModSpellPieces
+import vazkii.psi.common.spell.base.ModSpellPieces.PieceContainer
 import wiresegal.psionup.common.lib.LibNames
 import wiresegal.psionup.common.spell.operator.*
 import wiresegal.psionup.common.spell.operator.block.*
@@ -19,36 +20,38 @@ import wiresegal.psionup.common.spell.trick.*
  */
 object ModPieces {
 
-    val conjurePulsar: ModSpellPieces.PieceContainer
-    val conjurePulsarSequence: ModSpellPieces.PieceContainer
-    val conjurePulsarLight: ModSpellPieces.PieceContainer
+    val conjurePulsar: PieceContainer
+    val conjurePulsarSequence: PieceContainer
+    val conjurePulsarLight: PieceContainer
 
-    val planarNorm: ModSpellPieces.PieceContainer
-    val vectorRotate: ModSpellPieces.PieceContainer
+    val planarNorm: PieceContainer
+    val vectorRotate: PieceContainer
 
-    val getProperties: ModSpellPieces.PieceContainer
-    val getHardness: ModSpellPieces.PieceContainer
-    val getLight: ModSpellPieces.PieceContainer
-    val getSolidity: ModSpellPieces.PieceContainer
-    val getComparator: ModSpellPieces.PieceContainer
+    val getProperties: PieceContainer
+    val getHardness: PieceContainer
+    val getLight: PieceContainer
+    val getSolidity: PieceContainer
+    val getComparator: PieceContainer
 
-    val strongCast: ModSpellPieces.PieceContainer
-    val strongCastAxis: ModSpellPieces.PieceContainer
+    val strongCast: PieceContainer
+    val strongCastAxis: PieceContainer
 
-    val vectorFallback: ModSpellPieces.PieceContainer
+    val vectorFallback: PieceContainer
 
-    val particleTrail: ModSpellPieces.PieceContainer
+    val particleTrail: PieceContainer
 
-    val conjureCrackle: ModSpellPieces.PieceContainer
+    val conjureCrackle: PieceContainer
 
-    val loopcastBreak: ModSpellPieces.PieceContainer
+    val loopcastBreak: PieceContainer
 
-    val listSize: ModSpellPieces.PieceContainer
+    val listSize: PieceContainer
 
-    val equality: ModSpellPieces.PieceContainer
+    val equality: PieceContainer
 
-    val breakBox: ModSpellPieces.PieceContainer
-    val cloneBox: ModSpellPieces.PieceContainer
+    val breakBox: PieceContainer
+    val cloneBox: PieceContainer
+
+    val debugSpamless: PieceContainer
 
     init {
 
@@ -137,6 +140,10 @@ object ModPieces {
                 LibNames.Spell.CLONE_BOX,
                 LibNames.PieceGroups.BLOCK_PROPERTIES)
 
+        debugSpamless = register(PieceTrickDebugSpamless::class.java,
+                LibNames.Spell.SPAMLESS,
+                LibPieceGroups.TUTORIAL_1)
+
         if (Loader.isModLoaded("botania"))
             CompatTricks.init()
     }
@@ -151,15 +158,15 @@ object ModPieces {
         PsiAPI.simpleSpellTextures.put("$mod.$key", ResourceLocation(mod, "textures/spell/$key.png"))
     }
 
-    fun register(clazz: Class<out SpellPiece>, name: String, group: String): ModSpellPieces.PieceContainer {
+    fun register(clazz: Class<out SpellPiece>, name: String, group: String): PieceContainer {
         return register(clazz, name, group, false)
     }
 
-    fun register(clazz: Class<out SpellPiece>, name: String, group: String, main: Boolean): ModSpellPieces.PieceContainer {
+    fun register(clazz: Class<out SpellPiece>, name: String, group: String, main: Boolean): PieceContainer {
         val newName = VariantHelper.toSnakeCase(name)
         registerSpellPieceAndTexture(newName, clazz)
         PsiAPI.addPieceToGroup(clazz, group, main)
-        return ModSpellPieces.PieceContainer { s -> SpellPiece.create(clazz, s) }
+        return PieceContainer { s -> SpellPiece.create(clazz, s) }
     }
 
 }

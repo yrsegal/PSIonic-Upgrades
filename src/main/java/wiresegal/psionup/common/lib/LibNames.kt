@@ -85,6 +85,8 @@ object LibNames {
         const val BREAK_BOX = "breakBox"
         const val CLONE_BOX = "cloneBox"
 
+        const val SPAMLESS = "spamlessDebug"
+
         const val MAKE_BURST = "makeManaBurst"
         const val WILD_DRUM = "drumOfTheWild"
         const val CANOPY_DRUM = "drumOfTheCanopy"
