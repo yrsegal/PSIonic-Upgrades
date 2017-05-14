@@ -11,16 +11,19 @@ import wiresegal.psionup.common.items.base.ICadComponentAcceptor
 
 class ShapedCadRecipeJEI(recipe: RecipeCadComponent) : IShapedCraftingRecipeWrapper {
 
+    @Suppress("UNCHECKED_CAST")
     private val inputs = recipe.input.mapNotNull {
         if (it is EnumCADComponent) ShapelessCadRecipeJEI.itemMap[it] else if (it is ItemStack) {
             it.count = 1
             listOf(it)
-        } else listOf(ItemStack.EMPTY)
+        } else it as? List<ItemStack> ?: listOf(ItemStack.EMPTY)
     }
     private val outputs = if (recipe.output.item is ICadComponentAcceptor)
-        recipe.input.filter { it is EnumCADComponent }.flatMap { Array(ShapelessCadRecipeJEI.itemMap[it]?.size ?: 0, { i ->
-            (recipe.output.item as ICadComponentAcceptor).setPiece(recipe.output.copy(), it as EnumCADComponent, ShapelessCadRecipeJEI.itemMap[it]!![i])
-        }).toList()}
+        recipe.input
+                .filter { it is EnumCADComponent }
+                .flatMap { Array(ShapelessCadRecipeJEI.itemMap[it]?.size ?: 0, { i ->
+                    (recipe.output.item as ICadComponentAcceptor).setPiece(recipe.output.copy(), it as EnumCADComponent, ShapelessCadRecipeJEI.itemMap[it]!![i])
+                }).toList()}
     else
         listOf(recipe.output)
 

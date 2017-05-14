@@ -121,7 +121,7 @@ class BlockCADCase(name: String) : BlockModContainer(name, Material.CLOTH, *make
         if (handler != null) {
             for (slot in 0..handler.slots - 1) {
                 val inSlot = handler.extractItem(slot, 1, true)
-                if (inSlot.isEmpty) {
+                if (!inSlot.isEmpty) {
                     if (flag)
                         tooltip.add("")
                     addToTooltip(tooltip, "| ${TextFormatting.WHITE}${inSlot.displayName}")

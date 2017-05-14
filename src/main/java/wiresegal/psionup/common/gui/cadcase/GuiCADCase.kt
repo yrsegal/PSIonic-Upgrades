@@ -31,7 +31,7 @@ class GuiCADCase(player: EntityPlayer, internal var stack: ItemStack) : GuiConta
     }
 
     companion object {
-        private val textureMain = ResourceLocation(LibMisc.MOD_ID, "textures/gui/caseBase.png") // 227 x 96
+        private val textureMain = ResourceLocation(LibMisc.MOD_ID, "textures/gui/case_base.png") // 227 x 96
         private val textureCase = ResourceLocation(LibMisc.MOD_ID, "textures/gui/cases.png") // 83 x 29 per
     }
 

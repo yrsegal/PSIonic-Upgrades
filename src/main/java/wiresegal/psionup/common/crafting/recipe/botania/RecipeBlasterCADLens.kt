@@ -25,7 +25,8 @@ class RecipeBlasterCADLens : IRecipe {
         var cad: ItemStack = ItemStack.EMPTY
 
         (0..var1.sizeInventory - 1)
-                .mapNotNull { var1.getStackInSlot(it) }
+                .map { var1.getStackInSlot(it) }
+                .filterNot { it.isEmpty }
                 .forEach {
                     if (it.item is ICAD) {
                         if (foundCAD)

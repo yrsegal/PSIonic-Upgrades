@@ -126,8 +126,9 @@ class ContainerCADMagazine(val player: EntityPlayer, val stack: ItemStack) : Con
             dontNotify = true
             notifyOnce = true
             if (index > magazineEnd) {
-                if (!this.mergeItemStack(itemstack1, magazineStart, magazineEnd, false))
+                if (!this.mergeItemStack(itemstack1, magazineStart, magazineEnd, false)) {
                     return ItemStack.EMPTY // CAD -> Magazine
+                }
             } else if (!this.mergeItemStack(itemstack1, cadStart, cadEnd, false))
                 return ItemStack.EMPTY // Magazine -> CAD
             dontNotify = false
@@ -135,7 +136,8 @@ class ContainerCADMagazine(val player: EntityPlayer, val stack: ItemStack) : Con
 
             slot.onSlotChanged()
 
-            if (itemstack1.count == itemstack.count)
+            if (itemstack1.isEmpty) slot.putStack(ItemStack.EMPTY)
+            else if (itemstack1.count == itemstack.count)
                 return ItemStack.EMPTY
 
             slot.onTake(playerIn, itemstack1)

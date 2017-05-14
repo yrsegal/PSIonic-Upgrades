@@ -161,7 +161,7 @@ open class ItemFlowExosuit(name: String, slot: EntityEquipmentSlot, val ebony: B
 
     fun getColorFromPlayer(player: EntityPlayer): Int {
         val cad = PsiAPI.getPlayerCAD(player)
-        return if (cad == null) 0 else Psi.proxy.getCADColor(cad).rgb
+        return if (cad.isEmpty) 0 else Psi.proxy.getCADColor(cad).rgb
     }
 
     override fun hasColor(stack: ItemStack): Boolean {

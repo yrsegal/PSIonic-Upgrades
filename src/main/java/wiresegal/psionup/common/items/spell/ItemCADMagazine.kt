@@ -197,7 +197,7 @@ class ItemCADMagazine(name: String) : ItemMod(name), ISocketable, ICadComponentA
         if (!stack.isEmpty && stack.item is ISocketable) {
             val socketable = stack.item as ISocketable
             val item = socketable.getBulletInSocket(stack, slot)
-            return if (item == null) fallback else item.displayName
+            return if (item.isEmpty) fallback else item.displayName
         } else {
             return fallback
         }

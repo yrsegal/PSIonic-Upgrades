@@ -190,7 +190,7 @@ open class RecipeCadComponent : IRecipe {
 
                 val slot = inv.getStackInRowAndColumn(x, y)
                 if (target is EnumCADComponent) {
-                    if (slot.isEmpty && slot.item is ICADComponent) {
+                    if (!slot.isEmpty && slot.item is ICADComponent) {
                         val component = slot.item as ICADComponent
                         if (component.getComponentType(slot) != target) {
                             return false

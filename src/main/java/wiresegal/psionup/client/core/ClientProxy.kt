@@ -41,16 +41,6 @@ class ClientProxy : CommonProxy() {
     override fun init(e: FMLInitializationEvent) {
         super.init(e)
 
-        Item.REGISTRY.keys
-                .mapNotNull { Item.REGISTRY.getObject(it) }
-                .filterIsInstance<ICADColorizer>()
-                .filterIsInstance<Item>()
-                .forEach {
-                    GlowingHandler.registerCustomGlowHandler(it, {
-                        _, model -> IGlowingItem.Helper.wrapperBake(model, false, 1)
-                    }) { _, _ -> true }
-                }
-
         ClientRegistry.bindTileEntitySpecialRenderer(TileCADCase::class.java, RenderTileCADCase())
 
         val skinMap = Minecraft.getMinecraft().renderManager.skinMap

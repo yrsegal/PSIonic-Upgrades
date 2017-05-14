@@ -35,11 +35,7 @@ class ContainerCADCase(player: EntityPlayer, val stack: ItemStack) : Container()
             addSlotToContainer(object : Slot(playerInventory, k, xs + k * 18, ys + 58) {
 
                 override fun canTakeStack(playerIn: EntityPlayer?): Boolean {
-                    return !ItemStack.areItemStacksEqual(stack, this@ContainerCADCase.stack)
-                }
-
-                override fun canBeHovered(): Boolean {
-                    return !ItemStack.areItemStacksEqual(stack, this@ContainerCADCase.stack)
+                    return stack.item != this@ContainerCADCase.stack.item
                 }
             })
 
@@ -71,11 +67,7 @@ class ContainerCADCase(player: EntityPlayer, val stack: ItemStack) : Container()
             }
 
             override fun canTakeStack(playerIn: EntityPlayer?): Boolean {
-                return !ItemStack.areItemStacksEqual(stack, this@ContainerCADCase.stack)
-            }
-
-            override fun canBeHovered(): Boolean {
-                return !ItemStack.areItemStacksEqual(stack, this@ContainerCADCase.stack)
+                return stack.item != this@ContainerCADCase.stack.item
             }
         })
     }
@@ -90,7 +82,7 @@ class ContainerCADCase(player: EntityPlayer, val stack: ItemStack) : Container()
 
         if (slot != null && slot.hasStack) {
             val itemstack1 = slot.stack
-            itemstack = itemstack1!!.copy()
+            itemstack = itemstack1.copy()
 
             val invStart = 1
             val hotbarStart = invStart + 28
@@ -115,7 +107,8 @@ class ContainerCADCase(player: EntityPlayer, val stack: ItemStack) : Container()
 
             slot.onSlotChanged()
 
-            if (itemstack1.count == itemstack.count)
+            if (itemstack1.isEmpty) slot.putStack(ItemStack.EMPTY)
+            else if (itemstack1.count == itemstack.count)
                 return ItemStack.EMPTY
 
             slot.onTake(playerIn, itemstack1)

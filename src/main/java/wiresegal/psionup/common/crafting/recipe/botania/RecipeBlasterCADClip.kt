@@ -45,7 +45,7 @@ class RecipeBlasterCADClip : IRecipe {
             return gun
 
         val lens = ItemManaGun.getLens(gun)
-        ItemManaGun.setLens(gun, null)
+        ItemManaGun.setLens(gun, ItemStack.EMPTY)
         val gunCopy = gun.copy()
         ItemManaGun.setClip(gunCopy, true)
         ItemManaGun.setLensAtPos(gunCopy, lens, 0)

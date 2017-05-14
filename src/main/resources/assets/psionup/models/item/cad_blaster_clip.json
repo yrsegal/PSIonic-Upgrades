@@ -3,8 +3,8 @@
   "textures": {
     "texture": "psionup:items/blaster_cad",
     "tint": "psi:items/cad_color",
-    "glass": "botania:blocks/mana_glass",
-	"clip": "botania:items/mana_blaster_lens_clip"
+    "glass": "botania:blocks/managlass",
+	"clip": "botania:items/manablasterlensclip"
   },
   "elements": [
     {
@@ -142,9 +142,9 @@
       "to": [ 7.5, 13.5, 10.0 ], 
       "faces": {
 		"north": { "texture": "#texture", "uv": [ 10.01, 0.0, 10.99, 1.0 ] },
-        "south": { "texture": "#glass", "uv": [ 10.0, 0.0, 11.0, 1.0 ] },
-        "up": { "texture": "#glass", "uv": [ 10.0, 0.01, 11.0, 1.0 ] },
-        "down": { "texture": "#glass", "uv": [ 10.0, 0.01, 11.0, 1.0 ] }
+        "south": { "texture": "#glass", "uv": [ 10.0, 0.0, 11.0, 1.0 ], "tintindex": 2 },
+        "up": { "texture": "#glass", "uv": [ 10.0, 0.01, 11.0, 1.0 ], "tintindex": 2 },
+        "down": { "texture": "#glass", "uv": [ 10.0, 0.01, 11.0, 1.0 ], "tintindex": 2 }
       }
     },
 	{

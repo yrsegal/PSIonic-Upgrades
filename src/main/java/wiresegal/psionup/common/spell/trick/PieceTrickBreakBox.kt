@@ -53,7 +53,7 @@ class PieceTrickBreakBox(spell: Spell) : PieceTrick(spell) {
 
         var actions = 0
         for (pos in BlockPos.getAllInBoxMutable(minPos, maxPos)) {
-            if (totalBlocks >= actions) break
+            if (actions >= totalBlocks) break
 
             if (properties != null) {
                 val state = context.caster.world.getBlockState(pos)
@@ -61,7 +61,7 @@ class PieceTrickBreakBox(spell: Spell) : PieceTrick(spell) {
                     continue
             }
 
-            PieceTrickBreakBlock.removeBlockWithDrops(context, context.caster, context.caster.world, context.tool, pos, true)
+            PieceTrickBreakBlock.removeBlockWithDrops(context, context.caster, context.caster.world, context.tool, pos, pos == minPos || pos == maxPos)
             if (context.caster.world.isAirBlock(pos)) actions++
         }
         return null

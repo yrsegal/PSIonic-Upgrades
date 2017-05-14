@@ -1,6 +1,5 @@
 package wiresegal.psionup.common.spell.trick
 
-import com.teamwizardry.librarianlib.features.structure.InWorldRender.pos
 import net.minecraft.util.math.BlockPos
 import vazkii.psi.api.internal.Vector3
 import vazkii.psi.api.spell.*
@@ -62,7 +61,7 @@ class PieceTrickCloneBox(spell: Spell) : PieceTrick(spell) {
 
             val state = context.caster.world.getBlockState(mutTest)
             if (state == properties.state)
-                PieceTrickPlaceBlock.placeBlock(context.caster, context.caster.world, mutPlace, context.targetSlot, true)
+                PieceTrickPlaceBlock.placeBlock(context.caster, context.caster.world, mutPlace, context.targetSlot, mutPlace == minPos || mutPlace == maxPos)
         }
         return null
     }
