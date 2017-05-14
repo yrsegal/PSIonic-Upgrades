@@ -159,7 +159,7 @@ open class EntityGaussPulse : EntityThrowable {
                 world.spawnEntity(item)
             }
 
-            PacketHandler.NETWORK.sendToAllAround(MessageSparkleSphere(positionVector, ammo), world, positionVector, 64.0)
+            PacketHandler.NETWORK.sendToAllAround(MessageSparkleSphere(positionVector, ammo), world, positionVector, 128.0)
         }
     }
 
