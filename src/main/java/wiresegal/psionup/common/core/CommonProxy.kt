@@ -33,7 +33,7 @@ open class CommonProxy {
         FlowColors.EventHandler
 
         PsionicAPI.setInternalPropertyComparator { (it, side) ->
-            PsionicMethodHandles.calculateInputStrength(it.world, it.pos.offset(side.opposite), side)
+            PsionicMethodHandles.calculateInputStrength(it.world, it.pos, side)
         }
     }
 

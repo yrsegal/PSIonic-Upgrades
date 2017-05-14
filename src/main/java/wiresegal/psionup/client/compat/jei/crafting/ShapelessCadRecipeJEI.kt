@@ -13,7 +13,7 @@ import java.util.*
 
 class ShapelessCadRecipeJEI(recipe: RecipeCadComponentShapeless) : IRecipeWrapper {
 
-    private val inputs: List<ItemStack>
+    private val inputs: List<List<ItemStack>>
     private val output: ItemStack = recipe.recipeOutput
 
     companion object {
@@ -37,7 +37,6 @@ class ShapelessCadRecipeJEI(recipe: RecipeCadComponentShapeless) : IRecipeWrappe
 
     init {
 
-
         val input = recipe.input
 
         val inputList = ArrayList(input)
@@ -50,13 +49,17 @@ class ShapelessCadRecipeJEI(recipe: RecipeCadComponentShapeless) : IRecipeWrappe
             }
         }
 
-        this.inputs = recipe.input
-                .filterIsInstance<ItemStack>()
-                .map { it.count = 1; it }
+        @Suppress("UNCHECKED_CAST")
+        this.inputs = recipe.input.mapNotNull {
+            if (it is EnumCADComponent) ShapelessCadRecipeJEI.itemMap[it] else if (it is ItemStack) {
+                it.count = 1
+                listOf(it)
+            } else it as? List<ItemStack> ?: listOf(ItemStack.EMPTY)
+        }
     }
 
     override fun getIngredients(ingredients: IIngredients) {
-        ingredients.setInputs(ItemStack::class.java, inputs)
+        ingredients.setInputLists(ItemStack::class.java, inputs)
         ingredients.setOutput(ItemStack::class.java, output)
     }
 
