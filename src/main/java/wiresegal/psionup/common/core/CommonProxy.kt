@@ -35,7 +35,7 @@ open class CommonProxy {
 
         PsionicAPI.setInternalPropertyComparator { (properties, side) ->
             if (side.axis == EnumFacing.Axis.Y) {
-                EnumFacing.HORIZONTALS.map { 
+                EnumFacing.HORIZONTALS.map {
                     PsionicMethodHandles.calculateInputStrength(properties.world, properties.pos, it)
                 }.max() ?: 0
             } else

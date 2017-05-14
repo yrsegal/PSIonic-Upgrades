@@ -42,7 +42,8 @@ class PieceTrickDebugSpamless(spell: Spell) : PieceTrick(spell) {
         val numberVal = this.getParamValue<Double>(context, number) ?: 0.0
         val targetVal = getParamValue<Any>(context, target)
 
-        val cID = blockStart.toLong() + numberVal.hashCode().toLong()
+        val numberId = numberVal.hashCode()
+        val cID = blockStart.toLong() + (numberId and Int.MAX_VALUE).toLong() - if (numberId < 0) Int.MIN_VALUE else 0
 
 
 
