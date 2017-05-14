@@ -2,7 +2,6 @@ package wiresegal.psionup.common.effect.botania.brew
 
 import net.minecraft.potion.PotionEffect
 import vazkii.botania.api.brew.Brew
-import vazkii.botania.common.brew.BrewMod
 import wiresegal.psionup.common.core.ConfigHandler
 import wiresegal.psionup.common.effect.ModPotions
 import wiresegal.psionup.common.lib.LibNames

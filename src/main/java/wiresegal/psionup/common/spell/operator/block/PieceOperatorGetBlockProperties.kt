@@ -5,6 +5,7 @@ import vazkii.psi.api.internal.Vector3
 import vazkii.psi.api.spell.Spell
 import vazkii.psi.api.spell.SpellContext
 import vazkii.psi.api.spell.SpellParam
+import vazkii.psi.api.spell.SpellRuntimeException
 import vazkii.psi.api.spell.param.ParamVector
 import vazkii.psi.api.spell.piece.PieceOperator
 import wiresegal.psionup.api.BlockProperties
@@ -25,6 +26,8 @@ class PieceOperatorGetBlockProperties(spell: Spell) : PieceOperator(spell) {
         val positionVec = getParamValue<Vector3>(context, pos)
         val position = BlockPos(positionVec.toVec3D())
         val world = context.focalPoint.world
+        if (!context.isInRadius(positionVec))
+            throw SpellRuntimeException(SpellRuntimeException.OUTSIDE_RADIUS)
         val properties = BlockProperties(world.getBlockState(position), position, world)
         return properties
     }

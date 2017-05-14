@@ -85,6 +85,7 @@ item.psionup:biotic_sensor.name=Exosuit Biotic Sensor
 
 item.psionup:gauss_rifle.name=Gauss Pulse Rifle
 item.psionup:gauss_bullet.name=Gauss Rifle Round
+entity.gauss_pulse.name=Gauss Pulse
 
 psionup.potion.psishock=Psionic Shock
 psionup.potion.psipulse=Psionic Pulse
