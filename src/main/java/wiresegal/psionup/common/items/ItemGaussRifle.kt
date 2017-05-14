@@ -71,7 +71,7 @@ class ItemGaussRifle(name: String) : ItemMod(name), IItemColorProvider, IGlowing
             if (!worldIn.isRemote) worldIn.spawnEntity(proj)
             val look = playerIn.lookVec
             playerIn.motionX -= 0.5 * look.xCoord
-            playerIn.motionY -= 0.5 * look.yCoord
+            playerIn.motionY -= 0.25 * look.yCoord
             playerIn.motionZ -= 0.5 * look.zCoord
             worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, PsiSoundHandler.cadShoot, SoundCategory.PLAYERS, 1f, 1f)
 
