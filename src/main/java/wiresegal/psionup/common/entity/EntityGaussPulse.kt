@@ -3,6 +3,7 @@ package wiresegal.psionup.common.entity
 import com.teamwizardry.librarianlib.core.LibrarianLib
 import com.teamwizardry.librarianlib.features.network.PacketHandler
 import com.teamwizardry.librarianlib.features.network.sendToAllAround
+import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.monster.EntityEnderman
@@ -124,12 +125,23 @@ open class EntityGaussPulse : EntityThrowable {
         if (world.isRemote) return
 
         val entity = pos.entityHit
-        if (entity != null && entity is EntityLivingBase) {
+        if (entity != null) {
             if (entity.cachedUniqueIdString == thrower?.cachedUniqueIdString) return
-            if (entity is EntityEnderman) return
+
             if (ammo == AmmoStatus.AMMO)
                 ammo = AmmoStatus.DEPLETED
+
+            entity.attackEntityFrom(EntityDamageSourceIndirect("arrow", this, thrower).setProjectile(), if (ammo == AmmoStatus.NOTAMMO) 2f else 8f)
+            if (entity is EntityLivingBase)
+                entity.addPotionEffect(PotionEffect(ModPotions.psishock, if (ammo == AmmoStatus.NOTAMMO) 100 else 25))
+
+            if (entity is EntityEnderman) return
         }
+
+        posX = pos.hitVec.xCoord
+        posY = pos.hitVec.yCoord
+        posZ = pos.hitVec.zCoord
+
         setDead()
     }
 
@@ -143,9 +155,9 @@ open class EntityGaussPulse : EntityThrowable {
                 (it?.positionVector?.squareDistanceTo(positionVector) ?: 50.0) <= 25 && it != thrower
             }
 
-            val players = regularEntities.filter {
-                 it is EntityPlayer && !it.isPotionActive(ModPotions.psishock)
-            }
+            val players = regularEntities
+                    .filterIsInstance<EntityPlayer>()
+                    .filterNot { it.isPotionActive(ModPotions.psishock) }
 
             if (regularEntities.isNotEmpty() || ammo != AmmoStatus.AMMO) {
                 for (entity in players)
