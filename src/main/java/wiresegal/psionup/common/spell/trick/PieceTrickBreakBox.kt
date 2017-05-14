@@ -53,6 +53,8 @@ class PieceTrickBreakBox(spell: Spell) : PieceTrick(spell) {
 
         var actions = 0
         for (pos in BlockPos.getAllInBoxMutable(minPos, maxPos)) {
+            if (!context.isInRadius(pos.x + 0.5, pos.y + 0.5, pos.z + 0.5))
+                throw SpellRuntimeException(SpellRuntimeException.OUTSIDE_RADIUS)
             if (actions >= totalBlocks) break
 
             if (properties != null) {

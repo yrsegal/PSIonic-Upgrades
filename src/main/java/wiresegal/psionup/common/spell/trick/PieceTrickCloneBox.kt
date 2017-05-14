@@ -59,6 +59,10 @@ class PieceTrickCloneBox(spell: Spell) : PieceTrick(spell) {
             mutTest.setPos(actualMin.x + x, actualMin.y + y, actualMin.z + z)
             mutPlace.setPos(basePos.x + x, basePos.y + y, basePos.z + z)
 
+            if (!context.isInRadius(mutTest.x + 0.5, mutTest.y + 0.5, mutTest.z + 0.5) ||
+                    !context.isInRadius(mutPlace.x + 0.5, mutPlace.y + 0.5, mutPlace.z + 0.5))
+                throw SpellRuntimeException(SpellRuntimeException.OUTSIDE_RADIUS)
+
             val state = context.caster.world.getBlockState(mutTest)
             if (state == properties.state)
                 PieceTrickPlaceBlock.placeBlock(context.caster, context.caster.world, mutPlace, context.targetSlot, mutPlace == minPos || mutPlace == maxPos)
