@@ -12,16 +12,20 @@ import net.minecraft.util.ResourceLocation
 import wiresegal.psionup.client.compat.jei.JEICompat
 import wiresegal.psionup.common.lib.LibMisc
 
-class TrickCraftingCategory : IRecipeCategory<TrickCraftingRecipeJEI> {
+object TrickCraftingCategory : IRecipeCategory<TrickCraftingRecipeJEI> {
+
+    private val INPUT_SLOT = 0
+    private val CAD_SLOT = 1
+    private val OUTPUT_SLOT = 2
 
     private val background = JEICompat.helper.guiHelper.createDrawable(ResourceLocation(LibMisc.MOD_ID, "textures/gui/jei/trick.png"), 0, 0, 108, 30)
 
     override fun getUid(): String {
-        return "${LibMisc.MOD_ID}:trickCrafting"
+        return "${LibMisc.MOD_ID}:trick_crafting"
     }
 
     override fun getTitle(): String {
-        return I18n.format("jei.${LibMisc.MOD_ID}.recipe.trickCrafting")
+        return I18n.format("jei.${LibMisc.MOD_ID}.recipe.trick_crafting")
     }
 
     override fun getBackground(): IDrawable {
@@ -48,11 +52,5 @@ class TrickCraftingCategory : IRecipeCategory<TrickCraftingRecipeJEI> {
 
     override fun getIcon(): IDrawable? {
         return null
-    }
-
-    companion object {
-        private val INPUT_SLOT = 0
-        private val CAD_SLOT = 1
-        private val OUTPUT_SLOT = 2
     }
 }

@@ -5,7 +5,7 @@ import mezz.jei.api.recipe.IRecipeWrapper
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid
 import wiresegal.psionup.common.crafting.recipe.cad.RecipeCadComponentShapeless
 
-class ShapelessCadRecipeHandler : IRecipeHandler<RecipeCadComponentShapeless> {
+object ShapelessCadRecipeHandler : IRecipeHandler<RecipeCadComponentShapeless> {
     override fun getRecipeClass(): Class<RecipeCadComponentShapeless> {
         return RecipeCadComponentShapeless::class.java
     }

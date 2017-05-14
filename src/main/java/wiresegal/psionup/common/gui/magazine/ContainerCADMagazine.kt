@@ -76,7 +76,7 @@ class ContainerCADMagazine(val player: EntityPlayer, val stack: ItemStack) : Con
                     val ret = socketable.isItemValidForSlot(socketSlot, stack)
                     if (!ret && (!dontNotify || notifyOnce) && player.world.isRemote) {
                         tooltipTime = 80
-                        tooltipText = "${LibMisc.MOD_ID}.misc.tooComplex"
+                        tooltipText = "${LibMisc.MOD_ID}.misc.too_complex"
                         if (notifyOnce) notifyOnce = false
                     } else if (ret)
                         tooltipTime = 0
@@ -91,7 +91,7 @@ class ContainerCADMagazine(val player: EntityPlayer, val stack: ItemStack) : Con
             val ret = socketable.isItemValidForSlot(socketSlot, stack)
             if (!ret && (!dontNotify || notifyOnce) && player.world.isRemote) {
                 tooltipTime = 80
-                tooltipText = "${LibMisc.MOD_ID}.misc.tooComplexBullet"
+                tooltipText = "${LibMisc.MOD_ID}.misc.too_complex_bullet"
                 if (notifyOnce) notifyOnce = false
             } else if (ret)
                 tooltipTime = 0

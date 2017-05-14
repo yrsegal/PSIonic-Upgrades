@@ -93,7 +93,7 @@ class ItemLiquidColorizer(name: String) : ItemComponent(name), ICADColorizer, II
         if (GuiScreen.isShiftKeyDown()) {
             val inheriting = getInheriting(stack)
             if (!inheriting.isEmpty) {
-                tooltip.add("${TextFormatting.GREEN}${local("${LibMisc.MOD_ID}.misc.colorInheritance")}${TextFormatting.GRAY}: ${inheriting.displayName}")
+                tooltip.add("${TextFormatting.GREEN}${local("${LibMisc.MOD_ID}.misc.color_inheritance")}${TextFormatting.GRAY}: ${inheriting.displayName}")
             }
 
             if (advanced) {

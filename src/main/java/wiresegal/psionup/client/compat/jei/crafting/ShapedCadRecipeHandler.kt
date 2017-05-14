@@ -5,7 +5,7 @@ import mezz.jei.api.recipe.IRecipeWrapper
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid
 import wiresegal.psionup.common.crafting.recipe.cad.RecipeCadComponent
 
-class ShapedCadRecipeHandler : IRecipeHandler<RecipeCadComponent> {
+object ShapedCadRecipeHandler : IRecipeHandler<RecipeCadComponent> {
 
     override fun getRecipeClass(): Class<RecipeCadComponent> {
         return RecipeCadComponent::class.java

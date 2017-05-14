@@ -184,7 +184,7 @@ open class CommandPsiLearn : CommandBase() {
                     NetworkHandler.INSTANCE.sendTo(message, player)
                 }
             } else if (args[0] !in groups) {
-                throw CommandException("${LibMisc.MOD_ID}.learn.notAGroup", args[0])
+                throw CommandException("${LibMisc.MOD_ID}.learn.not_a_group", args[0])
             } else if (shouldntApply(player, args[0])) {
                 throw CommandException("$localizationkey.shouldnt", player.displayName, getGroupComponent(args[0]))
             } else {
