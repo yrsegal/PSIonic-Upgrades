@@ -1,5 +1,8 @@
 package wiresegal.psionup.common.entity
 
+import com.teamwizardry.librarianlib.core.LibrarianLib
+import com.teamwizardry.librarianlib.features.network.PacketHandler
+import com.teamwizardry.librarianlib.features.network.sendToAllAround
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.monster.EntityEnderman
@@ -14,14 +17,17 @@ import net.minecraft.potion.PotionEffect
 import net.minecraft.util.EntityDamageSourceIndirect
 import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.AxisAlignedBB
+import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.World
+import vazkii.botania.common.Botania
 import vazkii.psi.api.cad.ICADColorizer
 import vazkii.psi.api.internal.Vector3
 import vazkii.psi.common.Psi
 import vazkii.psi.common.core.handler.PsiSoundHandler
 import wiresegal.psionup.common.effect.ModPotions
 import wiresegal.psionup.common.items.ModItems
+import wiresegal.psionup.common.network.MessageSparkleSphere
 import java.awt.Color
 import java.util.*
 
@@ -131,7 +137,6 @@ open class EntityGaussPulse : EntityThrowable {
         playSound(PsiSoundHandler.compileError, 1f, 1f)
 
         if (!world.isRemote) {
-
             val regularEntities = world.getEntitiesWithinAABB(EntityLivingBase::class.java, AxisAlignedBB(posX - 5, posY - 5, posZ - 5, posX + 5, posY + 5, posZ + 5)) {
                 (it?.positionVector?.squareDistanceTo(positionVector) ?: 50.0) <= 25 && it != thrower
             }
@@ -153,6 +158,8 @@ open class EntityGaussPulse : EntityThrowable {
                 item.setPickupDelay(40)
                 world.spawnEntity(item)
             }
+
+            PacketHandler.NETWORK.sendToAllAround(MessageSparkleSphere(positionVector, ammo), world, positionVector, 64.0)
         }
     }
 
