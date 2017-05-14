@@ -57,7 +57,6 @@ public class PsionicMethodHandles {
 
     public static int calculateInputStrength(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull EnumFacing facing) {
         try {
-            facing = facing.getFrontOffsetY() == 0 ? facing : EnumFacing.NORTH;
             return (int) calculateInputStrength.invokeExact(Blocks.POWERED_COMPARATOR, world, pos.offset(facing.getOpposite()), Blocks.POWERED_COMPARATOR.getDefaultState().withProperty(BlockHorizontal.FACING, facing));
         } catch (Throwable t) {
             throw propagate(t);

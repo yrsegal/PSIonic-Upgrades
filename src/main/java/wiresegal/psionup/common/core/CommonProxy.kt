@@ -2,6 +2,7 @@ package wiresegal.psionup.common.core
 
 import com.teamwizardry.librarianlib.features.config.EasyConfigHandler
 import com.teamwizardry.librarianlib.features.structure.InWorldRender.pos
+import net.minecraft.util.EnumFacing
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
@@ -32,8 +33,13 @@ open class CommonProxy {
 
         FlowColors.EventHandler
 
-        PsionicAPI.setInternalPropertyComparator { (it, side) ->
-            PsionicMethodHandles.calculateInputStrength(it.world, it.pos, side)
+        PsionicAPI.setInternalPropertyComparator { (properties, side) ->
+            if (side.axis == EnumFacing.Axis.Y) {
+                EnumFacing.HORIZONTALS.map { 
+                    PsionicMethodHandles.calculateInputStrength(properties.world, properties.pos, it)
+                }.max() ?: 0
+            } else
+                PsionicMethodHandles.calculateInputStrength(properties.world, properties.pos, side)
         }
     }
 
