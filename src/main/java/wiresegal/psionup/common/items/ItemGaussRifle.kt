@@ -51,7 +51,7 @@ class ItemGaussRifle(name: String) : ItemMod(name), IItemColorProvider, IGlowing
         if (playerIn.capabilities.isCreativeMode || data.availablePsi > 0 || (!ammo.isEmpty && data.availablePsi > 0)) {
             if (!playerIn.capabilities.isCreativeMode) {
                 if (ammo.isEmpty)
-                    data.deductPsi(data.totalPsi / 8, (3 * playerIn.cooldownPeriod).toInt(), true)
+                    data.deductPsi(625, (3 * playerIn.cooldownPeriod).toInt(), true)
                 else {
                     data.deductPsi(250, 10, true)
                     ammo.count--
