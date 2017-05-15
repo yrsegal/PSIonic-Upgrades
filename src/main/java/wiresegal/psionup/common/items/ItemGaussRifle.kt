@@ -15,8 +15,10 @@ import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.util.math.MathHelper
 import vazkii.psi.api.cad.ICADColorizer
 import vazkii.psi.client.core.handler.ClientTickHandler
+import vazkii.psi.common.Psi
 import vazkii.psi.common.core.handler.PlayerDataHandler
 import vazkii.psi.common.core.handler.PsiSoundHandler
+import wiresegal.psionup.common.core.helper.FlowColors
 import wiresegal.psionup.common.entity.EntityGaussPulse
 import wiresegal.psionup.common.lib.LibMisc
 
@@ -24,7 +26,7 @@ import wiresegal.psionup.common.lib.LibMisc
  * @author WireSegal
  * Created at 10:10 PM on 7/13/16.
  */
-class ItemGaussRifle(name: String) : ItemMod(name), IItemColorProvider, IGlowingItem {
+class ItemGaussRifle(name: String) : ItemMod(name), IItemColorProvider, IGlowingItem, FlowColors.IAcceptor {
 
     init {
         setMaxStackSize(1)
@@ -37,12 +39,13 @@ class ItemGaussRifle(name: String) : ItemMod(name), IItemColorProvider, IGlowing
 
     override val itemColorFunction: ((stack: ItemStack, tintIndex: Int) -> Int)?
         get() = {
-            _, i ->
+            stack, i ->
             if (i == 0)
                 pulseColor(0xB87333)
-            else if (i == 1)
-                ICADColorizer.DEFAULT_SPELL_COLOR
-            else 0xFFFFFF
+            else if (i == 1) {
+                val colorizer = FlowColors.getColor(stack)
+                if (colorizer.isEmpty) 0 else Psi.proxy.getColorizerColor(colorizer).rgb
+            } else 0xFFFFFF
         }
 
     override fun onItemRightClick(worldIn: World, playerIn: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
