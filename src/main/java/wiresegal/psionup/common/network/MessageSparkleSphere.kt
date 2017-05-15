@@ -26,6 +26,11 @@ class MessageSparkleSphere(@Save var position: Vec3d = Vec3d.ZERO,
         val world = LibrarianLib.PROXY.getClientPlayer().world
         val rand = world.rand
 
+        val color = Color(status.color)
+        val r = color.red.toFloat() / 255.0f
+        val g = color.green.toFloat() / 255.0f
+        val b = color.blue.toFloat() / 255.0f
+
         for (thetaInitial in 0 until 360 step 10) for (azimuthInitial in -90 until 90 step 10) {
             val theta = thetaInitial + rand.nextInt(10)
             val azimuth = azimuthInitial + rand.nextInt(10)
@@ -33,11 +38,6 @@ class MessageSparkleSphere(@Save var position: Vec3d = Vec3d.ZERO,
             val x = MathHelper.cos(theta * Math.PI.toFloat() / 180) * MathHelper.cos(azimuth * Math.PI.toFloat() / 180) * dist + position.xCoord
             val y = MathHelper.sin(azimuth * Math.PI.toFloat() / 180) * dist + position.yCoord
             val z = MathHelper.sin(theta * Math.PI.toFloat() / 180) * MathHelper.cos(azimuth * Math.PI.toFloat() / 180) * dist + position.zCoord
-
-            val color = Color(if (status == EntityGaussPulse.AmmoStatus.NOTAMMO) ICADColorizer.DEFAULT_SPELL_COLOR else 0xB87333)
-            val r = color.red.toFloat() / 255.0f
-            val g = color.green.toFloat() / 255.0f
-            val b = color.blue.toFloat() / 255.0f
 
             val direction = Vector3(position).add(-x, -y, -z).normalize().multiply(-0.325 * dist / 5)
 

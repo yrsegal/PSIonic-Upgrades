@@ -97,7 +97,7 @@ open class EntityGaussPulse : EntityThrowable {
 
         ++timeAlive
 
-        val color = Color(if (ammo == AmmoStatus.NOTAMMO) ICADColorizer.DEFAULT_SPELL_COLOR else 0xB87333)
+        val color = Color(ammo.color)
         val r = color.red.toFloat() / 255.0f
         val g = color.green.toFloat() / 255.0f
         val b = color.blue.toFloat() / 255.0f
@@ -221,7 +221,10 @@ open class EntityGaussPulse : EntityThrowable {
 
     }
 
-    enum class AmmoStatus {
-        NOTAMMO, DEPLETED, AMMO
+    enum class AmmoStatus(val color: Int) {
+        NOTAMMO(ICADColorizer.DEFAULT_SPELL_COLOR),
+        DEPLETED(0xB87333),
+        AMMO(DEPLETED.color),
+        BLOOD(0xFF0000)
     }
 }

@@ -13,11 +13,14 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.util.math.MathHelper
+import vazkii.psi.api.PsiAPI
+import vazkii.psi.api.cad.ICAD
 import vazkii.psi.api.cad.ICADColorizer
 import vazkii.psi.client.core.handler.ClientTickHandler
 import vazkii.psi.common.Psi
 import vazkii.psi.common.core.handler.PlayerDataHandler
 import vazkii.psi.common.core.handler.PsiSoundHandler
+import vazkii.psi.common.item.base.ModItems.cadBattery
 import wiresegal.psionup.common.core.helper.FlowColors
 import wiresegal.psionup.common.entity.EntityGaussPulse
 import wiresegal.psionup.common.lib.LibMisc
@@ -53,10 +56,15 @@ class ItemGaussRifle(name: String) : ItemMod(name), IItemColorProvider, IGlowing
         val ammo = findAmmo(playerIn)
         if (playerIn.capabilities.isCreativeMode || data.availablePsi > 0 || (!ammo.isEmpty && data.availablePsi > 0)) {
             val wasEmpty = ammo.isEmpty
+            var psiLeft = false
+            val cad = PsiAPI.getPlayerCAD(playerIn)
+
             if (!playerIn.capabilities.isCreativeMode) {
-                if (ammo.isEmpty)
+                if (ammo.isEmpty) {
+                    val cadBattery = if (cad.isEmpty) 0 else (cad.item as ICAD).getStoredPsi(cad)
+                    if (data.availablePsi + cadBattery < 625) psiLeft = true
                     data.deductPsi(625, (3 * playerIn.cooldownPeriod).toInt(), true)
-                else {
+                } else {
                     data.deductPsi(250, 10, true)
                     ammo.count--
                 }
@@ -69,7 +77,9 @@ class ItemGaussRifle(name: String) : ItemMod(name), IItemColorProvider, IGlowing
                     EntityGaussPulse.AmmoStatus.DEPLETED
                 else
                     EntityGaussPulse.AmmoStatus.AMMO
-            } else
+            } else if (psiLeft)
+                EntityGaussPulse.AmmoStatus.BLOOD
+            else
                 EntityGaussPulse.AmmoStatus.NOTAMMO
 
             val proj = EntityGaussPulse(worldIn, playerIn, status)
