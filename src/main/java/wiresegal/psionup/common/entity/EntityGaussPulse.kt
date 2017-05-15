@@ -1,6 +1,7 @@
 package wiresegal.psionup.common.entity
 
 import com.teamwizardry.librarianlib.core.LibrarianLib
+import com.teamwizardry.librarianlib.features.kotlin.*
 import com.teamwizardry.librarianlib.features.network.PacketHandler
 import com.teamwizardry.librarianlib.features.network.sendToAllAround
 import net.minecraft.entity.Entity
@@ -16,10 +17,12 @@ import net.minecraft.network.datasync.DataSerializers
 import net.minecraft.network.datasync.EntityDataManager
 import net.minecraft.potion.PotionEffect
 import net.minecraft.util.EntityDamageSourceIndirect
+import net.minecraft.util.EnumFacing
 import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.RayTraceResult
+import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 import vazkii.botania.common.Botania
 import vazkii.psi.api.cad.ICADColorizer
@@ -141,9 +144,12 @@ open class EntityGaussPulse : EntityThrowable {
         posX = pos.hitVec.xCoord
         posY = pos.hitVec.yCoord
         posZ = pos.hitVec.zCoord
+        ejectFacing = pos.sideHit
 
         setDead()
     }
+
+    private var ejectFacing: EnumFacing? = null
 
     override fun setDead() {
         super.setDead()
@@ -167,9 +173,16 @@ open class EntityGaussPulse : EntityThrowable {
                 PacketHandler.NETWORK.sendToAllAround(MessageSparkleSphere(positionVector, ammo), world, positionVector, 128.0)
             } else if (ammo == AmmoStatus.AMMO) {
                 val item = EntityItem(world, posX, posY, posZ, ItemStack(ModItems.gaussBullet))
-                item.motionX = 0.0
-                item.motionY = 0.0
-                item.motionZ = 0.0
+                var vec = motionVec.normalize() / 4.5f
+                val eject = ejectFacing
+                if (eject != null) {
+                    val normal = Vec3d(eject.directionVec)
+                    vec -= normal * (2 * (vec dot normal)) - (normal * 0.25)
+                } else
+                    vec *= -1
+                item.motionX = vec.xCoord
+                item.motionY = vec.yCoord
+                item.motionZ = vec.zCoord
                 item.setPickupDelay(40)
                 world.spawnEntity(item)
             }

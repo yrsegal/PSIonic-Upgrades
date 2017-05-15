@@ -49,6 +49,7 @@ class ItemGaussRifle(name: String) : ItemMod(name), IItemColorProvider, IGlowing
         val data = PlayerDataHandler.get(playerIn)
         val ammo = findAmmo(playerIn)
         if (playerIn.capabilities.isCreativeMode || data.availablePsi > 0 || (!ammo.isEmpty && data.availablePsi > 0)) {
+            val wasEmpty = ammo.isEmpty
             if (!playerIn.capabilities.isCreativeMode) {
                 if (ammo.isEmpty)
                     data.deductPsi(625, (3 * playerIn.cooldownPeriod).toInt(), true)
@@ -60,7 +61,7 @@ class ItemGaussRifle(name: String) : ItemMod(name), IItemColorProvider, IGlowing
 
             playerIn.swingArm(hand)
 
-            val status = if (!ammo.isEmpty) {
+            val status = if (!wasEmpty) {
                 if (playerIn.capabilities.isCreativeMode)
                     EntityGaussPulse.AmmoStatus.DEPLETED
                 else
