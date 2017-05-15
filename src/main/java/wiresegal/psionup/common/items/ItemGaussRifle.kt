@@ -12,6 +12,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import com.teamwizardry.librarianlib.features.helpers.ItemNBTHelper
 import net.minecraft.client.renderer.block.model.IBakedModel
+import net.minecraft.util.math.MathHelper
 import vazkii.psi.api.cad.ICADColorizer
 import vazkii.psi.client.core.handler.ClientTickHandler
 import vazkii.psi.common.core.handler.PlayerDataHandler
@@ -50,7 +51,7 @@ class ItemGaussRifle(name: String) : ItemMod(name), IItemColorProvider, IGlowing
         if (playerIn.capabilities.isCreativeMode || data.availablePsi > 0 || (!ammo.isEmpty && data.availablePsi > 0)) {
             if (!playerIn.capabilities.isCreativeMode) {
                 if (ammo.isEmpty)
-                    data.deductPsi(1000, 100, true)
+                    data.deductPsi(data.totalPsi / 8, (3 * playerIn.cooldownPeriod).toInt(), true)
                 else {
                     data.deductPsi(250, 10, true)
                     ammo.count--
@@ -75,7 +76,7 @@ class ItemGaussRifle(name: String) : ItemMod(name), IItemColorProvider, IGlowing
             playerIn.motionZ -= 0.5 * look.zCoord
             worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, PsiSoundHandler.cadShoot, SoundCategory.PLAYERS, 1f, 1f)
 
-            if (!ammo.isEmpty && !playerIn.capabilities.isCreativeMode)
+            if (!playerIn.capabilities.isCreativeMode)
                 playerIn.cooldownTracker.setCooldown(this, (3 * playerIn.cooldownPeriod).toInt())
         }
         return ActionResult(EnumActionResult.SUCCESS, playerIn.getHeldItem(hand))

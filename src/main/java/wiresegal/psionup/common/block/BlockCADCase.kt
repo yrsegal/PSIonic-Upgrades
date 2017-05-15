@@ -38,6 +38,7 @@ import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.ItemStackHandler
 import vazkii.psi.api.cad.ICAD
 import vazkii.psi.api.cad.ISocketable
+import vazkii.psi.api.cad.ISocketableController
 import vazkii.psi.api.spell.ISpellContainer
 import wiresegal.psionup.common.block.tile.TileCADCase
 import wiresegal.psionup.common.items.ItemCADCase
@@ -269,7 +270,7 @@ class BlockCADCase(name: String) : BlockModContainer(name, Material.CLOTH, *make
 
         fun canInsertIntoSlot(slot: Int, stack: ItemStack): Boolean {
             if (slot == 0) return stack.item is ICAD || stack.item == ModItems.gaussRifle
-            if (slot == 1) return (stack.item is ISocketable && stack.item !is ICAD) || stack.item is ISpellContainer
+            if (slot == 1) return ((stack.item is ISocketable || stack.item is ISocketableController) && stack.item !is ICAD) || stack.item is ISpellContainer
             return false
         }
 
