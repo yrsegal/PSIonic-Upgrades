@@ -87,10 +87,11 @@ open class EntityGaussPulse : EntityThrowable {
         super.onUpdate()
         var timeAlive = this.ticksExisted
 
-        val granularity = 50
-        if (timeAlive > this.liveTime || (Math.round(prevPosX * granularity) == Math.round(posX * granularity) &&
-                Math.round(prevPosY * granularity) == Math.round(posY * granularity) &&
-                Math.round(prevPosZ * granularity) == Math.round(posZ * granularity)))
+        val granularity = 1
+        if (timeAlive > this.liveTime ||
+                (prevPosX - posX) * (prevPosX - posX) +
+                        (prevPosY - posY) * (prevPosY - posY) +
+                        (prevPosZ - posZ) * (prevPosZ - posZ) < granularity)
             this.setDead()
 
 
