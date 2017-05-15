@@ -65,7 +65,7 @@ class ItemGaussRifle(name: String) : ItemMod(name), IItemColorProvider, IGlowing
                     if (data.availablePsi + cadBattery < 625) psiLeft = true
                     data.deductPsi(625, (3 * playerIn.cooldownPeriod).toInt(), true)
                 } else {
-                    data.deductPsi(250, 10, true)
+                    data.deductPsi(200, 10, true)
                     ammo.count--
                 }
             }
