@@ -88,7 +88,9 @@ class ItemGaussRifle(name: String) : ItemMod(name), IItemColorProvider, IGlowing
             playerIn.motionX -= 0.5 * look.xCoord
             playerIn.motionY -= 0.25 * look.yCoord
             playerIn.motionZ -= 0.5 * look.zCoord
-            worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, PsiSoundHandler.cadShoot, SoundCategory.PLAYERS, 1f, 1f)
+            worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ,
+                    if (status == EntityGaussPulse.AmmoStatus.BLOOD) PsiSoundHandler.compileError else PsiSoundHandler.cadShoot,
+                    SoundCategory.PLAYERS, 1f, 1f)
 
             if (!playerIn.capabilities.isCreativeMode)
                 playerIn.cooldownTracker.setCooldown(this, (3 * playerIn.cooldownPeriod).toInt())
