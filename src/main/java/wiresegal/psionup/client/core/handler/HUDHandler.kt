@@ -21,6 +21,7 @@ import vazkii.psi.client.core.handler.ShaderHandler
 import vazkii.psi.common.core.handler.ConfigHandler
 import vazkii.psi.common.core.handler.PlayerDataHandler
 import vazkii.psi.common.lib.LibResources
+import wiresegal.psionup.common.items.ItemGaussRifle
 import wiresegal.psionup.common.items.spell.ItemFlashRing
 import java.awt.Color
 
@@ -67,14 +68,13 @@ object HUDHandler {
         val mainHand = mc.player.heldItemMainhand
         val offHand = mc.player.heldItemOffhand
 
-        if (ConfigHandler.contextSensitiveBar ||
-                (currPsi == totalPsi &&
-                        (mainHand == null || mainHand.item is ISocketable) &&
-                        (offHand == null || offHand.item is ISocketable)))
+        if ((currPsi == totalPsi &&
+                (mainHand.isEmpty || mainHand.item is ISocketable) &&
+                (offHand.isEmpty || offHand.item is ISocketable)))
             return
 
-        if ((mainHand == null || mainHand.item !is ItemFlashRing) &&
-                (offHand == null || offHand.item !is ItemFlashRing))
+        if ((mainHand.isEmpty || (mainHand.item !is ItemFlashRing && mainHand.item !is ItemGaussRifle)) &&
+                (offHand.isEmpty || (offHand.item !is ItemFlashRing && offHand.item !is ItemGaussRifle)))
             return
 
         GlStateManager.pushMatrix()

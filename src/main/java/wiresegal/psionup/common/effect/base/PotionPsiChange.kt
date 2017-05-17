@@ -29,28 +29,30 @@ abstract class PotionPsiChange(name: String, badEffect: Boolean, color: Int) : P
         }
     }
 
-    fun addPsiToPlayer(player: EntityPlayer, psi: Int) {
-        val data = PlayerDataHandler.get(player)
-        if (psi < 0)
-            data.deductPsi(-psi, 40, true, true)
-        else {
-            val cad = PsiAPI.getPlayerCAD(player)
-            if (cad.isEmpty) return
-            val cadItem = cad.item as ICAD
-            var icad = true
+    companion object {
+        fun addPsiToPlayer(player: EntityPlayer, psi: Int) {
+            val data = PlayerDataHandler.get(player)
+            if (psi < 0)
+                data.deductPsi(-psi, 40, true, true)
+            else {
+                val cad = PsiAPI.getPlayerCAD(player)
+                if (cad.isEmpty) return
+                val cadItem = cad.item as ICAD
+                var icad = true
 
-            val overflow = cadItem.getStatValue(cad, EnumCADStat.OVERFLOW)
-            val stored = cadItem.getStoredPsi(cad)
-            if (stored < overflow) {
-                cadItem.regenPsi(cad, Math.max(1, psi / 2))
-                icad = false
-            }
+                val overflow = cadItem.getStatValue(cad, EnumCADStat.OVERFLOW)
+                val stored = cadItem.getStoredPsi(cad)
+                if (stored < overflow) {
+                    cadItem.regenPsi(cad, Math.max(1, psi / 2))
+                    icad = false
+                }
 
-            if (icad && data.availablePsi < data.totalPsi) {
-                data.availablePsi = Math.min(data.totalPsi, data.availablePsi + psi)
-                data.save()
-                if (player.world.isRemote && player is EntityPlayerMP)
-                    NetworkHandler.INSTANCE.sendTo(MessageDataSync(), player)
+                if (icad && data.availablePsi < data.totalPsi) {
+                    data.availablePsi = Math.min(data.totalPsi, data.availablePsi + psi)
+                    data.save()
+                    if (player.world.isRemote && player is EntityPlayerMP)
+                        NetworkHandler.INSTANCE.sendTo(MessageDataSync(), player)
+                }
             }
         }
     }

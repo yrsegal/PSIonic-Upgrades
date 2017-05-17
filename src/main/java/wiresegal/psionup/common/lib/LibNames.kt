@@ -41,7 +41,9 @@ object LibNames {
         const val GAUSS_BULLET = "gaussBullet"
 
         const val LIVINGWOOD_CAD = "cadAssemblyBlaster"
-        const val LIVINGWOOD_CAD_MODEL = "cad_blaster"
+        const val LIVINGWOOD_CAD_MODEL = "cadBlaster"
+
+        const val UNSTABLE_BATTERY = "unstableBattery"
     }
 
     object Blocks {

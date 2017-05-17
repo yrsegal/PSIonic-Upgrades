@@ -87,6 +87,8 @@ item.psionup:gauss_rifle.name=Gauss Pulse Rifle
 item.psionup:gauss_bullet.name=Gauss Rifle Round
 entity.gauss_pulse.name=Gauss Pulse
 
+item.psionup:unstable_battery.name=Unstable CAD Battery
+
 psionup.potion.psishock=Psionic Shock
 psionup.potion.psipulse=Psionic Pulse
 psionup.brew.psishock=Eidos Distortion
@@ -225,7 +227,13 @@ psionup.requirement.alfheim=&aElven&b Mana Flow Enabler
 psionup.requirement.gaia=&dGaian&b Mana Flow Enabler
 psionup.requirement.relic=&6Reliquary&b Mana Flow Enabler
 
-psionup.requirement.mana_cad=Allows &bMana&7 Flow
+psionup.cadstat.extra=Extra
+psionup.cadstat.downside=Drawback
+psionup.downsides.on_damage=Drains entire Psi reserves on damage
+psionup.upsides.boost_regen=Increased Psi regen rate
+
+psionup.cadstat.enables=Enables
+psionup.requirement.mana_cad=&bMana&7 Flow
 
 psionup.misc.lens=Lens&7: %s
 psionup.misc.color=Color

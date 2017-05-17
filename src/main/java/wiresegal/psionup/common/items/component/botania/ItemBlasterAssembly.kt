@@ -2,6 +2,7 @@ package wiresegal.psionup.common.items.component.botania
 
 import com.teamwizardry.librarianlib.core.client.ModelHandler
 import com.teamwizardry.librarianlib.features.base.IExtraVariantHolder
+import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper
 import com.teamwizardry.librarianlib.features.utilities.client.TooltipHelper.addToTooltip
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.renderer.ItemMeshDefinition
@@ -9,11 +10,13 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
+import net.minecraft.util.text.TextFormatting
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.oredict.RecipeSorter
 import vazkii.botania.api.mana.ManaItemHandler
 import vazkii.botania.common.item.ItemManaGun
 import vazkii.psi.api.cad.EnumCADStat
+import vazkii.psi.api.cad.ICADAssembly
 import vazkii.psi.api.spell.Spell
 import vazkii.psi.api.spell.SpellContext
 import vazkii.psi.common.item.base.ModItems
@@ -60,10 +63,11 @@ class ItemBlasterAssembly(name: String) : ItemComponent(name), IExtraVariantHold
         return ITrickEnablerComponent.EnableResult.NOT_ENABLED
     }
 
-    override fun addInformation(stack: ItemStack, playerIn: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
-        if (GuiScreen.isShiftKeyDown())
-            addToTooltip(tooltip, "${LibMisc.MOD_ID}.requirement.mana_cad")
-        super.addInformation(stack, playerIn, tooltip, advanced)
+    override fun addHiddenTooltip(stack: ItemStack, playerIn: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
+        super.addHiddenTooltip(stack, playerIn, tooltip, advanced)
+        TooltipHelper.addToTooltip(tooltip, " " + TextFormatting.AQUA +
+                TooltipHelper.local("${LibMisc.MOD_ID}.cadstat.enables")
+                + TextFormatting.GRAY + ": " + TooltipHelper.local("${LibMisc.MOD_ID}.requirement.mana_cad"))
     }
 
     override fun registerStats() {

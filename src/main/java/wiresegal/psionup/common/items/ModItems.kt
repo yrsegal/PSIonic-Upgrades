@@ -5,10 +5,7 @@ import com.teamwizardry.librarianlib.features.base.item.ItemModArmor
 import com.teamwizardry.librarianlib.features.base.item.ItemModSword
 import com.teamwizardry.librarianlib.features.base.item.ItemModTool
 import net.minecraftforge.fml.common.Loader
-import wiresegal.psionup.common.items.component.ItemBioticSensor
-import wiresegal.psionup.common.items.component.ItemEmptyColorizer
-import wiresegal.psionup.common.items.component.ItemLiquidColorizer
-import wiresegal.psionup.common.items.component.ItemWideCADSocket
+import wiresegal.psionup.common.items.component.*
 import wiresegal.psionup.common.items.spell.*
 import wiresegal.psionup.common.lib.LibNames
 
@@ -51,6 +48,8 @@ object ModItems {
 
     val gaussBullet: ItemMod
 
+    val unstableBattery: ItemUnstableBattery
+
     init {
         liquidColorizer = ItemLiquidColorizer(LibNames.Items.LIQUID_INK_COLORIZER)
         emptyColorizer = ItemEmptyColorizer(LibNames.Items.DRAINED_COLORIZER)
@@ -85,6 +84,8 @@ object ModItems {
         gaussRifle = ItemGaussRifle(LibNames.Items.GAUSS_RIFLE)
 
         gaussBullet = ItemMod(LibNames.Items.GAUSS_BULLET)
+
+        unstableBattery = ItemUnstableBattery(LibNames.Items.UNSTABLE_BATTERY)
 
         if (Loader.isModLoaded("botania"))
             CompatItems.init()

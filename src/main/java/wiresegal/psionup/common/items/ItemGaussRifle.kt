@@ -54,16 +54,18 @@ class ItemGaussRifle(name: String) : ItemMod(name), IItemColorProvider, IGlowing
     override fun onItemRightClick(worldIn: World, playerIn: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
         val data = PlayerDataHandler.get(playerIn)
         val ammo = findAmmo(playerIn)
+        val cad = PsiAPI.getPlayerCAD(playerIn)
+        if (cad.isEmpty) return ActionResult(EnumActionResult.SUCCESS, playerIn.getHeldItem(hand))
+
         if (playerIn.capabilities.isCreativeMode || data.availablePsi > 0 || (!ammo.isEmpty && data.availablePsi > 0)) {
             val wasEmpty = ammo.isEmpty
-            var psiLeft = false
-            val cad = PsiAPI.getPlayerCAD(playerIn)
+            var noneLeft = false
 
             if (!playerIn.capabilities.isCreativeMode) {
                 if (ammo.isEmpty) {
                     val cadBattery = if (cad.isEmpty) 0 else (cad.item as ICAD).getStoredPsi(cad)
-                    if (data.availablePsi + cadBattery < 625) psiLeft = true
-                    data.deductPsi(625, (3 * playerIn.cooldownPeriod).toInt(), true)
+                    if (data.availablePsi + cadBattery < 625) noneLeft = true
+                    data.deductPsi(625, (3 * playerIn.cooldownPeriod).toInt() + 10 + if (noneLeft) 50 else 0, true)
                 } else {
                     data.deductPsi(200, 10, true)
                     ammo.count--
@@ -77,7 +79,7 @@ class ItemGaussRifle(name: String) : ItemMod(name), IItemColorProvider, IGlowing
                     EntityGaussPulse.AmmoStatus.DEPLETED
                 else
                     EntityGaussPulse.AmmoStatus.AMMO
-            } else if (psiLeft)
+            } else if (noneLeft)
                 EntityGaussPulse.AmmoStatus.BLOOD
             else
                 EntityGaussPulse.AmmoStatus.NOTAMMO
