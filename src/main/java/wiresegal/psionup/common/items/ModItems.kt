@@ -49,6 +49,7 @@ object ModItems {
     val gaussBullet: ItemMod
 
     val unstableBattery: ItemUnstableBattery
+    val twinflowBattery: ItemTwinflowBattery
 
     init {
         liquidColorizer = ItemLiquidColorizer(LibNames.Items.LIQUID_INK_COLORIZER)
@@ -86,6 +87,7 @@ object ModItems {
         gaussBullet = ItemMod(LibNames.Items.GAUSS_BULLET)
 
         unstableBattery = ItemUnstableBattery(LibNames.Items.UNSTABLE_BATTERY)
+        twinflowBattery = ItemTwinflowBattery(LibNames.Items.TWINFLOW_BATTERY)
 
         if (Loader.isModLoaded("botania"))
             CompatItems.init()

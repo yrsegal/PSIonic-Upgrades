@@ -88,6 +88,7 @@ item.psionup:gauss_bullet.name=Gauss Rifle Round
 entity.gauss_pulse.name=Gauss Pulse
 
 item.psionup:unstable_battery.name=Unstable CAD Battery
+item.psionup:twinflow_battery.name=Hybrid Flow CAD Battery
 
 psionup.potion.psishock=Psionic Shock
 psionup.potion.psipulse=Psionic Pulse
@@ -231,6 +232,7 @@ psionup.cadstat.extra=Extra
 psionup.cadstat.downside=Drawback
 psionup.downsides.on_damage=Drains entire Psi reserves on damage
 psionup.upsides.boost_regen=Increased Psi regen rate
+psionup.upsides.fills_last=Dumps its contents into the main reserve
 
 psionup.cadstat.enables=Enables
 psionup.requirement.mana_cad=&bMana&7 Flow

@@ -30,10 +30,10 @@ abstract class PotionPsiChange(name: String, badEffect: Boolean, color: Int) : P
     }
 
     companion object {
-        fun addPsiToPlayer(player: EntityPlayer, psi: Int) {
+        fun addPsiToPlayer(player: EntityPlayer, psi: Int, sync: Boolean = true) {
             val data = PlayerDataHandler.get(player)
             if (psi < 0)
-                data.deductPsi(-psi, 40, true, true)
+                data.deductPsi(-psi, 40, sync, true)
             else {
                 val cad = PsiAPI.getPlayerCAD(player)
                 if (cad.isEmpty) return
@@ -50,8 +50,8 @@ abstract class PotionPsiChange(name: String, badEffect: Boolean, color: Int) : P
                 if (icad && data.availablePsi < data.totalPsi) {
                     data.availablePsi = Math.min(data.totalPsi, data.availablePsi + psi)
                     data.save()
-                    if (player.world.isRemote && player is EntityPlayerMP)
-                        NetworkHandler.INSTANCE.sendTo(MessageDataSync(), player)
+                    if (sync && player.world.isRemote && player is EntityPlayerMP)
+                        NetworkHandler.INSTANCE.sendTo(MessageDataSync(data), player)
                 }
             }
         }

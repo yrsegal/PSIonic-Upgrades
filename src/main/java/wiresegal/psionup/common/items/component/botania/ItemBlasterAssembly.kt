@@ -65,9 +65,7 @@ class ItemBlasterAssembly(name: String) : ItemComponent(name), IExtraVariantHold
 
     override fun addHiddenTooltip(stack: ItemStack, playerIn: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
         super.addHiddenTooltip(stack, playerIn, tooltip, advanced)
-        TooltipHelper.addToTooltip(tooltip, " " + TextFormatting.AQUA +
-                TooltipHelper.local("${LibMisc.MOD_ID}.cadstat.enables")
-                + TextFormatting.GRAY + ": " + TooltipHelper.local("${LibMisc.MOD_ID}.requirement.mana_cad"))
+        addPositiveTag(tooltip, "${LibMisc.MOD_ID}.cadstat.enables", "${LibMisc.MOD_ID}.requirement.mana_cad")
     }
 
     override fun registerStats() {

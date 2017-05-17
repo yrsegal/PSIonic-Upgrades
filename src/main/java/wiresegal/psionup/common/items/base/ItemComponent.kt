@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.text.TextFormatting
 import vazkii.psi.api.cad.EnumCADStat
 import vazkii.psi.api.cad.ICADComponent
+import wiresegal.psionup.common.lib.LibMisc
 
 /**
  * @author WireSegal
@@ -47,6 +48,18 @@ abstract class ItemComponent(name: String, vararg variants: String) : ItemMod(na
             }
         }
     }
+
+    protected fun addTooltipTag(tooltip: MutableList<String>, color: TextFormatting, nameKey: String, valueKey: String) {
+        TooltipHelper.addToTooltip(tooltip, " " + color +
+                TooltipHelper.local(nameKey)
+                + ": " + TextFormatting.GRAY + TooltipHelper.local(valueKey))
+    }
+
+    protected fun addPositiveTag(tooltip: MutableList<String>, nameKey: String, valueKey: String)
+            = addTooltipTag(tooltip, TextFormatting.AQUA, nameKey, valueKey)
+
+    protected fun addNegativeTag(tooltip: MutableList<String>, nameKey: String, valueKey: String)
+            = addTooltipTag(tooltip, TextFormatting.RED, nameKey, valueKey)
 
     fun addStat(stat: EnumCADStat, meta: Int, value: Int) {
         this.stats.put(stat to meta, value)

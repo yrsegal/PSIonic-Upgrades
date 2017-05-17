@@ -44,6 +44,7 @@ object LibNames {
         const val LIVINGWOOD_CAD_MODEL = "cadBlaster"
 
         const val UNSTABLE_BATTERY = "unstableBattery"
+        const val TWINFLOW_BATTERY = "twinflowBattery"
     }
 
     object Blocks {

@@ -21,10 +21,10 @@ import wiresegal.psionup.common.lib.LibMisc
  * @author WireSegal
  * Created at 8:43 AM on 3/20/16.
  */
-class ItemUnstableBattery(name: String) : ItemComponent(name) {
+class ItemTwinflowBattery(name: String) : ItemComponent(name) {
 
     override fun registerStats() {
-        addStat(EnumCADStat.OVERFLOW, 0, 800)
+        addStat(EnumCADStat.OVERFLOW, 0, 200)
     }
 
     override fun getComponentType(p0: ItemStack) = EnumCADComponent.BATTERY
@@ -32,30 +32,14 @@ class ItemUnstableBattery(name: String) : ItemComponent(name) {
     override fun addHiddenTooltip(stack: ItemStack, playerIn: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
         super.addHiddenTooltip(stack, playerIn, tooltip, advanced)
 
+
         addPositiveTag(tooltip, "${LibMisc.MOD_ID}.cadstat.extra", "${LibMisc.MOD_ID}.upsides.boost_regen")
-        addNegativeTag(tooltip, "${LibMisc.MOD_ID}.cadstat.downside", "${LibMisc.MOD_ID}.downsides.on_damage")
+        addPositiveTag(tooltip, "${LibMisc.MOD_ID}.cadstat.extra", "${LibMisc.MOD_ID}.upsides.fills_last")
     }
 
     companion object {
         init {
             MinecraftForge.EVENT_BUS.register(this)
-        }
-
-        @SubscribeEvent
-        fun onDamage(e: LivingHurtEvent) {
-            val player = e.entityLiving
-            if (!player.world.isRemote && player is EntityPlayer && e.amount >= 1) {
-                val cad = PsiAPI.getPlayerCAD(player)
-                if (!cad.isEmpty) {
-                    val item = cad.item as ICAD
-                    val battery = item.getComponentInSlot(cad, EnumCADComponent.BATTERY)
-                    if (!battery.isEmpty && battery.item is ItemUnstableBattery) {
-                        val data = PlayerDataHandler.get(player)
-                        data.deductPsi(data.availablePsi + item.getStoredPsi(cad), 50, true, true)
-
-                    }
-                }
-            }
         }
 
         @SubscribeEvent
@@ -67,11 +51,17 @@ class ItemUnstableBattery(name: String) : ItemComponent(name) {
                     val item = cad.item as ICAD
                     val battery = item.getComponentInSlot(cad, EnumCADComponent.BATTERY)
 
-                    if (!battery.isEmpty && battery.item is ItemUnstableBattery) {
+                    if (!battery.isEmpty && battery.item is ItemTwinflowBattery) {
                         val data = PlayerDataHandler.get(player)
 
                         if (data.regenCooldown == 0 && data.availablePsi != data.totalPsi)
-                            PotionPsiChange.addPsiToPlayer(player, 10)
+                            PotionPsiChange.addPsiToPlayer(player, 5, false)
+
+                        val amountToDump = Math.min(data.totalPsi - data.availablePsi, item.getStoredPsi(cad))
+                        if (amountToDump > 0) {
+                            data.deductPsi(-amountToDump, 0, true)
+                            item.consumePsi(cad, amountToDump)
+                        }
                     }
                 }
             }
