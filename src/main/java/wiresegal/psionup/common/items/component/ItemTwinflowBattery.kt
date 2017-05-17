@@ -24,7 +24,7 @@ import wiresegal.psionup.common.lib.LibMisc
 class ItemTwinflowBattery(name: String) : ItemComponent(name) {
 
     override fun registerStats() {
-        addStat(EnumCADStat.OVERFLOW, 0, 200)
+        addStat(EnumCADStat.OVERFLOW, 0, 500)
     }
 
     override fun getComponentType(p0: ItemStack) = EnumCADComponent.BATTERY
