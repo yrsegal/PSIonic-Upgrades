@@ -32,8 +32,7 @@ class ItemTwinflowBattery(name: String) : ItemComponent(name) {
     override fun addHiddenTooltip(stack: ItemStack, playerIn: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
         super.addHiddenTooltip(stack, playerIn, tooltip, advanced)
 
-
-        addPositiveTag(tooltip, "${LibMisc.MOD_ID}.cadstat.extra", "${LibMisc.MOD_ID}.upsides.boost_regen")
+        addPositiveTag(tooltip, "${LibMisc.MOD_ID}.cadstat.extra", "${LibMisc.MOD_ID}.upsides.boost_regen", 5)
         addPositiveTag(tooltip, "${LibMisc.MOD_ID}.cadstat.extra", "${LibMisc.MOD_ID}.upsides.fills_last")
     }
 
@@ -54,8 +53,8 @@ class ItemTwinflowBattery(name: String) : ItemComponent(name) {
                     if (!battery.isEmpty && battery.item is ItemTwinflowBattery) {
                         val data = PlayerDataHandler.get(player)
 
-                        if (data.regenCooldown == 0 && data.availablePsi != data.totalPsi)
-                            PotionPsiChange.addPsiToPlayer(player, 5, false)
+                        if (data.regenCooldown == 0)
+                            PotionPsiChange.addPsiToPlayer(player, 5 + if (data.availablePsi != data.totalPsi) Math.ceil(data.regenPerTick / 2.0).toInt() else 0, false)
 
                         val amountToDump = Math.min(data.totalPsi - data.availablePsi, item.getStoredPsi(cad))
                         if (amountToDump > 0) {

@@ -32,7 +32,7 @@ class ItemUnstableBattery(name: String) : ItemComponent(name) {
     override fun addHiddenTooltip(stack: ItemStack, playerIn: EntityPlayer, tooltip: MutableList<String>, advanced: Boolean) {
         super.addHiddenTooltip(stack, playerIn, tooltip, advanced)
 
-        addPositiveTag(tooltip, "${LibMisc.MOD_ID}.cadstat.extra", "${LibMisc.MOD_ID}.upsides.boost_regen")
+        addPositiveTag(tooltip, "${LibMisc.MOD_ID}.cadstat.extra", "${LibMisc.MOD_ID}.upsides.boost_regen", 10)
         addNegativeTag(tooltip, "${LibMisc.MOD_ID}.cadstat.downside", "${LibMisc.MOD_ID}.downsides.on_damage")
     }
 

@@ -182,6 +182,24 @@ object ModRecipes {
                 'P', "dustPsi")
 
 
+        addOreDictRecipe(ItemStack(ModItems.unstableBattery),
+                " I ",
+                "EPE",
+                " G ",
+                'P', "gemPsi",
+                'E', "ingotEbonyPsi",
+                'I', "ingotIron",
+                'G', "ingotGold")
+
+        addOreDictRecipe(ItemStack(ModItems.twinflowBattery),
+                "I I",
+                "PEP",
+                "G G",
+                'P', "gemPsi",
+                'E', "ingotIvoryPsi",
+                'I', "ingotIron",
+                'G', "ingotGold")
+
         if (ConfigHandler.enablePsionicPulse) {
             addCompletePotionRecipes(potionPredicate("dustPsi"), PotionTypes.AWKWARD, ModPotions.psipulseType, ModPotions.longPsipulseType, ModPotions.strongPsipulseType)
             addPotionConversionRecipes(potionPredicate(ItemStack(Items.FERMENTED_SPIDER_EYE)),

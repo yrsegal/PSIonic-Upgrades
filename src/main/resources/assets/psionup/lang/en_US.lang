@@ -231,7 +231,7 @@ psionup.requirement.relic=&6Reliquary&b Mana Flow Enabler
 psionup.cadstat.extra=Extra
 psionup.cadstat.downside=Drawback
 psionup.downsides.on_damage=Drains entire Psi reserves on damage
-psionup.upsides.boost_regen=Increased Psi regen rate
+psionup.upsides.boost_regen=+%d to Psi regen rate
 psionup.upsides.fills_last=Dumps its contents into the main reserve
 
 psionup.cadstat.enables=Enables

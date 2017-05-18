@@ -49,17 +49,17 @@ abstract class ItemComponent(name: String, vararg variants: String) : ItemMod(na
         }
     }
 
-    protected fun addTooltipTag(tooltip: MutableList<String>, color: TextFormatting, nameKey: String, valueKey: String) {
+    protected fun addTooltipTag(tooltip: MutableList<String>, color: TextFormatting, nameKey: String, valueKey: String, vararg formatters: Any?) {
         TooltipHelper.addToTooltip(tooltip, " " + color +
                 TooltipHelper.local(nameKey)
-                + ": " + TextFormatting.GRAY + TooltipHelper.local(valueKey))
+                + ": " + TextFormatting.GRAY + TooltipHelper.local(valueKey, *formatters))
     }
 
-    protected fun addPositiveTag(tooltip: MutableList<String>, nameKey: String, valueKey: String)
-            = addTooltipTag(tooltip, TextFormatting.AQUA, nameKey, valueKey)
+    protected fun addPositiveTag(tooltip: MutableList<String>, nameKey: String, valueKey: String, vararg formatters: Any?)
+            = addTooltipTag(tooltip, TextFormatting.AQUA, nameKey, valueKey, *formatters)
 
-    protected fun addNegativeTag(tooltip: MutableList<String>, nameKey: String, valueKey: String)
-            = addTooltipTag(tooltip, TextFormatting.RED, nameKey, valueKey)
+    protected fun addNegativeTag(tooltip: MutableList<String>, nameKey: String, valueKey: String, vararg formatters: Any?)
+            = addTooltipTag(tooltip, TextFormatting.RED, nameKey, valueKey, *formatters)
 
     fun addStat(stat: EnumCADStat, meta: Int, value: Int) {
         this.stats.put(stat to meta, value)
